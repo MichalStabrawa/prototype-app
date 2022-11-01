@@ -8,18 +8,9 @@ function App() {
     <div className="App">
       <NavComponent></NavComponent>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+
 
         <Wrapper><h2>Test</h2></Wrapper>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
