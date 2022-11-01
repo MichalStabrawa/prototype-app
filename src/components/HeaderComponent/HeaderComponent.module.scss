@@ -1,0 +1,19 @@
+.header {
+    height: 60vh;
+    padding: 20px 0;
+    text-align: left;
+    background: url('../../assets/financial.jpg') no-repeat;
+    background-position: right;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 32px;
+        margin: 0;
+    }
+}
