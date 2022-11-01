@@ -5,10 +5,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
     .nav {
         display: flex;
         list-style-type: none;
-        &-item {
+        align-items: center;
+        margin: 0;
+        &_item {
             margin-left: 10px;
         }
     }
