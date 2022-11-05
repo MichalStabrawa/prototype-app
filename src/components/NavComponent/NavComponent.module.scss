@@ -8,6 +8,8 @@
     align-items: center;
     font-weight: bold;
     box-shadow: $boxshadow;
+    max-width: 1980px;
+    margin: 0 auto;
     .nav {
         display: flex;
         list-style-type: none;
