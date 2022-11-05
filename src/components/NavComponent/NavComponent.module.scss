@@ -1,3 +1,4 @@
+@import '../../assets/styles/color';
 .navbar {
     height: 80px;
     background-color: #f8f9fa;
@@ -6,6 +7,7 @@
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
+    box-shadow: $boxshadow;
     .nav {
         display: flex;
         list-style-type: none;
