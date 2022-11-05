@@ -1,0 +1,22 @@
+    @import '../../../assets/styles/color';
+    .btn {
+        height: 40px;
+        background: $blue;
+        min-width: 100px;
+        border-radius: 5px;
+        padding: 8px 16px;
+        color: #fff;
+        cursor: pointer;
+        border: 1px solid $blue;
+        &:hover {
+            opacity: .7;
+            transition: .5s;
+        }
+        &_red {
+            background: $red;
+        }
+        &_transparent {
+            background: transparent;
+            color: $blue;
+        }
+    }
