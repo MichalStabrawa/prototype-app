@@ -4,7 +4,7 @@ import './App.css';
 import NavComponent from './components/NavComponent/NavComponent';
 import HeaderComponent from './components/HeaderComponent/HeaderComponent';
 import Wrapper from './components/UI/Wrapper/Wrapper';
-import BudgetAppComponent from './components/AddSection/BudgetAppComponent';
+import BudgetAppComponent from './components/BudgetApp/BudgetAppComponent/BudgetAppComponent';
 
 function App() {
   return (

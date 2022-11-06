@@ -1,4 +1,4 @@
-@import '../../../assets/styles/main';
+@import '../../../styles/main';
 .input_wrapper {
     display: flex;
     flex-direction: column;
@@ -7,7 +7,8 @@
         height: 40px;
         border-radius: 5px;
         background-color: $drywhite;
-        max-width: 50%;
+        max-width: 100%;
+        border: 1px solid $gray;
     }
     &_label {
         margin-bottom: 10px;
