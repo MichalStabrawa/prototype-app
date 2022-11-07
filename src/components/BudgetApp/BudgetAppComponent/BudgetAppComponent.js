@@ -9,8 +9,8 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState(undefined)
-    const [state, changeState] = useState();
-    const [value, changeValue] = useState();
+    const [name, changeState] = useState('');
+    const [value, changeValue] = useState('');
 
     const addHandlerSalaryName = (e) => {
         let salary = e.target.value;
@@ -29,19 +29,25 @@ const BudgetAppComponent = (props) => {
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: state, value: value }
+        let tab = { name: name, value: value }
+
+        if (name === '' || value === '') {
+            return null
+        }
         if (summary === undefined) {
             changeSummary([tab])
+        }
 
-        } else {
+        else {
             changeSummary([...summary, tab])
         }
     }
 
     const totalSalaryValue = (item) => {
         let total = 0;
+
         if (summary !== undefined) {
-            item.forEach(el => total = total + parseFloat(el.value));
+            item.forEach((el, index) => { total = total + parseFloat(el.value) });
         } else if (summary === undefined) {
             return 0
         }
@@ -55,7 +61,7 @@ const BudgetAppComponent = (props) => {
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Add Salary">
-                    <InputComponent name='Name' type='text' action={addHandlerSalaryName} value={state} />
+                    <InputComponent name='Name' type='text' action={addHandlerSalaryName} value={name} />
                     <InputComponent name='Salary' type='number' action={addHandlerSalaryValue} value={value} />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
