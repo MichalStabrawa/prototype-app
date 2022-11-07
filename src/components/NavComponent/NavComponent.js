@@ -21,7 +21,6 @@ const NavComponent = props => {
                 <li className={classes.nav_item}>
                     <Button test={showAllert} name={'Register'}></Button>
                 </li>
-
             </ul>
         </nav>
     )

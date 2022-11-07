@@ -1,0 +1,18 @@
+@import '../../../styles/main';
+.total {
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+    .dark {
+        background: $darkbluelight;
+        color: $drywhite;
+    }
+    th {
+        padding: 10px;
+        border-bottom: 2px solid $darkbluelight;
+    }
+}

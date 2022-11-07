@@ -1,0 +1,14 @@
+@import '../../../styles/main';
+.budgetapp {
+    background-color: $graylight;
+    height: 400px;
+    padding: $padding20;
+    .bapp_wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        .bapp_btn {
+            width: 100%;
+        }
+    }
+}

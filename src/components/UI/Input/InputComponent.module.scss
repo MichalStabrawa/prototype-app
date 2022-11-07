@@ -1,0 +1,16 @@
+@import '../../../styles/main';
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    &_item {
+        height: 40px;
+        border-radius: 5px;
+        background-color: $drywhite;
+        max-width: 100%;
+        border: 1px solid $gray;
+    }
+    &_label {
+        margin-bottom: 10px;
+    }
+}
