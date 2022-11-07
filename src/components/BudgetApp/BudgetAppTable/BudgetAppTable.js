@@ -6,10 +6,12 @@ import classes from './BudgetAppTable.module.scss';
 
 const BudgetAppTable = props => {
 
+    const { summary } = props;
+
     return (
         <div>
             <p className={classes.total}>Total {props.totalSumary}</p>
-            <table className={classes.table}>
+            {summary !== undefined ? (<table className={classes.table}>
                 <thead className={classes.dark}>
                     <tr>
                         <th >Name</th>
@@ -17,9 +19,14 @@ const BudgetAppTable = props => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.summary !== undefined && props.summary.map((item, index) => (<tr key={index}><th>{item.name}</th><th>{item.value}</th></tr>))}
+                    {summary !== undefined && summary.map((item, index) => (
+                        <tr key={index}>
+                            <th>{item.name}</th><th>{item.value}</th>
+                        </tr>)
+                    )}
                 </tbody>
-            </table>
+            </table>) : null}
+
         </div>
     )
 }

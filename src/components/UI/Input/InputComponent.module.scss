@@ -9,6 +9,10 @@
         background-color: $drywhite;
         max-width: 100%;
         border: 1px solid $gray;
+        padding: 5px;
+        &::placeholder {
+            font-style: italic;
+        }
     }
     &_label {
         margin-bottom: 10px;
