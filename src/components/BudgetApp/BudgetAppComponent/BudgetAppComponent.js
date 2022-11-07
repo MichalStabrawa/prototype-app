@@ -12,8 +12,6 @@ const BudgetAppComponent = (props) => {
     const [state, changeState] = useState();
     const [value, changeValue] = useState();
 
-    const [totalSalary, setTotalSalary] = useState(0)
-
     const addHandlerSalaryName = (e) => {
         let salary = e.target.value;
 
@@ -63,19 +61,11 @@ const BudgetAppComponent = (props) => {
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
-
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds"  >
                     <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
                 </BudgetAppSection>
-
-
             </div>
-
-
-
-
-
         </section>
     )
 }

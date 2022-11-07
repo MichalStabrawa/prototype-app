@@ -12,9 +12,6 @@ const InputComponent = props => {
         }
     }, [props.value])
 
-
-
-
     return (
         <div className={classes.input_wrapper}>
             <label htmlFor="" className={classes.input_wrapper_label}>{props.name}</label>
