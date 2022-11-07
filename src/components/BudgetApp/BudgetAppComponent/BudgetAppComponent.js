@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import InputComponent from '../../UI/Input/InputComponent';
 import Button from '../../UI/Button/Button';
 import BudgetAppSection from '../BudgetAppSection/BudgetAppSection';
@@ -9,23 +9,21 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState(undefined)
-    const [name, changeState] = useState('');
-    const [value, changeValue] = useState('');
+    const [name, setChangeName] = useState('');
+    const [value, setChangeValue] = useState('');
 
-    const addHandlerSalaryName = (e) => {
-        let salary = e.target.value;
-
-        changeState(salary);
-    }
-    const addHandlerSalaryValue = (e) => {
-        let salaryValue = e.target.value;
-
-        changeValue(salaryValue);
+    const addHandlerInput = (e) => {
+        if (e.target.name === 'NameSalary') {
+            setChangeName(e.target.value);
+        }
+        if (e.target.name === 'Salary') {
+            setChangeValue(e.target.value)
+        }
     }
 
     const clearInputNameValue = () => {
-        changeState('');
-        changeValue('')
+        setChangeName('');
+        setChangeValue('')
     }
 
     const addNameAndSalary = () => {
@@ -61,8 +59,20 @@ const BudgetAppComponent = (props) => {
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Add Salary">
-                    <InputComponent name='Name' type='text' action={addHandlerSalaryName} value={name} />
-                    <InputComponent name='Salary' type='number' action={addHandlerSalaryValue} value={value} />
+                    <InputComponent
+                        name='NameSalary'
+                        type='text'
+                        placeholder='Add name'
+                        action={addHandlerInput}
+                        value={name}
+                    />
+                    <InputComponent
+                        name='Salary'
+                        type='number'
+                        placeholder='Add value'
+                        action={addHandlerInput}
+                        value={value}
+                    />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
