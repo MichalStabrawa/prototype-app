@@ -15,9 +15,6 @@ const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    console.log(reducer.state)
-
-
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
 
@@ -25,14 +22,12 @@ const BudgetAppComponent = (props) => {
                 type: 'addName',
                 name: e.target.value
             })
-
         }
         if (e.target.name === 'Salary') {
             dispatch({
                 type: 'addValue',
                 value: e.target.value
             })
-
         }
     }
 
@@ -59,8 +54,6 @@ const BudgetAppComponent = (props) => {
 
             changeSummary([...summary, tab])
         }
-
-
     }
 
     console.log(summary)

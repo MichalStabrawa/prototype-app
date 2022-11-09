@@ -1,6 +1,3 @@
-import { react, useReducer } from "react";
-
-
 const initialState = {
     name: '',
     value: ''
@@ -13,7 +10,6 @@ function reducer(state, action) {
         default: throw new Error()
     }
 }
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { reducer, initialState };
