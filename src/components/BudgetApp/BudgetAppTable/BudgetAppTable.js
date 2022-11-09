@@ -1,8 +1,4 @@
-
-
 import classes from './BudgetAppTable.module.scss';
-
-
 
 const BudgetAppTable = props => {
 
