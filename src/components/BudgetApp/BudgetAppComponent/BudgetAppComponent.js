@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import InputComponent from '../../UI/Input/InputComponent';
 import Button from '../../UI/Button/Button';
 import BudgetAppSection from '../BudgetAppSection/BudgetAppSection';
@@ -7,39 +7,63 @@ import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
+import Reducer from '../../../store';
+
+const { reducer, initialState } = Reducer;
+
 const BudgetAppComponent = (props) => {
-    const [summary, changeSummary] = useState(undefined)
-    const [name, setChangeName] = useState('');
-    const [value, setChangeValue] = useState('');
+    const [summary, changeSummary] = useState([])
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    console.log(reducer.state)
+
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
-            setChangeName(e.target.value);
+
+            dispatch({
+                type: 'addName',
+                name: e.target.value
+            })
+
         }
         if (e.target.name === 'Salary') {
-            setChangeValue(e.target.value)
+            dispatch({
+                type: 'addValue',
+                value: e.target.value
+            })
+
         }
     }
 
     const clearInputNameValue = () => {
-        setChangeName('');
-        setChangeValue('')
+        dispatch({
+            type: 'addName',
+            name: '',
+        });
+        dispatch({
+            type: 'addValue',
+            value: ''
+        })
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: name, value: value }
+        let tab = { name: state.name, value: state.value };
 
-        if (name === '' || value === '') {
+        if (state.name === '' || state.value === '') {
+            console.log('puste')
             return null
-        }
-        if (summary === undefined) {
-            changeSummary([tab])
         }
 
         else {
+
             changeSummary([...summary, tab])
         }
+
+
     }
+
+    console.log(summary)
 
     const totalSalaryValue = (item) => {
         let total = 0;
@@ -64,14 +88,14 @@ const BudgetAppComponent = (props) => {
                         type='text'
                         placeholder='Add name'
                         action={addHandlerInput}
-                        value={name}
+                        value={state.name}
                     />
                     <InputComponent
                         name='Salary'
                         type='number'
                         placeholder='Add value'
                         action={addHandlerInput}
-                        value={value}
+                        value={state.value}
                     />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
@@ -82,6 +106,7 @@ const BudgetAppComponent = (props) => {
                     <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
                 </BudgetAppSection>
             </div>
+            <p>State Count {state.count}</p>
         </section>
     )
 }
