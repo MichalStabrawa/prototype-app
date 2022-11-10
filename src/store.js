@@ -26,6 +26,7 @@ function reducerSummary(state, action) {
         }
         case 'addExspansesName': return { ...state, nameSalary: action.addExspansesName };
         case 'addExspansesValue': return { ...state, salaryValue: action.addSalaryValue };
+        default: throw new Error()
     }
 }
 
