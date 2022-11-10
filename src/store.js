@@ -1,9 +1,11 @@
-import { react, useReducer } from "react";
-
-
 const initialState = {
     name: '',
-    value: ''
+    value: '',
+}
+
+const initialStateSummaryExpenses = {
+    nameSalary: '',
+    valuesalary: '',
 }
 function reducer(state, action) {
     switch (action.type) {
@@ -14,6 +16,19 @@ function reducer(state, action) {
     }
 }
 
+function reducerSummary(state, action) {
+    // eslint-disable-next-line default-case
+    switch (action.type) {
+        case 'addSummary': return {
+            ...state,
+            nameSalary: action.name,
+            valueSalary: action.value
+        }
+        case 'addExspansesName': return { ...state, nameSalary: action.addExspansesName };
+        case 'addExspansesValue': return { ...state, salaryValue: action.addSalaryValue };
+    }
+}
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses };

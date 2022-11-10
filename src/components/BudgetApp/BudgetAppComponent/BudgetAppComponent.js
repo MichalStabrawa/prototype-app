@@ -101,9 +101,30 @@ const BudgetAppComponent = (props) => {
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
+                    <hr />
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds"  >
                     <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
+                </BudgetAppSection>
+                <BudgetAppSection title="Add Exspenses">
+                    <InputComponent
+                        name='NameSalary'
+                        type='text'
+                        placeholder='Add name'
+                        action={addHandlerInput}
+                        value={state.name}
+                    />
+                    <InputComponent
+                        name='Salary'
+                        type='number'
+                        placeholder='Add value'
+                        action={addHandlerInput}
+                        value={state.value}
+                    />
+                    <div className={classes.bapp_btn}>
+                        <Button name='Add' click={addNameAndSalary} />
+                        <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
+                    </div>
                 </BudgetAppSection>
             </div>
             <p>State Count {state.count}</p>
