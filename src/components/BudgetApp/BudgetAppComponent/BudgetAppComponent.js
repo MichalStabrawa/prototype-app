@@ -9,13 +9,13 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
 import Reducer from '../../../store';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
-
+    const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     console.log(reducer.state)
 
 
@@ -35,21 +35,22 @@ const BudgetAppComponent = (props) => {
             })
         }
         if (e.target.name === 'NameExpenses') {
-            console.log(e.target.value)
+
             dispatchSummary({
                 type: 'addExspansesName',
                 nameSalary: e.target.value
             })
         }
         if (e.target.name === 'ValueExpenses') {
-            console.log(e.target.value)
+
             dispatchSummary({
                 type: 'addExspansesValue',
                 salaryValue: e.target.value
             })
+
+
         }
     }
-
 
     const clearInputNameValue = () => {
         dispatch({
@@ -65,12 +66,16 @@ const BudgetAppComponent = (props) => {
     const addNameAndSalary = () => {
         let tab = { name: state.name, value: state.value };
 
-
         if (state.name === '' || state.value === '') {
             return null
         }
 
         else {
+            dispatchExpenses({
+                type: 'expensesSummary',
+                ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
+
+            })
             changeSummary([...summary, tab])
         }
     }

@@ -24,6 +24,11 @@ function reducerSummary(stateSummary, action) {
     }
 }
 
+function reducerSummaryNameValueExpenses(stateExpenses, action) {
+    switch (action.type) {
+        case 'expensesSummary': return [...stateExpenses, action.ex]
 
+    }
+}
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses };
