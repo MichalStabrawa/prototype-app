@@ -9,11 +9,12 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
 import Reducer from '../../../store';
 
-const { reducer, initialState } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
 
     console.log(reducer.state)
 
@@ -32,9 +33,23 @@ const BudgetAppComponent = (props) => {
                 type: 'addValue',
                 value: e.target.value
             })
-
+        }
+        if (e.target.name === 'NameExpenses') {
+            console.log(e.target.value)
+            dispatchSummary({
+                type: 'addExspansesName',
+                nameSalary: e.target.value
+            })
+        }
+        if (e.target.name === 'ValueExpenses') {
+            console.log(e.target.value)
+            dispatchSummary({
+                type: 'addExspansesValue',
+                salaryValue: e.target.value
+            })
         }
     }
+
 
     const clearInputNameValue = () => {
         dispatch({
@@ -50,20 +65,17 @@ const BudgetAppComponent = (props) => {
     const addNameAndSalary = () => {
         let tab = { name: state.name, value: state.value };
 
+
         if (state.name === '' || state.value === '') {
-            console.log('puste')
             return null
         }
 
         else {
-
             changeSummary([...summary, tab])
         }
-
-
     }
 
-    console.log(summary)
+    console.log(reducer.state)
 
     const totalSalaryValue = (item) => {
         let total = 0;
@@ -108,18 +120,18 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
                     <InputComponent
-                        name='NameSalary'
+                        name='NameExpenses'
                         type='text'
                         placeholder='Add name'
                         action={addHandlerInput}
-                        value={state.name}
+                        value={stateSummary.nameSalary}
                     />
                     <InputComponent
-                        name='Salary'
+                        name='ValueExpenses'
                         type='number'
                         placeholder='Add value'
                         action={addHandlerInput}
-                        value={state.value}
+                        value={stateSummary.salaryValue}
                     />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />

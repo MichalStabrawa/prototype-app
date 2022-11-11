@@ -5,27 +5,21 @@ const initialState = {
 
 const initialStateSummaryExpenses = {
     nameSalary: '',
-    valuesalary: '',
+    salaryValue: '',
 }
 function reducer(state, action) {
     switch (action.type) {
         case 'addName': return { ...state, name: action.name };
         case 'addValue': return { ...state, value: action.value };
-
         default: throw new Error()
     }
 }
 
-function reducerSummary(state, action) {
+function reducerSummary(stateSummary, action) {
     // eslint-disable-next-line default-case
     switch (action.type) {
-        case 'addSummary': return {
-            ...state,
-            nameSalary: action.name,
-            valueSalary: action.value
-        }
-        case 'addExspansesName': return { ...state, nameSalary: action.addExspansesName };
-        case 'addExspansesValue': return { ...state, salaryValue: action.addSalaryValue };
+        case 'addExspansesName': return { ...stateSummary, nameSalary: action.nameSalary };
+        case 'addExspansesValue': return { ...stateSummary, salaryValue: action.salaryValue };
         default: throw new Error()
     }
 }
