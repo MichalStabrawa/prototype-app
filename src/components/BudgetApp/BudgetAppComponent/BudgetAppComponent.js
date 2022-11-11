@@ -7,7 +7,7 @@ import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
-import Reducer from '../../../store';
+import Reducer from './../../../store/store';
 
 const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
@@ -16,7 +16,9 @@ const BudgetAppComponent = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
-    console.log(reducer.state)
+
+    console.log(`summary ${Boolean(summary)}`)
+    console.log(`stateExspenses ${Boolean(stateExpenses)}`)
 
 
     const addHandlerInput = (e) => {
@@ -47,8 +49,6 @@ const BudgetAppComponent = (props) => {
                 type: 'addExspansesValue',
                 salaryValue: e.target.value
             })
-
-
         }
     }
 
@@ -60,6 +60,17 @@ const BudgetAppComponent = (props) => {
         dispatch({
             type: 'addValue',
             value: ''
+        })
+    }
+
+    const clearInputExspenses = () => {
+        dispatchSummary({
+            type: 'addExspansesName',
+            nameSalary: '',
+        });
+        dispatchSummary({
+            type: 'addExspansesValue',
+            salaryValue: ''
         })
     }
 
@@ -123,9 +134,9 @@ const BudgetAppComponent = (props) => {
                     />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
-                        <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
+                        <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
-                    <hr />
+                    <hr className={classes.separator} />
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds"  >
                     <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
@@ -147,14 +158,14 @@ const BudgetAppComponent = (props) => {
                     />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addExpenses} />
-                        <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
+                        <Button name='Clear' color={buttonStyles.btn_red} click={clearInputExspenses} />
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses"  >
                     <BudgetAppTable summary={stateExpenses} totalSumary={totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
+                {total - totalExspenses}
             </div>
-            <p>State Count {state.count}</p>
         </section>
     )
 }
