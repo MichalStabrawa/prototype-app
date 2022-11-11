@@ -71,12 +71,18 @@ const BudgetAppComponent = (props) => {
         }
 
         else {
+            changeSummary([...summary, tab])
+        }
+    }
+
+    const addExpenses = () => {
+        if (stateSummary.nameSalary === '' || stateSummary.salaryValue === '') {
+            return null
+        } else {
             dispatchExpenses({
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
-
             })
-            changeSummary([...summary, tab])
         }
     }
 
@@ -95,6 +101,7 @@ const BudgetAppComponent = (props) => {
     }
 
     const total = totalSalaryValue(summary);
+    const totalExspenses = totalSalaryValue(stateExpenses)
 
     return (
         <section className={classes.budgetapp}>
@@ -139,9 +146,12 @@ const BudgetAppComponent = (props) => {
                         value={stateSummary.salaryValue}
                     />
                     <div className={classes.bapp_btn}>
-                        <Button name='Add' click={addNameAndSalary} />
+                        <Button name='Add' click={addExpenses} />
                         <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
+                </BudgetAppSection>
+                <BudgetAppSection title="Total Exspenses"  >
+                    <BudgetAppTable summary={stateExpenses} totalSumary={totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
             </div>
             <p>State Count {state.count}</p>

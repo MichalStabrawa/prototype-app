@@ -25,6 +25,7 @@ function reducerSummary(stateSummary, action) {
 }
 
 function reducerSummaryNameValueExpenses(stateExpenses, action) {
+    // eslint-disable-next-line default-case
     switch (action.type) {
         case 'expensesSummary': return [...stateExpenses, action.ex]
 
