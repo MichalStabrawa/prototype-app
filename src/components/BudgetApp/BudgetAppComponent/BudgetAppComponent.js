@@ -7,15 +7,18 @@ import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 
-import Reducer from '../../../store';
+import Reducer from './../../../store/store';
 
-const { reducer, initialState } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
+    const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
 
-    console.log(reducer.state)
+    console.log(`summary ${Boolean(summary)}`)
+    console.log(`stateExspenses ${Boolean(stateExpenses)}`)
 
 
     const addHandlerInput = (e) => {
@@ -32,7 +35,20 @@ const BudgetAppComponent = (props) => {
                 type: 'addValue',
                 value: e.target.value
             })
+        }
+        if (e.target.name === 'NameExpenses') {
 
+            dispatchSummary({
+                type: 'addExspansesName',
+                nameSalary: e.target.value
+            })
+        }
+        if (e.target.name === 'ValueExpenses') {
+
+            dispatchSummary({
+                type: 'addExspansesValue',
+                salaryValue: e.target.value
+            })
         }
     }
 
@@ -47,23 +63,41 @@ const BudgetAppComponent = (props) => {
         })
     }
 
+    const clearInputExspenses = () => {
+        dispatchSummary({
+            type: 'addExspansesName',
+            nameSalary: '',
+        });
+        dispatchSummary({
+            type: 'addExspansesValue',
+            salaryValue: ''
+        })
+    }
+
     const addNameAndSalary = () => {
         let tab = { name: state.name, value: state.value };
 
         if (state.name === '' || state.value === '') {
-            console.log('puste')
             return null
         }
 
         else {
-
             changeSummary([...summary, tab])
         }
-
-
     }
 
-    console.log(summary)
+    const addExpenses = () => {
+        if (stateSummary.nameSalary === '' || stateSummary.salaryValue === '') {
+            return null
+        } else {
+            dispatchExpenses({
+                type: 'expensesSummary',
+                ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
+            })
+        }
+    }
+
+    console.log(reducer.state)
 
     const totalSalaryValue = (item) => {
         let total = 0;
@@ -78,6 +112,7 @@ const BudgetAppComponent = (props) => {
     }
 
     const total = totalSalaryValue(summary);
+    const totalExspenses = totalSalaryValue(stateExpenses)
 
     return (
         <section className={classes.budgetapp}>
@@ -99,14 +134,38 @@ const BudgetAppComponent = (props) => {
                     />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
-                        <Button name='Delete' color={buttonStyles.btn_red} click={clearInputNameValue} />
+                        <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
+                    <hr className={classes.separator} />
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds"  >
                     <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
                 </BudgetAppSection>
+                <BudgetAppSection title="Add Exspenses">
+                    <InputComponent
+                        name='NameExpenses'
+                        type='text'
+                        placeholder='Add name'
+                        action={addHandlerInput}
+                        value={stateSummary.nameSalary}
+                    />
+                    <InputComponent
+                        name='ValueExpenses'
+                        type='number'
+                        placeholder='Add value'
+                        action={addHandlerInput}
+                        value={stateSummary.salaryValue}
+                    />
+                    <div className={classes.bapp_btn}>
+                        <Button name='Add' click={addExpenses} />
+                        <Button name='Clear' color={buttonStyles.btn_red} click={clearInputExspenses} />
+                    </div>
+                </BudgetAppSection>
+                <BudgetAppSection title="Total Exspenses"  >
+                    <BudgetAppTable summary={stateExpenses} totalSumary={totalExspenses}></BudgetAppTable>
+                </BudgetAppSection>
+                {total - totalExspenses}
             </div>
-            <p>State Count {state.count}</p>
         </section>
     )
 }
