@@ -6,7 +6,11 @@ const BudgetAppTable = props => {
 
     return (
         <div>
-            <p className={classes.total}>Total {props.totalSumary}</p>
+            <div className={classes.table_wrapper}>
+                <p className={classes.total}>Total {props.totalSumary}</p>
+                {props.restSalary ? <span className={classes.rest_salary}>Rest: {props.restSalary}</span> : null}
+            </div>
+
             {summary !== undefined && summary.length ? (<table className={classes.table}>
                 <thead className={classes.dark}>
                     <tr>
