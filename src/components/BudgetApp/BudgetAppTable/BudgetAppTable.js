@@ -18,7 +18,7 @@ const BudgetAppTable = props => {
                 <tbody>
                     {summary !== undefined && summary.map((item, index) => (
                         <tr key={index}>
-                            <th>{index + 1}</th>     <th>{item.name}</th><th>{item.value}</th>
+                            <th>{index + 1}</th><th>{item.name}</th><th>{item.value}</th>
                         </tr>)
                     )}
                 </tbody>

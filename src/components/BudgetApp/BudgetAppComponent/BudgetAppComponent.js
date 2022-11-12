@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import InputComponent from '../../UI/Input/InputComponent';
 import Button from '../../UI/Button/Button';
 import BudgetAppSection from '../BudgetAppSection/BudgetAppSection';
@@ -16,10 +16,6 @@ const BudgetAppComponent = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
-
-    console.log(`summary ${Boolean(summary)}`)
-    console.log(`stateExspenses ${Boolean(stateExpenses)}`)
-
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -86,15 +82,34 @@ const BudgetAppComponent = (props) => {
         }
     }
 
+    const setLocalStorageExspenses = () => {
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+            if (stateExpenses.length) {
+                localStorage.setItem('exspenses', JSON.stringify(stateExpenses));
+            }
+        }, [stateExpenses])
+
+    }
+
+    setLocalStorageExspenses()
+
     const addExpenses = () => {
+
         if (stateSummary.nameSalary === '' || stateSummary.salaryValue === '') {
             return null
         } else {
+            console.log('addExspenses');
+            console.log()
+
             dispatchExpenses({
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
             })
+
         }
+
     }
 
     console.log(reducer.state)
