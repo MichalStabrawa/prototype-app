@@ -154,7 +154,7 @@ const BudgetAppComponent = (props) => {
                     <hr className={classes.separator} />
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds"  >
-                    <BudgetAppTable summary={summary} totalSumary={total}></BudgetAppTable>
+                    <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
                     <InputComponent
@@ -179,7 +179,6 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Total Exspenses"  >
                     <BudgetAppTable summary={stateExpenses} totalSumary={totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
-                {total - totalExspenses}
             </div>
         </section>
     )

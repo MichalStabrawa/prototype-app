@@ -1,6 +1,16 @@
 @import '../../../styles/main';
 .total {
     margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.table_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .rest_salary {
+        font-weight: bold;
+    }
 }
 
 .table {
