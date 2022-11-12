@@ -24,7 +24,6 @@ const BudgetAppComponent = (props) => {
                 type: 'addName',
                 name: e.target.value
             })
-
         }
         if (e.target.name === 'Salary') {
             dispatch({
@@ -90,7 +89,6 @@ const BudgetAppComponent = (props) => {
                 localStorage.setItem('exspenses', JSON.stringify(stateExpenses));
             }
         }, [stateExpenses])
-
     }
 
     setLocalStorageExspenses()
@@ -107,12 +105,8 @@ const BudgetAppComponent = (props) => {
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
             })
-
         }
-
     }
-
-    console.log(reducer.state)
 
     const totalSalaryValue = (item) => {
         let total = 0;
