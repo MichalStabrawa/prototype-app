@@ -16,6 +16,14 @@ const BudgetAppComponent = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
+    const [local, setLocal] = useState(true)
+    const [stateUploadLocal, setStateUploadLocal] = useState([]);
+
+    const data = JSON.parse(localStorage.getItem('exspenses'));
+
+    useEffect(() => {
+        setStateUploadLocal(stateExpenses)
+    }, [stateExpenses])
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -81,31 +89,43 @@ const BudgetAppComponent = (props) => {
         }
     }
 
+
+
+    const getLocalStorage = () => {
+
+
+        if (data !== null) {
+
+            dispatchExpenses({
+                type: 'expensesSummary',
+                ex: data.map((el) => {
+                    return el
+
+                })
+            })
+            setLocal(false)
+        }
+    }
+
     const setLocalStorageExspenses = () => {
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            if (stateExpenses.length) {
-                localStorage.setItem('exspenses', JSON.stringify(stateExpenses));
-            }
-        }, [stateExpenses])
-    }
+        localStorage.setItem("exspenses", JSON.stringify(stateExpenses));
 
-    setLocalStorageExspenses()
+    }
 
     const addExpenses = () => {
 
         if (stateSummary.nameSalary === '' || stateSummary.salaryValue === '') {
             return null
         } else {
-            console.log('addExspenses');
-            console.log()
-
             dispatchExpenses({
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
             })
+
         }
+
     }
 
     const totalSalaryValue = (item) => {
@@ -145,9 +165,8 @@ const BudgetAppComponent = (props) => {
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
-                    <hr className={classes.separator} />
                 </BudgetAppSection>
-                <BudgetAppSection title="Total Founds"  >
+                <BudgetAppSection title="Total Founds">
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
@@ -171,7 +190,9 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses"  >
-                    <BudgetAppTable summary={stateExpenses} totalSumary={totalExspenses}></BudgetAppTable>
+                    <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
+                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_transparent} /> : null}
+
                 </BudgetAppSection>
             </div>
         </section>

@@ -11,7 +11,7 @@ const BudgetAppTable = props => {
                 {props.restSalary ? <span className={classes.rest_salary}>Rest: {props.restSalary}</span> : null}
             </div>
 
-            {summary !== undefined && summary.length ? (<table className={classes.table}>
+            {summary.length ? (<table className={classes.table}>
                 <thead className={classes.dark}>
                     <tr>
                         <th>#</th>
