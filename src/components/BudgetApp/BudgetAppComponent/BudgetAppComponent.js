@@ -89,10 +89,7 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-
-
     const getLocalStorage = () => {
-
 
         if (data !== null) {
 
@@ -100,7 +97,6 @@ const BudgetAppComponent = (props) => {
                 type: 'expensesSummary',
                 ex: data.map((el) => {
                     return el
-
                 })
             })
             setLocal(false)
@@ -123,9 +119,7 @@ const BudgetAppComponent = (props) => {
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
             })
-
         }
-
     }
 
     const totalSalaryValue = (item) => {
@@ -192,7 +186,6 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Total Exspenses"  >
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
                     {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_transparent} /> : null}
-
                 </BudgetAppSection>
             </div>
         </section>
