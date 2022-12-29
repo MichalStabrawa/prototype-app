@@ -179,7 +179,8 @@ const BudgetAppComponent = (props) => {
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
-                <BudgetAppSection title="Add Salary">
+                <BudgetAppSection title="Exchange" css="ba_section-full"></BudgetAppSection>
+                <BudgetAppSection title="Add Salary" >
                     <InputComponent
                         name='NameSalary'
                         type='text'
