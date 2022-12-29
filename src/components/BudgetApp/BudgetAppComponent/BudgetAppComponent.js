@@ -18,12 +18,51 @@ const BudgetAppComponent = (props) => {
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     const [local, setLocal] = useState(true)
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
+    const [exchange, setExchange] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null)
 
     const data = JSON.parse(localStorage.getItem('exspenses'));
 
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
     }, [stateExpenses])
+
+
+    useEffect(() => {
+        fetchExchangeValue()
+    }, [])
+    const header = new Headers({ "Access-Control-Allow-Origin": "*" });
+    async function fetchExchangeValue() {
+        setIsLoading(true)
+        setError(null)
+
+        try {
+            const response = await fetch('http://api.nbp.pl/api/exchangerates/tables/A', {
+                header: header
+            })
+            if (!response.ok) {
+                throw new Error('Somthing went wrong')
+            }
+            const data = await response.json();
+            const transformesExchange = data[0].rates.map(el => {
+                console.log(el)
+                return {
+                    name: el.currency,
+                    code: el.code,
+                    value: el.mid
+                }
+            })
+            console.log(data);
+            setExchange(transformesExchange);
+        } catch (error) {
+            setError(error.message)
+            console.log(error.message)
+        }
+        setIsLoading(false)
+    }
+
+    console.log(exchange)
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -185,7 +224,7 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses"  >
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
-                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_transparent} /> : null}
+                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_footer} /> : null}
                 </BudgetAppSection>
             </div>
         </section>
