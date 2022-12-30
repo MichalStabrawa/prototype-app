@@ -176,10 +176,20 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
+    const showOption = () => exchange.map((el, index) => { return <option value={el.value} key={index}>{el.name}</option> })
+
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
-                <BudgetAppSection title="Exchange" css="ba_section-full"></BudgetAppSection>
+                <BudgetAppSection title="Exchange" css="ba_section-full">
+                    <div>
+                        <select name="" id="">
+                            {showOption()}
+                        </select>
+
+                        test
+                    </div>
+                </BudgetAppSection>
                 <BudgetAppSection title="Add Salary" >
                     <InputComponent
                         name='NameSalary'
