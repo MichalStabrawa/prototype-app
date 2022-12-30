@@ -18,12 +18,52 @@ const BudgetAppComponent = (props) => {
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     const [local, setLocal] = useState(true)
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
+    const [exchange, setExchange] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [currency, setCurrency] = useState([])
 
     const data = JSON.parse(localStorage.getItem('exspenses'));
 
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
     }, [stateExpenses])
+
+
+    useEffect(() => {
+        fetchExchangeValue()
+    }, [])
+    const header = new Headers({ "Access-Control-Allow-Origin": "*" });
+    async function fetchExchangeValue() {
+        setIsLoading(true)
+        setError(null)
+
+        try {
+            const response = await fetch('http://api.nbp.pl/api/exchangerates/tables/A', {
+                header: header
+            })
+            if (!response.ok) {
+                throw new Error('Somthing went wrong')
+            }
+            const data = await response.json();
+            const transformesExchange = data[0].rates.map(el => {
+                console.log(el)
+                return {
+                    name: el.currency,
+                    code: el.code,
+                    value: el.mid
+                }
+            })
+            console.log(data);
+            setExchange(transformesExchange);
+        } catch (error) {
+            setError(error.message)
+            console.log(error.message)
+        }
+        setIsLoading(false)
+    }
+
+    console.log(exchange)
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -137,10 +177,40 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
+    const showOption = () => exchange.map((el, index) =>
+        <option
+            value={el.value}
+            key={index}
+            data-names={el.name}
+            data-code={el.code}>
+            {el.code}
+        </option>
+    )
+    const addExchangeHandler = (e) => {
+        const index = e.target.selectedIndex;
+        const option = e.target.childNodes[index];
+
+        setCurrency({
+            name: option.getAttribute('data-names'),
+            value: e.target.value,
+            code: option.getAttribute('data-code')
+        })
+        console.log(currency)
+    }
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
-                <BudgetAppSection title="Add Salary">
+                <BudgetAppSection title="Exchange rates" css="ba_section-full">
+                    <div>
+                        <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
+                            {showOption()}
+
+                        </select>
+                        {currency.name} {currency.value} {currency.code}
+
+                    </div>
+                </BudgetAppSection>
+                <BudgetAppSection title="Add Salary" >
                     <InputComponent
                         name='NameSalary'
                         type='text'
@@ -185,7 +255,7 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses"  >
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
-                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_transparent} /> : null}
+                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_footer} /> : null}
                 </BudgetAppSection>
             </div>
         </section>
