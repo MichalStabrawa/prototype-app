@@ -20,7 +20,8 @@ const BudgetAppComponent = (props) => {
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchange, setExchange] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
+    const [currency, setCurrency] = useState([])
 
     const data = JSON.parse(localStorage.getItem('exspenses'));
 
@@ -176,18 +177,29 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
-    const showOption = () => exchange.map((el, index) => { return <option value={el.value} key={index}>{el.name}</option> })
+    const showOption = () => exchange.map((el, index) => { return <option value={el.value} key={index} data-names={el.name} data-code={el.code}>{el.name} {el.code}</option> })
+    const addExchangeHandler = (e) => {
+        const index = e.target.selectedIndex;
+        const option = e.target.childNodes[index];
 
+        setCurrency({
+            name: option.getAttribute('data-names'),
+            value: e.target.value,
+            code: option.getAttribute('data-code')
+        })
+        console.log(currency)
+    }
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
-                <BudgetAppSection title="Exchange" css="ba_section-full">
+                <BudgetAppSection title="Exchange rates" css="ba_section-full">
                     <div>
-                        <select name="" id="">
+                        <select name="" id="" onChange={addExchangeHandler}>
                             {showOption()}
-                        </select>
 
-                        test
+                        </select>
+                        {currency.name} {currency.value} {currency.code}
+
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Salary" >
