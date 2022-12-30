@@ -177,7 +177,15 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
-    const showOption = () => exchange.map((el, index) => { return <option value={el.value} key={index} data-names={el.name} data-code={el.code}>{el.name} {el.code}</option> })
+    const showOption = () => exchange.map((el, index) =>
+        <option
+            value={el.value}
+            key={index}
+            data-names={el.name}
+            data-code={el.code}>
+            {el.code}
+        </option>
+    )
     const addExchangeHandler = (e) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
@@ -194,7 +202,7 @@ const BudgetAppComponent = (props) => {
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
                     <div>
-                        <select name="" id="" onChange={addExchangeHandler}>
+                        <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
                             {showOption()}
 
                         </select>
