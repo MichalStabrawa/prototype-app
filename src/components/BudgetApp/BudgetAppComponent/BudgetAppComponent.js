@@ -206,7 +206,7 @@ const BudgetAppComponent = (props) => {
                             {showOption()}
 
                         </select>
-                        {currency.name} {currency.value} {currency.code}
+                        {currency.name} <span className={classes.currency}>{currency.value}</span>  {currency.code}
 
                     </div>
                 </BudgetAppSection>
