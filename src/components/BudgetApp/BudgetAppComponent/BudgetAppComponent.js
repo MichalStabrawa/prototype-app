@@ -201,13 +201,16 @@ const BudgetAppComponent = (props) => {
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
-                    <div>
-                        <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
-                            {showOption()}
-
-                        </select>
-                        {currency.name}  {currency.code} <span className={classes.currency}>{currency.value}</span>
-
+                    <div className={classes.bapp_wrapper}>
+                        <div>
+                            <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
+                                {showOption()}
+                            </select>
+                        </div>
+                        <div>
+                            <p>1 Złoty to w przeliczeniu </p>
+                            <p><span className={classes.currency}>{currency.value}</span> {currency.code} {`(${currency.name})`}  </p>
+                        </div>
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Salary" >
