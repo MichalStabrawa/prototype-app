@@ -30,16 +30,14 @@ const BudgetAppComponent = (props) => {
     }, [stateExpenses])
 
 
-    useEffect(() => {
-        fetchExchangeValue()
-    }, [])
+    const url = 'http://api.nbp.pl/api/exchangerates/tables/A';
     const header = new Headers({ "Access-Control-Allow-Origin": "*" });
     async function fetchExchangeValue() {
         setIsLoading(true)
         setError(null)
 
         try {
-            const response = await fetch('http://api.nbp.pl/api/exchangerates/tables/A', {
+            const response = await fetch(url, {
                 header: header
             })
             if (!response.ok) {
@@ -62,6 +60,10 @@ const BudgetAppComponent = (props) => {
         }
         setIsLoading(false)
     }
+
+    useEffect(() => {
+        fetchExchangeValue()
+    }, [])
 
     console.log(exchange)
 
@@ -182,13 +184,15 @@ const BudgetAppComponent = (props) => {
             value={el.value}
             key={index}
             data-names={el.name}
-            data-code={el.code}>
+            data-code={el.code}
+        >
             {el.code}
         </option>
     )
     const addExchangeHandler = (e) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
+
 
         setCurrency({
             name: option.getAttribute('data-names'),
@@ -201,16 +205,15 @@ const BudgetAppComponent = (props) => {
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
-                    <div className={classes.bapp_wrapper}>
-                        <div>
-                            <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
-                                {showOption()}
-                            </select>
-                        </div>
-                        <div>
-                            <p>1 Złoty to w przeliczeniu </p>
-                            <p><span className={classes.currency}>{currency.value}</span> {currency.code} {`(${currency.name})`}  </p>
-                        </div>
+
+                    <div>
+                        <select name="" id="" className={classes.select} onChange={addExchangeHandler}>
+                            {showOption()}
+                        </select>
+                    </div>
+                    <div>
+                        <p>1 Złoty to w przeliczeniu </p>
+                        <p><span className={classes.currency}>{currency.value}</span> {currency.code} {`(${currency.name})`}  </p>
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Salary" >
