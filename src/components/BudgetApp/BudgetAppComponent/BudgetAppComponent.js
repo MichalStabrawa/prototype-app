@@ -22,6 +22,7 @@ const BudgetAppComponent = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [currency, setCurrency] = useState([])
+    const [exchangeValue, setExchangeValue] = useState('1');
 
     const data = JSON.parse(localStorage.getItem('exspenses'));
 
@@ -94,6 +95,9 @@ const BudgetAppComponent = (props) => {
                 type: 'addExspansesValue',
                 salaryValue: e.target.value
             })
+        }
+        if (e.target.name === 'Count') {
+            setExchangeValue(e.target.value);
         }
     }
 
@@ -207,6 +211,7 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
 
                     <div>
+
                         <select name="" id="" className={classes.select} options={currency} onChange={addExchangeHandler} defaultValue={{ code: "Choose one", value: "" }}>
                             <option value='' data-names=''
                                 data-code=''>Choice</option>
@@ -214,8 +219,13 @@ const BudgetAppComponent = (props) => {
                         </select>
                     </div>
                     <div>
-                        {currency.value !== '' && (<div><p>1 {currency.code} {`(${currency.name})`} to w przeliczeniu  </p>
-                            <p><span className={classes.currency}>{currency.value}</span> PLN  </p></div>)}
+                        {currency.value !== ''}
+                        {currency.value !== '' && (<div><p>  <InputComponent
+                            name='Count'
+                            type='number'
+                            value={exchangeValue}
+                            action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu  </p>
+                            <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span> PLN  </p></div>)}
 
                     </div>
                 </BudgetAppSection>
