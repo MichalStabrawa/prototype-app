@@ -220,6 +220,7 @@ const BudgetAppComponent = (props) => {
                                 data-code=''>Choice</option>
                             {showOption()}
                         </select>
+                        Date {getCurrentDate()}
                     </div>
                     <div>
                         {currency.value !== ''}
