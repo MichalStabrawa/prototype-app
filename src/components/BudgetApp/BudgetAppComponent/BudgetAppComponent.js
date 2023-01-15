@@ -6,6 +6,7 @@ import BudgetAppSection from '../BudgetAppSection/BudgetAppSection';
 import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
+import getCurrentDate from '../../../utils/dateFunction';
 
 import Reducer from './../../../store/store';
 
@@ -23,6 +24,8 @@ const BudgetAppComponent = (props) => {
     const [error, setError] = useState(null);
     const [currency, setCurrency] = useState([])
     const [exchangeValue, setExchangeValue] = useState('1');
+
+    console.log(getCurrentDate())
 
     const data = JSON.parse(localStorage.getItem('exspenses'));
 
