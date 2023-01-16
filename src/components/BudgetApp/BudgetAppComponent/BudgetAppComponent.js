@@ -2,6 +2,7 @@ import { useState, useReducer, useEffect } from 'react';
 import InputComponent from '../../UI/Input/InputComponent';
 import Button from '../../UI/Button/Button';
 import BudgetAppSection from '../BudgetAppSection/BudgetAppSection';
+import Select from '../../UI/Select/Select';
 
 import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
@@ -214,13 +215,12 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
 
                     <div>
-
-                        <select name="" id="" className={classes.select} options={currency} onChange={addExchangeHandler} defaultValue={{ code: "Choose one", value: "" }}>
-                            <option value='' data-names=''
-                                data-code=''>Choice</option>
-                            {showOption()}
-                        </select>
-                        Date {getCurrentDate()}
+                        <span>Date {getCurrentDate()}</span>
+                        <Select
+                            name='Count'
+                            catchValue={addExchangeHandler}
+                            exchange={exchange}>
+                        </Select>
                     </div>
                     <div>
                         {currency.value !== ''}

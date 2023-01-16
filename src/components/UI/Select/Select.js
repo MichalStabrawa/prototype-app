@@ -1,7 +1,10 @@
 import classes from './Select.module.scss'
 
 const Select = (props) => {
-    const [exchange, name] = props;
+    const { exchange, name, catchValue } = props;
+    console.log('Select')
+    console.log(exchange)
+    console.log(catchValue)
     const showOption = () => exchange.map((el, index) =>
         <option
             value={el.value}
@@ -13,13 +16,13 @@ const Select = (props) => {
         </option>
     )
     return (
-        < select name={props.name} className={classes.select} >
+        < select name={name} className={classes.select} onChange={catchValue}>
             <option
                 value=''
                 data-names=''
                 data-code=''>Choice
             </option>
-            {showOption}
+            {showOption()}
         </select >
     )
 
