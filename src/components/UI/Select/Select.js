@@ -2,9 +2,6 @@ import classes from './Select.module.scss'
 
 const Select = (props) => {
     const { exchange, name, catchValue } = props;
-    console.log('Select')
-    console.log(exchange)
-    console.log(catchValue)
     const showOption = () => exchange.map((el, index) =>
         <option
             value={el.value}
@@ -25,7 +22,6 @@ const Select = (props) => {
             {showOption()}
         </select >
     )
-
 }
 
 export default Select;
