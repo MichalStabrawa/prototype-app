@@ -10,6 +10,7 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import getCurrentDate from '../../../utils/dateFunction';
 
 import Reducer from './../../../store/store';
+import Wrapper from '../../UI/Wrapper/Wrapper';
 
 const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
@@ -213,25 +214,30 @@ const BudgetAppComponent = (props) => {
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
+                    <Wrapper css="wrapper-content">
+                        <Wrapper>
+                            <div>
+                                <span>Date {getCurrentDate()}</span>
+                                <Select
+                                    name='Count'
+                                    catchValue={addExchangeHandler}
+                                    exchange={exchange}>
+                                </Select>
+                            </div>
 
-                    <div>
-                        <span>Date {getCurrentDate()}</span>
-                        <Select
-                            name='Count'
-                            catchValue={addExchangeHandler}
-                            exchange={exchange}>
-                        </Select>
-                    </div>
-                    <div>
-                        {currency.value !== ''}
-                        {currency.value !== '' && (<div><p>  <InputComponent
-                            name='Count'
-                            type='number'
-                            value={exchangeValue}
-                            action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu  </p>
-                            <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span> PLN  </p></div>)}
+                            <div>
+                                {currency.value !== ''}
+                                {currency.value !== '' && (<div><p>  <InputComponent
+                                    name='Count'
+                                    type='number'
+                                    value={exchangeValue}
+                                    action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu  </p>
+                                    <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span> PLN  </p></div>)}
 
-                    </div>
+                            </div>
+                        </Wrapper>
+                        <Wrapper>Test</Wrapper>
+                    </Wrapper>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Salary" >
                     <InputComponent
