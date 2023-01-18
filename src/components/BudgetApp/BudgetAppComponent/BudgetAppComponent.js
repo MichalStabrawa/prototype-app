@@ -215,7 +215,7 @@ const BudgetAppComponent = (props) => {
             <div className={classes.bapp_wrapper}>
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
                     <Wrapper css="wrapper-content">
-                        <div>
+                        <div className={classes.exchange_item}>
                             <div>
                                 <span>Date {getCurrentDate()}</span>
                                 <Select
@@ -236,10 +236,10 @@ const BudgetAppComponent = (props) => {
 
                             </div>
                         </div>
-                        <div>
-                            <p>{exchange[1]?.code} {exchange[1]?.value}</p>
-                            <p>{exchange[7]?.code} {exchange[7]?.value}</p>
-                            <p>{exchange[9]?.code} {exchange[9]?.value}</p>
+                        <div className={classes.exchange_item}>
+                            <p><span className={classes.text_bold}>{exchange[1]?.code}</span> {exchange[1]?.value}</p>
+                            <p><span className={classes.text_bold}>{exchange[7]?.code}</span> {exchange[7]?.value}</p>
+                            <p><span className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value}</p>
                         </div>
                     </Wrapper>
                 </BudgetAppSection>
