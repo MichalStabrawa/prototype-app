@@ -240,6 +240,7 @@ const BudgetAppComponent = (props) => {
                             <p><span className={classes.text_bold}>{exchange[1]?.code}</span> {exchange[1]?.value}</p>
                             <p><span className={classes.text_bold}>{exchange[7]?.code}</span> {exchange[7]?.value}</p>
                             <p><span className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value}</p>
+                            <p><span className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value}</p>
                         </div>
                     </Wrapper>
                 </BudgetAppSection>
