@@ -19,6 +19,11 @@
     }
     .exchange_item {
         padding-right: 20px;
+        &__paragraph {
+            background-color: $brownlight;
+            padding: 2px 0;
+            color: $drywhite;
+        }
     }
     .exchange_item:nth-last-child(1) {
         padding-right: 0;
