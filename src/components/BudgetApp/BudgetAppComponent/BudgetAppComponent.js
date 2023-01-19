@@ -8,6 +8,7 @@ import classes from './BudgetAppComponent.module.scss';
 import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import getCurrentDate from '../../../utils/dateFunction';
+import fetchNBP from '../../../store/fetchNbpApi';
 
 import Reducer from './../../../store/store';
 import Wrapper from '../../UI/Wrapper/Wrapper';
@@ -26,6 +27,9 @@ const BudgetAppComponent = (props) => {
     const [error, setError] = useState(null);
     const [currency, setCurrency] = useState([])
     const [exchangeValue, setExchangeValue] = useState('1');
+    const [isLoadingLast, setIsLoadingLast] = useState(false);
+    const [exchangeLast, setExchangeLast] = useState([]);
+    const [errorLast, setErrorLast] = useState(null);
 
     console.log(getCurrentDate())
 
@@ -69,6 +73,10 @@ const BudgetAppComponent = (props) => {
 
     useEffect(() => {
         fetchExchangeValue()
+    }, [])
+
+    useEffect(() => {
+        fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast)
     }, [])
 
     console.log(exchange)
@@ -184,20 +192,12 @@ const BudgetAppComponent = (props) => {
 
         return total;
     }
-
+    console.log('Last NBP API');
+    console.log(exchangeLast);
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
-    const showOption = () => exchange.map((el, index) =>
-        <option
-            value={el.value}
-            key={index}
-            data-names={el.name}
-            data-code={el.code}
-        >
-            {el.code}
-        </option>
-    )
+
     const addExchangeHandler = (e) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
