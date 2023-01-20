@@ -29,6 +29,12 @@
             padding-left: 40px;
             font-size: 14px;
             font-weight: bold;
+            &.red {
+                color: red;
+            }
+            &.green {
+                color: green;
+            }
         }
     }
     .exchange_item:nth-last-child(1) {
