@@ -9,6 +9,7 @@ import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import getCurrentDate from '../../../utils/dateFunction';
 import fetchNBP from '../../../store/fetchNbpApi';
+import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
 
 import Reducer from './../../../store/store';
 import Wrapper from '../../UI/Wrapper/Wrapper';
@@ -219,47 +220,57 @@ const BudgetAppComponent = (props) => {
                         <div className={classes.exchange_item}>
                             <div>
                                 <span>Date {getCurrentDate()}</span>
-                                <Select
-                                    name='Count'
-                                    catchValue={addExchangeHandler}
-                                    exchange={exchange}>
+                                <Select name='Count' catchValue={addExchangeHandler} exchange={exchange}>
                                 </Select>
                             </div>
 
                             <div>
 
-                                {(currency.value !== '' && currency.value !== undefined) && (<div><p>  <InputComponent
-                                    name='Count'
-                                    type='number'
-                                    value={exchangeValue}
-                                    action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu  </p>
-                                    <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span> PLN  </p></div>)}
+                                {(currency.value !== '' && currency.value !== undefined) && (<div>
+                                    <p>
+                                        <InputComponent name='Count' type='number' value={exchangeValue}
+                                            action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu
+                                    </p>
+                                    <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span>
+                                        PLN </p>
+                                </div>)}
 
                             </div>
                         </div>
                         <div className={classes.exchange_item}>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[1]?.code}</span> {exchange[1]?.value} <span className={classes.last_value}>{(exchange[1]?.value - exchangeLast[1]?.value).toFixed(3)}</span></p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[7]?.code}</span> {exchange[7]?.value} <span className={classes.last_value}>{(exchange[7]?.value - exchangeLast[7]?.value).toFixed(3)}</span></p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value} <span className={classes.last_value}>{(exchange[9]?.value - exchangeLast[9]?.value).toFixed(3)}</span></p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value} <span className={classes.last_value}>{(exchange[10]?.value - exchangeLast[10]?.value).toFixed(3)}</span></p>
+                            <p className={classes.exchange_item__paragraph}>
+                                <span className={classes.text_bold}>{exchange[1]?.code}</span>
+                                {exchange[1]?.value}
+
+                                <span className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[1]?.value,
+                                    exchangeLast[1]?.value)]}`}>{(exchange[1]?.value -
+                                        exchangeLast[1]?.value).toFixed(3)}</span>
+                            </p>
+                            <p className={classes.exchange_item__paragraph}>
+                                <span className={classes.text_bold}>{exchange[7]?.code}</span>
+                                {exchange[7]?.value}
+                                <span className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[7]?.value,
+                                    exchangeLast[7]?.value)]}`}>{(exchange[7]?.value -
+                                        exchangeLast[7]?.value).toFixed(3)}</span>
+                            </p>
+                            <p className={classes.exchange_item__paragraph}><span
+                                className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value} <span
+                                    className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[9]?.value,
+                                        exchangeLast[9]?.value)]}`}>{(exchange[9]?.value -
+                                            exchangeLast[9]?.value).toFixed(3)}</span></p>
+                            <p className={classes.exchange_item__paragraph}><span
+                                className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value} <span
+                                    className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[10]?.value,
+                                        exchangeLast[10]?.value)]}`}>{(exchange[10]?.value -
+                                            exchangeLast[10]?.value).toFixed(3)}</span></p>
                         </div>
                     </Wrapper>
                 </BudgetAppSection>
-                <BudgetAppSection title="Add Salary" >
-                    <InputComponent
-                        name='NameSalary'
-                        type='text'
-                        placeholder='Add name'
-                        action={addHandlerInput}
-                        value={state.name}
-                    />
-                    <InputComponent
-                        name='Salary'
-                        type='number'
-                        placeholder='Add value'
-                        action={addHandlerInput}
-                        value={state.value}
-                    />
+                <BudgetAppSection title="Add Salary">
+                    <InputComponent name='NameSalary' type='text' placeholder='Add name' action={addHandlerInput}
+                        value={state.name} />
+                    <InputComponent name='Salary' type='number' placeholder='Add value' action={addHandlerInput}
+                        value={state.value} />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
@@ -269,28 +280,19 @@ const BudgetAppComponent = (props) => {
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
-                    <InputComponent
-                        name='NameExpenses'
-                        type='text'
-                        placeholder='Add name'
-                        action={addHandlerInput}
-                        value={stateSummary.nameSalary}
-                    />
-                    <InputComponent
-                        name='ValueExpenses'
-                        type='number'
-                        placeholder='Add value'
-                        action={addHandlerInput}
-                        value={stateSummary.salaryValue}
-                    />
+                    <InputComponent name='NameExpenses' type='text' placeholder='Add name' action={addHandlerInput}
+                        value={stateSummary.nameSalary} />
+                    <InputComponent name='ValueExpenses' type='number' placeholder='Add value' action={addHandlerInput}
+                        value={stateSummary.salaryValue} />
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addExpenses} />
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputExspenses} />
                     </div>
                 </BudgetAppSection>
-                <BudgetAppSection title="Total Exspenses"  >
+                <BudgetAppSection title="Total Exspenses">
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
-                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses} color={buttonStyles.btn_footer} /> : null}
+                    {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses}
+                        color={buttonStyles.btn_footer} /> : null}
                 </BudgetAppSection>
             </div>
         </section>
