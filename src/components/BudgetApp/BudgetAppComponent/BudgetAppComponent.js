@@ -73,6 +73,7 @@ const BudgetAppComponent = (props) => {
 
     useEffect(() => {
         fetchExchangeValue()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -237,10 +238,10 @@ const BudgetAppComponent = (props) => {
                             </div>
                         </div>
                         <div className={classes.exchange_item}>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[1]?.code}</span> {exchange[1]?.value}</p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[7]?.code}</span> {exchange[7]?.value}</p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value}</p>
-                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value}</p>
+                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[1]?.code}</span> {exchange[1]?.value} <span className={classes.last_value}>{(exchange[1]?.value - exchangeLast[1]?.value).toFixed(3)}</span></p>
+                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[7]?.code}</span> {exchange[7]?.value} <span className={classes.last_value}>{(exchange[7]?.value - exchangeLast[7]?.value).toFixed(3)}</span></p>
+                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[9]?.code}</span> {exchange[9]?.value} <span className={classes.last_value}>{(exchange[9]?.value - exchangeLast[9]?.value).toFixed(3)}</span></p>
+                            <p className={classes.exchange_item__paragraph}><span className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value} <span className={classes.last_value}>{(exchange[10]?.value - exchangeLast[10]?.value).toFixed(3)}</span></p>
                         </div>
                     </Wrapper>
                 </BudgetAppSection>
