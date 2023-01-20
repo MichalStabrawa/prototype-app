@@ -20,9 +20,15 @@
     .exchange_item {
         padding-right: 20px;
         &__paragraph {
-            background-color: $brownlight;
+            background-color: $graylight;
             padding: 2px 0;
-            color: $drywhite;
+            color: $darkblue;
+        }
+        .last_value {
+            color: $blue;
+            padding-left: 40px;
+            font-size: 14px;
+            font-weight: bold;
         }
     }
     .exchange_item:nth-last-child(1) {
