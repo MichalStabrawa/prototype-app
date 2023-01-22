@@ -56,15 +56,16 @@ const BudgetAppComponent = (props) => {
                 throw new Error('Somthing went wrong')
             }
             const data = await response.json();
+            console.log(data)
             const transformesExchange = data[0].rates.map(el => {
-                console.log(el)
+
                 return {
                     name: el.currency,
                     code: el.code,
                     value: el.mid
                 }
             })
-            console.log(data);
+
             setExchange(transformesExchange);
         } catch (error) {
             setError(error.message)
@@ -81,8 +82,6 @@ const BudgetAppComponent = (props) => {
     useEffect(() => {
         fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast)
     }, [])
-
-    console.log(exchange)
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -200,7 +199,6 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
-
     const addExchangeHandler = (e) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
@@ -224,18 +222,15 @@ const BudgetAppComponent = (props) => {
                                 <Select name='Count' catchValue={addExchangeHandler} exchange={exchange}>
                                 </Select>
                             </div>
-
                             <div>
-
                                 {(currency.value !== '' && currency.value !== undefined) && (<div>
-                                    <p>
+                                    <div>
                                         <InputComponent name='Count' type='number' value={exchangeValue}
                                             action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu
-                                    </p>
+                                    </div>
                                     <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span>
                                         PLN </p>
                                 </div>)}
-
                             </div>
                         </div>
                         <div className={classes.exchange_item}>
