@@ -30,13 +30,16 @@
             background-color: $graylight;
             padding: 2px 0;
             color: $darkblue;
+            display: flex;
         }
 
         .last_value {
             color: $blue;
-            padding-left: 40px;
+
             font-size: 14px;
             font-weight: bold;
+            display: inline-block;
+            width: 60px;
 
             &.red {
                 color: red;
@@ -60,5 +63,10 @@
         color: $brownlight;
         padding: 2px 6px;
         margin-right: 8px;
+    }
+
+    .last_wrapper {
+        display: inline-block;
+        width: 150px;
     }
 }
