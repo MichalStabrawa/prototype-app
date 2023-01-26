@@ -7,6 +7,11 @@ const initialStateSummaryExpenses = {
     nameSalary: '',
     salaryValue: '',
 }
+const initialDate = {
+    currentDate: '',
+    lastDate: '',
+}
+
 function reducer(state, action) {
     switch (action.type) {
         case 'addName': return { ...state, name: action.name };
@@ -31,5 +36,14 @@ function reducerSummaryNameValueExpenses(stateExpenses, action) {
 
     }
 }
+
+function reducerDate(stateDate, action) {
+    // eslint-disable-next-line default-case
+    switch (action.type) {
+        case 'addCurentDate': return { ...stateDate, currentDate: action.currentDate };
+        case 'addLastDate': return { ...stateDate, lastDate: action.lastDate }
+    }
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate };

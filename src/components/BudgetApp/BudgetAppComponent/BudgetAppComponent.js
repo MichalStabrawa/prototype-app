@@ -15,13 +15,14 @@ import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences'
 import Reducer from './../../../store/store';
 import Wrapper from '../../UI/Wrapper/Wrapper';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
+    const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate)
     const [local, setLocal] = useState(true)
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchange, setExchange] = useState([]);
@@ -56,6 +57,8 @@ const BudgetAppComponent = (props) => {
                 throw new Error('Somthing went wrong')
             }
             const data = await response.json();
+            const currentDataNBP = data[0].effectiveDate;
+            console.log(data)
             console.log(data)
             const transformesExchange = data[0].rates.map(el => {
 
@@ -67,6 +70,10 @@ const BudgetAppComponent = (props) => {
             })
 
             setExchange(transformesExchange);
+            dispatchDate({
+                type: 'addCurentDate',
+                currentDate: currentDataNBP
+            })
         } catch (error) {
             setError(error.message)
             console.log(error.message)
@@ -150,20 +157,6 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-    const getLocalStorage = () => {
-
-        if (data !== null) {
-
-            dispatchExpenses({
-                type: 'expensesSummary',
-                ex: data.map((el) => {
-                    return el
-                })
-            })
-            setLocal(false)
-        }
-    }
-
     const setLocalStorageExspenses = () => {
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -218,7 +211,7 @@ const BudgetAppComponent = (props) => {
                     <Wrapper css="wrapper-content">
                         <div className={classes.exchange_item}>
                             <div>
-                                <span>Date {getCurrentDate()}</span>
+                                <span>Current NBP {stateDate.currentDate} {getCurrentDate()}</span>
                                 <Select name='Count' catchValue={addExchangeHandler} exchange={exchange}>
                                 </Select>
                             </div>
