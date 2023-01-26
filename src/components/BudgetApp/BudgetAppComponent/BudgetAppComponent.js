@@ -15,13 +15,14 @@ import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences'
 import Reducer from './../../../store/store';
 import Wrapper from '../../UI/Wrapper/Wrapper';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
+    const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate)
     const [local, setLocal] = useState(true)
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchange, setExchange] = useState([]);
@@ -56,16 +57,23 @@ const BudgetAppComponent = (props) => {
                 throw new Error('Somthing went wrong')
             }
             const data = await response.json();
+            const currentDataNBP = data[0].effectiveDate;
+            console.log(data)
+            console.log(data)
             const transformesExchange = data[0].rates.map(el => {
-                console.log(el)
+
                 return {
                     name: el.currency,
                     code: el.code,
                     value: el.mid
                 }
             })
-            console.log(data);
+
             setExchange(transformesExchange);
+            dispatchDate({
+                type: 'addCurentDate',
+                currentDate: currentDataNBP
+            })
         } catch (error) {
             setError(error.message)
             console.log(error.message)
@@ -81,8 +89,6 @@ const BudgetAppComponent = (props) => {
     useEffect(() => {
         fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast)
     }, [])
-
-    console.log(exchange)
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -151,20 +157,6 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-    const getLocalStorage = () => {
-
-        if (data !== null) {
-
-            dispatchExpenses({
-                type: 'expensesSummary',
-                ex: data.map((el) => {
-                    return el
-                })
-            })
-            setLocal(false)
-        }
-    }
-
     const setLocalStorageExspenses = () => {
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -200,7 +192,6 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
-
     const addExchangeHandler = (e) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
@@ -220,22 +211,19 @@ const BudgetAppComponent = (props) => {
                     <Wrapper css="wrapper-content">
                         <div className={classes.exchange_item}>
                             <div>
-                                <span>Date {getCurrentDate()}</span>
+                                <span>Current NBP {stateDate.currentDate} {getCurrentDate()}</span>
                                 <Select name='Count' catchValue={addExchangeHandler} exchange={exchange}>
                                 </Select>
                             </div>
-
                             <div>
-
                                 {(currency.value !== '' && currency.value !== undefined) && (<div>
-                                    <p>
+                                    <div>
                                         <InputComponent name='Count' type='number' value={exchangeValue}
                                             action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu
-                                    </p>
+                                    </div>
                                     <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span>
                                         PLN </p>
                                 </div>)}
-
                             </div>
                         </div>
                         <div className={classes.exchange_item}>
