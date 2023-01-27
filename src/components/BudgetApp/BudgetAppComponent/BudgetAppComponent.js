@@ -10,6 +10,7 @@ import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import getCurrentDate from '../../../utils/dateFunction';
 import fetchNBP from '../../../store/fetchNbpApi';
+import fetchCurrentNBP from '../../../store/fetchNbpCurrentApi';
 import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
 
 import Reducer from './../../../store/store';
@@ -34,55 +35,12 @@ const BudgetAppComponent = (props) => {
     const [exchangeLast, setExchangeLast] = useState([]);
     const [errorLast, setErrorLast] = useState(null);
 
-    console.log(getCurrentDate())
-
-    const data = JSON.parse(localStorage.getItem('exspenses'));
-
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
     }, [stateExpenses])
 
-
-    const url = 'http://api.nbp.pl/api/exchangerates/tables/A';
-    const header = new Headers({ "Access-Control-Allow-Origin": "*" });
-    async function fetchExchangeValue() {
-        setIsLoading(true)
-        setError(null)
-
-        try {
-            const response = await fetch(url, {
-                header: header
-            })
-            if (!response.ok) {
-                throw new Error('Somthing went wrong')
-            }
-            const data = await response.json();
-            const currentDataNBP = data[0].effectiveDate;
-            console.log(data)
-            console.log(data)
-            const transformesExchange = data[0].rates.map(el => {
-
-                return {
-                    name: el.currency,
-                    code: el.code,
-                    value: el.mid
-                }
-            })
-
-            setExchange(transformesExchange);
-            dispatchDate({
-                type: 'addCurentDate',
-                currentDate: currentDataNBP
-            })
-        } catch (error) {
-            setError(error.message)
-            console.log(error.message)
-        }
-        setIsLoading(false)
-    }
-
     useEffect(() => {
-        fetchExchangeValue()
+        fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -161,7 +119,6 @@ const BudgetAppComponent = (props) => {
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
         localStorage.setItem("exspenses", JSON.stringify(stateExpenses));
-
     }
 
     const addExpenses = () => {
@@ -196,14 +153,13 @@ const BudgetAppComponent = (props) => {
         const index = e.target.selectedIndex;
         const option = e.target.childNodes[index];
 
-
         setCurrency({
             name: option.getAttribute('data-names'),
             value: e.target.value,
             code: option.getAttribute('data-code')
         })
-        console.log(currency)
     }
+
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
