@@ -41,7 +41,6 @@ const BudgetAppComponent = (props) => {
 
     useEffect(() => {
         fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -144,8 +143,7 @@ const BudgetAppComponent = (props) => {
 
         return total;
     }
-    console.log('Last NBP API');
-    console.log(exchangeLast);
+
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
@@ -177,7 +175,7 @@ const BudgetAppComponent = (props) => {
                                         <InputComponent name='Count' type='number' value={exchangeValue}
                                             action={addHandlerInput} />{currency.code} {`(${currency.name})`} to w przeliczeniu
                                     </div>
-                                    <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)}</span>
+                                    <p><span className={classes.currency}>{(+exchangeValue * currency.value).toFixed(2)} </span>
                                         PLN </p>
                                 </div>)}
                             </div>
