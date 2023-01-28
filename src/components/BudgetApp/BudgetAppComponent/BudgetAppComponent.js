@@ -192,6 +192,7 @@ const BudgetAppComponent = (props) => {
                                 <IconArrow arrow={getCurrentPrevDifferences(exchange[1]?.value,
                                     exchangeLast[1]?.value)}
                                 />
+                                <span>{exchangeLast[1]?.value}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}> <span className={classes.text_bold}>{exchange[7]?.code}</span>
@@ -204,6 +205,7 @@ const BudgetAppComponent = (props) => {
                                 <IconArrow arrow={getCurrentPrevDifferences(exchange[7]?.value,
                                     exchangeLast[7]?.value)}
                                 />
+                                <span>{exchangeLast[7]?.value}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}><span
@@ -217,16 +219,22 @@ const BudgetAppComponent = (props) => {
                                 <IconArrow arrow={getCurrentPrevDifferences(exchange[9]?.value,
                                     exchangeLast[9]?.value)}
                                 />
+                                <span>{exchangeLast[9]?.value}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
-                                <span className={classes.last_wrapper}>  <span
-                                    className={classes.text_bold}>{exchange[10]?.code}</span> {exchange[10]?.value}</span>   <span
-                                        className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[10]?.value,
-                                            exchangeLast[10]?.value)]}`}>{(exchange[10]?.value -
-                                                exchangeLast[10]?.value).toFixed(3)}</span>
+                                <span className={classes.last_wrapper}>
+                                    <span className={classes.text_bold}>{exchange[10]?.code} </span>
+                                    {exchange[10]?.value}
+                                </span>
+                                <span
+                                    className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[10]?.value,
+                                        exchangeLast[10]?.value)]}`}>{(exchange[10]?.value -
+                                            exchangeLast[10]?.value).toFixed(3)}
+                                </span>
                                 <IconArrow arrow={getCurrentPrevDifferences(exchange[10]?.value,
                                     exchangeLast[10]?.value)}
                                 />
+                                <span>{exchangeLast[10]?.value}</span>
                             </p>
                         </div>
                     </Wrapper>
