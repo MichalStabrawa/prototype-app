@@ -44,7 +44,7 @@ const BudgetAppComponent = (props) => {
     }, [])
 
     useEffect(() => {
-        fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast)
+        fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast, dispatchDate)
     }, [])
 
     const addHandlerInput = (e) => {

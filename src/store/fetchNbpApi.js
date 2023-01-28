@@ -1,7 +1,7 @@
 const urlLastDay = 'http://api.nbp.pl/api/exchangerates/tables/a/last/2';
 const header = new Headers({ "Access-Control-Allow-Origin": "*" });
 
-const fetchNBP = async function (setIsLoading, setError, setExchange) {
+const fetchNBP = async function (setIsLoading, setError, setExchange, dispatchDate) {
     setIsLoading(true)
     setError(null)
 
@@ -13,6 +13,7 @@ const fetchNBP = async function (setIsLoading, setError, setExchange) {
             throw new Error('Somthing went wrong')
         }
         const data = await response.json();
+        const lastDataNBP = data[0].effectiveDate;
         const transformesExchange = data[0].rates.map(el => {
             console.log(el)
             return {
@@ -21,8 +22,12 @@ const fetchNBP = async function (setIsLoading, setError, setExchange) {
                 value: el.mid
             }
         })
-        console.log(data);
+
         setExchange(transformesExchange);
+        dispatchDate({
+            type: 'addLastDate',
+            lastDate: lastDataNBP
+        })
     } catch (error) {
         setError(error.message)
         console.log(error.message)
