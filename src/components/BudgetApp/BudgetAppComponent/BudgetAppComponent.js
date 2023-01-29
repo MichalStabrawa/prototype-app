@@ -193,6 +193,7 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[1]?.value)}
                                 />
                                 <span>{exchangeLast[1]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}> <span className={classes.text_bold}>{exchange[7]?.code}</span>
@@ -206,6 +207,7 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[7]?.value)}
                                 />
                                 <span>{exchangeLast[7]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}><span
@@ -220,6 +222,7 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[9]?.value)}
                                 />
                                 <span>{exchangeLast[9]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}>
@@ -235,6 +238,7 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[10]?.value)}
                                 />
                                 <span>{exchangeLast[10]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                         </div>
                     </Wrapper>
