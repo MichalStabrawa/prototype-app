@@ -14,8 +14,6 @@ const fethNbpCurrent = async function (setIsLoading, setError, setExchange, disp
         }
         const data = await response.json();
         const currentDataNBP = data[0].effectiveDate;
-        console.log(data)
-        console.log(data)
         const transformesExchange = data[0].rates.map(el => {
 
             return {
