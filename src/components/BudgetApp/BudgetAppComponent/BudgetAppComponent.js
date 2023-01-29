@@ -44,7 +44,7 @@ const BudgetAppComponent = (props) => {
     }, [])
 
     useEffect(() => {
-        fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast)
+        fetchNBP(setIsLoadingLast, setErrorLast, setExchangeLast, dispatchDate)
     }, [])
 
     const addHandlerInput = (e) => {
@@ -184,6 +184,7 @@ const BudgetAppComponent = (props) => {
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}> <span className={classes.text_bold}>{exchange[1]?.code}</span>
                                     {exchange[1]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.currentDate}</span>
                                 <span
                                     className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[1]?.value,
                                         exchangeLast[1]?.value)]}`}>
@@ -193,10 +194,12 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[1]?.value)}
                                 />
                                 <span>{exchangeLast[1]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}> <span className={classes.text_bold}>{exchange[7]?.code}</span>
                                     {exchange[7]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.currentDate}</span>
                                 <span
                                     className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[7]?.value,
                                         exchangeLast[7]?.value)]}`}>
@@ -206,12 +209,14 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[7]?.value)}
                                 />
                                 <span>{exchangeLast[7]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}><span
                                     className={classes.text_bold}>
                                     {exchange[9]?.code}
                                 </span> {exchange[9]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.currentDate}</span>
                                 <span
                                     className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[9]?.value, exchangeLast[9]?.value)]}`}>
                                     {(exchange[9]?.value - exchangeLast[9]?.value).toFixed(3)}
@@ -220,12 +225,15 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[9]?.value)}
                                 />
                                 <span>{exchangeLast[9]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                             <p className={classes.exchange_item__paragraph}>
                                 <span className={classes.last_wrapper}>
                                     <span className={classes.text_bold}>{exchange[10]?.code} </span>
                                     {exchange[10]?.value}
+
                                 </span>
+                                <span className={classes.last_date}>{stateDate.currentDate}</span>
                                 <span
                                     className={`${classes.last_value} ${classes[getCurrentPrevDifferences(exchange[10]?.value,
                                         exchangeLast[10]?.value)]}`}>{(exchange[10]?.value -
@@ -235,6 +243,7 @@ const BudgetAppComponent = (props) => {
                                     exchangeLast[10]?.value)}
                                 />
                                 <span>{exchangeLast[10]?.value}</span>
+                                <span className={classes.last_date}>{stateDate.lastDate}</span>
                             </p>
                         </div>
                     </Wrapper>
