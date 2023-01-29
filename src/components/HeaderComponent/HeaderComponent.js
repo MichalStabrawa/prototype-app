@@ -1,6 +1,5 @@
 import classes from './HeaderComponent.module.scss';
 
-
 const HeaderComponent = props => {
     return (
         <header className={classes.header}>

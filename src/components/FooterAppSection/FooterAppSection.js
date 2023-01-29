@@ -1,6 +1,5 @@
 import classes from './FooterAppSection.module.scss';
 import buttonStyles from '../UI/Button/Button.module.scss';
-
 import Button from '../UI/Button/Button';
 
 const FooterAppSection = () => {

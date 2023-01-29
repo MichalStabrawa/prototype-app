@@ -10,7 +10,6 @@ const BudgetAppTable = props => {
                 <p className={classes.total}>Total {props.totalSumary}</p>
                 {props.restSalary ? <span className={classes.rest_salary}>Rest: {props.restSalary}</span> : null}
             </div>
-
             {summary.length ? (<table className={classes.table}>
                 <thead className={classes.dark}>
                     <tr>
@@ -27,7 +26,6 @@ const BudgetAppTable = props => {
                     )}
                 </tbody>
             </table>) : null}
-
         </div>
     )
 }

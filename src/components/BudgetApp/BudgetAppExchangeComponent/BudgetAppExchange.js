@@ -13,14 +13,12 @@ import Reducer from './../../../store/store';
 
 const { reducerDate, initialDate } = Reducer;
 
-
 const BudgetAppExchange = (props) => {
     const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
     const [currency, setCurrency] = useState([])
     const [exchange, setExchange] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-
     const [isLoadingLast, setIsLoadingLast] = useState(false);
     const [exchangeLast, setExchangeLast] = useState([]);
     const [errorLast, setErrorLast] = useState(null);
