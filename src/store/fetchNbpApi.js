@@ -15,7 +15,7 @@ const fetchNBP = async function (setIsLoading, setError, setExchange, dispatchDa
         const data = await response.json();
         const lastDataNBP = data[0].effectiveDate;
         const transformesExchange = data[0].rates.map(el => {
-            console.log(el)
+
             return {
                 name: el.currency,
                 code: el.code,
