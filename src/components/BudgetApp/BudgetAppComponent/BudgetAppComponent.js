@@ -7,8 +7,9 @@ import buttonStyles from './../../UI/Button/Button.module.scss';
 import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import Reducer from './../../../store/store';
 import BudgetAppExchange from '../BudgetAppExchangeComponent/BudgetAppExchange';
+import fetchBudgetAppSalary from '../../../store/fetchBudgetAppSalary';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
@@ -123,6 +124,13 @@ const BudgetAppComponent = (props) => {
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
 
+    console.log('STATE')
+    console.log(summary);
+
+    const addSaveSalaryHandler = () => {
+        fetchBudgetAppSalary(summary)
+    }
+
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
@@ -140,6 +148,7 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds">
+                    <Button name='Save' click={addSaveSalaryHandler} />
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
