@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 const urlLastDay = 'http://api.nbp.pl/api/exchangerates/tables/a/last/2';
 const header = new Headers({ "Access-Control-Allow-Origin": "*" });
 
