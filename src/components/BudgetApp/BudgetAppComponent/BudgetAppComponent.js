@@ -8,6 +8,8 @@ import BudgetAppTable from '../BudgetAppTable/BudgetAppTable';
 import Reducer from './../../../store/store';
 import BudgetAppExchange from '../BudgetAppExchangeComponent/BudgetAppExchange';
 import fetchBudgetAppSalary from '../../../store/fetchBudgetAppSalary';
+import getCurrentDate from '../../../utils/dateFunction';
+import fetchGetBudgetApp from '../../../store/fetchGetBudgetApp'
 
 const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
@@ -18,11 +20,18 @@ const BudgetAppComponent = (props) => {
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchangeValue, setExchangeValue] = useState('1');
+    const [isLoadingGet, setIsLoadingGet] = useState(false)
+    const [error, setIsGetError] = useState(null)
 
+    const currentDate = getCurrentDate();
 
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
     }, [stateExpenses])
+
+    useEffect(() => {
+        fetchGetBudgetApp(setIsLoadingGet, setIsGetError, changeSummary)
+    }, [])
 
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
@@ -80,7 +89,7 @@ const BudgetAppComponent = (props) => {
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: state.name, value: state.value };
+        let tab = { name: state.name, value: state.value, date: currentDate };
 
         if (state.name === '' || state.value === '') {
             return null
@@ -109,11 +118,16 @@ const BudgetAppComponent = (props) => {
         }
     }
 
+    console.log('StateSuMMARY')
+    console.log(stateSummary)
+    console.log('StateExpenses')
+    console.log(stateExpenses);
+
     const totalSalaryValue = (item) => {
         let total = 0;
 
         if (summary !== undefined) {
-            item.forEach((el, index) => { total = total + parseFloat(el.value) });
+            item.forEach((el) => { total = total + parseFloat(el.value) });
         } else if (summary === undefined) {
             return 0
         }
@@ -123,9 +137,6 @@ const BudgetAppComponent = (props) => {
 
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
-
-    console.log('STATE')
-    console.log(summary);
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
@@ -149,6 +160,7 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds">
                     <Button name='Save' click={addSaveSalaryHandler} />
+                    {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
