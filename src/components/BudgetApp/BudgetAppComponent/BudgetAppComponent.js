@@ -23,6 +23,8 @@ const BudgetAppComponent = (props) => {
     const [isLoadingGet, setIsLoadingGet] = useState(false)
     const [error, setIsGetError] = useState(null)
 
+    const currentDate = getCurrentDate();
+
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
     }, [stateExpenses])
@@ -87,7 +89,7 @@ const BudgetAppComponent = (props) => {
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: state.name, value: state.value };
+        let tab = { name: state.name, value: state.value, date: currentDate };
 
         if (state.name === '' || state.value === '') {
             return null
@@ -120,7 +122,7 @@ const BudgetAppComponent = (props) => {
         let total = 0;
 
         if (summary !== undefined) {
-            item.forEach((el, index) => { total = total + parseFloat(el.value) });
+            item.forEach((el) => { total = total + parseFloat(el.value) });
         } else if (summary === undefined) {
             return 0
         }
@@ -135,7 +137,7 @@ const BudgetAppComponent = (props) => {
     console.log(summary);
 
     const addSaveSalaryHandler = () => {
-        fetchBudgetAppSalary({ date: getCurrentDate(), summary })
+        fetchBudgetAppSalary(summary)
     }
 
     return (
