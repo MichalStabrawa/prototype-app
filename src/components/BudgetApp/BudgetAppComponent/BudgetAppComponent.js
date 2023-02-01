@@ -118,6 +118,11 @@ const BudgetAppComponent = (props) => {
         }
     }
 
+    console.log('StateSuMMARY')
+    console.log(stateSummary)
+    console.log('StateExpenses')
+    console.log(stateExpenses);
+
     const totalSalaryValue = (item) => {
         let total = 0;
 
@@ -132,9 +137,6 @@ const BudgetAppComponent = (props) => {
 
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateExpenses)
-
-    console.log('STATE')
-    console.log(summary);
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
@@ -158,6 +160,7 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds">
                     <Button name='Save' click={addSaveSalaryHandler} />
+                    {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
                 <BudgetAppSection title="Add Exspenses">
