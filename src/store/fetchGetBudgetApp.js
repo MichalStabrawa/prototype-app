@@ -1,7 +1,7 @@
 const urlGet = 'https://budget-app-1a588-default-rtdb.firebaseio.com/salary.json';
 const header = new Headers({ "Access-Control-Allow-Origin": "*" });
 
-const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet) {
+const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet, changeSummary) {
     setIsLoadingGet(true)
     setErrorGet(null)
 
@@ -29,7 +29,7 @@ const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet) {
 
 
         }
-
+        changeSummary(loadedSalary)
         console.log('SUMMARY')
         console.log(loadedSalary)
 

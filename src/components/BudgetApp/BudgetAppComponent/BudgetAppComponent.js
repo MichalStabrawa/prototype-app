@@ -30,7 +30,7 @@ const BudgetAppComponent = (props) => {
     }, [stateExpenses])
 
     useEffect(() => {
-        fetchGetBudgetApp(setIsLoadingGet, setIsGetError)
+        fetchGetBudgetApp(setIsLoadingGet, setIsGetError, changeSummary)
     }, [])
 
     const addHandlerInput = (e) => {
