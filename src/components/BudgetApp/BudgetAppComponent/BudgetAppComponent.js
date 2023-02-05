@@ -118,11 +118,6 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-    console.log('StateSuMMARY')
-    console.log(stateSummary)
-    console.log('StateExpenses')
-    console.log(stateExpenses);
-
     const totalSalaryValue = (item) => {
         let total = 0;
 
