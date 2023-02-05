@@ -113,7 +113,7 @@ const BudgetAppComponent = (props) => {
         } else {
             dispatchExpenses({
                 type: 'expensesSummary',
-                ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue }
+                ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue, date: currentDate }
             })
         }
     }
