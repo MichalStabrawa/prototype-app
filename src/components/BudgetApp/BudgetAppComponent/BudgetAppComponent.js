@@ -169,6 +169,7 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses">
+                    <Button name='Save' />
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
                     {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses}
                         color={buttonStyles.btn_footer} /> : null}
