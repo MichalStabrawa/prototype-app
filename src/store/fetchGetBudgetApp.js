@@ -30,9 +30,6 @@ const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet, changeSu
 
         }
         changeSummary(loadedSalary)
-        console.log('SUMMARY')
-        console.log(loadedSalary)
-
     } catch (error) {
         setErrorGet(error.message)
         console.log(error.message)
