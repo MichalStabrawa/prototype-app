@@ -10,6 +10,7 @@ import BudgetAppExchange from '../BudgetAppExchangeComponent/BudgetAppExchange';
 import fetchBudgetAppSalary from '../../../store/fetchBudgetAppSalary';
 import getCurrentDate from '../../../utils/dateFunction';
 import fetchGetBudgetApp from '../../../store/fetchGetBudgetApp'
+import fetchBudgetAppExpenses from '../../../store/fetchBudgetAppExpenses';
 
 const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
 
@@ -118,11 +119,6 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-    console.log('StateSuMMARY')
-    console.log(stateSummary)
-    console.log('StateExpenses')
-    console.log(stateExpenses);
-
     const totalSalaryValue = (item) => {
         let total = 0;
 
@@ -140,6 +136,10 @@ const BudgetAppComponent = (props) => {
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
+    }
+
+    const addSaveExpensesHandler = () => {
+        fetchBudgetAppExpenses(stateExpenses)
     }
 
     return (
@@ -174,6 +174,7 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Exspenses">
+                    <Button name='Save' click={addSaveExpensesHandler} />
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
                     {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses}
                         color={buttonStyles.btn_footer} /> : null}
