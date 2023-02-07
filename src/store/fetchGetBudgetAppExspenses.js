@@ -11,6 +11,18 @@ const fetchGetBudgetAppExspenses = async function (expenses) {
         }
         const data = await response.json()
         console.log('Data expenses')
+
+        const loadExpenes = []
+
+        for (const key in data) {
+            for (const innerKey in data[key]) {
+                loadExpenes.push({
+                    name: data[innerKey][innerKey].name,
+                    value: data[key][innerKey].value,
+                    date: data[key][innerKey].date
+                })
+            }
+        }
     } catch (error) {
         console.log(error.message)
     }

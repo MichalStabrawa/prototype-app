@@ -26,9 +26,7 @@ const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet, changeSu
                     date: data[key][innerKey].date
                 })
             }
-
-
-        }
+          }
         changeSummary(loadedSalary)
     } catch (error) {
         setErrorGet(error.message)
