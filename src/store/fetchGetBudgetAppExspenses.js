@@ -10,11 +10,8 @@ const fetchGetBudgetAppExspenses = async function (setStateUploadLocal) {
             throw new Error('Somthing went wrong get expenses')
         }
         const data = await response.json()
-        console.log('Data expenses')
-        console.log(data)
 
         const loadExpenes = []
-
         for (const key in data) {
             for (const innerKey in data[key]) {
                 loadExpenes.push({

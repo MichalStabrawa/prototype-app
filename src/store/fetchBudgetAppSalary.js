@@ -18,7 +18,7 @@ const fetchBudgetAppSalary = async function (salary) {
             throw new Error('Somthing went wrong')
         }
         const data = await response.json();
-        console.log(data)
+        
     } catch (error) {
 
         console.log(error.message)
