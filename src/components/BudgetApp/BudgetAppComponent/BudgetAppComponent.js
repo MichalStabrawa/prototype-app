@@ -27,6 +27,9 @@ const BudgetAppComponent = (props) => {
     const [error, setIsGetError] = useState(null)
 
     const currentDate = getCurrentDate();
+    useEffect(() => {
+        changeSummary(stateSalarySummary)
+    }, [stateSalarySummary])
 
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
@@ -172,7 +175,8 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds">
-                    <Button name='Save' click={addSaveSalaryHandler} /> {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
+                    {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
+                    {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
