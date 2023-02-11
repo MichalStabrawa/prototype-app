@@ -29,11 +29,18 @@ function reducerSummary(stateSummary, action) {
     }
 }
 
+function reducerSummarySalary(stateSalarySummary, action) {
+    switch (action.type) {
+        case 'salarySummary': return [...stateSalarySummary, action.ex];
+        default: throw new Error()
+    }
+}
+
 function reducerSummaryNameValueExpenses(stateExpenses, action) {
     // eslint-disable-next-line default-case
     switch (action.type) {
-        case 'expensesSummary': return [...stateExpenses, action.ex]
-
+        case 'expensesSummary': return [...stateExpenses, action.ex];
+        default: throw new Error()
     }
 }
 
@@ -46,4 +53,4 @@ function reducerDate(stateDate, action) {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate, reducerSummarySalary };

@@ -13,12 +13,13 @@ import fetchGetBudgetApp from '../../../store/fetchGetBudgetApp'
 import fetchBudgetAppExpenses from '../../../store/fetchBudgetAppExpenses';
 import fetchGetBudgetAppExspenses from '../../../store/fetchGetBudgetAppExspenses';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerSummarySalary } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
+    const [stateSalarySummary, dispatchSalarySummary] = useReducer(reducerSummarySalary, [])
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchangeValue, setExchangeValue] = useState('1');
