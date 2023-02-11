@@ -104,8 +104,15 @@ const BudgetAppComponent = (props) => {
 
         else {
             changeSummary([...summary, tab])
+            dispatchSalarySummary({
+                type: 'salarySummary',
+                ex: { name: state.name, value: state.value, date: currentDate }
+            })
         }
     }
+
+    console.log('stateSalarySummary REDUCER')
+    console.log(stateSalarySummary)
 
     const setLocalStorageExspenses = () => {
 
