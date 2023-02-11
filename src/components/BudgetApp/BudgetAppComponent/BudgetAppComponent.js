@@ -13,12 +13,13 @@ import fetchGetBudgetApp from '../../../store/fetchGetBudgetApp'
 import fetchBudgetAppExpenses from '../../../store/fetchBudgetAppExpenses';
 import fetchGetBudgetAppExspenses from '../../../store/fetchGetBudgetAppExspenses';
 
-const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses } = Reducer;
+const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerSummarySalary } = Reducer;
 
 const BudgetAppComponent = (props) => {
     const [summary, changeSummary] = useState([])
     const [state, dispatch] = useReducer(reducer, initialState)
     const [stateSummary, dispatchSummary] = useReducer(reducerSummary, initialStateSummaryExpenses)
+    const [stateSalarySummary, dispatchSalarySummary] = useReducer(reducerSummarySalary, [])
     const [stateExpenses, dispatchExpenses] = useReducer(reducerSummaryNameValueExpenses, [])
     const [stateUploadLocal, setStateUploadLocal] = useState([]);
     const [exchangeValue, setExchangeValue] = useState('1');
@@ -26,6 +27,9 @@ const BudgetAppComponent = (props) => {
     const [error, setIsGetError] = useState(null)
 
     const currentDate = getCurrentDate();
+    useEffect(() => {
+        changeSummary(stateSalarySummary)
+    }, [stateSalarySummary])
 
     useEffect(() => {
         setStateUploadLocal(stateExpenses)
@@ -103,8 +107,15 @@ const BudgetAppComponent = (props) => {
 
         else {
             changeSummary([...summary, tab])
+            dispatchSalarySummary({
+                type: 'salarySummary',
+                ex: { name: state.name, value: state.value, date: currentDate }
+            })
         }
     }
+
+    console.log('stateSalarySummary REDUCER')
+    console.log(stateSalarySummary)
 
     const setLocalStorageExspenses = () => {
 
@@ -164,7 +175,8 @@ const BudgetAppComponent = (props) => {
                     </div>
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds">
-                    <Button name='Save' click={addSaveSalaryHandler} /> {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
+                    {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
+                    {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
