@@ -99,14 +99,13 @@ const BudgetAppComponent = (props) => {
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: state.name, value: state.value, date: currentDate };
 
         if (state.name === '' || state.value === '') {
             return null
         }
 
         else {
-            changeSummary([...summary, tab])
+
             dispatchSalarySummary({
                 type: 'salarySummary',
                 ex: { name: state.name, value: state.value, date: currentDate }
