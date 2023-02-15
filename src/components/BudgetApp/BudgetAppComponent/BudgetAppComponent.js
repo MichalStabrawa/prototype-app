@@ -12,6 +12,7 @@ import getCurrentDate from '../../../utils/dateFunction';
 import fetchGetBudgetApp from '../../../store/fetchGetBudgetApp'
 import fetchBudgetAppExpenses from '../../../store/fetchBudgetAppExpenses';
 import fetchGetBudgetAppExspenses from '../../../store/fetchGetBudgetAppExspenses';
+import BudgetAppFilters from '../BudgetAppFiltersComponent/BudgetAppFIlters';
 
 const { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerSummarySalary } = Reducer;
 
@@ -99,14 +100,13 @@ const BudgetAppComponent = (props) => {
     }
 
     const addNameAndSalary = () => {
-        let tab = { name: state.name, value: state.value, date: currentDate };
 
         if (state.name === '' || state.value === '') {
             return null
         }
 
         else {
-            changeSummary([...summary, tab])
+
             dispatchSalarySummary({
                 type: 'salarySummary',
                 ex: { name: state.name, value: state.value, date: currentDate }
@@ -177,6 +177,7 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Total Founds">
                     {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
                     {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
+                    <BudgetAppFilters></BudgetAppFilters>
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
