@@ -26,6 +26,7 @@ const BudgetAppComponent = (props) => {
     const [exchangeValue, setExchangeValue] = useState('1');
     const [isLoadingGet, setIsLoadingGet] = useState(false)
     const [error, setIsGetError] = useState(null)
+    const [emptyName, setEmptyName] = useState(true);
 
     const currentDate = getCurrentDate();
     useEffect(() => {
@@ -44,6 +45,8 @@ const BudgetAppComponent = (props) => {
         fetchGetBudgetAppExspenses(setStateUploadLocal)
     }, [])
 
+
+    console.log(emptyName)
     const addHandlerInput = (e) => {
         if (e.target.name === 'NameSalary') {
 
@@ -102,11 +105,12 @@ const BudgetAppComponent = (props) => {
     const addNameAndSalary = () => {
 
         if (state.name === '' || state.value === '') {
+            setEmptyName(false)
             return null
         }
 
         else {
-
+            setEmptyName(true)
             dispatchSalarySummary({
                 type: 'salarySummary',
                 ex: { name: state.name, value: state.value, date: currentDate }
@@ -169,6 +173,7 @@ const BudgetAppComponent = (props) => {
                         value={state.name} />
                     <InputComponent name='Salary' type='number' placeholder='Add value' action={addHandlerInput}
                         value={state.value} />
+                    {!emptyName && <p>One input is empty!!!</p>}
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
