@@ -173,7 +173,7 @@ const BudgetAppComponent = (props) => {
                         value={state.name} />
                     <InputComponent name='Salary' type='number' placeholder='Add value' action={addHandlerInput}
                         value={state.value} />
-                    {!emptyName && <p>One input is empty!!!</p>}
+                    {!emptyName && <p className={classes.invalid}>One input is empty!!!</p>}
                     <div className={classes.bapp_btn}>
                         <Button name='Add' click={addNameAndSalary} />
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
