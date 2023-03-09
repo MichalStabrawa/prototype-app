@@ -114,6 +114,14 @@ const BudgetAppComponent = (props) => {
                 type: 'salarySummary',
                 ex: { name: state.name, value: state.value, date: currentDate }
             })
+            dispatch({
+                type: 'addName',
+                name: '',
+            });
+            dispatch({
+                type: 'addValue',
+                value: ''
+            })
         }
     }
 
@@ -137,6 +145,14 @@ const BudgetAppComponent = (props) => {
                 type: 'expensesSummary',
                 ex: { name: stateSummary.nameSalary, value: stateSummary.salaryValue, date: currentDate }
             })
+            dispatchSummary({
+                type: 'addExspansesName',
+                nameSalary: '',
+            });
+            dispatchSummary({
+                type: 'addExspansesValue',
+                salaryValue: ''
+            })
         }
     }
 
@@ -153,7 +169,8 @@ const BudgetAppComponent = (props) => {
     }
 
     const total = totalSalaryValue(summary);
-    const totalExspenses = totalSalaryValue(stateExpenses)
+    const totalExspenses = totalSalaryValue(stateUploadLocal)
+    console.log(stateExpenses)
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
