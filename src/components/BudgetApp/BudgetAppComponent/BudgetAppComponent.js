@@ -153,7 +153,8 @@ const BudgetAppComponent = (props) => {
     }
 
     const total = totalSalaryValue(summary);
-    const totalExspenses = totalSalaryValue(stateExpenses)
+    const totalExspenses = totalSalaryValue(stateUploadLocal)
+    console.log(stateExpenses)
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
