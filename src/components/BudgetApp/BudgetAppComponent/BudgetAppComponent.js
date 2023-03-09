@@ -125,9 +125,6 @@ const BudgetAppComponent = (props) => {
         }
     }
 
-    console.log('stateSalarySummary REDUCER')
-    console.log(stateSalarySummary)
-
     const setLocalStorageExspenses = () => {
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -170,7 +167,6 @@ const BudgetAppComponent = (props) => {
 
     const total = totalSalaryValue(summary);
     const totalExspenses = totalSalaryValue(stateUploadLocal)
-    console.log(stateExpenses)
 
     const addSaveSalaryHandler = () => {
         fetchBudgetAppSalary(summary)
