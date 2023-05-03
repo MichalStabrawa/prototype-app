@@ -13,11 +13,9 @@ const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet, changeSu
             throw new Error('Somthing went wrong')
         }
         const data = await response.json();
-        console.log('Data')
-        console.log(data)
+
         const loadedSalary = [];
         for (const key in data) {
-            console.log(key)
 
             for (const innerKey in data[key]) {
                 loadedSalary.push({
@@ -26,7 +24,7 @@ const fetchGetBudgetApp = async function (setIsLoadingGet, setErrorGet, changeSu
                     date: data[key][innerKey].date
                 })
             }
-          }
+        }
         changeSummary(loadedSalary)
     } catch (error) {
         setErrorGet(error.message)
