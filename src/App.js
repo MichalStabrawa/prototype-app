@@ -5,6 +5,7 @@ import NavComponent from './components/NavComponent/NavComponent';
 import Home from './Pages/home/home';
 import Login from './Pages/loginApp/login';
 import Register from './Pages/registerApp/register';
+import FooterAppSection from './components/FooterAppSection/FooterAppSection';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
+      <FooterAppSection></FooterAppSection>
 
     </div>
   );
