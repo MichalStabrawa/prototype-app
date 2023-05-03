@@ -1,21 +1,21 @@
 
 import './App.css';
-
+import { Link, Route, Routes } from 'react-router-dom';
 import NavComponent from './components/NavComponent/NavComponent';
-import HeaderComponent from './components/HeaderComponent/HeaderComponent';
-import Wrapper from './components/UI/Wrapper/Wrapper';
-import BudgetAppComponent from './components/BudgetApp/BudgetAppComponent/BudgetAppComponent';
-import FooterAppSection from './components/FooterAppSection/FooterAppSection'
+import Home from './Pages/home/home';
+import Login from './Pages/loginApp/login';
+import Register from './Pages/registerApp/register';
 
 function App() {
   return (
     <div className="App">
       <NavComponent></NavComponent>
-      <Wrapper>
-        <HeaderComponent></HeaderComponent>
-        <BudgetAppComponent></BudgetAppComponent>
-      </Wrapper>
-      <FooterAppSection></FooterAppSection>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+
     </div>
   );
 }
