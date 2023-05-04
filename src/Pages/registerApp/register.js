@@ -1,14 +1,64 @@
-import Wrapper from '../../components/UI/Wrapper/Wrapper'
-import classes from './register.module.scss'
+import { useState, useEffect } from "react";
+import Wrapper from '../../components/UI/Wrapper/Wrapper';
+
+import classes from './register.module.scss';
+import InputComponent from '../../components/UI/Input/InputComponent';
+import Button from "../../components/UI/Button/Button";
+import buttonStyles from '../../components/UI/Button/Button.module.scss';
+import loginStyles from '../loginApp/login.module.scss';
 
 const Register = (props) => {
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('')
+    const [repeatPassword, setRepatPassword] = useState('')
+    const [enabledSubmit, setEnabledSubmit] = useState(true)
+
+    const addLogin = (e) => {
+        const loginValue = e.target.value;
+        console.log(loginValue)
+        setLogin(loginValue)
+    }
+
+    const addpassword = (e) => {
+        const passwordValue = e.target.value;
+        console.log(passwordValue)
+        setPassword(passwordValue)
+    }
+
+    const comparepassword = (e) => {
+        const repeatPasswordValue = e.target.value;
+        setRepatPassword(repeatPasswordValue)
+    }
+
+    const enabledButton = () => {
+        if (login !== '' && password !== '' && password === repeatPassword) {
+            setEnabledSubmit(false)
+
+        }
+        else {
+            setEnabledSubmit(true)
+        }
+    }
+
+    useEffect(() => {
+        enabledButton();
+    }, [password, repeatPassword])
     return (
-        <div className="register">
+        <div className={loginStyles.login}>
             <Wrapper>
-                <h1>Register</h1>
+                <div className={loginStyles.login__wrapper}>
+                    <h1>Register</h1>
+                    <form action="">
+                        <InputComponent placeholder='Login' name='Login' type='email' value={login} action={addLogin} />
+                        <InputComponent placeholder='Password' name='Password' type='password' value={password} action={addpassword} />
+                        <InputComponent placeholder='Password' name='Repeat Password' type='password' value={repeatPassword} action={comparepassword} />
+                        {!enabledSubmit && <p className={classes.login__text}>Passwords are the same it is OK!</p>}
+                        <Button name={'Submit'} color={buttonStyles.btn_transparent} disabled={enabledSubmit} />
+                    </form>
+                </div>
             </Wrapper>
         </div>
 
     )
 }
-export default Register
+export default Register;
