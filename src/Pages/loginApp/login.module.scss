@@ -1,8 +1,20 @@
 .login {
-    height: calc(100vh - 281px);
+    padding-bottom: 40px;
 
     &__wrapper {
         max-width: 600px;
-        margin: 0 auto
+
+        margin: 0 auto;
+
+        &__link {
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        h2 {
+            border-top: 1px solid #f8f9fa;
+            padding-top: 10px;
+        }
     }
 }
