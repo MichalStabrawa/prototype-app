@@ -12,6 +12,11 @@ const initialDate = {
     lastDate: '',
 }
 
+const initialLogin = {
+    login: '',
+    password: ''
+}
+
 function reducer(state, action) {
     switch (action.type) {
         case 'addName': return { ...state, name: action.name };
@@ -51,6 +56,14 @@ function reducerDate(stateDate, action) {
         case 'addLastDate': return { ...stateDate, lastDate: action.lastDate };
         default: throw new Error()
     }
+}
+
+function addLoginPassword(stateLogin, action) {
+    switch (action.type) {
+        case 'addLogin': return { ...stateLogin, login: action.login };
+        case 'addPassword': return { ...stateLogin, password: action.password }
+    }
+
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
