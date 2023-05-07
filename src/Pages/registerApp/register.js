@@ -53,6 +53,7 @@ const Register = (props) => {
                         <InputComponent placeholder='Password' name='Password' type='password' value={password} action={addpassword} />
                         <InputComponent placeholder='Password' name='Repeat Password' type='password' value={repeatPassword} action={comparepassword} />
                         {!enabledSubmit && <p className={classes.login__text}>Passwords are the same it is OK!</p>}
+                        {enabledSubmit && repeatPassword !== '' && <p className={classes.login__text__fail}>Passwords are not the same it is not OK!</p>}
                         <Button name={'Submit'} color={buttonStyles.btn_transparent} disabled={enabledSubmit} />
                     </form>
                 </div>

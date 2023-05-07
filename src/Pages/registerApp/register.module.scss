@@ -1,5 +1,10 @@
 .login__text {
     color: green;
+
+    &__fail {
+        color: red
+    }
+
 }
 
 :disabled {
