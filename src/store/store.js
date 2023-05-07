@@ -48,7 +48,8 @@ function reducerDate(stateDate, action) {
     // eslint-disable-next-line default-case
     switch (action.type) {
         case 'addCurentDate': return { ...stateDate, currentDate: action.currentDate };
-        case 'addLastDate': return { ...stateDate, lastDate: action.lastDate }
+        case 'addLastDate': return { ...stateDate, lastDate: action.lastDate };
+        default: throw new Error()
     }
 }
 
