@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import classes from './login.module.scss';
 import Wrapper from '../../components/UI/Wrapper/Wrapper';
 import InputComponent from '../../components/UI/Input/InputComponent';
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from '../../components/UI/Button/Button.module.scss';
 import { Link } from 'react-router-dom'
+import Reducer from '../../store/store';
+
+const { initialLogin, addLoginPassword } = Reducer;
 
 
 const LoginApp = (props) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [reducerLoginPassword, setReducerLoginPassword] = useReducer(addLoginPassword, initialLogin)
 
+    console.log('InitialLogin')
+    console.log(reducerLoginPassword)
     const addLogin = (e) => {
         const loginValue = e.target.value;
         console.log(loginValue)
