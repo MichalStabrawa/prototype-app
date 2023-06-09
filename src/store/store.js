@@ -67,4 +67,4 @@ function addLoginPassword(stateLogin, action) {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate, reducerSummarySalary };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate, reducerSummarySalary, addLoginPassword, initialLogin };
