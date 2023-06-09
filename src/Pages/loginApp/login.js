@@ -55,8 +55,6 @@ const LoginApp = (props) => {
                         </Link>
                     </div>
                 </div>
-
-
             </Wrapper>
         </div>
     )
