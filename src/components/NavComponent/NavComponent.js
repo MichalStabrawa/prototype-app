@@ -11,7 +11,9 @@ const NavComponent = props => {
         <nav className={classes.navbar}>
             <div className={classes.logo}><Link to='/'><img src={logo} alt="logo" /></Link></div>
             <ul className={classes.nav}>
-                <li className={classes.nav_item}>Lorem</li>
+                <li className={classes.nav_item}>
+                    <Link to='/aboutUs'>About Us</Link>
+                </li>
                 <li className={classes.nav_item}>Lorem2</li>
                 <li className={classes.nav_item}>Lorem3</li>
                 <li className={classes.nav_item}>
