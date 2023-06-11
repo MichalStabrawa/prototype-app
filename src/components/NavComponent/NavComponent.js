@@ -3,6 +3,7 @@ import classes from './NavComponent.module.scss';
 import buttonStyles from '../UI/Button/Button.module.scss';
 import logo from '../../assets/bapp.png';
 import Button from '../UI/Button/Button';
+import ButtonHamburger from '../UI/Button/ButtonHamburger';
 import { Link } from 'react-router-dom';
 
 const NavComponent = props => {
@@ -10,6 +11,7 @@ const NavComponent = props => {
     return (
         <nav className={classes.navbar}>
             <div className={classes.logo}><Link to='/'><img src={logo} alt="logo" /></Link></div>
+            <ButtonHamburger />
             <ul className={classes.nav}>
                 <li className={classes.nav_item}>
                     <Link to='/aboutUs'>About Us</Link>
