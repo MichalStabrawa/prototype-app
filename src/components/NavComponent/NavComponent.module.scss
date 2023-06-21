@@ -1,9 +1,9 @@
 @import '../../styles/main';
 
 .navbar {
-    height: 80px;
+    height: auto;
     background-color: #f8f9fa;
-    padding: 0 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,12 +45,14 @@
     .active {
         display: flex;
         flex-direction: column;
-        width: 100%;
         align-items: center;
         margin: 0;
         position: relative;
-        background: grey;
-        padding: 20px 0
+        background-color: #f8f9fa;
+        padding: 20px 0;
+        width: calc(100% + 40px);
+        margin-right: -20px;
+        margin-left: -20px;
     }
 
     .logo {
