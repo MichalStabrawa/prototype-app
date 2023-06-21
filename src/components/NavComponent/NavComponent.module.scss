@@ -11,12 +11,30 @@
     box-shadow: $boxshadow;
     max-width: 1980px;
     margin: 0 auto;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+        flex-wrap: nowrap;
+    }
 
     .nav {
         display: flex;
         list-style-type: none;
         align-items: center;
         margin: 0;
+        width: 100%;
+        background-color: red;
+        display: none;
+
+        &.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            width: auto;
+            display: flex;
+        }
 
         &_item {
             margin-left: 10px;
