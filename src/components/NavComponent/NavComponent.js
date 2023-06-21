@@ -1,18 +1,25 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import classes from './NavComponent.module.scss';
 import buttonStyles from '../UI/Button/Button.module.scss';
 import logo from '../../assets/bapp.png';
 import Button from '../UI/Button/Button';
 import ButtonHamburger from '../UI/Button/ButtonHamburger';
+import buttonHamburgerStyles from '../UI/Button/ButtonHamburger.module.scss'
 import { Link } from 'react-router-dom';
 
 const NavComponent = props => {
+    const [active, setActive] = useState(false)
 
+    const showMobileNav = () => {
+        setActive(!active)
+        console.log('ACTIVE')
+        console.log(active)
+    }
     return (
         <nav className={classes.navbar}>
             <div className={classes.logo}><Link to='/'><img src={logo} alt="logo" /></Link></div>
-            <ButtonHamburger />
-            <ul className={classes.nav}>
+            <ButtonHamburger click={showMobileNav} />
+            <ul className={!active ? classes.nav : classes.active}>
                 <li className={classes.nav_item}>
                     <Link to='/aboutUs'>About Us</Link>
                 </li>

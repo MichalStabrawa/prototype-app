@@ -23,13 +23,7 @@
         align-items: center;
         margin: 0;
         width: 100%;
-        background-color: red;
         display: none;
-
-        &.active {
-            display: flex;
-            flex-direction: column;
-        }
 
         @media (min-width: 768px) {
             width: auto;
@@ -38,11 +32,25 @@
 
         &_item {
             margin-left: 10px;
+            list-style-type: none;
+            padding-bottom: 15px;
 
             a {
                 text-decoration: none;
             }
         }
+    }
+
+
+    .active {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin: 0;
+        position: relative;
+        background: grey;
+        padding: 20px 0
     }
 
     .logo {
