@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useReducer, useState, useEffect } from 'react';
 import classes from './NavComponent.module.scss';
 import buttonStyles from '../UI/Button/Button.module.scss';
 import logo from '../../assets/bapp.png';
@@ -15,10 +15,11 @@ const NavComponent = props => {
         console.log('ACTIVE')
         console.log(active)
     }
+
     return (
         <nav className={classes.navbar}>
             <div className={classes.logo}><Link to='/'><img src={logo} alt="logo" /></Link></div>
-            <ButtonHamburger click={showMobileNav} />
+            <ButtonHamburger click={showMobileNav} active={active === true ? buttonHamburgerStyles.active : null} />
             <ul className={!active ? classes.nav : classes.active}>
                 <li className={classes.nav_item}>
                     <Link to='/aboutUs'>About Us</Link>
