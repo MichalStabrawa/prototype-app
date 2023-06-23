@@ -46,7 +46,7 @@ const BudgetAppExchange = (props) => {
         <Wrapper css={props.css}>
             {isLoading && <p>Is Loading</p>}
             <div className={classes.exchange_item}>
-                <div>
+                <div className={classes.exchange_item_current}>
                     <span>Current NBP {stateDate.currentDate} {getCurrentDate()}</span>
                     <Select name='Count' catchValue={addExchangeHandler} exchange={exchange}>
                     </Select>
