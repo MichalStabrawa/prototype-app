@@ -1,7 +1,11 @@
  @import '../../../styles/main';
 
  .exchange_item {
-     padding-right: 20px;
+     padding-right: 0;
+
+     @media (min-width: 768px) {
+         padding-right: 20px;
+     }
 
      &__paragraph {
          background-color: $graylight;
@@ -26,12 +30,21 @@
              color: green;
          }
      }
+
+     &_current {
+         &>span {
+             display: inline-block;
+             margin: 0 1rem .625rem 0;
+         }
+     }
  }
 
  .exchange_item:nth-last-child(1) {
      padding-right: 0;
-     padding-left: 20px;
 
+     @media (min-width: 768px) {
+         padding-left: 20px;
+     }
  }
 
  .text_bold {

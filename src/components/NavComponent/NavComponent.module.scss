@@ -53,6 +53,8 @@
         width: calc(100% + 40px);
         margin-right: -20px;
         margin-left: -20px;
+        animation-name: nav-active;
+        animation-duration: 3s
     }
 
     .logo {
@@ -61,6 +63,16 @@
 
         img {
             height: 100%
+        }
+    }
+
+    @keyframes nav-active {
+        from {
+            opacity: 0
+        }
+
+        to {
+            opacity: 1
         }
     }
 }
