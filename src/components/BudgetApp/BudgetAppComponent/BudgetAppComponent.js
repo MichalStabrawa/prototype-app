@@ -182,7 +182,7 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Exchange rates" css="ba_section-full">
                     <BudgetAppExchange css="wrapper-content" exchangeValue={exchangeValue} addHandlerInput={addHandlerInput} />
                 </BudgetAppSection>
-                <BudgetAppSection title="Add Salary">
+                <BudgetAppSection title="Add Salary" css="ba_section_full_mobile">
                     <InputComponent name='NameSalary' type='text' placeholder='Add name' action={addHandlerInput}
                         value={state.name} />
                     <InputComponent name='Salary' type='number' placeholder='Add value' action={addHandlerInput}
@@ -193,14 +193,14 @@ const BudgetAppComponent = (props) => {
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputNameValue} />
                     </div>
                 </BudgetAppSection>
-                <BudgetAppSection title="Total Founds">
+                <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
                     {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
                     {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
                     <BudgetAppFilters></BudgetAppFilters>
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
-                <BudgetAppSection title="Add Exspenses">
+                <BudgetAppSection title="Add Exspenses" css="ba_section_full_mobile">
                     <InputComponent name='NameExpenses' type='text' placeholder='Add name' action={addHandlerInput}
                         value={stateSummary.nameSalary} />
                     <InputComponent name='ValueExpenses' type='number' placeholder='Add value' action={addHandlerInput}
@@ -211,7 +211,7 @@ const BudgetAppComponent = (props) => {
                         <Button name='Clear' color={buttonStyles.btn_red} click={clearInputExspenses} />
                     </div>
                 </BudgetAppSection>
-                <BudgetAppSection title="Total Exspenses">
+                <BudgetAppSection title="Total Exspenses" css="ba_section_full_mobile">
                     {stateExpenses.length !== 0 && <Button name='Save' click={addSaveExpensesHandler} />}
                     <BudgetAppTable summary={stateUploadLocal} totalSumary={totalExspenses}></BudgetAppTable>
                     {stateExpenses.length ? <Button name='Save' click={setLocalStorageExspenses}
