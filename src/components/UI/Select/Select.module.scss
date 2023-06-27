@@ -1,3 +1,5 @@
+ @import './../../../styles/_main';
+
  .select {
      height: 40px;
      border-radius: 5px;
@@ -7,7 +9,7 @@
      padding: 5px;
      background: #A7ADB6;
 
-     @media (min-width: 992px) {
+     @include media-query-lg {
          min-width: 160px;
          width: auto
      }
