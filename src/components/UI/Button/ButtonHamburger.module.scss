@@ -14,9 +14,10 @@
     cursor: pointer;
 
 
-    @media (min-width:$md) {
-        display: none;
+    @include media-query-md {
 
+        display: none;
+        background: red
     }
 
     span {
