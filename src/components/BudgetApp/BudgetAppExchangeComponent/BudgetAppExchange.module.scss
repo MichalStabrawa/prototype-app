@@ -3,7 +3,7 @@
  .exchange_item {
      padding-right: 0;
 
-     @media (min-width: 768px) {
+     @include media-query-md {
          padding-right: 20px;
      }
 
@@ -42,7 +42,7 @@
  .exchange_item:nth-last-child(1) {
      padding-right: 0;
 
-     @media (min-width: 768px) {
+     @include media-query-md {
          padding-left: 20px;
      }
  }
