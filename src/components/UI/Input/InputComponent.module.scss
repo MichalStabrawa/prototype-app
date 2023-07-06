@@ -1,19 +1,22 @@
 @import '../../../styles/main';
+
 .input_wrapper {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+
     &_item {
         height: 40px;
         border-radius: 5px;
         background-color: $drywhite;
-        max-width: 100%;
+        max-width: 50%;
         border: 1px solid $gray;
-        padding: 5px;
+
         &::placeholder {
             font-style: italic;
         }
     }
+
     &_label {
         margin-bottom: 10px;
     }
