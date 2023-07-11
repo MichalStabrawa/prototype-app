@@ -27,7 +27,8 @@ const BudgetAppComponent = (props) => {
     const [isLoadingGet, setIsLoadingGet] = useState(false)
     const [error, setIsGetError] = useState(null)
     const [emptyInputSalary, setEmptyInputSalary] = useState(true);
-    const [emptyExpensesInput, setEmptyExpensesInput] = useState(true)
+    const [emptyExpensesInput, setEmptyExpensesInput] = useState(true);
+    const [filter, setFilter] = useState(false);
 
     const currentDate = getCurrentDate();
     useEffect(() => {
@@ -176,6 +177,12 @@ const BudgetAppComponent = (props) => {
         fetchBudgetAppExpenses(stateExpenses)
     }
 
+    //show &hide filter section
+    const showAndHideFilter = () => {
+        setFilter(!filter)
+
+    }
+
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
@@ -195,8 +202,9 @@ const BudgetAppComponent = (props) => {
                 </BudgetAppSection>
                 <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
                     {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
-                    {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent}></Button>}
-                    <BudgetAppFilters></BudgetAppFilters>
+                    {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent} click={showAndHideFilter}></Button>}
+                    <div className={classes.filter}>  {filter && <BudgetAppFilters></BudgetAppFilters>}</div>
+
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
                 </BudgetAppSection>
