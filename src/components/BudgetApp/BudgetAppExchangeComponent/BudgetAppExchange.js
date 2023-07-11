@@ -8,6 +8,7 @@ import getCurrentDate from '../../../utils/dateFunction';
 import fetchNBP from '../../../store/fetchNbpApi';
 import fetchCurrentNBP from '../../../store/fetchNbpCurrentApi';
 import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
+import { Link } from 'react-router-dom';
 
 import Reducer from './../../../store/store';
 
@@ -127,6 +128,7 @@ const BudgetAppExchange = (props) => {
                     <span>{exchangeLast[10]?.value}</span>
                     <span className={classes.last_date}>{stateDate.lastDate}</span>
                 </p>
+                <Link to='/exchange'>more ...</Link>
             </div>
         </Wrapper>
     )

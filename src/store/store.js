@@ -59,6 +59,7 @@ function reducerDate(stateDate, action) {
 }
 
 function addLoginPassword(stateLogin, action) {
+    // eslint-disable-next-line default-case
     switch (action.type) {
         case 'addLogin': return { ...stateLogin, login: action.login };
         case 'addPassword': return { ...stateLogin, password: action.password }
