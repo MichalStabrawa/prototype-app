@@ -30,6 +30,9 @@ const BudgetAppComponent = (props) => {
     const [emptyExpensesInput, setEmptyExpensesInput] = useState(true);
     const [filter, setFilter] = useState(false);
 
+    console.log('StateSalary')
+    console.log(summary)
+
     const currentDate = getCurrentDate();
     useEffect(() => {
         changeSummary(stateSalarySummary)
@@ -203,7 +206,7 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
                     {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
                     {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent} click={showAndHideFilter}></Button>}
-                    <div className={classes.filter}>  {filter && <BudgetAppFilters></BudgetAppFilters>}</div>
+                    <div className={classes.filter}>  {filter && <BudgetAppFilters data={summary}></BudgetAppFilters>}</div>
 
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
