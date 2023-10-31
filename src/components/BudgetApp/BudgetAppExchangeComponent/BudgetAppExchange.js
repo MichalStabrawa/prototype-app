@@ -1,13 +1,14 @@
 import { React, useState, useEffect, useReducer } from "react";
 import Wrapper from "../../UI/Wrapper/Wrapper";
-import classes from "../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss";
-import Select from "../../UI/Select/Select";
-import InputComponent from "../../UI/Input/InputComponent";
-import IconArrow from "../../UI/iconArrow/iconArrow";
-import getCurrentDate from "../../../utils/dateFunction";
-import fetchNBP from "../../../store/fetchNbpApi";
-import fetchCurrentNBP from "../../../store/fetchNbpCurrentApi";
-import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import classes from '../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss';
+import Select from '../../UI/Select/Select';
+import InputComponent from '../../UI/Input/InputComponent';
+import IconArrow from '../../UI/iconArrow/iconArrow';
+import getCurrentDate from '../../../utils/dateFunction';
+import fetchNBP from '../../../store/fetchNbpApi';
+import fetchCurrentNBP from '../../../store/fetchNbpCurrentApi';
+import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
+import { Link } from 'react-router-dom';
 
 import Reducer from "./../../../store/store";
 
