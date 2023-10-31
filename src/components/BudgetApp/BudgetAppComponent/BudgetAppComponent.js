@@ -29,6 +29,7 @@ const BudgetAppComponent = (props) => {
     const [emptyInputSalary, setEmptyInputSalary] = useState(true);
     const [emptyExpensesInput, setEmptyExpensesInput] = useState(true);
     const [filter, setFilter] = useState(false);
+    const [filterSalaryValue,setFilterSalaryValue] = useState(null)
 
     console.log('StateSalary')
     console.log(summary)
@@ -186,6 +187,12 @@ const BudgetAppComponent = (props) => {
 
     }
 
+    const addHandlerFilterSalary =(e)=> {
+        const index = e.target.selectedIndex;
+        const option = e.target.childNodes[index];
+        setFilterSalaryValue(e.target.value)
+    }
+
     return (
         <section className={classes.budgetapp}>
             <div className={classes.bapp_wrapper}>
@@ -206,7 +213,7 @@ const BudgetAppComponent = (props) => {
                 <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
                     {stateSalarySummary.length !== 0 && <Button name='Save' click={addSaveSalaryHandler} />}
                     {summary.length > 0 && <Button name='Filter' color={buttonStyles.btn_transparent} click={showAndHideFilter}></Button>}
-                    <div className={classes.filter}>  {filter && <BudgetAppFilters data={summary}></BudgetAppFilters>}</div>
+                    <div className={classes.filter}>  {filter && <BudgetAppFilters salaryOnChange={addHandlerFilterSalary} data={summary}></BudgetAppFilters>}</div>
 
                     {isLoadingGet && <p>IS LOADING</p>}
                     <BudgetAppTable summary={summary} totalSumary={total} restSalary={total - totalExspenses}></BudgetAppTable>
