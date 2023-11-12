@@ -189,6 +189,12 @@ const BudgetAppComponent = (props) => {
   const total = totalSalaryValue(summary);
   const totalExspenses = totalSalaryValue(stateUploadLocal);
 
+  //total use reduce() function
+
+  const totalReduce = summary.reduce((total,currentValue)=>total+parseFloat(currentValue.value),0);
+  console.log(`TotalReduce: ${totalReduce}`)
+
+
   const addSaveSalaryHandler = () => {
     fetchBudgetAppSalary(summary);
   };
