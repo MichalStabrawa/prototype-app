@@ -13,6 +13,7 @@ import fetchGetBudgetApp from "../../../store/fetchGetBudgetApp";
 import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
 import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
+import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
 
 const {
   reducer,
@@ -189,6 +190,12 @@ const BudgetAppComponent = (props) => {
   const total = totalSalaryValue(summary);
   const totalExspenses = totalSalaryValue(stateUploadLocal);
 
+  //total use reduce() function
+
+  const totalReduce = summary.reduce((total,currentValue)=>total+parseFloat(currentValue.value),0);
+  console.log(`TotalReduce: ${totalReduce}`)
+
+
   const addSaveSalaryHandler = () => {
     fetchBudgetAppSalary(summary);
   };
@@ -227,6 +234,9 @@ const BudgetAppComponent = (props) => {
             exchangeValue={exchangeValue}
             addHandlerInput={addHandlerInput}
           />
+        </BudgetAppSection>
+        <BudgetAppSection title="Gold price" css="ba_section-full">
+          <BudgetAppGold/>
         </BudgetAppSection>
         <BudgetAppSection title="Add Salary" css="ba_section_full_mobile">
           <InputComponent
