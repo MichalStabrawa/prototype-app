@@ -28,7 +28,9 @@ export default function BudgetAppGold({ props }) {
       }
     }
 
+
     fetchGold();
+  
   }, [currentDate]);
 
   function handleInputDate(e) {
