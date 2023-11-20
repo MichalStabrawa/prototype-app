@@ -47,6 +47,7 @@ const BudgetAppComponent = (props) => {
   const [emptyExpensesInput, setEmptyExpensesInput] = useState(true);
   const [filter, setFilter] = useState(false);
   const [filterSalaryValue, setFilterSalaryValue] = useState(null);
+  const [saveSalary, setSaveSalary] = useState(false);
 
   console.log("StateSalary");
   console.log(summary);
@@ -54,6 +55,8 @@ const BudgetAppComponent = (props) => {
   const currentDate = getCurrentDate();
   useEffect(() => {
     changeSummary(stateSalarySummary);
+    console.log("StateSalarySummary");
+    console.log(stateSalarySummary);
   }, [stateSalarySummary]);
 
   useEffect(() => {
@@ -63,8 +66,6 @@ const BudgetAppComponent = (props) => {
   useEffect(() => {
     fetchGetBudgetApp(setIsLoadingGet, setIsGetError, changeSummary);
   }, []);
-
-  console.log(changeSummary)
 
   useEffect(() => {
     fetchGetBudgetAppExspenses(setStateUploadLocal);
@@ -140,6 +141,7 @@ const BudgetAppComponent = (props) => {
         type: "addValue",
         value: "",
       });
+      setSaveSalary(true);
     }
   };
 
@@ -192,12 +194,18 @@ const BudgetAppComponent = (props) => {
 
   //total use reduce() function
 
-  const totalReduce = summary.reduce((total,currentValue)=>total+parseFloat(currentValue.value),0);
-  console.log(`TotalReduce: ${totalReduce}`)
-
+  const totalReduce = summary.reduce(
+    (total, currentValue) => total + parseFloat(currentValue.value),
+    0
+  );
 
   const addSaveSalaryHandler = () => {
     fetchBudgetAppSalary(summary);
+
+    setSaveSalary(false);
+    setTimeout(() => {
+      fetchGetBudgetApp(setIsLoadingGet, setIsGetError, changeSummary);
+    }, 500);
   };
 
   const addSaveExpensesHandler = () => {
@@ -236,7 +244,7 @@ const BudgetAppComponent = (props) => {
           />
         </BudgetAppSection>
         <BudgetAppSection title="Gold price" css="ba_section-full">
-          <BudgetAppGold/>
+          <BudgetAppGold />
         </BudgetAppSection>
         <BudgetAppSection title="Add Salary" css="ba_section_full_mobile">
           <InputComponent
@@ -266,9 +274,7 @@ const BudgetAppComponent = (props) => {
           </div>
         </BudgetAppSection>
         <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
-          {stateSalarySummary.length !== 0 && (
-            <Button name="Save" click={addSaveSalaryHandler} />
-          )}
+          {saveSalary && <Button name="Save" click={addSaveSalaryHandler} />}
           {summary.length > 0 && (
             <Button
               name="Filter"
