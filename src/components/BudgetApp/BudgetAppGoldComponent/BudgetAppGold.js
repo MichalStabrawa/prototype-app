@@ -132,7 +132,7 @@ export default function BudgetAppGold({ props }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cena" fill="#413ea0" />
+            <Bar dataKey="cena"  barSize={20} fill="#413ea0" />
             <Line type="monotone" dataKey="cena" stroke="#ff7300" />
           </ComposedChart>
         </ResponsiveContainer>

@@ -1,14 +1,26 @@
 import { React, useState, useEffect, useReducer } from "react";
 import Wrapper from "../../UI/Wrapper/Wrapper";
-import classes from '../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss';
-import Select from '../../UI/Select/Select';
-import InputComponent from '../../UI/Input/InputComponent';
-import IconArrow from '../../UI/iconArrow/iconArrow';
-import getCurrentDate from '../../../utils/dateFunction';
-import fetchNBP from '../../../store/fetchNbpApi';
-import fetchCurrentNBP from '../../../store/fetchNbpCurrentApi';
-import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
-import { Link } from 'react-router-dom';
+import classes from "../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss";
+import Select from "../../UI/Select/Select";
+import InputComponent from "../../UI/Input/InputComponent";
+import IconArrow from "../../UI/iconArrow/iconArrow";
+import getCurrentDate from "../../../utils/dateFunction";
+import fetchNBP from "../../../store/fetchNbpApi";
+import fetchCurrentNBP from "../../../store/fetchNbpCurrentApi";
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import { Link } from "react-router-dom";
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 import Reducer from "./../../../store/store";
 
@@ -77,6 +89,29 @@ const BudgetAppExchange = (props) => {
               </p>
             </div>
           )}
+        </div>
+        <div className={classes.chart}>
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart
+              width={500}
+              height={400}
+              data={exchange}
+              margin={{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20,
+              }}
+            >
+              <CartesianGrid stroke="#f5f5f5" />
+              <XAxis dataKey="code" scale="band" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" barSize={10} fill="#413ea0" />
+              <Line type="monotone" dataKey="value" stroke="#ff7300" />
+            </ComposedChart>
+          </ResponsiveContainer>
         </div>
       </div>
       <div className={classes.exchange_item}>
