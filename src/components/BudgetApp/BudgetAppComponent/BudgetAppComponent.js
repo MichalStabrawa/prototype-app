@@ -14,8 +14,16 @@ import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
 import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import maxValue from "../../../utils/maxValue";
 
 const {
   reducer,
@@ -25,13 +33,6 @@ const {
   reducerSummaryNameValueExpenses,
   reducerSummarySalary,
 } = Reducer;
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
 
 const BudgetAppComponent = (props) => {
   const [summary, changeSummary] = useState([]);
@@ -58,12 +59,9 @@ const BudgetAppComponent = (props) => {
   const [filterSalaryValue, setFilterSalaryValue] = useState(null);
   const [saveSalary, setSaveSalary] = useState(false);
 
-  console.log("StateSalary");
-  console.log(summary);
-  console.log("STATEUPLOAD LOCAL");
-  console.log(stateUploadLocal);
-
   const currentDate = getCurrentDate();
+  const maxVal = maxValue(stateUploadLocal);
+
   useEffect(() => {
     changeSummary(stateSalarySummary);
     console.log("StateSalarySummary");
@@ -339,24 +337,32 @@ const BudgetAppComponent = (props) => {
           <div className={classes.bar_chart}>
             {stateUploadLocal.length !== 0 && (
               <ResponsiveContainer width="100%" height="100%">
-              <AreaChart
-                width={500}
-                height={400}
-                data={stateUploadLocal}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="5 3" />
-                <XAxis dataKey="name" />
-                <YAxis domain={['auto', dataMax => (dataMax * 5)]} allowDataOverflow={true}/>
-                <Tooltip />
-                <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
-              </AreaChart>
-            </ResponsiveContainer>
+                <AreaChart
+                  width={500}
+                  height={400}
+                  data={stateUploadLocal}
+                  margin={{
+                    top: 10,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="5 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis
+                    domain={["auto", maxVal]}
+                    allowDataOverflow={true}
+                  />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             )}
           </div>
         </BudgetAppSection>
