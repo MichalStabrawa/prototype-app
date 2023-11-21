@@ -90,29 +90,6 @@ const BudgetAppExchange = (props) => {
             </div>
           )}
         </div>
-        <div className={classes.chart}>
-          <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart
-              width={500}
-              height={400}
-              data={exchange}
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid stroke="#f5f5f5" />
-              <XAxis dataKey="code" scale="band" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" barSize={10} fill="#413ea0" />
-              <Line type="monotone" dataKey="value" stroke="#ff7300" />
-            </ComposedChart>
-          </ResponsiveContainer>
-        </div>
       </div>
       <div className={classes.exchange_item}>
         <p className={classes.exchange_item__paragraph}>
@@ -225,6 +202,31 @@ const BudgetAppExchange = (props) => {
           <span>{exchangeLast[10]?.value}</span>
           <span className={classes.last_date}>{stateDate.lastDate}</span>
         </p>
+      </div>
+      <div className={classes.chart}>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <label>{stateDate.currentDate}</label>
+          <ComposedChart
+            width={300}
+            height={300}
+            data={exchange}
+            margin={{
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20,
+            }}
+          >
+            <CartesianGrid stroke="#f5f5f5" />
+            <XAxis dataKey="code" scale="band" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" barSize={15} fill="#413ea0" />
+            <Line type="monotone" dataKey="value" stroke="#ff7300" />
+          </ComposedChart>
+        </ResponsiveContainer>
       </div>
     </Wrapper>
   );

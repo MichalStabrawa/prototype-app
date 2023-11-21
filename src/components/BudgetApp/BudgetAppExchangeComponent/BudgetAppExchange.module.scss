@@ -39,10 +39,14 @@
          }
      }
 
-     .chart {
-        height:450px;
-        margin-top:20px;
-     }
+    
+ }
+
+ .chart {
+    height:500px;
+    margin-top:20px;
+    grid-column-start: 1;
+    grid-column-end: 3;
  }
 
  .exchange_item:nth-last-child(1) {
