@@ -38,6 +38,15 @@
              margin: 0 1rem .625rem 0;
          }
      }
+
+    
+ }
+
+ .chart {
+    height:500px;
+    margin-top:20px;
+    grid-column-start: 1;
+    grid-column-end: 3;
  }
 
  .exchange_item:nth-last-child(1) {
