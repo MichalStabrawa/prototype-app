@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import React, { PureComponent } from "react";
+import fetchNbpGold from "../../../store/fetchNbpGold";
+import fetchNbpGoldData from "../../../store/fetchNbpGoldData";
 
 import {
   ComposedChart,
@@ -12,6 +14,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  BarChart,
+  Rectangle,
 } from "recharts";
 
 import classes from "./BudgetAppGold.module.scss";
@@ -23,36 +27,26 @@ export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const charts = data[0];
+  const [goldChart, setGoldChart] = useState({
+    name: "Currently and others data rate",
+    currentlyPrice: 250,
+    chosenData: 240,
+  });
+  console.log("GoldChart");
+  console.log(goldChart);
 
   useEffect(() => {
-    async function fetchGold() {
-      const url = "http://api.nbp.pl/api/cenyzlota/" + currentDate;
-      const header = new Headers({ "Access-Control-Allow-Origin": "*" });
-
-      try {
-        const response = await fetch(url, { header: header });
-        if (!response.ok) {
-          throw new Error("Somthing went wrong with api gold");
-        }
-        console.log(response);
-        const data = await response.json();
-        console.log("Data");
-        console.log(data[0]);
-        setGold(data);
-        setData(data[0]);
-      } catch (error) {
-        console.log("Is Error fetch data API gold");
-      }
-    }
-
-    fetchGold();
-  }, [currentDate]);
+    fetchNbpGold(setGold);
+  }, []);
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
+    setGoldChart({ currentlyPrice: gold.cena, chosenData: data.cena });
     console.log(e.target.value);
   }
+  useEffect(() => {
+    fetchNbpGoldData(currentDate, setData);
+  }, [currentDate]);
 
   const datas = [
     {
@@ -95,24 +89,61 @@ export default function BudgetAppGold({ props }) {
 
   return (
     <Wrapper>
-      <div className={classes.ba_gold}>
-        <p>Current gold price</p>
-        <p>
-          {data.data} <span>{data.cena}</span> PLN
-        </p>
-        <p>Current date: {getCurrentDate()} </p>
-      </div>
-      <div className={classes.ba_gold}>
-        <InputComponent
-          type="date"
-          action={handleInputDate}
-          value={currentDate}
-        ></InputComponent>
-        {currentDate > getCurrentDate() && (
-          <p className={classes.info}>
-            Wrong DATE!!!! Change for currently date or less
+      <div className={classes.ba_main}>
+        <div className={classes.ba_gold}>
+          <p>Current gold price</p>
+          <p>
+            {gold.data} <span>{gold.cena} PLN/g</span>
           </p>
-        )}
+          <p>Current date: {getCurrentDate()} </p>
+        </div>
+        <div className={classes.ba_gold}>
+          <label>choose data</label>
+          <p>
+            {data.data} <span>{data.cena} PLN/g</span>
+          </p>
+          <InputComponent
+            type="date"
+            action={handleInputDate}
+            value={currentDate}
+          ></InputComponent>
+          {currentDate > getCurrentDate() && (
+            <p className={classes.info}>
+              Wrong DATE!!!! Change for currently date or less
+            </p>
+          )}
+          <div className={classes.gold_chart_compare}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                width={200}
+                height={300}
+                data={goldChart}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  dataKey="currentlyPrice"
+                  fill="#8884d8"
+                  activeBar={<Rectangle fill="pink" stroke="blue" />}
+                />
+                <Bar
+                  dataKey="chosenData"
+                  fill="#82ca9d"
+                  activeBar={<Rectangle fill="gold" stroke="purple" />}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
       </div>
       <div style={{ width: "40%", height: 250 }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -132,7 +163,7 @@ export default function BudgetAppGold({ props }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cena"  barSize={10} fill="#413ea0" />
+            <Bar dataKey="cena" barSize={10} fill="#413ea0" />
             <Line type="monotone" dataKey="cena" stroke="#ff7300" />
           </ComposedChart>
         </ResponsiveContainer>
