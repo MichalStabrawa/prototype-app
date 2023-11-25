@@ -1,5 +1,10 @@
 @import "../../../styles/main";
 
+.ba_main {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .ba_gold {
   span {
     font-weight: bold;
@@ -9,4 +14,8 @@
   .info {
     color:red;
   }
+}
+
+.gold_chart_compare {
+  height: 300px;
 }
