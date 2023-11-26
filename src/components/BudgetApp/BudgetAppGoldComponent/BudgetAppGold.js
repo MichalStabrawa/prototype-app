@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React, { PureComponent } from "react";
-import { fetchNbpGold, fetchNbpGoldData } from "../../../store/fetchNbpGold";
+import { fetchNbpGold, fetchNbpGoldData,fetchNbpGoldTopCount } from "../../../store/fetchNbpGold";
 
 import {
   ComposedChart,
@@ -27,8 +27,10 @@ export default function BudgetAppGold({ props }) {
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [goldChart, setGoldChart] = useState("");
-  console.log("GoldChart");
-  console.log(goldChart);
+  const [goldTopCount,setGoldTopCount] = useState([])
+
+  console.log("TopGoldCount");
+  console.log(goldTopCount);
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -36,9 +38,9 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-
-    console.log(e.target.value);
+console.log(e.target.value);
   }
+
   useEffect(() => {
     fetchNbpGoldData(currentDate, setData);
   }, [currentDate]);
@@ -52,6 +54,10 @@ export default function BudgetAppGold({ props }) {
       },
     ]);
   }, [data.cena]);
+
+  useEffect(()=> {
+    fetchNbpGoldTopCount(setGoldTopCount)
+  },[])
 
 
 
@@ -124,7 +130,7 @@ export default function BudgetAppGold({ props }) {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   width={200}
-                  height={300}
+                  height={400}
                   data={goldChart}
                   margin={{
                     top: 5,
@@ -156,12 +162,12 @@ export default function BudgetAppGold({ props }) {
           )}
         </div>
       </div>
-      <div style={{ width: "40%", height: 250 }}>
+      <div style={{ width: "100%", height: 500 }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             width={10}
             height={10}
-            data={datas}
+            data={goldTopCount}
             margin={{
               top: 20,
               right: 20,
@@ -174,7 +180,7 @@ export default function BudgetAppGold({ props }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cena" barSize={10} fill="#413ea0" />
+            <Bar dataKey="cena" barSize={20} fill="#3C4471" />
             <Line type="monotone" dataKey="cena" stroke="#ff7300" />
           </ComposedChart>
         </ResponsiveContainer>

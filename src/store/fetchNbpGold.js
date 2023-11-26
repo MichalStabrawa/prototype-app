@@ -1,7 +1,8 @@
+const header = new Headers({ "Access-Control-Allow-Origin": "*" });
+
 const fetchNbpGold = async function (setGold) {
   const url = "http://api.nbp.pl/api/cenyzlota/";
-  const header = new Headers({ "Access-Control-Allow-Origin": "*" });
-
+  
   try {
     const response = await fetch(url, { header: header });
 
@@ -18,8 +19,7 @@ const fetchNbpGold = async function (setGold) {
 
 const fetchNbpGoldData = async function (currentDate, setData) {
   const url = "http://api.nbp.pl/api/cenyzlota/" + currentDate;
-  const header = new Headers({ "Access-Control-Allow-Origin": "*" });
-
+ 
   try {
     const response = await fetch(url, { header: header });
     if (!response.ok) {
@@ -36,6 +36,19 @@ const fetchNbpGoldData = async function (currentDate, setData) {
   }
 };
 
+const fetchNbpGoldTopCount = async function(setGoldTopCount) {
+  const url = 'http://api.nbp.pl/api/cenyzlota/last/30';
+  try {
+    const response = await fetch(url);
+    if(!response.ok) {
+      throw new Error("Somthing went wrong with api gold top 10 count")
+    }
+    const data = await response.json();
+    setGoldTopCount(data)
+  } catch (error) {
+    console.log("Is Error fetch data gold APi top 10 count")
+  }
+}
 
 
-export  {fetchNbpGold,fetchNbpGoldData};
+export  {fetchNbpGold,fetchNbpGoldData,fetchNbpGoldTopCount};
