@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React, { PureComponent } from "react";
-import {fetchNbpGold,fetchNbpGoldData} from "../../../store/fetchNbpGold";
+import { fetchNbpGold, fetchNbpGoldData } from "../../../store/fetchNbpGold";
 
 import {
   ComposedChart,
@@ -26,11 +26,7 @@ export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [goldChart, setGoldChart] = useState([{
-    name: "Currently and others data rate",
-    currentlyPrice: 250,
-    chosenData: 240,
-  }]);
+  const [goldChart, setGoldChart] = useState("");
   console.log("GoldChart");
   console.log(goldChart);
 
@@ -40,12 +36,24 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-    setGoldChart([{name: "Currently and others data rate", currentlyPrice: gold.cena, chosenData: data.cena }]);
+
     console.log(e.target.value);
   }
   useEffect(() => {
     fetchNbpGoldData(currentDate, setData);
   }, [currentDate]);
+
+  useEffect(() => {
+    setGoldChart([
+      {
+        name: "Currently and others data rate",
+        currentlyPrice: gold.cena,
+        chosenData: data.cena,
+      },
+    ]);
+  }, [data.cena]);
+
+
 
   const datas = [
     {
@@ -111,41 +119,41 @@ export default function BudgetAppGold({ props }) {
               Wrong DATE!!!! Change for currently date or less
             </p>
           )}
-          <div className={classes.gold_chart_compare}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                width={200}
-                height={300}
-                data={goldChart}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar
-                  dataKey="currentlyPrice"
-                  barSize={50}
-                  fill="#8884d8"
-                  activeBar={<Rectangle fill="pink" stroke="blue" />}
-                />
-                <Bar
-                  dataKey="chosenData"
-                  barSize={50}
-                  fill="#82ca9d"
-                  
-                  activeBar={<Rectangle fill="gold" stroke="purple" />
-                }
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          {goldChart && (
+            <div className={classes.gold_chart_compare}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  width={200}
+                  height={300}
+                  data={goldChart}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="currentlyPrice"
+                    barSize={50}
+                    fill="#8884d8"
+                    activeBar={<Rectangle fill="pink" stroke="blue" />}
+                  />
+                  <Bar
+                    dataKey="chosenData"
+                    barSize={50}
+                    fill="#82ca9d"
+                    activeBar={<Rectangle fill="gold" stroke="purple" />}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </div>
       </div>
       <div style={{ width: "40%", height: 250 }}>
