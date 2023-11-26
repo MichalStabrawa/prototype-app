@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import React, { PureComponent } from "react";
-import fetchNbpGold from "../../../store/fetchNbpGold";
-import fetchNbpGoldData from "../../../store/fetchNbpGoldData";
+import {fetchNbpGold,fetchNbpGoldData} from "../../../store/fetchNbpGold";
 
 import {
   ComposedChart,
@@ -27,11 +26,11 @@ export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [goldChart, setGoldChart] = useState({
+  const [goldChart, setGoldChart] = useState([{
     name: "Currently and others data rate",
     currentlyPrice: 250,
     chosenData: 240,
-  });
+  }]);
   console.log("GoldChart");
   console.log(goldChart);
 
@@ -41,7 +40,7 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-    setGoldChart({ currentlyPrice: gold.cena, chosenData: data.cena });
+    setGoldChart([{name: "Currently and others data rate", currentlyPrice: gold.cena, chosenData: data.cena }]);
     console.log(e.target.value);
   }
   useEffect(() => {
@@ -132,13 +131,17 @@ export default function BudgetAppGold({ props }) {
                 <Legend />
                 <Bar
                   dataKey="currentlyPrice"
+                  barSize={50}
                   fill="#8884d8"
                   activeBar={<Rectangle fill="pink" stroke="blue" />}
                 />
                 <Bar
                   dataKey="chosenData"
+                  barSize={50}
                   fill="#82ca9d"
-                  activeBar={<Rectangle fill="gold" stroke="purple" />}
+                  
+                  activeBar={<Rectangle fill="gold" stroke="purple" />
+                }
                 />
               </BarChart>
             </ResponsiveContainer>
