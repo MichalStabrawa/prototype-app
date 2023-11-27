@@ -1,31 +1,18 @@
 import { useEffect, useState } from "react";
-import React, { PureComponent } from "react";
+import React from "react";
 import {
   fetchNbpGold,
   fetchNbpGoldData,
   fetchNbpGoldTopCount,
 } from "../../../store/fetchNbpGold";
 
-import {
-  ComposedChart,
-  Line,
-  Area,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  BarChart,
-  Rectangle,
-} from "recharts";
 
 import classes from "./BudgetAppGold.module.scss";
 import Wrapper from "../../UI/Wrapper/Wrapper";
 import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
 import SimpleLineChart from "../../Chart/SimpleLineChart";
+import BarChart from "../../Chart/BarChart";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -33,9 +20,6 @@ export default function BudgetAppGold({ props }) {
   const [currentDate, setCurrentDate] = useState("");
   const [goldChart, setGoldChart] = useState("");
   const [goldTopCount, setGoldTopCount] = useState([]);
-
-  console.log("TopGoldCount");
-  console.log(goldTopCount);
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -91,37 +75,7 @@ export default function BudgetAppGold({ props }) {
           )}
           {goldChart && (
             <div className={classes.gold_chart_compare}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  width={200}
-                  height={400}
-                  data={goldChart}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="currentlyPrice"
-                    barSize={50}
-                    fill="#8884d8"
-                    activeBar={<Rectangle fill="pink" stroke="blue" />}
-                  />
-                  <Bar
-                    dataKey="chosenData"
-                    barSize={50}
-                    fill="#82ca9d"
-                    activeBar={<Rectangle fill="gold" stroke="purple" />}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+            <BarChart data={goldChart}/>
             </div>
           )}
         </div>
