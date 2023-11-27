@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import React, { PureComponent } from "react";
-import { fetchNbpGold, fetchNbpGoldData,fetchNbpGoldTopCount } from "../../../store/fetchNbpGold";
+import {
+  fetchNbpGold,
+  fetchNbpGoldData,
+  fetchNbpGoldTopCount,
+} from "../../../store/fetchNbpGold";
 
 import {
   ComposedChart,
@@ -21,13 +25,14 @@ import classes from "./BudgetAppGold.module.scss";
 import Wrapper from "../../UI/Wrapper/Wrapper";
 import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
+import SimpleLineChart from "../../Chart/SimpleLineChart";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [goldChart, setGoldChart] = useState("");
-  const [goldTopCount,setGoldTopCount] = useState([])
+  const [goldTopCount, setGoldTopCount] = useState([]);
 
   console.log("TopGoldCount");
   console.log(goldTopCount);
@@ -38,7 +43,7 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-console.log(e.target.value);
+    console.log(e.target.value);
   }
 
   useEffect(() => {
@@ -55,50 +60,9 @@ console.log(e.target.value);
     ]);
   }, [data.cena]);
 
-  useEffect(()=> {
-    fetchNbpGoldTopCount(setGoldTopCount)
-  },[])
-
-
-
-  const datas = [
-    {
-      data: "2023-11-20",
-      cena: 256.84,
-    },
-    {
-      data: "2023-11-19",
-      cena: 240.7,
-    },
-    {
-      data: "2023-11-19",
-      cena: 257.7,
-    },
-    {
-      data: "2023-11-18",
-      cena: 250.7,
-    },
-    {
-      data: "2023-11-17",
-      cena: 230.7,
-    },
-    {
-      data: "2023-11-16",
-      cena: 256.7,
-    },
-    {
-      data: "2023-11-15",
-      cena: 220.7,
-    },
-    {
-      data: "2023-11-14",
-      cena: 256.7,
-    },
-    {
-      data: "2023-11-13",
-      cena: 240.7,
-    },
-  ];
+  useEffect(() => {
+    fetchNbpGoldTopCount(setGoldTopCount);
+  }, []);
 
   return (
     <Wrapper>
@@ -162,28 +126,9 @@ console.log(e.target.value);
           )}
         </div>
       </div>
-      <div style={{ width: "100%", height: 500 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart
-            width={10}
-            height={10}
-            data={goldTopCount}
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
-          >
-            <CartesianGrid stroke="#f5f5f5" />
-            <XAxis dataKey="data" scale="auto" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="cena" barSize={20} fill="#3C4471" />
-            <Line type="monotone" dataKey="cena" stroke="#ff7300" />
-          </ComposedChart>
-        </ResponsiveContainer>
+      <div style={{ width: "100%", height: 350 }}>
+        <h3>Last 30 top count gold </h3>
+        <SimpleLineChart data={goldTopCount} />
       </div>
     </Wrapper>
   );
