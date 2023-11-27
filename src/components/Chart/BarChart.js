@@ -5,7 +5,7 @@ export default function BartChart(props) {
 const {data}= props
 console.log('BAR CHART')
 return(
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="50%" height="100%">
     <BarChart
       width={200}
       height={400}

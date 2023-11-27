@@ -4,8 +4,8 @@ import {
   fetchNbpGold,
   fetchNbpGoldData,
   fetchNbpGoldTopCount,
+  fetchNbpGoldLast,
 } from "../../../store/fetchNbpGold";
-
 
 import classes from "./BudgetAppGold.module.scss";
 import Wrapper from "../../UI/Wrapper/Wrapper";
@@ -18,9 +18,18 @@ export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [goldChart, setGoldChart] = useState("");
+  const [goldLast, setGoldLastPrice] = useState([]);
+  const [goldChart, setGoldChart] = useState([
+    {
+      name: "Currently and others data rate",
+      currentlyPrice: gold.cena,
+      chosenData: goldLast.cena,
+    },
+  ]);
   const [goldTopCount, setGoldTopCount] = useState([]);
 
+  console.log("GOLDCHART");
+  console.log(goldChart);
   useEffect(() => {
     fetchNbpGold(setGold);
   }, []);
@@ -48,6 +57,10 @@ export default function BudgetAppGold({ props }) {
     fetchNbpGoldTopCount(setGoldTopCount);
   }, []);
 
+  useEffect(() => {
+    fetchNbpGoldLast(setGoldLastPrice);
+  }, []);
+
   return (
     <Wrapper>
       <div className={classes.ba_main}>
@@ -57,6 +70,10 @@ export default function BudgetAppGold({ props }) {
             {gold.data} <span>{gold.cena} PLN/g</span>
           </p>
           <p>Current date: {getCurrentDate()} </p>
+          <p>Previous quote</p>
+          <p>
+            {goldLast.data}: <span>{goldLast.cena}</span>
+          </p>
         </div>
         <div className={classes.ba_gold}>
           <label>choose data</label>
@@ -75,7 +92,7 @@ export default function BudgetAppGold({ props }) {
           )}
           {goldChart && (
             <div className={classes.gold_chart_compare}>
-            <BarChart data={goldChart}/>
+              <BarChart data={goldChart} />
             </div>
           )}
         </div>
