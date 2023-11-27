@@ -27,16 +27,18 @@ export default function BudgetAppGold({ props }) {
     },
   ]);
   const [goldTopCount, setGoldTopCount] = useState([]);
+  const [count, setCount] = useState(0);
 
-  console.log("GOLDCHART");
-  console.log(goldChart);
   useEffect(() => {
     fetchNbpGold(setGold);
   }, []);
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-    console.log(e.target.value);
+  }
+
+  function handleInputCount(e) {
+    setCount((e.target.value * gold.cena).toFixed(2));
   }
 
   useEffect(() => {
@@ -74,6 +76,11 @@ export default function BudgetAppGold({ props }) {
           <p>
             {goldLast.data}: <span>{goldLast.cena}</span>
           </p>
+          <div className={classes.ba_gold_count}>
+            <label>Count</label>
+            <InputComponent type="number" action={handleInputCount}  placeholder="0" />
+            <p>{count}</p>
+          </div>
         </div>
         <div className={classes.ba_gold}>
           <label>choose data</label>
