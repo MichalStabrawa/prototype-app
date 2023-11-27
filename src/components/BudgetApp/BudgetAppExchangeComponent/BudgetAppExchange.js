@@ -24,7 +24,7 @@ import {
 
 import Reducer from "./../../../store/store";
 
-const { reducerDate, initialDate } = Reducer;
+const { reducerDate, initialDate,fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
@@ -35,9 +35,12 @@ const BudgetAppExchange = (props) => {
   const [isLoadingLast, setIsLoadingLast] = useState(false);
   const [exchangeLast, setExchangeLast] = useState([]);
   const [errorLast, setErrorLast] = useState(null);
+  const [nbpTopCountData,dispatchNbpTopCountData] = useReducer(fetchNbpTopCountReducer,[])
 
+  console.log("NBPTOPCOUNT")
+  console.log(nbpTopCountData.data)
   useEffect(() => {
-    fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate);
+    fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate,dispatchNbpTopCountData);
   }, []);
 
   useEffect(() => {
@@ -210,7 +213,7 @@ const BudgetAppExchange = (props) => {
           <ComposedChart
             width={300}
             height={300}
-            data={exchange}
+            data={nbpTopCountData.data}
             margin={{
               top: 20,
               right: 20,

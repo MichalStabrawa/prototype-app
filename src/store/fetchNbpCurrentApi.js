@@ -5,7 +5,8 @@ const fethNbpCurrent = async function (
   setIsLoading,
   setError,
   setExchange,
-  dispatchDate
+  dispatchDate,
+  dispatchNbPTopCountData
 ) {
   setIsLoading(true);
   setError(null);
@@ -32,6 +33,11 @@ const fethNbpCurrent = async function (
       type: "addCurentDate",
       currentDate: currentDataNBP,
     });
+
+    dispatchNbPTopCountData({
+      type:"putNbpTopCountData",
+      data:transformesExchange
+    })
   } catch (error) {
     setError(error.message);
     console.log(error.message);

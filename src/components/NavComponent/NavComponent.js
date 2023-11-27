@@ -24,7 +24,9 @@ const NavComponent = props => {
                 <li className={classes.nav_item}>
                     <Link to='/aboutUs'>About Us</Link>
                 </li>
-                <li className={classes.nav_item}>Lorem2</li>
+                <li className={classes.nav_item}>
+                    <Link to='/exchange'>Exchange rates</Link>
+                </li>
                 <li className={classes.nav_item}>Lorem3</li>
                 <li className={classes.nav_item}>
                     <Link to='/login'>
