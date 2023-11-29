@@ -1,4 +1,4 @@
-import { useReducer, useState, useEffect } from 'react';
+import {  useState } from 'react';
 import classes from './NavComponent.module.scss';
 import buttonStyles from '../UI/Button/Button.module.scss';
 import logo from '../../assets/bapp.png';
@@ -6,14 +6,22 @@ import Button from '../UI/Button/Button';
 import ButtonHamburger from '../UI/Button/ButtonHamburger';
 import buttonHamburgerStyles from '../UI/Button/ButtonHamburger.module.scss'
 import { Link } from 'react-router-dom';
+import {useSelector,useDispatch} from 'react-redux';
+import { authActions } from '../../store/auth';
 
 const NavComponent = props => {
+    const dispatch = useDispatch()
+    const auth = useSelector(state=>state.isAuthenticated.isAuthenticated);
     const [active, setActive] = useState(false)
 
     const showMobileNav = () => {
         setActive(!active)
         console.log('ACTIVE')
         console.log(active)
+    }
+
+    const logOffHandler=()=> {
+        dispatch(authActions.logoff())
     }
 
     return (
@@ -29,8 +37,8 @@ const NavComponent = props => {
                 </li>
                 <li className={classes.nav_item}>Lorem3</li>
                 <li className={classes.nav_item}>
-                    <Link to='/login'>
-                        <Button name={'Login'} click={props.click} color={buttonStyles.btn_transparent} />
+                    <Link to={auth?'/':'/login'} onClick={logOffHandler} >
+                        <Button name={auth?'LogOff':'Login'} color={buttonStyles.btn_transparent} />
                     </Link>
                 </li>
                 <li className={classes.nav_item}>
