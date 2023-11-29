@@ -15,7 +15,6 @@ const fetchBudgetAppExpenses = async function (expenses) {
     if (!response.ok) {
       throw new Error("Somthing went wrong");
     }
-    const data = await response.json();
   } catch (error) {
     console.log(error.message);
   }
