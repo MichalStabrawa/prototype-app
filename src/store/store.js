@@ -67,5 +67,13 @@ function addLoginPassword(stateLogin, action) {
 
 }
 
+function fetchNbpTopCountReducer(stateTopCount,action) {
+    // eslint-disable-next-line default-case
+    switch(action.type) {
+        case 'putNbpTopCountData': return {...stateTopCount,data:action.data}
+        default: throw new Error()
+    }
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate, reducerSummarySalary, addLoginPassword, initialLogin };
+export default { reducer, initialState, reducerSummary, initialStateSummaryExpenses, reducerSummaryNameValueExpenses, reducerDate, initialDate, reducerSummarySalary, addLoginPassword, initialLogin ,fetchNbpTopCountReducer};

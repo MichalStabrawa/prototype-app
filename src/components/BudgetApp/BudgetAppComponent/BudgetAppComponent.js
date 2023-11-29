@@ -32,6 +32,7 @@ const {
   initialStateSummaryExpenses,
   reducerSummaryNameValueExpenses,
   reducerSummarySalary,
+  fetchNbpTopCountReducer
 } = Reducer;
 
 const BudgetAppComponent = (props) => {
@@ -58,6 +59,7 @@ const BudgetAppComponent = (props) => {
   const [filter, setFilter] = useState(false);
   const [filterSalaryValue, setFilterSalaryValue] = useState(null);
   const [saveSalary, setSaveSalary] = useState(false);
+  const [nbpTopCountData,dispatchNbPTopCountData] = useReducer(fetchNbpTopCountReducer,[])
 
   const currentDate = getCurrentDate();
   const maxVal = maxValue(stateUploadLocal);

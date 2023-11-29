@@ -1,34 +1,34 @@
 import { useEffect, useState } from "react";
-import React, { PureComponent } from "react";
-import { fetchNbpGold, fetchNbpGoldData } from "../../../store/fetchNbpGold";
-
+import React from "react";
 import {
-  ComposedChart,
-  Line,
-  Area,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  BarChart,
-  Rectangle,
-} from "recharts";
+  fetchNbpGold,
+  fetchNbpGoldData,
+  fetchNbpGoldTopCount,
+  fetchNbpGoldLast,
+} from "../../../store/fetchNbpGold";
 
 import classes from "./BudgetAppGold.module.scss";
 import Wrapper from "../../UI/Wrapper/Wrapper";
 import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
+import SimpleLineChart from "../../Chart/SimpleLineChart";
+import BarChart from "../../Chart/BarChart";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [goldChart, setGoldChart] = useState("");
-  console.log("GoldChart");
-  console.log(goldChart);
+  const [goldLast, setGoldLastPrice] = useState([]);
+  const [goldChart, setGoldChart] = useState([
+    {
+      name: "Currently and others data rate",
+      currentlyPrice: gold.cena,
+      chosenData: goldLast.cena,
+    },
+  ]);
+  const [goldTopCount, setGoldTopCount] = useState([]);
+  const [count, setCount] = useState(0);
+  const[inputCount,setInputCount]= useState('')
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -36,9 +36,13 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputDate(e) {
     setCurrentDate(e.target.value);
-
-    console.log(e.target.value);
   }
+
+  function handleInputCount(e) {
+    setCount((e.target.value * gold.cena).toFixed(2));
+    setInputCount(e.target.value)
+  }
+
   useEffect(() => {
     fetchNbpGoldData(currentDate, setData);
   }, [currentDate]);
@@ -53,46 +57,15 @@ export default function BudgetAppGold({ props }) {
     ]);
   }, [data.cena]);
 
+  useEffect(() => {
+    fetchNbpGoldTopCount(setGoldTopCount);
+    console.log('GoldChartTOPCount')
+    console.log(goldTopCount)
+  }, []);
 
-
-  const datas = [
-    {
-      data: "2023-11-20",
-      cena: 256.84,
-    },
-    {
-      data: "2023-11-19",
-      cena: 240.7,
-    },
-    {
-      data: "2023-11-19",
-      cena: 257.7,
-    },
-    {
-      data: "2023-11-18",
-      cena: 250.7,
-    },
-    {
-      data: "2023-11-17",
-      cena: 230.7,
-    },
-    {
-      data: "2023-11-16",
-      cena: 256.7,
-    },
-    {
-      data: "2023-11-15",
-      cena: 220.7,
-    },
-    {
-      data: "2023-11-14",
-      cena: 256.7,
-    },
-    {
-      data: "2023-11-13",
-      cena: 240.7,
-    },
-  ];
+  useEffect(() => {
+    fetchNbpGoldLast(setGoldLastPrice);
+  }, []);
 
   return (
     <Wrapper>
@@ -103,6 +76,15 @@ export default function BudgetAppGold({ props }) {
             {gold.data} <span>{gold.cena} PLN/g</span>
           </p>
           <p>Current date: {getCurrentDate()} </p>
+          <p>Previous quote</p>
+          <p>
+            {goldLast.data}: <span>{goldLast.cena}</span>
+          </p>
+          <div className={classes.ba_gold_count}>
+            <label>Count</label>
+            <InputComponent type="number" action={handleInputCount} value={inputCount}  placeholder="0" />
+            <p>{count}</p>
+          </div>
         </div>
         <div className={classes.ba_gold}>
           <label>choose data</label>
@@ -121,63 +103,15 @@ export default function BudgetAppGold({ props }) {
           )}
           {goldChart && (
             <div className={classes.gold_chart_compare}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  width={200}
-                  height={300}
-                  data={goldChart}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="currentlyPrice"
-                    barSize={50}
-                    fill="#8884d8"
-                    activeBar={<Rectangle fill="pink" stroke="blue" />}
-                  />
-                  <Bar
-                    dataKey="chosenData"
-                    barSize={50}
-                    fill="#82ca9d"
-                    activeBar={<Rectangle fill="gold" stroke="purple" />}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+              <BarChart data={goldChart} />
             </div>
           )}
         </div>
       </div>
-      <div style={{ width: "40%", height: 250 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart
-            width={10}
-            height={10}
-            data={datas}
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
-          >
-            <CartesianGrid stroke="#f5f5f5" />
-            <XAxis dataKey="data" scale="auto" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="cena" barSize={10} fill="#413ea0" />
-            <Line type="monotone" dataKey="cena" stroke="#ff7300" />
-          </ComposedChart>
-        </ResponsiveContainer>
+      <div style={{ width: "100%", height:"100%"}}>
+        <h3>Last 30 top count gold </h3>
+        <div className={classes.chart}><SimpleLineChart data={goldTopCount} /></div>
+        
       </div>
     </Wrapper>
   );

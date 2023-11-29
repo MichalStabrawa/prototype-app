@@ -21,6 +21,7 @@ const InputComponent = props => {
                 onChange={props.action}
                 value={value}
                 placeholder={props.placeholder}
+                min ="0"
             />
         </div>
     )
