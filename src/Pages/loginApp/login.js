@@ -1,25 +1,23 @@
-import { useState, useReducer } from "react";
+import { useState } from "react";
 import classes from "./login.module.scss";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import { Link } from "react-router-dom";
-import Reducer from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
-const { initialLogin, addLoginPassword } = Reducer;
+import {useNavigate} from 'react-router-dom';
 
 const LoginApp = (props) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [reducerLoginPassword, setReducerLoginPassword] = useReducer(
-    addLoginPassword,
-    initialLogin
-  );
+
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.isAuthenticated.isAuthenticated);
+  const auth = useSelector((state) => state.isAuthenticated);
+
+  const navigate = useNavigate()
 
   const addLogin = (e) => {
     const loginValue = e.target.value;
@@ -34,7 +32,14 @@ const LoginApp = (props) => {
   };
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(authActions.login());
+
+    if(login.length>0 && password.length>0) {
+        dispatch(authActions.login());
+        navigate('/')
+    }else {
+        alert('Login or Password incorect')
+    }
+    
   };
 
   return (

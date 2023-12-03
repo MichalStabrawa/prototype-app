@@ -1,9 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 
-import authReducer from './auth'
+import authSlice from './auth';
+import fetchGoldReducer from './fetchGoldSlice'
 
  const store = configureStore({
-reducer: {isAuthenticated:authReducer}
+reducer: {authentication:authSlice,content:fetchGoldReducer}
 })
 
 export default store
