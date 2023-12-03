@@ -11,8 +11,12 @@ import { authActions } from '../../store/auth';
 
 const NavComponent = props => {
     const dispatch = useDispatch()
-    const auth = useSelector(state=>state.isAuthenticated.isAuthenticated);
+    const auth = useSelector(state=>state.isAuthenticated);
     const [active, setActive] = useState(false)
+
+    console.log('ISAUTH')
+    console.log(auth)
+
 
     const showMobileNav = () => {
         setActive(!active)

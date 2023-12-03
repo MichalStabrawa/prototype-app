@@ -15,7 +15,7 @@ const LoginApp = (props) => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.isAuthenticated.isAuthenticated);
+  const auth = useSelector((state) => state.isAuthenticated);
 
   const navigate = useNavigate()
 
