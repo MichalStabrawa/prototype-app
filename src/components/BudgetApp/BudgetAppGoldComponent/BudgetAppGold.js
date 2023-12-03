@@ -28,7 +28,7 @@ export default function BudgetAppGold({ props }) {
   ]);
   const [goldTopCount, setGoldTopCount] = useState([]);
   const [count, setCount] = useState(0);
-  const[inputCount,setInputCount]= useState('')
+  const [inputCount, setInputCount] = useState("");
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -40,7 +40,7 @@ export default function BudgetAppGold({ props }) {
 
   function handleInputCount(e) {
     setCount((e.target.value * gold.cena).toFixed(2));
-    setInputCount(e.target.value)
+    setInputCount(e.target.value);
   }
 
   useEffect(() => {
@@ -59,8 +59,6 @@ export default function BudgetAppGold({ props }) {
 
   useEffect(() => {
     fetchNbpGoldTopCount(setGoldTopCount);
-    console.log('GoldChartTOPCount')
-    console.log(goldTopCount)
   }, []);
 
   useEffect(() => {
@@ -82,7 +80,12 @@ export default function BudgetAppGold({ props }) {
           </p>
           <div className={classes.ba_gold_count}>
             <label>Count</label>
-            <InputComponent type="number" action={handleInputCount} value={inputCount}  placeholder="0" />
+            <InputComponent
+              type="number"
+              action={handleInputCount}
+              value={inputCount}
+              placeholder="0"
+            />
             <p>{count}</p>
           </div>
         </div>
@@ -108,10 +111,11 @@ export default function BudgetAppGold({ props }) {
           )}
         </div>
       </div>
-      <div style={{ width: "100%", height:"100%"}}>
+      <div style={{ width: "100%", height: "100%" }}>
         <h3>Last 30 top count gold </h3>
-        <div className={classes.chart}><SimpleLineChart data={goldTopCount} /></div>
-        
+        <div className={classes.chart}>
+          <SimpleLineChart data={goldTopCount} />
+        </div>
       </div>
     </Wrapper>
   );

@@ -28,6 +28,8 @@ const fethNbpCurrent = async function (
       };
     });
 
+    console.log('TRANSFORMS')
+console.log(transformesExchange)
     setExchange(transformesExchange);
     dispatchDate({
       type: "addCurentDate",

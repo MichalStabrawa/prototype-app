@@ -1,21 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-    contents: [],
+  contents: [],
   isLoading: false,
   error: null,
 };
 
-export const fetchContent = createAsyncThunk(
-  "fetchContent",
-  async () => {
+export const fetchContent = createAsyncThunk("fetchContent", async () => {
+  try {
     const res = await fetch("http://api.nbp.pl/api/exchangerates/tables/B");
+    if (!res.ok) {
+      throw new Error("Somthing went wrong");
+    }
     const data = await res.json();
-    console.log('Zloto')
-    console.log(data)
+
     return data[0];
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 const fetchGoldSlice = createSlice({
   name: "content",

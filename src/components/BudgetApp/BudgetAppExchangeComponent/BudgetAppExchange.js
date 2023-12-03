@@ -37,8 +37,6 @@ const BudgetAppExchange = (props) => {
   const [errorLast, setErrorLast] = useState(null);
   const [nbpTopCountData,dispatchNbpTopCountData] = useReducer(fetchNbpTopCountReducer,[])
 
-  console.log("NBPTOPCOUNT")
-  console.log(nbpTopCountData.data)
   useEffect(() => {
     fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate,dispatchNbpTopCountData);
   }, []);
