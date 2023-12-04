@@ -25,10 +25,8 @@ const fetchNbpGoldData = async function (currentDate, setData) {
     if (!response.ok) {
       throw new Error("Somthing went wrong with api gold");
     }
-    console.log(response);
+
     const data = await response.json();
-    console.log("Data");
-    console.log(data[0]);
 
     setData(data[0]);
   } catch (error) {
@@ -65,4 +63,9 @@ const fetchNbpGoldLast = async function (setGoldLastPrice) {
   }
 };
 
-export { fetchNbpGold, fetchNbpGoldData, fetchNbpGoldTopCount,fetchNbpGoldLast };
+export {
+  fetchNbpGold,
+  fetchNbpGoldData,
+  fetchNbpGoldTopCount,
+  fetchNbpGoldLast,
+};

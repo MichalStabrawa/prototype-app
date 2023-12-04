@@ -32,7 +32,7 @@ const {
   initialStateSummaryExpenses,
   reducerSummaryNameValueExpenses,
   reducerSummarySalary,
-  fetchNbpTopCountReducer
+  fetchNbpTopCountReducer,
 } = Reducer;
 
 const BudgetAppComponent = (props) => {
@@ -59,15 +59,16 @@ const BudgetAppComponent = (props) => {
   const [filter, setFilter] = useState(false);
   const [filterSalaryValue, setFilterSalaryValue] = useState(null);
   const [saveSalary, setSaveSalary] = useState(false);
-  const [nbpTopCountData,dispatchNbPTopCountData] = useReducer(fetchNbpTopCountReducer,[])
+  const [nbpTopCountData, dispatchNbPTopCountData] = useReducer(
+    fetchNbpTopCountReducer,
+    []
+  );
 
   const currentDate = getCurrentDate();
   const maxVal = maxValue(stateUploadLocal);
 
   useEffect(() => {
     changeSummary(stateSalarySummary);
-    console.log("StateSalarySummary");
-    console.log(stateSalarySummary);
   }, [stateSalarySummary]);
 
   useEffect(() => {
@@ -235,9 +236,6 @@ const BudgetAppComponent = (props) => {
     const index = e.target.selectedIndex;
     const option = e.target.childNodes[index];
     setFilterSalaryValue(e.target.value);
-    console.log("SUMMARY");
-    console.log(summary);
-    console.log("FILTER");
   };
 
   useEffect(() => {
@@ -352,10 +350,7 @@ const BudgetAppComponent = (props) => {
                 >
                   <CartesianGrid strokeDasharray="5 3" />
                   <XAxis dataKey="name" />
-                  <YAxis
-                    domain={["auto", maxVal]}
-                    allowDataOverflow={true}
-                  />
+                  <YAxis domain={["auto", maxVal]} allowDataOverflow={true} />
                   <Tooltip />
                   <Area
                     type="monotone"

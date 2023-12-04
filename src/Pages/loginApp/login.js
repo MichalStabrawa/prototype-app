@@ -5,10 +5,10 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../store/auth";
+import {useSelector,useDispatch} from 'react-redux';
+import { authActions } from '../../store/auth';
 
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const LoginApp = (props) => {
   const [login, setLogin] = useState("");
@@ -17,29 +17,28 @@ const LoginApp = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.isAuthenticated);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const addLogin = (e) => {
     const loginValue = e.target.value;
-    console.log(loginValue);
+
     setLogin(loginValue);
   };
 
   const addpassword = (e) => {
     const passwordValue = e.target.value;
-    console.log(passwordValue);
+
     setPassword(passwordValue);
   };
   const loginHandler = (e) => {
     e.preventDefault();
 
-    if(login.length>0 && password.length>0) {
-        dispatch(authActions.login());
-        navigate('/')
-    }else {
-        alert('Login or Password incorect')
+    if (login.length > 0 && password.length > 0) {
+      dispatch(authActions.login());
+      navigate("/");
+    } else {
+      alert("Login or Password incorect");
     }
-    
   };
 
   return (

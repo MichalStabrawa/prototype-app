@@ -3,7 +3,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 
 export default function BartChart(props) {
 const {data}= props
-console.log('BAR CHART')
+
 return(
     <ResponsiveContainer width="50%" height="100%">
     <BarChart
