@@ -10,6 +10,7 @@ import AboutUs from "./Pages/about/aboutUs";
 import ExchangeRates from "./Pages/exchange/exchange-rates";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContent } from "./store/fetchGoldSlice";
+import {fetchNbpTableA} from "./store/currencyApiNbp/currencyNbpSlice"
 import authSlice from'./store/auth';
 
 import { useEffect } from "react";
@@ -19,12 +20,17 @@ function App() {
 
   const contents = useSelector((state) => state.content.contents);
 const auth = useSelector(state=>state.isAuthenticated)
+const currency = useSelector(state=> state.currency.data)
+
+console.log('Currency');
+console.log(currency)
  
 
   const isLoading = useSelector((state) => state.content.isLoading)
   const error = useSelector((state) => state.content.error)
   useEffect(() => {
     dispatch(fetchContent())
+    dispatch(fetchNbpTableA())
   }, [dispatch])
 
   if (isLoading) {

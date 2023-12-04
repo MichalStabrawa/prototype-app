@@ -11,8 +11,10 @@ import { authActions } from "../../store/auth";
 
 const NavComponent = (props) => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.isAuthenticated);
+  const auth = useSelector((state) => state.auth.isAuthenticated);
   const [active, setActive] = useState(false);
+
+  console.log()
 
   console.log("ISAUTH");
   console.log(auth);
