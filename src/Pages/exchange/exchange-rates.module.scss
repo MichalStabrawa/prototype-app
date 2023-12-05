@@ -3,4 +3,19 @@
 .exchange_wrapper {
     display: grid;
     background: $graylight;
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2;}
+
+      .table {
+        overflow-x:auto;
+      }
+}
+
+header {
+    padding:20px;
+    margin-bottom: 20px;
 }
