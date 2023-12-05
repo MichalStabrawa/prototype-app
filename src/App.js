@@ -22,7 +22,7 @@ function App() {
 const auth = useSelector(state=>state.isAuthenticated)
 const currency = useSelector(state=> state.currency.data)
 
-console.log('Currency');
+console.log('Currency!!!!');
 console.log(currency)
  
 

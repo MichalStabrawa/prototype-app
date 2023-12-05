@@ -9,13 +9,15 @@ const initialState = {
 export const fetchNbpTableA = createAsyncThunk("fetchNbpTableA", async () => {
   try {
     const response = await fetch(
-      "http://api.nbp.pl/api/exchangerates/tables/A"
+      'http://api.nbp.pl/api/exchangerates/tables/A/last/2'
     );
     if (!response.ok) {
       throw new Error("Somthing went wrong");
     }
     const data = await response.json();
-    return data[0];
+    console.log('DATA 2')
+    console.log(data)
+    return data;
   } catch (error) {
     console.log(error);
   }
