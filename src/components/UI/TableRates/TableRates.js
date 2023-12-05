@@ -9,7 +9,7 @@ const TableRates = (props) => {
     <div className={classes.table_rates}>
       <p>
         TABLE: {table}{" "}
-        <span className={classes.date}>date: {effectiveDate}</span>
+        <span className={classes.date}>date: {effectiveDate&& effectiveDate}</span>
       </p>
       <table>
         <thead>
