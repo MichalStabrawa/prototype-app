@@ -1,12 +1,15 @@
 import classes from "./TableRates.module.scss";
+import IconArrow from "../iconArrow/iconArrow";
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 
 const TableRates = (props) => {
-  const { data ,effectiveDate,table} = props;
+  const { data, effectiveDate, table } = props;
 
   return (
     <div className={classes.table_rates}>
       <p>
-        TABLE: {table} <span className={classes.date}>date: {effectiveDate}</span>
+        TABLE: {table}{" "}
+        <span className={classes.date}>date: {effectiveDate}</span>
       </p>
       <table>
         <thead>
@@ -27,9 +30,9 @@ const TableRates = (props) => {
                   <td>{el.currency}</td>
                   <td>{el.mid}</td>
                   <td>
-                    {el.state === "+" && <span className="grow">+</span>}
-                    {el.state === "-" && <span className="falls">-</span>}
-                    {el.state === "=" && <span className="equal">=</span>}
+                    <IconArrow
+                      arrow={getCurrentPrevDifferences(el.mid, el.lastValue)}
+                    />
                   </td>
                   <td className={classes.date}>{effectiveDate}</td>
                 </tr>
