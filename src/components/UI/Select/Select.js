@@ -19,7 +19,7 @@ const Select = (props) => {
                 data-names=''
                 data-code=''>Choice
             </option>
-            {showOption()}
+            {exchange&&showOption()}
         </select >
     )
 }
