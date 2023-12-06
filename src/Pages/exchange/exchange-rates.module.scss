@@ -14,9 +14,32 @@
       .table {
         overflow-x:auto;
       }
+
+      &__count {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:20px;
+
+        &__ex {
+          padding:0 0px 20px 20px
+        }
+      }
+
+      .equal {
+        font-size:1.5rem;
+        padding:10px;
+        background: #334565;
+        max-width:200px;
+        color:#fff;
+        text-align: center;
+      }
 }
 
 header {
     padding:20px;
     margin-bottom: 20px;
+}
+
+.chart {
+  height:400px;
 }

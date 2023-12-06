@@ -4,9 +4,9 @@ const Select = (props) => {
     const { exchange, name, catchValue } = props;
     const showOption = () => exchange.map((el, index) =>
         <option
-            value={el.value}
+            value={el.mid}
             key={index}
-            data-names={el.name}
+            data-names={el.currency}
             data-code={el.code}
         >
             {el.code}
