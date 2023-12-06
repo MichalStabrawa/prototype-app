@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useReducer } from "react";
+import {useSelector} from "react-redux"
 import Wrapper from "../../UI/Wrapper/Wrapper";
 import classes from "../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss";
 import Select from "../../UI/Select/Select";
@@ -27,6 +28,7 @@ import Reducer from "./../../../store/store";
 const { reducerDate, initialDate,fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
+  const dataWithSelector = useSelector(state=> state.currency.data)
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
   const [currency, setCurrency] = useState([]);
   const [exchange, setExchange] = useState([]);
