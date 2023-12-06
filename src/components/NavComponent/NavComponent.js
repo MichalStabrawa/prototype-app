@@ -14,11 +14,6 @@ const NavComponent = (props) => {
   const auth = useSelector((state) => state.auth.isAuthenticated);
   const [active, setActive] = useState(false);
 
-  console.log()
-
-  console.log("ISAUTH");
-  console.log(auth);
-
   const showMobileNav = () => {
     setActive(!active);
   };

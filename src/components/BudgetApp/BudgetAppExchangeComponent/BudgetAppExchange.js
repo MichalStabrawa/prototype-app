@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useReducer } from "react";
+import { useSelector } from "react-redux";
 import Wrapper from "../../UI/Wrapper/Wrapper";
 import classes from "../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss";
 import Select from "../../UI/Select/Select";
@@ -23,10 +24,13 @@ import {
 } from "recharts";
 
 import Reducer from "./../../../store/store";
+import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
-const { reducerDate, initialDate,fetchNbpTopCountReducer } = Reducer;
+const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
+  const dataCurrencySelector = useSelector((state) => state.currency.data);
+  const [data, setData] = useState([]);
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
   const [currency, setCurrency] = useState([]);
   const [exchange, setExchange] = useState([]);
@@ -35,10 +39,19 @@ const BudgetAppExchange = (props) => {
   const [isLoadingLast, setIsLoadingLast] = useState(false);
   const [exchangeLast, setExchangeLast] = useState([]);
   const [errorLast, setErrorLast] = useState(null);
-  const [nbpTopCountData,dispatchNbpTopCountData] = useReducer(fetchNbpTopCountReducer,[])
+  const [nbpTopCountData, dispatchNbpTopCountData] = useReducer(
+    fetchNbpTopCountReducer,
+    []
+  );
 
   useEffect(() => {
-    fetchCurrentNBP(setIsLoading, setError, setExchange, dispatchDate,dispatchNbpTopCountData);
+    fetchCurrentNBP(
+      setIsLoading,
+      setError,
+      setExchange,
+      dispatchDate,
+      dispatchNbpTopCountData
+    );
   }, []);
 
   useEffect(() => {
@@ -56,6 +69,16 @@ const BudgetAppExchange = (props) => {
     });
   };
 
+  useEffect(() => {
+    if (dataCurrencySelector.length) {
+      const tab = getCompareLastActualValue(
+        dataCurrencySelector[1].rates,
+        dataCurrencySelector[0].rates
+      );
+      setData(tab);
+    }
+  }, [dataCurrencySelector]);
+
   return (
     <Wrapper css={props.css}>
       {isLoading && <p>Is Loading</p>}
@@ -67,7 +90,7 @@ const BudgetAppExchange = (props) => {
           <Select
             name="Count"
             catchValue={addExchangeHandler}
-            exchange={exchange}
+            exchange={data}
           ></Select>
         </div>
         <div>
@@ -205,7 +228,6 @@ const BudgetAppExchange = (props) => {
         </p>
       </div>
       <div className={classes.chart}>
-
         <ResponsiveContainer width="100%" height="100%">
           <label>{stateDate.currentDate}</label>
           <ComposedChart
