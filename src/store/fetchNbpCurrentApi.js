@@ -28,8 +28,8 @@ const fethNbpCurrent = async function (
       };
     });
 
-    console.log('TRANSFORMS')
-console.log(transformesExchange)
+    console.log("TRANSFORMS");
+    console.log(transformesExchange);
     setExchange(transformesExchange);
     dispatchDate({
       type: "addCurentDate",
@@ -37,9 +37,9 @@ console.log(transformesExchange)
     });
 
     dispatchNbPTopCountData({
-      type:"putNbpTopCountData",
-      data:transformesExchange
-    })
+      type: "putNbpTopCountData",
+      data: transformesExchange,
+    });
   } catch (error) {
     setError(error.message);
     console.log(error.message);

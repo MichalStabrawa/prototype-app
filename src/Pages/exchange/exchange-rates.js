@@ -101,7 +101,7 @@ const ExchangeRates = (props) => {
             ) : null}
             <div className={classes.exchange_wrapper__count__ex}>
               <p>Count currency</p>
-              <div>
+              <div className={classes.count_pln}>
                 <InputComponent
                   type="number"
                   placeholder="0"
