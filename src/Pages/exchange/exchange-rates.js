@@ -121,8 +121,9 @@ const ExchangeRates = (props) => {
                 <p className={classes.equal}>
                   {inputValue &&
                     countCurrency.value &&
-                    `${(inputValue * countCurrency.value).toFixed(2)}`}{" "}
-                  PLN
+                    `${(inputValue * countCurrency.value).toFixed(2)}  PLN`}{" "}
+                 {(!inputValue ||
+                  !countCurrency.value) && 0}
                 </p>
               </div>
               <div>
@@ -145,9 +146,9 @@ const ExchangeRates = (props) => {
                     countOtherCurrency.value &&
                     `${(inputOtherValue / countOtherCurrency.value).toFixed(
                       2
-                    )}`}{" "}
-                  {countOtherCurrency.name}
-                </p>
+                    )}  ${countOtherCurrency.code}`}
+               {(!inputOtherValue || !countOtherCurrency.value)&& 0}
+                </p>  <span>{(countOtherCurrency.name)}</span>
               </div>
             </div>
           </div>
