@@ -19,10 +19,13 @@ import TableRates from "../../components/UI/TableRates/TableRates";
 
 const ExchangeRates = (props) => {
   const currency = useSelector((state) => state.currency.data);
+  console.log('CURRENCY!!!!!!')
+
 
   const [compareData, setCompareData] = useState([]);
+  console.log('COMPARE CURRENCy')
+  console.log(compareData)
   const [data, setData] = useState([]);
-  const [effectiveDay,setEffectiveDay] = useState('')
 
   useEffect(() => {
     setCompareData(currency);
@@ -37,26 +40,22 @@ const ExchangeRates = (props) => {
       setData(tab);
     }
   }, [compareData, currency]);
-  useEffect(()=> {
 
-setEffectiveDay( currency[1].effectiveDate)
-  },[currency])
 
   return (
     <Wrapper>
       <header>
         <h1>Exchange Rates</h1>
-        
+
       </header>
       <div className={classes.exchange_wrapper}>
         <BudgetAppSection>
-          {(currency.length>0 && effectiveDay !== undefined) && (
+          {(currency.length>0 ) ? (
             <TableRates
-              data={data}
-              effectiveDate={effectiveDay}
-              table={currency[1].table}
+              data={currency}
+             
             />
-          )}
+          ):null}
 
           <div className={classes.chart}>
             <ResponsiveContainer width="100%" height="100%">
