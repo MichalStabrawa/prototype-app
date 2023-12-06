@@ -105,11 +105,11 @@ const BudgetAppExchange = (props) => {
                 />
                 {currency.code} {`(${currency.name})`} to w przeliczeniu
               </div>
-              <p>
-                <span className={classes.currency}>
-                  {(+props.exchangeValue * currency.value).toFixed(2)}{" "}
+              <p className={classes.equal}>
+                <span >
+                  {`${(+props.exchangeValue * currency.value).toFixed(2)} PLN`}
                 </span>
-                PLN{" "}
+             
               </p>
             </div>
           )}
