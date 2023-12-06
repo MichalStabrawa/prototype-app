@@ -25,22 +25,50 @@ const ExchangeRates = (props) => {
   const [compareData, setCompareData] = useState([]);
   const [data, setData] = useState([]);
   const [countCurrency, setCountCurrency] = useState([]);
+  const [countOtherCurrency, setCountOtherCurrency] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [inputOtherValue, setInputOtherValue] = useState("");
 
   const addInputValue = (el) => {
     const e = el.target.value;
-    setInputValue(e);
+    const name = el.target.name;
+
+    switch (name) {
+      case "pln":
+        setInputValue(e);
+        break;
+
+      case "other":
+        setInputOtherValue(e);
+        break;
+      default:
+        return null;
+    }
   };
 
   const addExchangeHandler = (e) => {
     const index = e.target.selectedIndex;
     const option = e.target.childNodes[index];
+    const name = e.target.name;
+    switch (name) {
+      case "countPln":
+        setCountCurrency({
+          name: option.getAttribute("data-names"),
+          value: e.target.value,
+          code: option.getAttribute("data-code"),
+        });
+        break;
+      case "countOther":
+        setCountOtherCurrency({
+          name: option.getAttribute("data-names"),
+          value: e.target.value,
+          code: option.getAttribute("data-code"),
+        });
 
-    setCountCurrency({
-      name: option.getAttribute("data-names"),
-      value: e.target.value,
-      code: option.getAttribute("data-code"),
-    });
+        break;
+      default:
+        return null;
+    }
   };
 
   useEffect(() => {
@@ -74,15 +102,50 @@ const ExchangeRates = (props) => {
             <div className={classes.exchange_wrapper__count__ex}>
               <p>Count currency</p>
               <div>
-                <InputComponent type="number" placeholder="0" value={inputValue} action={addInputValue} />
+                <InputComponent
+                  type="number"
+                  placeholder="0"
+                  value={inputValue}
+                  action={addInputValue}
+                  name="pln"
+                />
                 <Select
                   exchange={data}
                   catchValue={addExchangeHandler}
-                  name="Count"
+                  name="countPln"
                 />
-                <p>{inputValue} {countCurrency.name} =</p>
+                <p>
+                  {inputValue} {countCurrency.name} =
+                </p>
 
-                <p className={classes.equal}>{inputValue && countCurrency.value&& `${inputValue*countCurrency.value}`} PLN</p>
+                <p className={classes.equal}>
+                  {inputValue &&
+                    countCurrency.value &&
+                    `${(inputValue * countCurrency.value).toFixed(2)}`}{" "}
+                  PLN
+                </p>
+              </div>
+              <div>
+                <InputComponent
+                  type="number"
+                  placeholder="0"
+                  value={inputOtherValue}
+                  action={addInputValue}
+                  name="other"
+                />
+                <Select
+                  exchange={data}
+                  catchValue={addExchangeHandler}
+                  name="countOther"
+                />
+                <p>{inputOtherValue} PLN =</p>
+
+                <p className={classes.equal}>
+                  {inputOtherValue &&
+                    countOtherCurrency.value &&
+                    `${(inputOtherValue / countOtherCurrency.value).toFixed(2)}`}{" "}
+                  {countOtherCurrency.name}
+                </p>
               </div>
             </div>
           </div>
