@@ -9,7 +9,9 @@ const TableRates = (props) => {
     <div className={classes.table_rates}>
       <p>
         TABLE: {table}{" "}
-        <span className={classes.date}>date: {effectiveDate&& effectiveDate}</span>
+        <span className={classes.date}>
+          date: {effectiveDate && effectiveDate}
+        </span>
       </p>
       <table>
         <thead>
@@ -17,6 +19,7 @@ const TableRates = (props) => {
             <th>code</th>
             <th>currency</th>
             <th>value</th>
+            <th>rate arrow</th>
             <th>rate</th>
             <th>date</th>
           </tr>
@@ -33,6 +36,13 @@ const TableRates = (props) => {
                     <IconArrow
                       arrow={getCurrentPrevDifferences(el.mid, el.lastValue)}
                     />
+                  </td>
+                  <td
+                    className={`${classes.rate} ${
+                      classes[getCurrentPrevDifferences(el.mid, el.lastValue)]
+                    }`}
+                  >
+                    {(el.mid - el.lastValue).toFixed(4)}
                   </td>
                   <td className={classes.date}>{effectiveDate}</td>
                 </tr>

@@ -16,3 +16,16 @@
   font-style: italic;
   font-size: 0.85rem;
 }
+
+.table_rates .rate {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.table_rates .rate.green {
+  color: green;
+}
+
+.table_rates .rate.red {
+  color: red;
+}

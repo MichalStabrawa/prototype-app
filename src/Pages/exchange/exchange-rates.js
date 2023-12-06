@@ -22,6 +22,7 @@ const ExchangeRates = (props) => {
 
   const [compareData, setCompareData] = useState([]);
   const [data, setData] = useState([]);
+  const [effectiveDay,setEffectiveDay] = useState('')
 
   useEffect(() => {
     setCompareData(currency);
@@ -36,18 +37,23 @@ const ExchangeRates = (props) => {
       setData(tab);
     }
   }, [compareData, currency]);
+  useEffect(()=> {
+
+setEffectiveDay( currency[1].effectiveDate)
+  },[currency])
 
   return (
     <Wrapper>
       <header>
         <h1>Exchange Rates</h1>
+        
       </header>
       <div className={classes.exchange_wrapper}>
         <BudgetAppSection>
-          {currency[0].effectiveDate.length && (
+          {(currency.length>0 && effectiveDay !== undefined) && (
             <TableRates
               data={data}
-              effectiveDate={currency[1].effectiveDate}
+              effectiveDate={effectiveDay}
               table={currency[1].table}
             />
           )}
