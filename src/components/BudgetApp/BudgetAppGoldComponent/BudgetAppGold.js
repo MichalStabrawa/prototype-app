@@ -13,6 +13,8 @@ import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
 import SimpleLineChart from "../../Chart/SimpleLineChart";
 import BarChart from "../../Chart/BarChart";
+import IconArrow from "../../UI/iconArrow/iconArrow";
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -71,7 +73,10 @@ export default function BudgetAppGold({ props }) {
         <div className={classes.ba_gold}>
           <p>Current gold price</p>
           <p>
-            {gold.data} <span>{gold.cena} PLN/g</span>
+            {gold.data} <span>{gold.cena} PLN/g</span>{" "}
+            <IconArrow
+              arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
+            />
           </p>
           <p>Current date: {getCurrentDate()} </p>
           <p>Previous quote</p>
