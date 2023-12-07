@@ -95,7 +95,6 @@ const ExchangeRates = (props) => {
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>
-                {" "}
                 <TableRates data={currency} />
               </div>
             ) : null}
@@ -114,6 +113,15 @@ const ExchangeRates = (props) => {
                   catchValue={addExchangeHandler}
                   name="countPln"
                 />
+                <table className={classes.table_rates}>
+                  <tbody>
+                    <tr>
+                      <td>{countCurrency.code}</td>
+                      <td>{countCurrency.name}</td>
+                      <td>{countCurrency.value}</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p>
                   {inputValue} {countCurrency.name} =
                 </p>
@@ -121,15 +129,16 @@ const ExchangeRates = (props) => {
                 <p className={classes.equal}>
                   {inputValue &&
                     countCurrency.value &&
-                    `${(inputValue * countCurrency.value).toFixed(2)}  PLN`}{" "}
-                 {(!inputValue ||
-                  !countCurrency.value) && 0}
+                    `${(inputValue * countCurrency.value).toFixed(
+                      2
+                    )}  PLN`}{" "}
+                  {(!inputValue || !countCurrency.value) && 0}
                 </p>
               </div>
               <div>
                 <InputComponent
                   type="number"
-                  placeholder="0"
+                  placeholder={`0 ${countOtherCurrency.code}`}
                   value={inputOtherValue}
                   action={addInputValue}
                   name="other"
@@ -139,6 +148,15 @@ const ExchangeRates = (props) => {
                   catchValue={addExchangeHandler}
                   name="countOther"
                 />
+                <table className={classes.table_rates}>
+                  <tbody>
+                    <tr>
+                      <td>{countOtherCurrency.code}</td>
+                      <td>{countOtherCurrency.name}</td>
+                      <td>{countOtherCurrency.value}</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p>{inputOtherValue} PLN =</p>
 
                 <p className={classes.equal}>
@@ -147,8 +165,8 @@ const ExchangeRates = (props) => {
                     `${(inputOtherValue / countOtherCurrency.value).toFixed(
                       2
                     )}  ${countOtherCurrency.code}`}
-               {(!inputOtherValue || !countOtherCurrency.value)&& 0}
-                </p>  <span>{(countOtherCurrency.name)}</span>
+                  {(!inputOtherValue || !countOtherCurrency.value) && 0}
+                </p>
               </div>
             </div>
           </div>
