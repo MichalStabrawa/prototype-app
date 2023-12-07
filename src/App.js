@@ -13,11 +13,11 @@ import { fetchContent } from "./store/fetchGoldSlice";
 import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
 import authSlice from "./store/auth";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const dispatch = useDispatch();
-
+  const tableKind = useSelector((state) => state.table.table);
   const contents = useSelector((state) => state.content.contents);
   const auth = useSelector((state) => state.isAuthenticated);
   const currency = useSelector((state) => state.currency.data);
@@ -27,10 +27,11 @@ function App() {
 
   const isLoading = useSelector((state) => state.content.isLoading);
   const error = useSelector((state) => state.content.error);
+
   useEffect(() => {
     dispatch(fetchContent());
-    dispatch(fetchNbpTableA());
-  }, [dispatch]);
+    dispatch(fetchNbpTableA(tableKind));
+  }, [dispatch, tableKind]);
 
   if (isLoading) {
     return "loading...";

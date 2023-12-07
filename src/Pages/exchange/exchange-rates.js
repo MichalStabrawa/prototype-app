@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./exchange-rates.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BudgetAppSection from "../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
 import {
   BarChart,
@@ -18,10 +18,12 @@ import getCompareLastActualValue from "../../utils/getCurrentLastValue";
 import TableRates from "../../components/UI/TableRates/TableRates";
 import InputComponent from "../../components/UI/Input/InputComponent";
 import Select from "../../components/UI/Select/Select";
+import { kindOfTableActions } from "../../store/currencyApiNbp/kindOfTableSlice";
 
 const ExchangeRates = (props) => {
+  const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency.data);
-
+  const table = useSelector((state) => state.table.table);
   const [compareData, setCompareData] = useState([]);
   const [data, setData] = useState([]);
   const [countCurrency, setCountCurrency] = useState([]);
@@ -71,6 +73,15 @@ const ExchangeRates = (props) => {
     }
   };
 
+  const changeKindOfTableHandler = () => {
+    if (table === "A") {
+      dispatch(kindOfTableActions.changeToTableB());
+    }
+    if (table === "B") {
+      dispatch(kindOfTableActions.changeToTableA());
+    }
+  };
+
   useEffect(() => {
     setCompareData(currency);
   }, [currency]);
@@ -95,11 +106,15 @@ const ExchangeRates = (props) => {
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>
+                <button onClick={changeKindOfTableHandler}>
+                  {table === "A" ? "Table B" : "Table A"}
+                </button>
                 <TableRates data={currency} />
               </div>
             ) : null}
             <div className={classes.exchange_wrapper__count__ex}>
-              <p>Count currency</p>
+              <h2>Count currency</h2>
+              <h3>Exchange currency to PLN</h3>
               <div className={classes.count_pln}>
                 <InputComponent
                   type="number"
@@ -135,7 +150,8 @@ const ExchangeRates = (props) => {
                   {(!inputValue || !countCurrency.value) && 0}
                 </p>
               </div>
-              <div>
+              <div className={classes.count_pln}>
+                <h3>Exchange PLN to currency</h3>
                 <InputComponent
                   type="number"
                   placeholder={`0 ${countOtherCurrency.code}`}
