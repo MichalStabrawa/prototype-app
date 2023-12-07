@@ -71,9 +71,10 @@ export default function BudgetAppGold({ props }) {
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <p>Current gold price</p>
+          <p className={classes.gold_price}>Current gold price</p>
           <p>
-            {gold.data} <span>{gold.cena} PLN/g</span>{" "}
+            <span className={classes.date}>{gold.data}</span>{" "}
+            <span>{gold.cena} PLN/g</span>{" "}
             <IconArrow
               arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
             />
@@ -81,7 +82,7 @@ export default function BudgetAppGold({ props }) {
           <p>Current date: {getCurrentDate()} </p>
           <p>Previous quote</p>
           <p>
-            {goldLast.data}: <span>{goldLast.cena}</span>
+          <span className={classes.date}> {goldLast.data}</span> <span>{goldLast.cena}</span>
           </p>
           <div className={classes.ba_gold_count}>
             <label>Count</label>
@@ -97,7 +98,8 @@ export default function BudgetAppGold({ props }) {
         <div className={classes.ba_gold}>
           <label>choose data</label>
           <p>
-            {data.data} <span>{data.cena} PLN/g</span>
+            <span className={classes.date}> {data.data}</span>{" "}
+            <span>{data.cena} PLN/g</span>
           </p>
           <InputComponent
             type="date"
