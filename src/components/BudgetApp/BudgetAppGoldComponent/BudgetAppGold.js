@@ -86,7 +86,7 @@ export default function BudgetAppGold({ props }) {
               value={inputCount}
               placeholder="0"
             />
-            <p>{count}</p>
+            <p className={classes.equal}>{count}</p>
           </div>
         </div>
         <div className={classes.ba_gold}>
