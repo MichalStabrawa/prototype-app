@@ -1,88 +1,92 @@
-@import './../../styles/main';
+@import "./../../styles/main";
 
 .exchange_wrapper {
+  display: grid;
+  background: $graylight;
+  margin: 20px;
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .table {
+    overflow-x: auto;
+  }
+
+  &__count {
     display: grid;
-    background: $graylight;
-    margin:20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 
-    th, td {
-        text-align: left;
-        padding: 8px;
+    &__ex {
+      padding: 0 20px 20px 20px;
+      box-shadow: $boxshadow;
+    }
+  }
+
+  .equal {
+    font-size: 20px;
+    padding: 10px;
+    background: #334565;
+    max-width: 200px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 52px;
+  }
+
+  .count_pln {
+    margin-bottom: 20px;
+    border-bottom: 1px solid $darkbluelight;
+    padding-bottom: 20px;
+  }
+
+  .table_rates {
+    margin-top: 20px;
+    overflow-x: auto;
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(odd) {
+      background-color: #f2f2f2;
+      height: 37px;
+    }
+
+    .date {
+      font-style: italic;
+      font-size: 0.85rem;
+    }
+
+    .rate {
+      font-size: 0.85rem;
+      font-style: italic;
+
+      &.green {
+        color: green;
       }
-      tr:nth-child(even) {background-color: #f2f2f2;}
-
-      .table {
-        overflow-x:auto;
+      &.red {
+        color: red;
       }
-
-      &__count {
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap:20px;
-
-        &__ex {
-          padding:0 20px 20px 20px;
-          box-shadow:$boxshadow;
-          
-        }
-      }
-
-      .equal {
-        font-size:20px;
-        padding:10px;
-        background: #334565;
-        max-width:200px;
-        color:#fff;
-        display:flex;
-        align-items: center;
-        height:52px;
-      }
-
-      .count_pln {
-        margin-bottom: 20px;
-        border-bottom: 1px solid $darkbluelight;
-      }
-
-      .table_rates {
-        margin-top:20px;
-        overflow-x: auto;
-        th,
-        td {
-          text-align: left;
-          padding: 8px;
-        }
-        tr:nth-child(odd) {
-          background-color: #f2f2f2;
-        }
-      
-        .date {
-          font-style: italic;
-          font-size: 0.85rem;
-        }
-      
-        .rate {
-          font-size: 0.85rem;
-          font-style: italic;
-      
-          &.green {
-            color:green
-        
-          }
-          &.red {
-            color:red
-          }
-        }
-       
-       
-      }
+    }
+  }
+  h3 {
+    font-style: italic;
+    color: $darkbluelight;
+  }
 }
 
 header {
-    padding:20px;
-   
+  padding: 20px;
 }
 
 .chart {
-  height:400px;
-  margin-top:40px;
+  height: 400px;
+  margin-top: 40px;
 }

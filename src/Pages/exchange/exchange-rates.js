@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./exchange-rates.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BudgetAppSection from "../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
 import {
   BarChart,
@@ -18,16 +18,53 @@ import getCompareLastActualValue from "../../utils/getCurrentLastValue";
 import TableRates from "../../components/UI/TableRates/TableRates";
 import InputComponent from "../../components/UI/Input/InputComponent";
 import Select from "../../components/UI/Select/Select";
+import { kindOfTableActions } from "../../store/currencyApiNbp/kindOfTableSlice";
+import {
+  singleCurrencyDateFetch,
+  singleCurrencyDateActions,
+} from "../../store/currencyApiNbp/singleCurrencyFetchDateSlice";
+
+import getCurrentDate from "../../utils/dateFunction";
 
 const ExchangeRates = (props) => {
+  const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency.data);
+  const table = useSelector((state) => state.table.table);
+  const status = useSelector((state) => state.singleCurrency.status);
 
+  const singleCurrencyData = useSelector((state) => state.singleCurrency.data);
+  const isLoading = useSelector((state) => state.content.isLoading);
   const [compareData, setCompareData] = useState([]);
   const [data, setData] = useState([]);
   const [countCurrency, setCountCurrency] = useState([]);
   const [countOtherCurrency, setCountOtherCurrency] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [inputOtherValue, setInputOtherValue] = useState("");
+  const [singleCurrency, setSingleCurrency] = useState({
+    name: "",
+    value: "",
+    code: "",
+  });
+  const [dateValue, setDateValue] = useState("");
+  const [flag, setFlag] = useState(props.flag);
+  const [single, setSingle] = useState([]);
+  const error = useSelector((state) => state.content.error);
+
+  const currentDate = getCurrentDate();
+
+  console.log("Current Date");
+  console.log(currentDate);
+
+  const compareDataLive = dateValue === "" || dateValue >= currentDate;
+  if (dateValue !== "" && dateValue >= currentDate) {
+    console.log(`Compare ${dateValue >= currentDate}`);
+  } else {
+    console.log(dateValue >= currentDate);
+  }
+
+  useEffect(() => {
+    setFlag(props.flag);
+  }, [props.flag]);
 
   const addInputValue = (el) => {
     const e = el.target.value;
@@ -66,14 +103,59 @@ const ExchangeRates = (props) => {
         });
 
         break;
+
+      case "singleCurrency":
+        setSingleCurrency({
+          name: option.getAttribute("data-names"),
+          value: e.target.value,
+          code: option.getAttribute("data-code"),
+        });
+        break;
       default:
         return null;
     }
   };
 
+  const changeKindOfTableHandler = () => {
+    if (table === "A") {
+      dispatch(kindOfTableActions.changeToTableB());
+      setSingleCurrency([]);
+      setDateValue("");
+
+      dispatch(singleCurrencyDateActions.deleteData());
+    }
+    if (table === "B") {
+      dispatch(kindOfTableActions.changeToTableA());
+      setSingleCurrency([]);
+      setDateValue("");
+
+      dispatch(singleCurrencyDateActions.deleteData());
+    }
+  };
+
+  const handleInputDate = (e) => {
+    setDateValue(e.target.value);
+  };
+
+  const handleSend = () => {
+    setFlag(!flag);
+    console.log(flag);
+  };
+
   useEffect(() => {
     setCompareData(currency);
   }, [currency]);
+
+  useEffect(() => {
+    if (singleCurrency.code && dateValue)
+      dispatch(
+        singleCurrencyDateFetch({
+          table: table,
+          code: singleCurrency.code,
+          date: dateValue,
+        })
+      );
+  }, [flag, dispatch]);
 
   useEffect(() => {
     if (compareData.length > 0) {
@@ -85,6 +167,18 @@ const ExchangeRates = (props) => {
     }
   }, [compareData, currency]);
 
+  useEffect(() => {
+    setSingle(singleCurrencyData);
+  }, [singleCurrencyData, flag]);
+
+  if (isLoading) {
+    return "loading...";
+  }
+
+  if (error) {
+    return error;
+  }
+
   return (
     <Wrapper>
       <header>
@@ -95,11 +189,15 @@ const ExchangeRates = (props) => {
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>
+                <button onClick={changeKindOfTableHandler}>
+                  {table === "A" ? "Table B" : "Table A"}
+                </button>
                 <TableRates data={currency} />
               </div>
             ) : null}
             <div className={classes.exchange_wrapper__count__ex}>
-              <p>Count currency</p>
+              <h2>Count currency</h2>
+              <h3>Exchange currency to PLN</h3>
               <div className={classes.count_pln}>
                 <InputComponent
                   type="number"
@@ -135,7 +233,8 @@ const ExchangeRates = (props) => {
                   {(!inputValue || !countCurrency.value) && 0}
                 </p>
               </div>
-              <div>
+              <div className={classes.count_pln}>
+                <h3>Exchange PLN to currency</h3>
                 <InputComponent
                   type="number"
                   placeholder={`0 ${countOtherCurrency.code}`}
@@ -148,6 +247,7 @@ const ExchangeRates = (props) => {
                   catchValue={addExchangeHandler}
                   name="countOther"
                 />
+
                 <table className={classes.table_rates}>
                   <tbody>
                     <tr>
@@ -167,6 +267,45 @@ const ExchangeRates = (props) => {
                     )}  ${countOtherCurrency.code}`}
                   {(!inputOtherValue || !countOtherCurrency.value) && 0}
                 </p>
+              </div>
+              <div className={classes.count_pln}>
+                <h3>Single currency with date</h3>
+                <Select
+                  exchange={data}
+                  catchValue={addExchangeHandler}
+                  name="singleCurrency"
+                />{" "}
+                <InputComponent
+                  type="date"
+                  action={handleInputDate}
+                  value={dateValue}
+                ></InputComponent>
+                {dateValue.length && dateValue > currentDate && (
+                  <p>Wrong date</p>
+                )}
+                {`Date: ${dateValue}`}
+                {status === "success" &&
+                status !== "error" &&
+                dateValue &&
+                singleCurrencyData && (
+                  <table className={classes.table_rates}>
+                    <tbody>
+                      <tr>
+                        <td>{singleCurrencyData.code}</td>
+                        <td>{singleCurrencyData.currency}</td>
+                        <td>{singleCurrencyData.rates[0].mid}</td>
+                        <td>{singleCurrencyData.rates[0].effectiveDate}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                ) }
+          
+                <button
+                  onClick={props.click}
+                  disabled={singleCurrency.code === "" || compareDataLive}
+                >
+                  Check
+                </button>
               </div>
             </div>
           </div>
