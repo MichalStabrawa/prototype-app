@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchContent } from "./store/fetchGoldSlice";
 import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
 import authSlice from "./store/auth";
+import { RotatingLines } from "react-loader-spinner";
 
 import { useEffect, useState } from "react";
 
@@ -38,19 +39,23 @@ function App() {
     dispatch(fetchNbpTableA(tableKind));
   }, [dispatch, tableKind]);
 
-  if (isLoading) {
-    return "loading...";
-  }
-
-  if (error) {
-    return error;
-  }
-
   console.log("CONTENTS");
   console.log(contents);
 
   return (
     <div className="App">
+      {isLoading && (
+        <div className="loader">
+          {" "}
+          <RotatingLines
+            strokeColor="grey"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+        </div>
+      )}
       <NavComponent></NavComponent>
       <Routes>
         <Route path="/" element={<Home />} />
