@@ -299,10 +299,10 @@ const ExchangeRates = (props) => {
                     </tbody>
                   </table>
                 ) }
-          
+          {status ==='error'&& <p>Brak danych</p>}
                 <button
                   onClick={props.click}
-                  disabled={singleCurrency.code === "" || compareDataLive}
+                  disabled={singleCurrency===null || compareDataLive}
                 >
                   Check
                 </button>
