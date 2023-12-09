@@ -25,6 +25,7 @@ import {
 } from "../../store/currencyApiNbp/singleCurrencyFetchDateSlice";
 
 import getCurrentDate from "../../utils/dateFunction";
+import Button from "../../components/UI/Button/Button";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -285,27 +286,30 @@ const ExchangeRates = (props) => {
                 )}
                 {`Date: ${dateValue}`}
                 {status === "success" &&
-                status !== "error" &&
-                dateValue &&
-                singleCurrencyData && (
-                  <table className={classes.table_rates}>
-                    <tbody>
-                      <tr>
-                        <td>{singleCurrencyData.code}</td>
-                        <td>{singleCurrencyData.currency}</td>
-                        <td>{singleCurrencyData.rates[0].mid}</td>
-                        <td>{singleCurrencyData.rates[0].effectiveDate}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ) }
-          {status ==='error'&& <p>Brak danych</p>}
-                <button
-                  onClick={props.click}
-                  disabled={singleCurrency===null || compareDataLive}
-                >
-                  Check
-                </button>
+                  status !== "error" &&
+                  dateValue &&
+                  singleCurrencyData && (
+                    <table className={classes.table_rates}>
+                      <tbody>
+                        <tr>
+                          <td>{singleCurrencyData.code}</td>
+                          <td>{singleCurrencyData.currency}</td>
+                          <td>{singleCurrencyData.rates[0].mid}</td>
+                          <td>{singleCurrencyData.rates[0].effectiveDate}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
+                {status === "error" && (
+                  <p className={classes.error}>Data Not Found!!!</p>
+                )}
+                <div className={classes.button_wrapper}>
+                  <Button
+                    name="check"
+                    click={props.click}
+                    disabled={singleCurrency === null || compareDataLive}
+                  />
+                </div>
               </div>
             </div>
           </div>
