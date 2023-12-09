@@ -21,12 +21,17 @@ function App() {
   const contents = useSelector((state) => state.content.contents);
   const auth = useSelector((state) => state.isAuthenticated);
   const currency = useSelector((state) => state.currency.data);
-
+  const [flag, setFlag] = useState(false);
   console.log("Currency!!!!");
   console.log(currency);
 
   const isLoading = useSelector((state) => state.content.isLoading);
   const error = useSelector((state) => state.content.error);
+
+  const handleSend = () => {
+    setFlag(!flag);
+    console.log(flag);
+  };
 
   useEffect(() => {
     dispatch(fetchContent());
@@ -53,7 +58,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login/remind-login" element={<RemindLogin />} />
-        <Route path="/exchange" element={<ExchangeRates />} />
+        <Route
+          path="/exchange"
+          element={<ExchangeRates flag={flag} click={handleSend} />}
+        />
       </Routes>
       <FooterAppSection></FooterAppSection>
     </div>
