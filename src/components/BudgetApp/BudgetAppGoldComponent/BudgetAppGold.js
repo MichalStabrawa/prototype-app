@@ -13,6 +13,8 @@ import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
 import SimpleLineChart from "../../Chart/SimpleLineChart";
 import BarChart from "../../Chart/BarChart";
+import IconArrow from "../../UI/iconArrow/iconArrow";
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -69,14 +71,18 @@ export default function BudgetAppGold({ props }) {
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <p>Current gold price</p>
+          <p className={classes.gold_price}>Current gold price</p>
           <p>
-            {gold.data} <span>{gold.cena} PLN/g</span>
+            <span className={classes.date}>{gold.data}</span>{" "}
+            <span>{gold.cena} PLN/g</span>{" "}
+            <IconArrow
+              arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
+            />
           </p>
           <p>Current date: {getCurrentDate()} </p>
           <p>Previous quote</p>
           <p>
-            {goldLast.data}: <span>{goldLast.cena}</span>
+          <span className={classes.date}> {goldLast.data}</span> <span>{goldLast.cena}</span>
           </p>
           <div className={classes.ba_gold_count}>
             <label>Count</label>
@@ -86,13 +92,14 @@ export default function BudgetAppGold({ props }) {
               value={inputCount}
               placeholder="0"
             />
-            <p>{count}</p>
+            <p className={classes.equal}>{count}</p>
           </div>
         </div>
         <div className={classes.ba_gold}>
           <label>choose data</label>
           <p>
-            {data.data} <span>{data.cena} PLN/g</span>
+            <span className={classes.date}> {data.data}</span>{" "}
+            <span>{data.cena} PLN/g</span>
           </p>
           <InputComponent
             type="date"

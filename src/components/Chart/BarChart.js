@@ -24,13 +24,13 @@ return(
       <Legend />
       <Bar
         dataKey="currentlyPrice"
-        barSize={50}
+        barSize={20}
         fill="#8884d8"
         activeBar={<Rectangle fill="pink" stroke="blue" />}
       />
       <Bar
         dataKey="chosenData"
-        barSize={50}
+        barSize={20}
         fill="#82ca9d"
         activeBar={<Rectangle fill="gold" stroke="purple" />}
       />
