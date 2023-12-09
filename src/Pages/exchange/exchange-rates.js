@@ -26,6 +26,7 @@ import {
 
 import getCurrentDate from "../../utils/dateFunction";
 import Button from "../../components/UI/Button/Button";
+import { RotatingLines, ThreeCircles } from "react-loader-spinner";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -173,11 +174,7 @@ const ExchangeRates = (props) => {
   }, [singleCurrencyData, flag]);
 
   if (isLoading) {
-    return "loading...";
-  }
-
-  if (error) {
-    return error;
+    return "LOADING......";
   }
 
   return (
@@ -302,6 +299,20 @@ const ExchangeRates = (props) => {
                   )}
                 {status === "error" && (
                   <p className={classes.error}>Data Not Found!!!</p>
+                )}
+                {status === "pending" && (
+                  <ThreeCircles
+                    height="25"
+                    width="25"
+                    color="grey"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="three-circles-rotating"
+                    outerCircleColor=""
+                    innerCircleColor=""
+                    middleCircleColor=""
+                  />
                 )}
                 <div className={classes.button_wrapper}>
                   <Button
