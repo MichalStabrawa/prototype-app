@@ -25,6 +25,7 @@ import {
 
 import Reducer from "./../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
+import Button from "../../UI/Button/Button";
 
 const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
@@ -244,13 +245,14 @@ const BudgetAppExchange = (props) => {
             <CartesianGrid stroke="#f5f5f5" />
             <XAxis dataKey="code" scale="band" />
             <YAxis />
-            <Tooltip />
+            <Tooltip dataKey="name" />
             <Legend />
             <Bar dataKey="value" barSize={15} fill="#413ea0" />
-            <Line type="monotone" dataKey="value" stroke="#ff7300" />
+            <Line type="monotone" dataKey="value"  stroke="#ff7300"  />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
+      <div><Link to="/exchange"><Button name="more >>"/></Link></div>
     </Wrapper>
   );
 };

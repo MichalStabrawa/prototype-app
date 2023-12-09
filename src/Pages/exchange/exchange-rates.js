@@ -26,7 +26,8 @@ import {
 
 import getCurrentDate from "../../utils/dateFunction";
 import Button from "../../components/UI/Button/Button";
-import { RotatingLines, ThreeCircles } from "react-loader-spinner";
+import { ThreeCircles } from "react-loader-spinner";
+import ButtonStyles from "../../components/UI/Button/Button.module.scss";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -187,9 +188,16 @@ const ExchangeRates = (props) => {
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>
-                <button onClick={changeKindOfTableHandler}>
-                  {table === "A" ? "Table B" : "Table A"}
-                </button>
+                <Button
+                  click={changeKindOfTableHandler}
+                  name={
+                    table === "A"
+                      ? "Checkout to Table B"
+                      : "Checkout to Table A"
+                  }
+                  color={ButtonStyles.btn_transparent}
+                />
+
                 <TableRates data={currency} />
               </div>
             ) : null}
@@ -279,7 +287,7 @@ const ExchangeRates = (props) => {
                   value={dateValue}
                 ></InputComponent>
                 {dateValue.length && dateValue > currentDate && (
-                  <p>Wrong date</p>
+                  <p className={classes.error}>Wrong date!!!</p>
                 )}
                 {`Date: ${dateValue}`}
                 {status === "success" &&
@@ -292,7 +300,9 @@ const ExchangeRates = (props) => {
                           <td>{singleCurrencyData.code}</td>
                           <td>{singleCurrencyData.currency}</td>
                           <td>{singleCurrencyData.rates[0].mid}</td>
-                          <td>{singleCurrencyData.rates[0].effectiveDate}</td>
+                          <td className={classes.date}>
+                            {singleCurrencyData.rates[0].effectiveDate}
+                          </td>
                         </tr>
                       </tbody>
                     </table>
