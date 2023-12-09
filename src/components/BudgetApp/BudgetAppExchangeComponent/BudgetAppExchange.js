@@ -26,6 +26,7 @@ import {
 import Reducer from "./../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import Button from "../../UI/Button/Button";
+import { GrLinkNext } from "react-icons/gr";
 
 const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
@@ -252,7 +253,7 @@ const BudgetAppExchange = (props) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-      <div><Link to="/exchange"><Button name="more >>"/></Link></div>
+      <div><Link to="/exchange"><Button name="more"/></Link></div>
     </Wrapper>
   );
 };
