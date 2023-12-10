@@ -19,7 +19,7 @@ return(
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis  domain={[100,'dataMax+10']}/>
       <Tooltip />
       <Legend />
       <Bar

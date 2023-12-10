@@ -19,7 +19,7 @@ return (
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="data" />
-      <YAxis />
+      <YAxis  domain={[ 'dataMax']}/>
       <Tooltip />
       <Legend />
       <Line type="monotone" dataKey="cena" stroke="#8884d8" activeDot={{ r: 8 }} />
