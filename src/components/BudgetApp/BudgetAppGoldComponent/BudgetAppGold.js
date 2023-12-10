@@ -15,6 +15,8 @@ import SimpleLineChart from "../../Chart/SimpleLineChart";
 import BarChart from "../../Chart/BarChart";
 import IconArrow from "../../UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import { FaInfoCircle } from "react-icons/fa";
+import { VscLaw } from "react-icons/vsc";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -71,13 +73,14 @@ export default function BudgetAppGold({ props }) {
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <p className={classes.gold_price}>Current gold price</p>
+          <p className={classes.gold_price}>Current gold price  </p>
           <p>
             <span className={classes.date}>{gold.data}</span>{" "}
-            <span>{gold.cena} PLN/g</span>{" "}
+            <span>{gold.cena} PLN/g</span> 
             <IconArrow
               arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
             />
+           
           </p>
           <p>Current date: {getCurrentDate()} </p>
           <p>Previous quote</p>
@@ -92,7 +95,7 @@ export default function BudgetAppGold({ props }) {
               value={inputCount}
               placeholder="0"
             />
-            <p className={classes.equal}>{count}</p>
+            <p className={classes.equal}>{count} <span> <VscLaw size={28}/></span></p>
           </div>
         </div>
         <div className={classes.ba_gold}>
@@ -108,7 +111,7 @@ export default function BudgetAppGold({ props }) {
           ></InputComponent>
           {currentDate > getCurrentDate() && (
             <p className={classes.info}>
-              Wrong DATE!!!! Change for currently date or less
+           <FaInfoCircle />   Wrong DATE!!!! Change for currently date or less
             </p>
           )}
           {goldChart && (

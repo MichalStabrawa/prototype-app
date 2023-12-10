@@ -28,6 +28,7 @@ import getCurrentDate from "../../utils/dateFunction";
 import Button from "../../components/UI/Button/Button";
 import { ThreeCircles } from "react-loader-spinner";
 import ButtonStyles from "../../components/UI/Button/Button.module.scss";
+import { FaInfoCircle } from "react-icons/fa";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -287,7 +288,7 @@ const ExchangeRates = (props) => {
                   value={dateValue}
                 ></InputComponent>
                 {dateValue.length && dateValue > currentDate && (
-                  <p className={classes.error}>Wrong date!!!</p>
+                  <p className={classes.error}> <FaInfoCircle /> Wrong date!!!</p>
                 )}
                 {`Date: ${dateValue}`}
                 {status === "success" &&
@@ -308,7 +309,7 @@ const ExchangeRates = (props) => {
                     </table>
                   )}
                 {status === "error" && (
-                  <p className={classes.error}>Data Not Found!!!</p>
+                  <p className={classes.error}><FaInfoCircle /> Data Not Found!!!</p>
                 )}
                 {status === "pending" && (
                   <ThreeCircles
