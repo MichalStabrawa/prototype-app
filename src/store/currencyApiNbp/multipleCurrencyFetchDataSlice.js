@@ -20,10 +20,11 @@ export const multipleCurrencyFetchData = createAsyncThunk(
         fetch("https://api.nbp.pl/api/exchangerates/rates/c/gbp/last/10").then(
           (response) => response.json()
         ),
+        fetch("https://api.nbp.pl/api/exchangerates/rates/c/chf/last/10").then(
+            (response) => response.json()
+          ),
       ]);
 
-      console.log("DATA MULTIPLE!!!!!");
-      console.log(res);
       return res;
     } catch (error) {
       console.log(error);

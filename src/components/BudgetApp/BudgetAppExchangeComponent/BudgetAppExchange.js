@@ -26,7 +26,8 @@ import {
 import Reducer from "./../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import Button from "../../UI/Button/Button";
-import { GrLinkNext } from "react-icons/gr";
+
+import ExchangeMainTable from '../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable'
 
 const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
@@ -228,6 +229,7 @@ const BudgetAppExchange = (props) => {
           <span>{exchangeLast[10]?.value}</span>
           <span className={classes.last_date}>{stateDate.lastDate}</span>
         </p>
+        <ExchangeMainTable/>
       </div>
       <div className={classes.chart}>
         <ResponsiveContainer width="100%" height="100%">
