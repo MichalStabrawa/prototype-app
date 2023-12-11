@@ -27,7 +27,7 @@ import Reducer from "./../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import Button from "../../UI/Button/Button";
 
-import ExchangeMainTable from '../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable'
+import ExchangeMainTable from "../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable";
 
 const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
@@ -109,10 +109,9 @@ const BudgetAppExchange = (props) => {
                 {currency.code} {`(${currency.name})`} to w przeliczeniu
               </div>
               <p className={classes.equal}>
-                <span >
+                <span>
                   {`${(+props.exchangeValue * currency.value).toFixed(2)} PLN`}
                 </span>
-             
               </p>
             </div>
           )}
@@ -229,7 +228,7 @@ const BudgetAppExchange = (props) => {
           <span>{exchangeLast[10]?.value}</span>
           <span className={classes.last_date}>{stateDate.lastDate}</span>
         </p>
-        <ExchangeMainTable/>
+        <ExchangeMainTable />
       </div>
       <div className={classes.chart}>
         <ResponsiveContainer width="100%" height="100%">
@@ -251,11 +250,15 @@ const BudgetAppExchange = (props) => {
             <Tooltip dataKey="name" />
             <Legend />
             <Bar dataKey="value" barSize={15} fill="#413ea0" />
-            <Line type="monotone" dataKey="value"  stroke="#ff7300"  />
+            <Line type="monotone" dataKey="value" stroke="#ff7300" />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-      <div><Link to="/exchange"><Button name="more"/></Link></div>
+      <div>
+        <Link to="/exchange">
+          <Button name="more" />
+        </Link>
+      </div>
     </Wrapper>
   );
 };

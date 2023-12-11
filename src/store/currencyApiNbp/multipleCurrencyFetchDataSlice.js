@@ -15,7 +15,8 @@ export const multipleCurrencyFetchData = createAsyncThunk(
       let res = await Promise.all([
         fetch(urlUSA).then((response) => response.json()), // parse each response as json
         fetch("https://api.nbp.pl/api/exchangerates/rates/c/eur/last/10").then(
-          (response) => response.json()),
+          (response) => response.json()
+        ),
         fetch("https://api.nbp.pl/api/exchangerates/rates/c/gbp/last/10").then(
           (response) => response.json()
         ),
@@ -24,11 +25,8 @@ export const multipleCurrencyFetchData = createAsyncThunk(
         ),
       ]);
 
-   
-
       return res;
     } catch (error) {
-      
       console.log(error);
     }
   }
