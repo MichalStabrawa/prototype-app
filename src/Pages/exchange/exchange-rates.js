@@ -29,6 +29,7 @@ import Button from "../../components/UI/Button/Button";
 import { ThreeCircles } from "react-loader-spinner";
 import ButtonStyles from "../../components/UI/Button/Button.module.scss";
 import { FaInfoCircle } from "react-icons/fa";
+import ExchangeTopLastChart from "../../components/ExchangeComponents/ExchangeTopLastChart/ExchangeTopLastChart";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -56,15 +57,14 @@ const ExchangeRates = (props) => {
 
   const currentDate = getCurrentDate();
 
-  console.log("Current Date");
-  console.log(currentDate);
-
   const compareDataLive = dateValue === "" || dateValue >= currentDate;
   if (dateValue !== "" && dateValue >= currentDate) {
     console.log(`Compare ${dateValue >= currentDate}`);
   } else {
     console.log(dateValue >= currentDate);
   }
+
+  console.log(currency);
 
   useEffect(() => {
     setFlag(props.flag);
@@ -288,7 +288,10 @@ const ExchangeRates = (props) => {
                   value={dateValue}
                 ></InputComponent>
                 {dateValue.length && dateValue > currentDate && (
-                  <p className={classes.error}> <FaInfoCircle /> Wrong date!!!</p>
+                  <p className={classes.error}>
+                    {" "}
+                    <FaInfoCircle /> Wrong date!!!
+                  </p>
                 )}
                 {`Date: ${dateValue}`}
                 {status === "success" &&
@@ -309,7 +312,9 @@ const ExchangeRates = (props) => {
                     </table>
                   )}
                 {status === "error" && (
-                  <p className={classes.error}><FaInfoCircle /> Data Not Found!!!</p>
+                  <p className={classes.error}>
+                    <FaInfoCircle /> Data Not Found!!!
+                  </p>
                 )}
                 {status === "pending" && (
                   <ThreeCircles
@@ -333,11 +338,23 @@ const ExchangeRates = (props) => {
                   />
                 </div>
               </div>
+              {status==='error'&& <p>Error</p>}
+              {table === "A" &&(<div><ExchangeTopLastChart index="0"/> <ExchangeTopLastChart index="1"/></div>) }
             </div>
           </div>
 
           {data.length && (
             <div className={classes.chart}>
+              <h3>
+                TABLE {table} compare currency{" "}
+                <span className={classes.date_chart}>
+                  {currency[1].effectiveDate}
+                </span>{" "}
+                and last value rates{" "}
+                <span className={classes.date_chart}>
+                  {currency[0].effectiveDate}
+                </span>
+              </h3>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   width={500}
