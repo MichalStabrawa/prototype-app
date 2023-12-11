@@ -254,7 +254,7 @@ const BudgetAppExchange = (props) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-      <div>
+      <div className={classes.next}>
         <Link to="/exchange">
           <Button name="more" />
         </Link>
