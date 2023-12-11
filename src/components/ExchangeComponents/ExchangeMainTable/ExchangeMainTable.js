@@ -4,9 +4,11 @@ import classes from "./ExchangeMainTable.module.scss";
 
 const ExchangeMainTable = () => {
   const data = useSelector((state) => state.multiple.data);
+  const status = useSelector(state=>state.multiple.status)
   const [newData,setNewData]= useState([{code:'',currency:'',rates:[{bid:'',ask:''}]}])
 
   useEffect(()=> {
+    console.log('Status Table');
     console.log('Data table')
     console.log(data)
     setNewData(data)
@@ -26,7 +28,7 @@ const ExchangeMainTable = () => {
           </tr>
         </thead>
         <tbody>
-        {data.length>1 &&
+        {status==='success'&& data&&
             data.map((el, index) => {
               return (
                 <tr key={index}>

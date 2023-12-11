@@ -338,6 +338,7 @@ const ExchangeRates = (props) => {
                   />
                 </div>
               </div>
+              {status==='error'&& <p>Error</p>}
               {table === "A" &&(<div><ExchangeTopLastChart index="0"/> <ExchangeTopLastChart index="1"/></div>) }
             </div>
           </div>

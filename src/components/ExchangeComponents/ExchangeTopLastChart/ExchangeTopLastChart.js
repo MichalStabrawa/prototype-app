@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   LineChart,
   BarChart,
@@ -18,19 +18,23 @@ import Button from "../../UI/Button/Button";
 import classes from "./ExchangeTopLastChart.module.scss";
 
 const ExchangeTopLastChart = ({ index }) => {
-  const dispatch = useDispatch();
   const data = useSelector((state) => state.multiple.data);
+
+  const status = useSelector((state) => state.multiple.status);
+
   const [flag, setFlag] = useState(false);
 
   const changeChartHandler = () => {
+    console.log("FLAG");
+    console.log(flag);
     setFlag(!flag);
   };
-  console.log(data);
+
   return (
     <>
       <div>
-        {data.code}
-        {data && (
+        {status === "error" && <p>Error ExchangeTopLastChart</p>}
+        {data && status === "success" && (
           <div>
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
@@ -54,7 +58,7 @@ const ExchangeTopLastChart = ({ index }) => {
                     <Tooltip />
                     <Legend />
                     <Line
-                      type="monotone"
+                      type="linear"
                       dataKey="bid"
                       stroke="blue"
                       activeDot={{ r: 8 }}
