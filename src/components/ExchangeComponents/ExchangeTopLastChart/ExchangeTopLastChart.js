@@ -19,9 +19,7 @@ import classes from "./ExchangeTopLastChart.module.scss";
 
 const ExchangeTopLastChart = ({ index }) => {
   const data = useSelector((state) => state.multiple.data);
-
   const status = useSelector((state) => state.multiple.status);
-
   const [flag, setFlag] = useState(false);
 
   const changeChartHandler = () => {
