@@ -7,18 +7,19 @@ import IconArrow from "../../UI/iconArrow/iconArrow";
 const ExchangeTableMidValue = (props) => {
   const data = useSelector((state) => state.multiple.data);
   const status = useSelector((state) => state.multiple.status);
-  const [newData, setNewData] = useState([
-    { code: "", currency: "", rates: [{ bid: "", ask: "" }] },
-  ]);
+  const [newData, setNewData] = useState(null);
 
   const{dataMid}=props
 
   useEffect(() => {
     console.log("Status Table");
     console.log("Data tMid");
-    console.log(data);
-    setNewData(data);
-  }, [data]);
+    console.log();
+    setNewData(dataMid);
+  }, [dataMid,data]);
+
+  console.log('NEW DATA');
+  console.log(newData)
   return (
     <div>
       <table className={classes.table_rates}>
@@ -36,10 +37,10 @@ const ExchangeTableMidValue = (props) => {
         </thead>
         <tbody>
           {status === "success" &&
-            dataMid &&
-            dataMid.map((el, index) => {
+            newData &&
+            newData.map((el, index) => {
 
-                if(el.code ==='USD' || el.code==='EUR' || el.code ==='CHF' || el.code ==='GBP') {
+                if(el.code ==='USD' || el.code==='EUR' || el.code ==='CHF' || el.code ==='GBP' || el.code ==='AFN' || el.code==='BHD' || el.code ==='RSD' || el.code ==='VND') {
                     return (
                         <tr key={index}>
                           <td className={classes.code}>{el.code}</td>

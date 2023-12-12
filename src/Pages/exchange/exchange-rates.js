@@ -360,7 +360,7 @@ const ExchangeRates = (props) => {
                   {currency[0].effectiveDate}
                 </span>
               </h3>
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="95%">
                 <BarChart
                   width={500}
                   height={300}
@@ -374,7 +374,7 @@ const ExchangeRates = (props) => {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="code" />
-                  <YAxis />
+                  <YAxis domain={'dataMax'}/>
                   <Tooltip />
                   <Legend />
                   <Bar
@@ -392,6 +392,7 @@ const ExchangeRates = (props) => {
             </div>
           )}
         </BudgetAppSection>
+       <BudgetAppSection>Test</BudgetAppSection>
       </div>
     </Wrapper>
   );
