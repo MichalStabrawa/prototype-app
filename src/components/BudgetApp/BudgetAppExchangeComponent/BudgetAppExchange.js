@@ -46,6 +46,11 @@ const BudgetAppExchange = (props) => {
     fetchNbpTopCountReducer,
     []
   );
+  const [compareCurrentlyLast]= useState([])
+
+  console.log("DataCurrency");
+  console.log(dataCurrencySelector)
+  console.log(data)
 
   useEffect(() => {
     fetchCurrentNBP(
@@ -87,6 +92,7 @@ const BudgetAppExchange = (props) => {
       {isLoading && <p>Is Loading</p>}
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}>
+        <h3>Table {dataCurrencySelector[0].table}</h3>
           <span>
             Current NBP {stateDate.currentDate} {getCurrentDate()}
           </span>
