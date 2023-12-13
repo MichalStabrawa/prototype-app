@@ -6,7 +6,7 @@ import classes from "./ResponsiveCarousel.module.scss";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import IconArrow from "../../UI/iconArrow/iconArrow";
 
-const ResponsiveCarousel = ({ data,effectiveDate }) => {
+const ResponsiveCarousel = ({ data, effectiveDate }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -52,14 +52,28 @@ const ResponsiveCarousel = ({ data,effectiveDate }) => {
         {data &&
           data.map((el, index) => (
             <div className={classes.slider_item} key={index}>
-              <p className={classes.pln}><span>PLN/</span>{el.code}</p>
+              <p className={classes.pln}>
+                <span>PLN/</span>
+                {el.code}
+              </p>
               <p>{el.mid}</p>
-              <span>date {effectiveDate}</span>
+              <span className={classes.date}>date: {effectiveDate}</span>
               <br></br>
               <div className={classes.arrow}>
-              <span>{el.code}</span> <span><IconArrow arrow={getCurrentPrevDifferences(el.mid,el.lastValue)}/>{(el.mid - el.lastValue).toFixed(4)}</span>
+                <span>{el.code}</span>{" "}
+                <span>
+                  <IconArrow
+                    arrow={getCurrentPrevDifferences(el.mid, el.lastValue)}
+                  />
+                </span>
+                <span
+                  className={`${classes.rate} ${
+                    classes[getCurrentPrevDifferences(el.mid, el.lastValue)]
+                  }`}
+                >
+                  {(el.mid - el.lastValue).toFixed(4)}
+                </span>
               </div>
-              
             </div>
           ))}
       </Slider>{" "}
