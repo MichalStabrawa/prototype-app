@@ -34,7 +34,8 @@ const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
   const dataCurrencySelector = useSelector((state) => state.currency.data);
-  const [data, setData] = useState([]);
+  const table = useSelector((state)=>state.table.table)
+  const [data, setData] = useState(null);
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
   const [currency, setCurrency] = useState([]);
   const [exchange, setExchange] = useState([]);
@@ -86,14 +87,17 @@ const BudgetAppExchange = (props) => {
       );
       setData(tab);
     }
-  }, [dataCurrencySelector]);
+  }, [table,dataCurrencySelector]);
+
+  console.log('DATA DATA')
+  console.log(data)
 
   return (
     <Wrapper css={props.css}>
       {isLoading && <p>Is Loading</p>}
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}>
-        <h3>Table</h3>
+        <h3>Table {table}</h3>
           <span>
             Current NBP {stateDate.currentDate} {getCurrentDate()}
           </span>
