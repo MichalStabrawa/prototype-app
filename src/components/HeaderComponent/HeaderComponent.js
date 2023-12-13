@@ -38,6 +38,7 @@ const HeaderComponent = (props) => {
         <ResponsiveCarousel
           data={dataCurrentLast}
           effectiveDate={data[1].effectiveDate}
+          slidesToShow={5}
         />
       )}
     </header>

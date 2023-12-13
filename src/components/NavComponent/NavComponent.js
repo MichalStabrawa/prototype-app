@@ -34,15 +34,16 @@ const NavComponent = (props) => {
         active={active === true ? buttonHamburgerStyles.active : null}
       />
       <ul className={!active ? classes.nav : classes.active}>
-      <li className={classes.nav_item}>
-          <Link to="/">Home</Link>
-        </li>
         <li className={classes.nav_item}>
-          <Link to="/aboutUs">About Us</Link>
+          <Link to="/">Home</Link>
         </li>
         <li className={classes.nav_item}>
           <Link to="/exchange">Exchange rates</Link>
         </li>
+        <li className={classes.nav_item}>
+          <Link to="/aboutUs">About Us</Link>
+        </li>
+
         <li className={classes.nav_item}>Lorem3</li>
         <li className={classes.nav_item}>
           <Link to={auth ? "/" : "/login"} onClick={logOffHandler}>
