@@ -186,7 +186,7 @@ const ExchangeRates = (props) => {
   return (
     <Wrapper>
       <header>
-        <h1>Exchange Rates</h1>{currency.length>0? (<div><ResponsiveCarousel data={data} slidesToShow={4} effectiveDate={currency[1].effectiveDate}/></div>):null}
+        <h1>Exchange Rates</h1>{currency.length>0? (<div><ResponsiveCarousel data={data} slidesToShow={6} effectiveDate={currency[1].effectiveDate}/></div>):null}
         
       </header>
       <div className={classes.exchange_wrapper}>
