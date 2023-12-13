@@ -27,7 +27,6 @@ function App() {
   console.log(currency);
 
   const isLoading = useSelector((state) => state.content.isLoading);
-  const error = useSelector((state) => state.content.error);
 
   const handleSend = () => {
     setFlag(!flag);

@@ -3,8 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import classes from "./ResponsiveCarousel.module.scss";
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import IconArrow from "../../UI/iconArrow/iconArrow";
 
-const ResponsiveCarousel = ({ data }) => {
+const ResponsiveCarousel = ({ data,effectiveDate }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -48,13 +50,16 @@ const ResponsiveCarousel = ({ data }) => {
     <div className={classes.slider}>
       <Slider {...settings}>
         {data &&
-          data.rates.map((el, index) => (
+          data.map((el, index) => (
             <div className={classes.slider_item} key={index}>
               <p className={classes.pln}><span>PLN/</span>{el.code}</p>
               <p>{el.mid}</p>
-              <span>date {data.effectiveDate}</span>
+              <span>date {effectiveDate}</span>
               <br></br>
-              <span>{el.code}</span>
+              <div className={classes.arrow}>
+              <span>{el.code}</span> <span><IconArrow arrow={getCurrentPrevDifferences(el.mid,el.lastValue)}/>{(el.mid - el.lastValue).toFixed(4)}</span>
+              </div>
+              
             </div>
           ))}
       </Slider>{" "}
