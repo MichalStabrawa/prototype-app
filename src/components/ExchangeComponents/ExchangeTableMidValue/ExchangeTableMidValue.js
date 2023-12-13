@@ -31,7 +31,7 @@ const ExchangeTableMidValue = (props) => {
             <th>rate</th>
             <th>rate arrow</th>
             <th>date</th>
-            <th>lastValue</th>
+            <th>last value</th>
             <th>last date</th>
           </tr>
         </thead>
