@@ -4,6 +4,7 @@ const initialState = {
   data: [],
   isLoading: false,
   error: null,
+  status: 'initialized'
 };
 
 export const fetchNbpTableA = createAsyncThunk(
@@ -21,6 +22,7 @@ export const fetchNbpTableA = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
+      initialState.status = 'error'
     }
   }
 );
@@ -32,14 +34,17 @@ const fetchNbpTableASlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchNbpTableA.pending, (state) => {
       state.isLoading = true;
+      state.status='pennding'
     });
     builder.addCase(fetchNbpTableA.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
+      state.status = 'success'
     });
     builder.addCase(fetchNbpTableA.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+      state.status = 'error'
     });
   },
 });

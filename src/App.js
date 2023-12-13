@@ -11,7 +11,7 @@ import ExchangeRates from "./Pages/exchange/exchange-rates";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContent } from "./store/fetchGoldSlice";
 import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
-import authSlice from "./store/auth";
+
 import { RotatingLines } from "react-loader-spinner";
 import { multipleCurrencyFetchData } from "./store/currencyApiNbp/multipleCurrencyFetchDataSlice";
 
@@ -20,20 +20,16 @@ import { useEffect, useState } from "react";
 function App() {
   const dispatch = useDispatch();
   const tableKind = useSelector((state) => state.table.table);
-  const contents = useSelector((state) => state.content.contents);
-  const multipleLastTop10 = useSelector((state) => state.multiple.data);
-  const auth = useSelector((state) => state.isAuthenticated);
+
   const currency = useSelector((state) => state.currency.data);
   const [flag, setFlag] = useState(false);
   console.log("Currency!!!!");
   console.log(currency);
 
   const isLoading = useSelector((state) => state.content.isLoading);
-  const error = useSelector((state) => state.content.error);
 
   const handleSend = () => {
     setFlag(!flag);
-    console.log(flag);
   };
 
   useEffect(() => {

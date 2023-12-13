@@ -34,6 +34,9 @@ const NavComponent = (props) => {
         active={active === true ? buttonHamburgerStyles.active : null}
       />
       <ul className={!active ? classes.nav : classes.active}>
+      <li className={classes.nav_item}>
+          <Link to="/">Home</Link>
+        </li>
         <li className={classes.nav_item}>
           <Link to="/aboutUs">About Us</Link>
         </li>

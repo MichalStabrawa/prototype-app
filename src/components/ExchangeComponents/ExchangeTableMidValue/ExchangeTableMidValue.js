@@ -9,17 +9,14 @@ const ExchangeTableMidValue = (props) => {
   const status = useSelector((state) => state.multiple.status);
   const [newData, setNewData] = useState(null);
 
-  const{dataMid}=props
+  const { dataMid } = props;
 
   useEffect(() => {
-    console.log("Status Table");
-    console.log("Data tMid");
-    console.log();
     setNewData(dataMid);
-  }, [dataMid,data]);
+  }, [dataMid, data]);
 
-  console.log('NEW DATA');
-  console.log(newData)
+  console.log("NEW DATA");
+  console.log(newData);
   return (
     <div>
       <table className={classes.table_rates}>
@@ -39,30 +36,45 @@ const ExchangeTableMidValue = (props) => {
           {status === "success" &&
             newData &&
             newData.map((el, index) => {
-
-                if(el.code ==='USD' || el.code==='EUR' || el.code ==='CHF' || el.code ==='GBP' || el.code ==='AFN' || el.code==='BHD' || el.code ==='RSD' || el.code ==='VND') {
-                    return (
-                        <tr key={index}>
-                          <td className={classes.code}>{el.code}</td>
-                          <td>{el.currency}</td>
-                          <td className={classes.bold}>{el.mid}</td>
-                          <td           className={`${classes.rate} ${
+              if (
+                el.code === "USD" ||
+                el.code === "EUR" ||
+                el.code === "CHF" ||
+                el.code === "GBP" ||
+                el.code === "AFN" ||
+                el.code === "BHD" ||
+                el.code === "RSD" ||
+                el.code === "VND"
+              ) {
+                return (
+                  <tr key={index}>
+                    <td className={classes.code}>{el.code}</td>
+                    <td>{el.currency}</td>
+                    <td className={classes.bold}>{el.mid}</td>
+                    <td
+                      className={`${classes.rate} ${
                         classes[getCurrentPrevDifferences(el.mid, el.lastValue)]
-                      }`}>{(el.mid - el.lastValue).toFixed(4)}</td>
-                          <td>
+                      }`}
+                    >
+                      {(el.mid - el.lastValue).toFixed(4)}
+                    </td>
+                    <td>
                       <IconArrow
                         arrow={getCurrentPrevDifferences(el.mid, el.lastValue)}
                       />
                     </td>
-                          <td className={classes.date}>{data[0].rates[9].effectiveDate}</td>
-                          <td>{el.lastValue}</td>
-                          <td className={classes.date}>{data[0].rates[8].effectiveDate}</td>
-                        </tr>
-                      );
-                }else {
-                    return null
-                }
-            
+                    <td className={classes.date}>
+                      {data[0].rates[9].effectiveDate}
+                    </td>
+                    <td>{el.lastValue}</td>
+                    <td className={classes.date}>
+                      {data[0].rates[8].effectiveDate}
+                    </td>
+                  </tr>
+                );
+              } else {
+                return null;
+              }
             })}
         </tbody>
       </table>
