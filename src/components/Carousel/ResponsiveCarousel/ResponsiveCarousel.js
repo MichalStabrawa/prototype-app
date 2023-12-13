@@ -5,13 +5,14 @@ import "slick-carousel/slick/slick-theme.css";
 import classes from "./ResponsiveCarousel.module.scss";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import IconArrow from "../../UI/iconArrow/iconArrow";
+import './ResponsiveCarousel.module.css';
 
-const ResponsiveCarousel = ({ data, effectiveDate }) => {
+const ResponsiveCarousel = ({ data, effectiveDate ,slidesToShow}) => {
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
@@ -71,7 +72,7 @@ const ResponsiveCarousel = ({ data, effectiveDate }) => {
                     classes[getCurrentPrevDifferences(el.mid, el.lastValue)]
                   }`}
                 >
-                  {(el.mid - el.lastValue).toFixed(4)}
+                  {(el.mid - el.lastValue).toFixed(5)}
                 </span>
               </div>
             </div>

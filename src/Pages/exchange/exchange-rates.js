@@ -30,6 +30,10 @@ import { ThreeCircles } from "react-loader-spinner";
 import ButtonStyles from "../../components/UI/Button/Button.module.scss";
 import { FaInfoCircle } from "react-icons/fa";
 import ExchangeTopLastChart from "../../components/ExchangeComponents/ExchangeTopLastChart/ExchangeTopLastChart";
+import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -182,10 +186,12 @@ const ExchangeRates = (props) => {
   return (
     <Wrapper>
       <header>
-        <h1>Exchange Rates</h1>
+        <h1>Exchange Rates</h1>{currency.length>0? (<div><ResponsiveCarousel data={data} slidesToShow={6} effectiveDate={currency[1].effectiveDate}/></div>):null}
+        
       </header>
       <div className={classes.exchange_wrapper}>
         <BudgetAppSection>
+       
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>

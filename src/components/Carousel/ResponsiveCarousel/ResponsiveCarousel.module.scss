@@ -1,40 +1,39 @@
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
-@import '../../../styles/main';
+@import "../../../styles/main";
 
 .slider {
-  margin:0 auto;
-  position:relative;
-  top:15%;
-  width:60%;
+  margin: 0 auto;
+  position: relative;
+  top: 15%;
+  width: 60%;
 
   &_item {
-    border:1px solid rgb(218,220,224);
-    max-width:90%;
+    border: 1px solid rgb(218, 220, 224);
+    max-width: 90%;
     background-color: #fff;
-    border-radius:5px;
-    padding:5px;
+    border-radius: 5px;
+    padding: 5px;
 
     .pln {
+      font-size: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: $darkblue;
+      span {
+        font-weight: normal;
         font-size: 1rem;
-        font-weight: bold;
-        font-size: 1.1rem;
-        color:$darkblue;
-        span {
-         font-weight: normal;
-         font-size: 1rem;
-         color:$darkbluelight
-        }
+        color: $darkbluelight;
+      }
     }
- 
   }
 
   .arrow {
-    display:flex;
-}
+    display: flex;
+  }
 
-.rate {
+  .rate {
     font-size: 0.85rem;
     font-style: italic;
 
@@ -51,8 +50,6 @@
   }
   .date {
     font-style: italic;
-    color:$darkbluelight;
+    color: $darkbluelight;
   }
-
-
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
+
 import getCompareLastActualValue from "../../utils/getCurrentLastValue";
 import classes from "./HeaderComponent.module.scss";
 import ResponsiveCarousel from "../Carousel/ResponsiveCarousel/ResponsiveCarousel";
@@ -34,8 +34,13 @@ const HeaderComponent = (props) => {
     <header className={classes.header}>
       <h1>Header lorem ipsum</h1>
       <p>Lorem ipsum description</p>
-      {status==='success'&& dataCurrentLast&&   <ResponsiveCarousel data={dataCurrentLast} effectiveDate={data[1].effectiveDate}/>}
-   
+      {status === "success" && dataCurrentLast && (
+        <ResponsiveCarousel
+          data={dataCurrentLast}
+          effectiveDate={data[1].effectiveDate}
+          slidesToShow={5}
+        />
+      )}
     </header>
   );
 };
