@@ -28,13 +28,13 @@ import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import Button from "../../UI/Button/Button";
 
 import ExchangeMainTable from "../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable";
-import ExchangeTableMidValue from '../../ExchangeComponents/ExchangeTableMidValue/ExchangeTableMidValue';
+import ExchangeTableMidValue from "../../ExchangeComponents/ExchangeTableMidValue/ExchangeTableMidValue";
 
 const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
   const dataCurrencySelector = useSelector((state) => state.currency.data);
-  const table = useSelector((state)=>state.table.table)
+  const table = useSelector((state) => state.table.table);
   const [data, setData] = useState(null);
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
   const [currency, setCurrency] = useState([]);
@@ -48,11 +48,6 @@ const BudgetAppExchange = (props) => {
     fetchNbpTopCountReducer,
     []
   );
-  const [compareCurrentlyLast]= useState([])
-
-  console.log("DataCurrency");
-  console.log(dataCurrencySelector)
-  console.log(data)
 
   useEffect(() => {
     fetchCurrentNBP(
@@ -87,17 +82,14 @@ const BudgetAppExchange = (props) => {
       );
       setData(tab);
     }
-  }, [table,dataCurrencySelector]);
-
-  console.log('DATA DATA')
-  console.log(data)
+  }, [table, dataCurrencySelector]);
 
   return (
     <Wrapper css={props.css}>
       {isLoading && <p>Is Loading</p>}
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}>
-        <h3>Table {table}</h3>
+          <h3>Table {table}</h3>
           <span>
             Current NBP {stateDate.currentDate} {getCurrentDate()}
           </span>
@@ -129,9 +121,9 @@ const BudgetAppExchange = (props) => {
         </div>
       </div>
       <div className={classes.exchange_item}>
-    {false &&  <ExchangeMainTable />}
-       
-        <ExchangeTableMidValue dataMid={data}/>
+        {false && <ExchangeMainTable />}
+
+        <ExchangeTableMidValue dataMid={data} />
       </div>
       <div className={classes.chart}>
         <ResponsiveContainer width="100%" height="100%">

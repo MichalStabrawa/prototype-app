@@ -10,9 +10,6 @@ const ExchangeMainTable = () => {
   ]);
 
   useEffect(() => {
-    console.log("Status Table");
-    console.log("Data table");
-    console.log(data);
     setNewData(data);
   }, [data]);
   return (

@@ -5,9 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 import classes from "./ResponsiveCarousel.module.scss";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import IconArrow from "../../UI/iconArrow/iconArrow";
-import './ResponsiveCarousel.module.css';
+import "./ResponsiveCarousel.module.css";
 
-const ResponsiveCarousel = ({ data, effectiveDate ,slidesToShow}) => {
+const ResponsiveCarousel = ({ data, effectiveDate, slidesToShow }) => {
   const settings = {
     dots: false,
     infinite: true,
