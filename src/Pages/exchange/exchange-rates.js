@@ -31,6 +31,7 @@ import ButtonStyles from "../../components/UI/Button/Button.module.scss";
 import { FaInfoCircle } from "react-icons/fa";
 import ExchangeTopLastChart from "../../components/ExchangeComponents/ExchangeTopLastChart/ExchangeTopLastChart";
 import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
+import ExchangeFromToDate from "../../components/ExchangeComponents/ExchangeFromToDate/ExchangeFromToDate";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -404,7 +405,7 @@ const ExchangeRates = (props) => {
             </div>
           )}
         </BudgetAppSection>
-        <BudgetAppSection>Test</BudgetAppSection>
+        <ExchangeFromToDate />
       </div>
     </Wrapper>
   );

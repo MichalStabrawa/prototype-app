@@ -39,6 +39,7 @@ const ExchangeTableMidValue = (props) => {
                 el.code === "EUR" ||
                 el.code === "CHF" ||
                 el.code === "GBP" ||
+                el.code === "JPY" ||
                 el.code === "AFN" ||
                 el.code === "BHD" ||
                 el.code === "RSD" ||
