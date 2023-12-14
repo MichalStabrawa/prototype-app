@@ -147,7 +147,6 @@ const ExchangeRates = (props) => {
 
   const handleSend = () => {
     setFlag(!flag);
-    console.log(flag);
   };
 
   useEffect(() => {
@@ -186,12 +185,19 @@ const ExchangeRates = (props) => {
   return (
     <Wrapper>
       <header>
-        <h1>Exchange Rates</h1>{currency.length>0? (<div><ResponsiveCarousel data={data} slidesToShow={6} effectiveDate={currency[1].effectiveDate}/></div>):null}
-        
+        <h1>Exchange Rates</h1>
+        {currency.length > 0 ? (
+          <div>
+            <ResponsiveCarousel
+              data={data}
+              slidesToShow={6}
+              effectiveDate={currency[1].effectiveDate}
+            />
+          </div>
+        ) : null}
       </header>
       <div className={classes.exchange_wrapper}>
         <BudgetAppSection>
-       
           <div className={classes.exchange_wrapper__count}>
             {currency.length > 0 ? (
               <div>
@@ -380,7 +386,7 @@ const ExchangeRates = (props) => {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="code" />
-                  <YAxis domain={'dataMax'}/>
+                  <YAxis domain={"dataMax"} />
                   <Tooltip />
                   <Legend />
                   <Bar
@@ -398,7 +404,7 @@ const ExchangeRates = (props) => {
             </div>
           )}
         </BudgetAppSection>
-       <BudgetAppSection>Test</BudgetAppSection>
+        <BudgetAppSection>Test</BudgetAppSection>
       </div>
     </Wrapper>
   );

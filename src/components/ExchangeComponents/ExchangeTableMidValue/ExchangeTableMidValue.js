@@ -15,8 +15,6 @@ const ExchangeTableMidValue = (props) => {
     setNewData(dataMid);
   }, [dataMid, data]);
 
-  console.log("NEW DATA");
-  console.log(newData);
   return (
     <div>
       <table className={classes.table_rates}>

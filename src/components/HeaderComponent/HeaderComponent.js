@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-
 import getCompareLastActualValue from "../../utils/getCurrentLastValue";
 import classes from "./HeaderComponent.module.scss";
 import ResponsiveCarousel from "../Carousel/ResponsiveCarousel/ResponsiveCarousel";
@@ -13,17 +12,8 @@ const HeaderComponent = (props) => {
   const status = useSelector((state) => state.currency.status);
   const [dataCurrentLast, setDataCurrentLast] = useState(null);
 
-  console.log(
-    "DATACURRENCYSET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  );
-  console.log(dataCurrentLast);
-
-  console.log("Header");
   useEffect(() => {
     if (status === "success") {
-      console.log(status);
-      console.log("USEDATA");
-      console.log(data);
       setDataCurrentLast(
         getCompareLastActualValue(data[1].rates, data[0].rates)
       );

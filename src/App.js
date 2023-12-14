@@ -23,8 +23,6 @@ function App() {
 
   const currency = useSelector((state) => state.currency.data);
   const [flag, setFlag] = useState(false);
-  console.log("Currency!!!!");
-  console.log(currency);
 
   const isLoading = useSelector((state) => state.content.isLoading);
 
