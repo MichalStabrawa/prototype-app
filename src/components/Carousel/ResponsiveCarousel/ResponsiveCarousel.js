@@ -11,7 +11,7 @@ const ResponsiveCarousel = ({ data, effectiveDate, slidesToShow }) => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed:500,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
     initialSlide: 0,

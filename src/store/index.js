@@ -6,6 +6,8 @@ import currencyNbpReducer from "./currencyApiNbp/currencyNbpSlice";
 import kindOfTableSliceReducer from "./currencyApiNbp/kindOfTableSlice";
 import singleCurrencySliceReducer from "./currencyApiNbp/singleCurrencyFetchDateSlice";
 import multipleCurrencyFetchDataSliceReducer from "./currencyApiNbp/multipleCurrencyFetchDataSlice";
+import singleCurrencyFetchDateFromDateToReducer from "./currencyApiNbp/singleCurrencyFetchDataFromDateToSlice";
+
 const store = configureStore({
   reducer: {
     content: fetchGoldReducer,
@@ -14,6 +16,7 @@ const store = configureStore({
     table: kindOfTableSliceReducer,
     singleCurrency: singleCurrencySliceReducer,
     multiple: multipleCurrencyFetchDataSliceReducer,
+    singleCurrencyDateFromTo: singleCurrencyFetchDateFromDateToReducer,
   },
 });
 
