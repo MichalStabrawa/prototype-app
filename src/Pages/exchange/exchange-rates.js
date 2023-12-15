@@ -405,7 +405,7 @@ const ExchangeRates = (props) => {
             </div>
           )}
         </BudgetAppSection>
-        <ExchangeFromToDate />
+        <ExchangeFromToDate data={data}/>
       </div>
     </Wrapper>
   );
