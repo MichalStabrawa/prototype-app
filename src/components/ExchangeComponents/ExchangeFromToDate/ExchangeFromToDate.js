@@ -6,7 +6,7 @@ import Select from "../../UI/Select/Select";
 import Button from "../../UI/Button/Button";
 import InputComponent from "../../UI/Input/InputComponent";
 import { singleFetchDataFromDateTo } from "../../../store/currencyApiNbp/singleCurrencyFetchDataFromDateToSlice";
-
+import ExchangeFromToDateChart from '../ExchangeFromToDateChart/ExchangeFromToDateChart'
 import classes from "./ExchangeFromToDate.module.scss";
 
 const ExchangeFromToDate = ({ data }) => {
@@ -22,7 +22,7 @@ const ExchangeFromToDate = ({ data }) => {
   const [fetch, setFetch] = useState(false);
 
   console.log("DATA Select from exchange");
-  console.log(dataDate);
+ 
 
   const changeSelectCodeHandler = (e) => {
     const index = e.target.selectedIndex;
@@ -94,7 +94,10 @@ const ExchangeFromToDate = ({ data }) => {
           {fromDate} {toDate} {code && code}
         </div>
 
-        <div className={classes.chart}></div>
+        <div className={classes.chart}>
+          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate}/>}
+       
+        </div>
       </BudgetAppSection>
     </div>
   );

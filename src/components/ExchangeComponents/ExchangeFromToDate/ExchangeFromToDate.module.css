@@ -5,3 +5,9 @@
 .exchange_date h3 {
   padding-top: 20px;
 }
+
+.exchange_date .chart {
+  padding-top: 20px;
+  border-top: 1px solid grey;
+  margin-top: 40px;
+}
