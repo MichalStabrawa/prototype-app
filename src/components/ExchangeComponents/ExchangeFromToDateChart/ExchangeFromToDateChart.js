@@ -54,7 +54,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={"dataMax"} />
+                    <YAxis domain={["dataMin"]} />
                     <Tooltip />
                     <Legend />
                     <Line
@@ -86,7 +86,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={["dataMin-0.1", "dataMax"]} />
+                    <YAxis domain={["dataMin", "dataMax"]} />
                     <Tooltip />
                     <Legend />
                     <Bar

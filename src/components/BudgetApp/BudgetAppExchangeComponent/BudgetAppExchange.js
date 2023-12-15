@@ -141,7 +141,7 @@ const BudgetAppExchange = (props) => {
           >
             <CartesianGrid stroke="#f5f5f5" />
             <XAxis dataKey="code" scale="band" />
-            <YAxis />
+            <YAxis domain={"dataMin"}/>
             <Tooltip dataKey="name" />
             <Legend />
             <Bar dataKey="value" barSize={15} fill="#413ea0" />
