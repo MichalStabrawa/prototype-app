@@ -15,6 +15,7 @@ const ExchangeFromToDate = ({ data }) => {
   const isLoading = useSelector(
     (state) => state.singleCurrencyDateFromTo.isLoading
   );
+  const error = useSelector(state=>state.singleCurrencyDateFromTo.error)
   const status = useSelector((state) => state.singleCurrencyDateFromTo.status);
   const [code, setCode] = useState("");
   const [fromDate, setFromDate] = useState("");
@@ -96,7 +97,7 @@ const ExchangeFromToDate = ({ data }) => {
 
         <div className={classes.chart}>
           {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate}/>}
-       
+       {status==='error' && <p>Wrong data fetch</p>}
         </div>
       </BudgetAppSection>
     </div>

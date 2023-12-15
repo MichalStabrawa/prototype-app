@@ -25,6 +25,7 @@ export const singleFetchDataFromDateTo = createAsyncThunk(
 
       return data;
     } catch (error) {
+      initialState.status="error";
       console.log(error);
     }
   }
