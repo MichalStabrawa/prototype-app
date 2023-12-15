@@ -11,7 +11,7 @@ import classes from "./ExchangeFromToDate.module.scss";
 
 const ExchangeFromToDate = ({ data }) => {
   const dispatch = useDispatch();
-  const dataDate = useSelector((state) => state.singleCurrencyDateFromTo.state);
+  const dataDate = useSelector((state) => state.singleCurrencyDateFromTo.data);
   const isLoading = useSelector(
     (state) => state.singleCurrencyDateFromTo.isLoading
   );
@@ -48,7 +48,10 @@ const ExchangeFromToDate = ({ data }) => {
     setFetch(true);
   };
 
+  
+
   useEffect(() => {
+    setFetch(fetch)
     if (fetch === true) {
       dispatch(
         singleFetchDataFromDateTo({
