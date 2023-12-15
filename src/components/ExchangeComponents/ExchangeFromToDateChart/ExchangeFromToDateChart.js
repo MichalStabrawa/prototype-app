@@ -31,7 +31,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
   return (
     <>
       <div>
-        {status === "error" && <p>Error ExchangeTopLastChart</p>}
+        {status === "error" && <p className={classes.error}>Error fetch date</p>}
         {data && status === "success" && (
           <div>
             <Button click={changeChartHandler} name="Change chart" />
