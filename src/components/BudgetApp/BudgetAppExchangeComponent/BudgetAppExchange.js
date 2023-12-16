@@ -4,16 +4,14 @@ import Wrapper from "../../UI/Wrapper/Wrapper";
 import classes from "../../BudgetApp/BudgetAppExchangeComponent/BudgetAppExchange.module.scss";
 import Select from "../../UI/Select/Select";
 import InputComponent from "../../UI/Input/InputComponent";
-import IconArrow from "../../UI/iconArrow/iconArrow";
 import getCurrentDate from "../../../utils/dateFunction";
 import fetchNBP from "../../../store/fetchNbpApi";
 import fetchCurrentNBP from "../../../store/fetchNbpCurrentApi";
-import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+
 import { Link } from "react-router-dom";
 import {
   ComposedChart,
   Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
@@ -141,7 +139,7 @@ const BudgetAppExchange = (props) => {
           >
             <CartesianGrid stroke="#f5f5f5" />
             <XAxis dataKey="code" scale="band" />
-            <YAxis domain={"dataMin"}/>
+            <YAxis domain={"dataMin"} />
             <Tooltip dataKey="name" />
             <Legend />
             <Bar dataKey="value" barSize={15} fill="#413ea0" />
