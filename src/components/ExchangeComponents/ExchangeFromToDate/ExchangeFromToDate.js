@@ -21,6 +21,7 @@ const ExchangeFromToDate = ({ data }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [fetch, setFetch] = useState(false);
+  const [minVal,setMinVal] = useState()
 
   console.log("DATA Select from exchange");
  
@@ -45,7 +46,7 @@ const ExchangeFromToDate = ({ data }) => {
   };
 
   const fetchDateHandler = () => {
-    alert(fetch);
+    
     setFetch(true);
   };
 
@@ -64,6 +65,19 @@ const ExchangeFromToDate = ({ data }) => {
       setFetch(false)
     }
   }, [dispatch,fetch]);
+
+  useEffect(()=> {
+    if(status==='success' && fetch) {
+      console.log('statyus')
+      console.log(status)
+      const min = [...dataDate.rates].reduce((prev, next) =>
+      prev.ask < next.ask ? prev : next
+    );
+    console.log('MIN');
+    console.log(min)
+      setMinVal(min)
+    }
+  },[status,fetch])
 
   return (
     <div className={classes.exchange_date}>
@@ -96,7 +110,7 @@ const ExchangeFromToDate = ({ data }) => {
         </div>
 
         <div className={classes.chart}>
-          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate}/>}
+          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate} minVal={minVal} fetch={fetch}/>}
        {status==='error' && <p>Wrong data fetch</p>}
         </div>
       </BudgetAppSection>
