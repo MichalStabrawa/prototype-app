@@ -12,19 +12,12 @@ import classes from "./ExchangeFromToDate.module.scss";
 const ExchangeFromToDate = ({ data }) => {
   const dispatch = useDispatch();
   const dataDate = useSelector((state) => state.singleCurrencyDateFromTo.data);
-  const isLoading = useSelector(
-    (state) => state.singleCurrencyDateFromTo.isLoading
-  );
-  const error = useSelector((state) => state.singleCurrencyDateFromTo.error);
+
   const status = useSelector((state) => state.singleCurrencyDateFromTo.status);
   const [code, setCode] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [fetch, setFetch] = useState(false);
-  const [minVal, setMinVal] = useState();
-
-  console.log("MinVal Parent Minval Parrent");
-  console.log(minVal);
 
   const changeSelectCodeHandler = (e) => {
     const index = e.target.selectedIndex;
@@ -98,7 +91,6 @@ const ExchangeFromToDate = ({ data }) => {
             <ExchangeFromToDateChart
               dateTo={toDate}
               dateFrom={fromDate}
-              minVal={minVal}
               fetch={fetch}
             />
           )}
