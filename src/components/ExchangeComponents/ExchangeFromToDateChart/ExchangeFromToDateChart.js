@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   LineChart,
@@ -17,7 +17,7 @@ import Button from "../../UI/Button/Button";
 
 import classes from "../ExchangeTopLastChart/ExchangeTopLastChart.module.scss";
 
-const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
+const ExchangeFromToDateChart = ({ dateFrom, dateTo, minVal }) => {
   const data = useSelector((state) => state.singleCurrencyDateFromTo.data);
   const status = useSelector((state) => state.singleCurrencyDateFromTo.status);
   const [flag, setFlag] = useState(false);
@@ -31,15 +31,19 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
   return (
     <>
       <div>
-        {status === "error" && <p className={classes.error}>Error fetch date</p>}
+        {status === "error" && (
+          <p className={classes.error}>Error fetch date</p>
+        )}
         {data && status === "success" && (
           <div>
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
                 <h3>
-                  {data.code} ask & bid from {dateFrom} to {dateTo}
+                  {data.code} ask & bid from {dateFrom} to {dateTo} 
                 </h3>
+                <div>min bid value:{" "}
+                  {minVal.bid} date {minVal.effectiveDate}</div>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     width={500}
