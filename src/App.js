@@ -16,6 +16,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { multipleCurrencyFetchData } from "./store/currencyApiNbp/multipleCurrencyFetchDataSlice";
 
 import { useEffect, useState } from "react";
+import RootLayout from "./Pages/Root";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,14 +32,20 @@ function App() {
   };
 
   const router = createBrowserRouter([
-    { path: "/", element: <Home /> },
-    { path: "/aboutUs", element: <AboutUs /> },
-    { path: "/login", element: <Login /> },
-    { path: "/register", element: <Register /> },
-    { path: "/login/remind-login", element: <RemindLogin /> },
     {
-      path: "/exchange",
-      element: <ExchangeRates flag={flag} click={handleSend} />,
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/aboutUs", element: <AboutUs /> },
+        { path: "/login", element: <Login /> },
+        { path: "/register", element: <Register /> },
+        { path: "/login/remind-login", element: <RemindLogin /> },
+        {
+          path: "/exchange",
+          element: <ExchangeRates flag={flag} click={handleSend} />,
+        },
+      ],
     },
   ]);
 
@@ -65,9 +72,8 @@ function App() {
           />
         </div>
       )}
-      <NavComponent></NavComponent>
+
       <RouterProvider router={router} />
-      <FooterAppSection></FooterAppSection>
     </div>
   );
 }
