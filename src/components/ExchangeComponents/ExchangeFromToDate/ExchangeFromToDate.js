@@ -6,25 +6,18 @@ import Select from "../../UI/Select/Select";
 import Button from "../../UI/Button/Button";
 import InputComponent from "../../UI/Input/InputComponent";
 import { singleFetchDataFromDateTo } from "../../../store/currencyApiNbp/singleCurrencyFetchDataFromDateToSlice";
-import ExchangeFromToDateChart from '../ExchangeFromToDateChart/ExchangeFromToDateChart'
+import ExchangeFromToDateChart from "../ExchangeFromToDateChart/ExchangeFromToDateChart";
 import classes from "./ExchangeFromToDate.module.scss";
 
 const ExchangeFromToDate = ({ data }) => {
   const dispatch = useDispatch();
   const dataDate = useSelector((state) => state.singleCurrencyDateFromTo.data);
-  const isLoading = useSelector(
-    (state) => state.singleCurrencyDateFromTo.isLoading
-  );
-  const error = useSelector(state=>state.singleCurrencyDateFromTo.error)
+
   const status = useSelector((state) => state.singleCurrencyDateFromTo.status);
   const [code, setCode] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [fetch, setFetch] = useState(false);
-  const [minVal,setMinVal] = useState()
-
-  console.log("DATA Select from exchange");
- 
 
   const changeSelectCodeHandler = (e) => {
     const index = e.target.selectedIndex;
@@ -46,14 +39,11 @@ const ExchangeFromToDate = ({ data }) => {
   };
 
   const fetchDateHandler = () => {
-    
     setFetch(true);
   };
 
-  
-
   useEffect(() => {
-    setFetch(fetch)
+    setFetch(fetch);
     if (fetch === true) {
       dispatch(
         singleFetchDataFromDateTo({
@@ -62,22 +52,9 @@ const ExchangeFromToDate = ({ data }) => {
           lastDate: toDate,
         })
       );
-      setFetch(false)
+      setFetch(false);
     }
-  }, [dispatch,fetch]);
-
-  useEffect(()=> {
-    if(status==='success' && fetch) {
-      console.log('statyus')
-      console.log(status)
-      const min = [...dataDate.rates].reduce((prev, next) =>
-      prev.ask < next.ask ? prev : next
-    );
-    console.log('MIN');
-    console.log(min)
-      setMinVal(min)
-    }
-  },[status,fetch])
+  }, [dispatch, fetch]);
 
   return (
     <div className={classes.exchange_date}>
@@ -110,8 +87,14 @@ const ExchangeFromToDate = ({ data }) => {
         </div>
 
         <div className={classes.chart}>
-          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate} minVal={minVal} fetch={fetch}/>}
-       {status==='error' && <p>Wrong data fetch</p>}
+          {dataDate && (
+            <ExchangeFromToDateChart
+              dateTo={toDate}
+              dateFrom={fromDate}
+              fetch={fetch}
+            />
+          )}
+          {status === "error" && <p>Wrong data fetch</p>}
         </div>
       </BudgetAppSection>
     </div>

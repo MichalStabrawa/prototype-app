@@ -15,21 +15,32 @@ import {
 } from "recharts";
 import Button from "../../UI/Button/Button";
 
-import classes from "../ExchangeTopLastChart/ExchangeTopLastChart.module.scss";
+import classes from "./ExchangeFromToDateChart.module.scss";
 
-const ExchangeFromToDateChart = ({ dateFrom, dateTo, minVal ,fetch}) => {
+const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
   const data = useSelector((state) => state.singleCurrencyDateFromTo.data);
   const status = useSelector((state) => state.singleCurrencyDateFromTo.status);
   const [flag, setFlag] = useState(false);
-  const [minBidAskVal,setMinVal] = useState(null)
+  const [minBidAsk, setMinBidAsk] = useState(null);
+  const [maxBidAsk, setMaxBidAsk] = useState(null);
 
   const changeChartHandler = () => {
     setFlag(!flag);
   };
 
-  useEffect(()=> {
-    setMinVal(minVal)
-  },[fetch])
+  useEffect(() => {
+    if (status === "success") {
+      const min = [...data.rates].reduce((prev, next) =>
+        prev.ask < next.ask ? prev : next
+      );
+      const max = [...data.rates].reduce((prev, next) =>
+        prev.ask < next.ask ? prev : next
+      );
+
+      setMinBidAsk(min);
+      setMaxBidAsk(max);
+    }
+  }, [status]);
 
   return (
     <>
@@ -37,19 +48,33 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo, minVal ,fetch}) => {
         {status === "error" && (
           <p className={classes.error}>Error fetch date</p>
         )}
-        {data && status === "success" && minBidAskVal&& (
+        {data && status === "success" && minBidAsk && (
           <div>
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
                 <h3>
-                  {data.code} ask & bid from {dateFrom} to {dateTo}
+                  {data.code} ask & bid from <span className={classes.date}>{dateFrom}</span> to <span className={classes.date}>{dateTo}</span> 
                 </h3>
-                {minBidAskVal&&     <div>
-                  <p>min bid value: {minBidAskVal.bid} date {minBidAskVal.effectiveDate}</p>
-                  <p>min ask value{minBidAskVal.ask}</p>
-                </div>}
-            
+                <div className={classes.max_min}>
+                  <p>
+                    <span className={classes.date}>
+                      {" "}
+                      date: {minBidAsk.effectiveDate}
+                    </span>
+                    ,<span className={classes.min}>min bid:</span>{" "}
+                    <span> {minBidAsk.bid}</span>,
+                    <span className={classes.max}> max bid:</span>
+                    <span>{maxBidAsk.bid}</span>
+                  </p>
+                  <p>
+                    <span className={classes.min}> min ask:</span>
+                    <span>{minBidAsk.ask}</span>,
+                    <span className={classes.max}>max ask:</span>
+                    <span> {maxBidAsk.ask}</span>
+                  </p>
+                </div>
+
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     width={500}
@@ -80,8 +105,26 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo, minVal ,fetch}) => {
             ) : (
               <div className={classes.chart}>
                 <h3>
-                  {data.code} ask & bid from {dateFrom} to {dateTo}
+                {data.code} ask & bid from <span className={classes.date}>{dateFrom}</span> to <span className={classes.date}>{dateTo}</span> 
                 </h3>
+                <div className={classes.max_min}>
+                  <p>
+                    <span className={classes.date}>
+                      {" "}
+                      date: {minBidAsk.effectiveDate}
+                    </span>
+                    ,<span className={classes.min}>min bid:</span>{" "}
+                    <span> {minBidAsk.bid}</span>,
+                    <span className={classes.max}> max bid:</span>
+                    <span>{maxBidAsk.bid}</span>
+                  </p>
+                  <p>
+                    <span className={classes.min}> min ask:</span>
+                    <span>{minBidAsk.ask}</span>,
+                    <span className={classes.max}>max ask:</span>
+                    <span> {maxBidAsk.ask}</span>
+                  </p>
+                </div>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     width={500}

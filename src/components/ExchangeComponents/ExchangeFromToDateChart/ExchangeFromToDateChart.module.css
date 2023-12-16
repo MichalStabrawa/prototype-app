@@ -1,0 +1,36 @@
+.chart {
+  height: 350px;
+  margin-bottom: 100px;
+}
+
+.chart .max_min {
+  text-align: right;
+}
+
+.chart .max_min span {
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.chart .max_min span.min {
+  color: red;
+}
+
+.chart .max_min span.max {
+  color: green;
+}
+
+.chart .max_min span.date {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.chart .date {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.error {
+  color: red;
+}
