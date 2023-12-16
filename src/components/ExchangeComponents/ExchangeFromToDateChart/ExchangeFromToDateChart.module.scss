@@ -1,0 +1,37 @@
+.chart {
+  height: 350px;
+  margin-bottom: 100px;
+
+  .max_min {
+    text-align: right;
+
+    span {
+      padding-left: 10px;
+      font-weight: bold;
+
+    
+
+      &.min {
+        color:red;
+      }
+
+      &.max {
+        color:green;
+      }
+      &.date {
+        font-weight: normal;
+        font-style: italic;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .date {
+    font-weight: normal;
+    font-style: italic;
+   
+  }
+}
+.error {
+  color: red;
+}
