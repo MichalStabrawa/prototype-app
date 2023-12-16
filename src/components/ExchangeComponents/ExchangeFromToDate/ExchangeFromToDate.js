@@ -63,17 +63,6 @@ const ExchangeFromToDate = ({ data }) => {
     }
   }, [dispatch, fetch]);
 
-  useEffect(() => {
-    if (status === "success" && fetch===true) {
-      const min = [...dataDate.rates].reduce((prev, next) =>
-        prev.ask < next.ask ? prev : next
-      );
-      console.log("MIn");
-      console.log(min);
-      setMinVal(min);
-    }
-  }, [status, fetch]);
-
   return (
     <div className={classes.exchange_date}>
       <BudgetAppSection>
