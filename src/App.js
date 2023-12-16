@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NavComponent from "./components/NavComponent/NavComponent";
 import Home from "./Pages/home/home";
 import Login from "./Pages/loginApp/login";
@@ -30,6 +30,18 @@ function App() {
     setFlag(!flag);
   };
 
+  const router = createBrowserRouter([
+    { path: "/", element: <Home /> },
+    { path: "/aboutUs", element: <AboutUs /> },
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Register /> },
+    { path: "/login/remind-login", element: <RemindLogin /> },
+    {
+      path: "/exchange",
+      element: <ExchangeRates flag={flag} click={handleSend} />,
+    },
+  ]);
+
   useEffect(() => {
     dispatch(fetchContent());
     dispatch(fetchNbpTableA(tableKind));
@@ -54,17 +66,7 @@ function App() {
         </div>
       )}
       <NavComponent></NavComponent>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login/remind-login" element={<RemindLogin />} />
-        <Route
-          path="/exchange"
-          element={<ExchangeRates flag={flag} click={handleSend} />}
-        />
-      </Routes>
+      <RouterProvider router={router} />
       <FooterAppSection></FooterAppSection>
     </div>
   );
