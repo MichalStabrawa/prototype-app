@@ -110,7 +110,7 @@ const ExchangeFromToDate = ({ data }) => {
         </div>
 
         <div className={classes.chart}>
-          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate} minVal={minVal}/>}
+          {dataDate&& <ExchangeFromToDateChart dateTo={toDate} dateFrom={fromDate} minVal={minVal} fetch={fetch}/>}
        {status==='error' && <p>Wrong data fetch</p>}
         </div>
       </BudgetAppSection>
