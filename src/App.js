@@ -36,7 +36,7 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        { path: "", element: <Home /> },
+        { index:true, element: <Home /> },
         { path: "aboutUs", element: <AboutUs /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
