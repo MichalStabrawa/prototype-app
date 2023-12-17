@@ -39,10 +39,15 @@
                 text-decoration: none;
             }
         }
+
+        .active {
+            color:$brownlight;
+            border-bottom: 1px solid $brownlight;
+        }
     }
 
 
-    .active {
+    .nav_active {
         display: flex;
         flex-direction: column;
         align-items: center;

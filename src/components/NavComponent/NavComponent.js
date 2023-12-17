@@ -5,7 +5,7 @@ import logo from "../../assets/bapp.png";
 import Button from "../UI/Button/Button";
 import ButtonHamburger from "../UI/Button/ButtonHamburger";
 import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
-import { Link } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
@@ -33,15 +33,15 @@ const NavComponent = (props) => {
         click={showMobileNav}
         active={active === true ? buttonHamburgerStyles.active : null}
       />
-      <ul className={!active ? classes.nav : classes.active}>
+      <ul className={!active ? classes.nav : classes.nav_active}>
         <li className={classes.nav_item}>
-          <Link to="/">Home</Link>
+          <NavLink to=".." className={({isActive})=>isActive?classes.active:undefined}>Home</NavLink>
         </li>
         <li className={classes.nav_item}>
-          <Link to="/exchange">Exchange rates</Link>
+          <NavLink to="exchange" className={({isActive})=>isActive?classes.active:undefined}>Exchange rates</NavLink>
         </li>
         <li className={classes.nav_item}>
-          <Link to="/aboutUs">About Us</Link>
+          <NavLink to="aboutUs" className={({isActive})=>isActive?classes.active:undefined}>About Us</NavLink>
         </li>
 
         <li className={classes.nav_item}>Lorem3</li>
@@ -54,7 +54,7 @@ const NavComponent = (props) => {
           </Link>
         </li>
         <li className={classes.nav_item}>
-          <Link to="/register">
+          <Link to="register">
             <Button name={"Register"}></Button>
           </Link>
         </li>
