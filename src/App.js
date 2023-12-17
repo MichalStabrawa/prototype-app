@@ -17,6 +17,7 @@ import { multipleCurrencyFetchData } from "./store/currencyApiNbp/multipleCurren
 
 import { useEffect, useState } from "react";
 import RootLayout from "./Pages/Root";
+import ExchangeDetails from "./Pages/exchange/ExchangeDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        { index:true, element: <Home /> },
+        { index: true, element: <Home /> },
         { path: "aboutUs", element: <AboutUs /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
@@ -44,7 +45,10 @@ function App() {
         {
           path: "exchange",
           element: <ExchangeRates flag={flag} click={handleSend} />,
+          children: [],
         },
+        { path: "exchange/:id", element: <ExchangeDetails /> }
+        
       ],
     },
   ]);
