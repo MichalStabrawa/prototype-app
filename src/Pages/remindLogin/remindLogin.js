@@ -4,6 +4,7 @@ import Wrapper from '../../components/UI/Wrapper/Wrapper';
 import classes from './remindLogin.scss';
 import loginStyles from '../loginApp/login.module.scss';
 import Button from '../../components/UI/Button/Button';
+import {Link} from 'react-router-dom';
 
 const RemindLogin = (props) => {
     return (
@@ -14,6 +15,7 @@ const RemindLogin = (props) => {
                         Your username will be sent to you on the setup email address upon registration</h1>
                     <InputComponent name='Remind login' />
                     <Button name='Submit' />
+                   <Link to=".." relative='path'>Back</Link>
                 </div>
 
             </Wrapper>

@@ -25,7 +25,7 @@ const NavComponent = (props) => {
   return (
     <nav className={classes.navbar}>
       <div className={classes.logo}>
-        <Link to="/">
+        <Link to="..">
           <img src={logo} alt="logo" />
         </Link>
       </div>

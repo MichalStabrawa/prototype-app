@@ -148,7 +148,7 @@ const BudgetAppExchange = (props) => {
         </ResponsiveContainer>
       </div>
       <div className={classes.next}>
-        <Link to="/exchange">
+        <Link to="exchange">
           <Button name="more" />
         </Link>
       </div>

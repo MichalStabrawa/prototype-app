@@ -6,6 +6,7 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import loginStyles from "../loginApp/login.module.scss";
+import { Link } from "react-router-dom";
 
 const Register = (props) => {
   const [login, setLogin] = useState("");
@@ -82,7 +83,7 @@ const Register = (props) => {
               name={"Submit"}
               color={buttonStyles.btn_transparent}
               disabled={enabledSubmit}
-            />
+            /><Link to="..">back</Link>
           </form>
         </div>
       </Wrapper>
