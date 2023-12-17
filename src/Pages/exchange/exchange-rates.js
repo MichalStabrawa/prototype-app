@@ -32,6 +32,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import ExchangeTopLastChart from "../../components/ExchangeComponents/ExchangeTopLastChart/ExchangeTopLastChart";
 import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import ExchangeFromToDate from "../../components/ExchangeComponents/ExchangeFromToDate/ExchangeFromToDate";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -59,6 +60,9 @@ const ExchangeRates = (props) => {
   const [flag, setFlag] = useState(props.flag);
   const [single, setSingle] = useState([]);
   const error = useSelector((state) => state.content.error);
+  const [param, setParam] = useState("");
+
+  const params = useParams();
 
   const currentDate = getCurrentDate();
 
@@ -68,8 +72,6 @@ const ExchangeRates = (props) => {
   } else {
     console.log(dateValue >= currentDate);
   }
-
-  console.log(currency);
 
   useEffect(() => {
     setFlag(props.flag);
@@ -82,6 +84,7 @@ const ExchangeRates = (props) => {
     switch (name) {
       case "pln":
         setInputValue(e);
+
         break;
 
       case "other":
@@ -103,6 +106,7 @@ const ExchangeRates = (props) => {
           value: e.target.value,
           code: option.getAttribute("data-code"),
         });
+        setParam(option.getAttribute("data-code"));
         break;
       case "countOther":
         setCountOtherCurrency({
@@ -146,10 +150,6 @@ const ExchangeRates = (props) => {
     setDateValue(e.target.value);
   };
 
-  const handleSend = () => {
-    setFlag(!flag);
-  };
-
   useEffect(() => {
     setCompareData(currency);
   }, [currency]);
@@ -186,7 +186,9 @@ const ExchangeRates = (props) => {
   return (
     <Wrapper>
       <header>
-        <h1>Exchange Rates</h1>
+        <h1>Exchange Rates </h1>
+        {param !== "" && <Link to={param}> Params</Link>}
+
         {currency.length > 0 ? (
           <div>
             <ResponsiveCarousel
@@ -405,7 +407,7 @@ const ExchangeRates = (props) => {
             </div>
           )}
         </BudgetAppSection>
-        <ExchangeFromToDate data={data}/>
+        <ExchangeFromToDate data={data} />
       </div>
     </Wrapper>
   );
