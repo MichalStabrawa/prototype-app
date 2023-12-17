@@ -55,7 +55,7 @@ const LoginApp = (props) => {
               action={addLogin}
             />
             <div className={classes.login__wrapper__link}>
-              <Link to="/login/remind-login">
+              <Link to="remind-login">
                 I don't remember the username
               </Link>
             </div>
@@ -68,7 +68,7 @@ const LoginApp = (props) => {
               action={addpassword}
             />
             <div className={classes.login__wrapper__link}>
-              <Link to="/login/remind-login">
+              <Link to="remind-login">
                 I don't remember the password
               </Link>
             </div>
@@ -84,9 +84,10 @@ const LoginApp = (props) => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor{" "}
             </p>
-            <Link to="/register">
+            <Link to="register">
               <Button name={"Register"}></Button>
             </Link>
+            <Link to="..">back</Link>
           </div>
         </div>
       </Wrapper>
