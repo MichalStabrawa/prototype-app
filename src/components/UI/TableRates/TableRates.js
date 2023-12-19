@@ -3,7 +3,7 @@ import classes from "./TableRates.module.scss";
 import IconArrow from "../iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 const TableRates = (props) => {
   const data = props.data;
   const [tabData, setTabData] = useState([]);
@@ -60,7 +60,9 @@ const TableRates = (props) => {
                       {(el.mid - el.lastValue).toFixed(4)}
                     </td>
                     <td className={classes.date}>{effectiveDate}</td>
-                    <td><Link to={el.code}>Link</Link></td>
+                    <td>
+                      <Link to={el.code}>Link</Link>
+                    </td>
                   </tr>
                 );
               })}
