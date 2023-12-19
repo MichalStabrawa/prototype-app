@@ -10,19 +10,14 @@ function ExchangeDetails() {
   const [data, setData] = useState();
 
   const filterCurrency = (data) => {
-   console.log("Data set");
-   console.log(data)
     return data[1].rates.filter((el) => el.code === params.id);
   };
 
   useEffect(() => {
     if (currency[0]) {
-      setData(filterCurrency(currency))
+      setData(filterCurrency(currency));
     }
-  },[currency]);
-
-  console.log('DATA Filter');
-  console.log(data)
+  }, [currency]);
 
   return (
     <>
@@ -38,8 +33,7 @@ function ExchangeDetails() {
             <div>
               <h3>{data[0].code}</h3>
               <p>
-                {data[0].currency}{" "}
-                <span>{data[0].mid}</span>
+                {data[0].currency} <span>{data[0].mid}</span>
                 <span>date: {currency[1].effectiveDate}</span>
               </p>
             </div>
