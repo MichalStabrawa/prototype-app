@@ -1,6 +1,5 @@
 .table_rates {
-  height: 100vh;
-  overflow-x: auto;
+  margin-top: 20px;
 }
 
 .table_rates th,

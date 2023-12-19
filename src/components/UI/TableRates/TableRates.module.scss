@@ -1,6 +1,5 @@
 .table_rates {
-  height: 100vh;
-  overflow-x: auto;
+  margin-top: 20px;
   th,
   td {
     text-align: left;
@@ -20,13 +19,10 @@
     font-style: italic;
 
     &.green {
-      color:green
-  
+      color: green;
     }
     &.red {
-      color:red
+      color: red;
     }
   }
- 
- 
 }

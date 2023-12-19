@@ -4,10 +4,31 @@ import IconArrow from "../iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { Link } from "react-router-dom";
+import Pagination from "../../Paggination/Pagination";
+
+
+
+
+
 const TableRates = (props) => {
   const data = props.data;
   const [tabData, setTabData] = useState([]);
   const [effectiveDate, setEffectiveDate] = useState("");
+  const [currentPage, setCurrentPage ] = useState(1);
+
+  const [recordsPerPage] = useState(20);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  console.log(
+    `indexOfLastRecord: ${indexOfLastRecord}, indexOfFirstRecord: ${indexOfFirstRecord}`
+  );
+
+  const currentRecords = tabData.slice(indexOfFirstRecord, indexOfLastRecord);
+  console.log(currentRecords)
+  const nPages = Math.ceil(tabData.length / recordsPerPage);
+
+  console.log(`Tab data length: ${tabData.length}`)
+  console.log(currentRecords)
 
   useEffect(() => {
     setEffectiveDate(data[1].effectiveDate);
@@ -41,7 +62,7 @@ const TableRates = (props) => {
           </thead>
           <tbody>
             {data &&
-              tabData.map((el, index) => {
+              currentRecords.map((el, index) => {
                 return (
                   <tr key={index}>
                     <td>{el.code}</td>
@@ -68,6 +89,9 @@ const TableRates = (props) => {
               })}
           </tbody>
         </table>
+        <Pagination  nPages = { nPages }
+    currentPage = { currentPage } 
+    setCurrentPage = { setCurrentPage }/>
       </div>
     </>
   );
