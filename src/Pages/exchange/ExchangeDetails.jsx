@@ -1,17 +1,31 @@
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import { singleCurrencyLastFewTimes } from "../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 function ExchangeDetails() {
+  const dispatch = useDispatch();
   const params = useParams();
   const currency = useSelector((state) => state.currency.data);
   const status = useSelector((state) => state.currency.status);
   const isLoading = useSelector((state) => state.currency.isLoading);
   const [data, setData] = useState();
+  const currencyLastTopCount = useSelector(
+    (state) => state.singleCurrencyLastFewTimes.data
+  );
+  const isLoadingLastTop = useSelector(
+    (state) => state.singleCurrencyLastFewTimes.isLoading
+  );
 
+  const statusLastTop = useSelector(
+    (state) => state.singleCurrencyLastFewTimes.status
+  );
+
+  const [number, setNumber] = useState(3);
   const filterCurrency = (data) => {
     return data[1].rates.filter((el) => el.code === params.id);
   };
@@ -21,6 +35,17 @@ function ExchangeDetails() {
       setData(filterCurrency(currency));
     }
   }, [currency]);
+
+  useEffect(() => {
+    if (params.id !== "") {
+      dispatch(
+        singleCurrencyLastFewTimes({
+          code: params.id,
+          number: number,
+        })
+      );
+    }
+  }, [number]);
 
   if (isLoading) {
     return "Is Loading..............";
