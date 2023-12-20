@@ -16,7 +16,7 @@ const TableRates = (props) => {
   const [effectiveDate, setEffectiveDate] = useState("");
   const [currentPage, setCurrentPage ] = useState(1);
 
-  const [recordsPerPage] = useState(20);
+  const [recordsPerPage] = useState(15);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   console.log(
