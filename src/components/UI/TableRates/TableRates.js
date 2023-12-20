@@ -5,6 +5,7 @@ import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences"
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { Link } from "react-router-dom";
 import Pagination from "../../Paggination/Pagination";
+import { MdReadMore } from "react-icons/md";
 
 
 
@@ -82,7 +83,7 @@ const TableRates = (props) => {
                     </td>
                     <td className={classes.date}>{effectiveDate}</td>
                     <td>
-                      <Link to={el.code}>Link</Link>
+                      <Link to={`/exchange/${el.code}`}>more <MdReadMore/></Link>
                     </td>
                   </tr>
                 );

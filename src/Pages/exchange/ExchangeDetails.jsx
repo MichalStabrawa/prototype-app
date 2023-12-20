@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 function ExchangeDetails() {
   const params = useParams();
   const currency = useSelector((state) => state.currency.data);
-  const status =useSelector((state)=>state.currency.status);
-  const isLoading = useSelector((state)=>state.currency.isLoading)
+  const status = useSelector((state) => state.currency.status);
+  const isLoading = useSelector((state) => state.currency.isLoading);
   const [data, setData] = useState();
 
   const filterCurrency = (data) => {
@@ -16,13 +17,13 @@ function ExchangeDetails() {
   };
 
   useEffect(() => {
-    if (status==='success') {
+    if (status === "success") {
       setData(filterCurrency(currency));
     }
   }, [currency]);
 
-  if(isLoading) {
-    return 'Is Loading..............'
+  if (isLoading) {
+    return "Is Loading..............";
   }
 
   return (
@@ -31,7 +32,7 @@ function ExchangeDetails() {
         <header>
           {" "}
           <h1>Exchange Details</h1>
-          {status}
+          <Link to="/exchange">back</Link>
         </header>
       </Wrapper>
       <Wrapper css="grid">
