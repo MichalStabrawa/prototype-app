@@ -6,16 +6,14 @@ import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { Link } from "react-router-dom";
 import Pagination from "../../Paggination/Pagination";
 import { MdReadMore } from "react-icons/md";
-
-
-
+import Button from "react-bootstrap/Button";
 
 
 const TableRates = (props) => {
   const data = props.data;
   const [tabData, setTabData] = useState([]);
   const [effectiveDate, setEffectiveDate] = useState("");
-  const [currentPage, setCurrentPage ] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [recordsPerPage] = useState(15);
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -25,11 +23,11 @@ const TableRates = (props) => {
   );
 
   const currentRecords = tabData.slice(indexOfFirstRecord, indexOfLastRecord);
-  console.log(currentRecords)
+  console.log(currentRecords);
   const nPages = Math.ceil(tabData.length / recordsPerPage);
 
-  console.log(`Tab data length: ${tabData.length}`)
-  console.log(currentRecords)
+  console.log(`Tab data length: ${tabData.length}`);
+  console.log(currentRecords);
 
   useEffect(() => {
     setEffectiveDate(data[1].effectiveDate);
@@ -83,16 +81,23 @@ const TableRates = (props) => {
                     </td>
                     <td className={classes.date}>{effectiveDate}</td>
                     <td>
-                      <Link to={`/exchange/${el.code}`}>more <MdReadMore/></Link>
+                      <Link to={`/exchange/${el.code}`}>
+                        {" "}
+                        <Button variant="link">
+                          more <MdReadMore />
+                        </Button>{" "}
+                      </Link>
                     </td>
                   </tr>
                 );
               })}
           </tbody>
         </table>
-        <Pagination  nPages = { nPages }
-    currentPage = { currentPage } 
-    setCurrentPage = { setCurrentPage }/>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );
