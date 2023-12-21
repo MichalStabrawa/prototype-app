@@ -8,7 +8,9 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 import classes from "./ExchangeDetails.module.scss";
 
@@ -18,6 +20,7 @@ function ExchangeDetails() {
   const status = useSelector((state) => state.currency.status);
   const isLoading = useSelector((state) => state.currency.isLoading);
   const [data, setData] = useState();
+  const [key, setKey] = useState("3");
 
   const filterCurrency = (data) => {
     return data[1].rates.filter((el) => el.code === params.id);
@@ -34,7 +37,7 @@ function ExchangeDetails() {
       <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
       </Spinner>
-    );;
+    );
   }
 
   return (
@@ -69,16 +72,25 @@ function ExchangeDetails() {
                     </p>
                   </div>
                 )}
-
-                <div>
-                  <div className="tabulation">
-                    <button>5d</button>
-                    <button>7d</button>
-                    <button>14d</button>
-                  </div>
-                </div>
               </Col>
-              <Col>Test</Col>
+              <Col>
+                <Tabs
+                  id="controlled-tab-example"
+                  activeKey={key}
+                  onSelect={(k) => setKey(k)}
+                  className="mb-3"
+                >
+                  <Tab eventKey="3" title="3D">
+                    Tab content for 3
+                  </Tab>
+                  <Tab eventKey="7" title="7D">
+                    Tab content for 7
+                  </Tab>
+                  <Tab eventKey="14" title="14D">
+                    Tab content for 14
+                  </Tab>
+                </Tabs>
+              </Col>
             </Row>
           </Container>
         </main>
