@@ -1,3 +1,21 @@
 .exchange {
-    
+    min-height: calc(100vh - 186px);
+    .value {
+        font-size:1.5rem;
+        display: flex;
+        align-items: center;
+    }
+    .back {
+        margin-bottom:20px;
+        text-align:right;
+    }
+
+    .date {
+        font-style: italic;
+    }
+
+    .tab_content {
+        height:400px;
+        border:1px solid
+    }
 }
