@@ -93,11 +93,6 @@ function ExchangeDetails() {
     );
   }
 
-  const css = {
-    grid: "grid",
-    gray: "gray",
-  };
-
   return (
     <section className={classes.exchange_wrapper}>
       <Wrapper css="grey">
@@ -128,7 +123,7 @@ function ExchangeDetails() {
                 <h3>Rate for a particular currency</h3>
                 {currency && data && (
                   <div>
-                    <h3 className={classes.code}>{data[0].code}</h3>
+                    <h4 className={classes.code}>{data[0].code}</h4>
                     <p className={classes.value}>
                       <span>{data[0].mid}</span>{" "}
                       <IconArrow
@@ -137,8 +132,20 @@ function ExchangeDetails() {
                           dataLast[0].mid
                         )}
                       />
+                      <span
+                        className={`${classes.rate} ${
+                          classes[
+                            getCurrentPrevDifferences(
+                              data[0].mid,
+                              dataLast[0].mid
+                            )
+                          ]
+                        }`}
+                      >
+                        {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                      </span>
                     </p>
-                    <p> {data[0].currency} </p>
+                    <p className={classes.currency}> {data[0].currency} </p>
                     <p className={classes.date}>
                       <span>date: {currency[1].effectiveDate}</span>
                     </p>
@@ -174,7 +181,7 @@ function ExchangeDetails() {
                             height={300}
                             data={currencyLastTopCount.rates}
                             margin={{
-                              top: 5,
+                              top: 15,
                               right: 30,
                               left: 20,
                               bottom: 5,

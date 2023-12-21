@@ -214,7 +214,7 @@ const ExchangeRates = (props) => {
                   color={ButtonStyles.btn_transparent}
                 />
 
-                <TableRates data={currency} />
+                <TableRates data={currency} link={param}/>
               </div>
             ) : null}
             <div className={classes.exchange_wrapper__count__ex}>
@@ -353,13 +353,7 @@ const ExchangeRates = (props) => {
                   />
                 </div>
               </div>
-              {status === "error" && <p>Error</p>}
-              {table === "A" && (
-                <div>
-                  <ExchangeTopLastChart index="0" />{" "}
-                  <ExchangeTopLastChart index="1" />
-                </div>
-              )}
+           
             </div>
           </div>
 
@@ -375,7 +369,7 @@ const ExchangeRates = (props) => {
                   {currency[0].effectiveDate}
                 </span>
               </h3>
-              <ResponsiveContainer width="100%" height="95%">
+              <ResponsiveContainer width="100%" height="90%">
                 <BarChart
                   width={500}
                   height={300}
@@ -404,8 +398,16 @@ const ExchangeRates = (props) => {
                   />
                 </BarChart>
               </ResponsiveContainer>
+              
             </div>
           )}
+             {status === "error" && <p>Error</p>}
+              {table === "A" && (
+                <div className={classes.chart_top}>
+                  <ExchangeTopLastChart index="0" />{" "}
+                  <ExchangeTopLastChart index="1" />
+                </div>
+              )}
         </BudgetAppSection>
         <ExchangeFromToDate data={data} />
       </div>
