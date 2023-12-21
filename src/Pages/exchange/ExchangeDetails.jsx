@@ -48,7 +48,7 @@ function ExchangeDetails() {
   }, [number]);
 
   if (isLoading) {
-    return "Is Loading..............";
+    return "Is Loading.............";
   }
 
   return (
