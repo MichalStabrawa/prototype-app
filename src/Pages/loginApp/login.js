@@ -5,8 +5,8 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import { Link } from "react-router-dom";
-import {useSelector,useDispatch} from 'react-redux';
-import { authActions } from '../../store/auth';
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 import { useNavigate } from "react-router-dom";
 
@@ -55,9 +55,7 @@ const LoginApp = (props) => {
               action={addLogin}
             />
             <div className={classes.login__wrapper__link}>
-              <Link to="remind-login">
-                I don't remember the username
-              </Link>
+              <Link to="remind-login">I don't remember the username</Link>
             </div>
 
             <InputComponent
@@ -68,9 +66,7 @@ const LoginApp = (props) => {
               action={addpassword}
             />
             <div className={classes.login__wrapper__link}>
-              <Link to="remind-login">
-                I don't remember the password
-              </Link>
+              <Link to="remind-login">I don't remember the password</Link>
             </div>
             <Button
               name={"Submit"}

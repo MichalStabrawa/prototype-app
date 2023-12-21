@@ -42,7 +42,8 @@ const singleCurrencyLastFewTimesSlice= createSlice({
         builder.addCase(singleCurrencyLastFewTimes.fulfilled,(state,action)=> {
             state.isLoading = false;
             state.data = action.payload;
-            state.status = "success"
+            state.status = "success";
+            state.error= null
         });
         builder.addCase(singleCurrencyLastFewTimes.rejected,(state,action)=> {
             state.isLoading = false;

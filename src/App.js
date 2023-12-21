@@ -17,7 +17,7 @@ import { multipleCurrencyFetchData } from "./store/currencyApiNbp/multipleCurren
 
 import { useEffect, useState } from "react";
 import RootLayout from "./Pages/Root";
-import ExchangeDetails from "./Pages/exchange/ExchangeDetails";
+import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
 
 function App() {
   const dispatch = useDispatch();

@@ -8,6 +8,17 @@ import InputComponent from "../../UI/Input/InputComponent";
 import { singleFetchDataFromDateTo } from "../../../store/currencyApiNbp/singleCurrencyFetchDataFromDateToSlice";
 import ExchangeFromToDateChart from "../ExchangeFromToDateChart/ExchangeFromToDateChart";
 import classes from "./ExchangeFromToDate.module.scss";
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const ExchangeFromToDate = ({ data }) => {
   const dispatch = useDispatch();
