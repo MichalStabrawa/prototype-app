@@ -51,7 +51,7 @@ const TableRates = (props) => {
           <thead>
             <tr>
               <th>code</th>
-              <th>currency</th>
+              <th className={classes.currency}>currency</th>
               <th>value</th>
               <th>rate arrow</th>
               <th>rate</th>
@@ -65,7 +65,7 @@ const TableRates = (props) => {
                 return (
                   <tr key={index}>
                     <td>{el.code}</td>
-                    <td>{el.currency}</td>
+                    <td className={classes.currency}>{el.currency}</td>
                     <td>{el.mid}</td>
                     <td>
                       <IconArrow
