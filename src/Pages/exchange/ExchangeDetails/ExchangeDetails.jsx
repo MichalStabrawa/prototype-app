@@ -182,7 +182,7 @@ function ExchangeDetails() {
                           >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="effectiveDate" />
-                            <YAxis domain={["dataMin"]} />
+                            <YAxis domain={["dataMin,dataMax"]} />
                             <Tooltip />
                             <Legend />
                             <Line
