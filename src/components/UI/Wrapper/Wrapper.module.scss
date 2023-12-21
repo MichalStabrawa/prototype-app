@@ -10,9 +10,11 @@
   gap: 20px;
   grid-template-columns: 1fr;
 
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+  @include media-query-lg {
+    grid-template-columns: 1fr;
   }
+
+  
 }
 
 .grid {

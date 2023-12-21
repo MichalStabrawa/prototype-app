@@ -22,6 +22,16 @@
     border-bottom: 1px solid;
   }
 
+  .currency,   .last_date ,.last_value{
+    display:none;
+
+    @include media-query-lg {
+      display: table-cell;
+    }
+  }
+
+
+
   .rate {
     font-size: 0.85rem;
     font-style: italic;
