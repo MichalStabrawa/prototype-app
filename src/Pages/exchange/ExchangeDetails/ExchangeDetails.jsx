@@ -11,9 +11,9 @@ import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 import IconArrow from "../../../components/UI/iconArrow/iconArrow";
-import getCurrentPrevDifferences from '../../../utils/getCurrentPrevDifferences';
+import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -40,7 +40,7 @@ function ExchangeDetails() {
   const status = useSelector((state) => state.currency.status);
   const isLoading = useSelector((state) => state.currency.isLoading);
   const [data, setData] = useState();
-  const [dataLast,setDataLast] = useState();
+  const [dataLast, setDataLast] = useState();
   const [key, setKey] = useState("3");
 
   //ask bid data
@@ -54,7 +54,9 @@ function ExchangeDetails() {
   const statusLastTop = useSelector(
     (state) => state.singleCurrencyLastFewTimes.status
   );
-  const errorLast = useSelector((state)=>state.singleCurrencyLastFewTimes.error)
+  const errorLast = useSelector(
+    (state) => state.singleCurrencyLastFewTimes.error
+  );
 
   const [number, setNumber] = useState(3);
 
@@ -68,7 +70,7 @@ function ExchangeDetails() {
   useEffect(() => {
     if (status === "success") {
       setData(filterCurrency(currency));
-      setDataLast(filterCurrencyLast(currency))
+      setDataLast(filterCurrencyLast(currency));
     }
   }, [currency]);
 
@@ -91,37 +93,50 @@ function ExchangeDetails() {
     );
   }
 
+  const css = {
+    grid: "grid",
+    gray: "gray",
+  };
+
   return (
-    <>
-      <Wrapper>
+    <section className={classes.exchange_wrapper}>
+      <Wrapper css="grey">
         <header>
           {" "}
           <h1>Exchange Details</h1>
           {errorLast}
         </header>
       </Wrapper>
-      <Wrapper css="grid">
-      
+      <Wrapper css="grey">
         <main className={classes.exchange}>
           <Container fluid>
             <Row>
-              <Col >
+              <Col>
                 <div className={classes.back}>
                   {" "}
                   <Link to="/exchange">
                     {" "}
-                    <Button variant="secondary"><TiArrowBackOutline /> Back</Button>
+                    <Button variant="secondary">
+                      <TiArrowBackOutline /> Back
+                    </Button>
                   </Link>
                 </div>
               </Col>
             </Row>
             <Row>
               <Col xs={12} md={3}>
+                <h3>Rate for a particular currency</h3>
                 {currency && data && (
                   <div>
                     <h3 className={classes.code}>{data[0].code}</h3>
                     <p className={classes.value}>
-                      <span>{data[0].mid}</span> <IconArrow  arrow={getCurrentPrevDifferences(data[0].mid, dataLast[0].mid)}/>
+                      <span>{data[0].mid}</span>{" "}
+                      <IconArrow
+                        arrow={getCurrentPrevDifferences(
+                          data[0].mid,
+                          dataLast[0].mid
+                        )}
+                      />
                     </p>
                     <p> {data[0].currency} </p>
                     <p className={classes.date}>
@@ -138,15 +153,19 @@ function ExchangeDetails() {
                   className="mb-3"
                 >
                   <Tab eventKey="3" title="3D"></Tab>
-                  <Tab></Tab>
+                  <Tab eventKey="7" title="7D"></Tab>
                   <Tab eventKey="14" title="14D"></Tab>
                   <Tab eventKey="21" title="21D"></Tab>
                   <Tab eventKey="30" title="1m"></Tab>
                   <Tab eventKey="60" title="2m"></Tab>
+                  <Tab eventKey="90" title="3m"></Tab>
+                  <Tab eventKey="180" title="6m"></Tab>
                 </Tabs>
                 <Row>
                   <Col>
-                  {errorLast&& <Alert variant="warning">Error fetch data</Alert>}
+                    {errorLast && (
+                      <Alert variant="warning">Error fetch data</Alert>
+                    )}
                     {statusLastTop === "success" && (
                       <div className={classes.tab_content}>
                         <ResponsiveContainer width="100%" height="100%">
@@ -184,7 +203,7 @@ function ExchangeDetails() {
           </Container>
         </main>
       </Wrapper>
-    </>
+    </section>
   );
 }
 
