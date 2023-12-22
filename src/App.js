@@ -34,7 +34,7 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/prototype-app",
       element: <RootLayout />,
       children: [
         { index: true, element: <Home /> },

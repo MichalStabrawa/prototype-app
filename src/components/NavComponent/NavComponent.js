@@ -35,7 +35,7 @@ const NavComponent = (props) => {
       />
       <ul className={!active ? classes.nav : classes.nav_active}>
         <li className={classes.nav_item}>
-          <NavLink to=".." className={({isActive})=>isActive?classes.active:undefined}>Home</NavLink>
+          <NavLink to="/prototype-app" className={({isActive})=>isActive?classes.active:undefined}>Home</NavLink>
         </li>
         <li className={classes.nav_item}>
           <NavLink to="exchange" className={({isActive})=>isActive?classes.active:undefined}>Exchange rates</NavLink>
@@ -46,7 +46,7 @@ const NavComponent = (props) => {
 
         <li className={classes.nav_item}>Lorem3</li>
         <li className={classes.nav_item}>
-          <Link to={auth ? "/" : "/login"} onClick={logOffHandler}>
+          <Link to={auth ? "/prototype-app" : "login"} onClick={logOffHandler}>
             <Button
               name={auth ? "LogOff" : "Login"}
               color={buttonStyles.btn_transparent}
