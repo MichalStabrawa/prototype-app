@@ -12,7 +12,7 @@ export const fetchNbpTableA = createAsyncThunk(
   async (table) => {
     try {
       const response = await fetch(
-        `http://api.nbp.pl/api/exchangerates/tables/${table}/last/2`
+        `http://api.nbp.pl/api/exchangerates/tables/${table}/last/2/`
       );
       if (!response.ok) {
         throw new Error("Somthing went wrong");
