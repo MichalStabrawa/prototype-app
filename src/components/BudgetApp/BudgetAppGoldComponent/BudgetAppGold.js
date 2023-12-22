@@ -121,7 +121,7 @@ export default function BudgetAppGold({ props }) {
           )}
         </div>
       </div>
-      <div style={{ width: "100%", height: "100%" }}>
+      <div className={classes.chart_wrapper} >
         <h3>Last 30 top count gold </h3>
         <div className={classes.chart}>
           <SimpleLineChart data={goldTopCount} />
