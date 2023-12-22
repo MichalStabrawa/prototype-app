@@ -30,15 +30,15 @@ const ExchangeTopLastChart = ({ index }) => {
 
   return (
     <>
-      <div>
+      <div >
         {status === "error" && <p>Error ExchangeTopLastChart</p>}
         {data && status === "success" && (
-          <div>
+          <div className={classes.chart_wrapper}>
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
                 <h3>{data[index].code} Top 10 bid ask rates</h3>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="90%">
                   <LineChart
                     width={500}
                     height={300}
@@ -68,7 +68,7 @@ const ExchangeTopLastChart = ({ index }) => {
             ) : (
               <div className={classes.chart}>
                 <h3>{data[index].code} Top 10 bid ask </h3>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="90%">
                   <BarChart
                     width={500}
                     height={300}

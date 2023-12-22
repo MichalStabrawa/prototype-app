@@ -5,12 +5,26 @@
     flex-direction: column;
     margin-bottom: 20px;
 
+    @include media-query-lg {
+        max-width: 330px;
+        width: auto
+    }
+
     &_item {
         height: 40px;
         border-radius: 5px;
         background-color: $drywhite;
-        max-width: 50%;
+        max-width: 100%;
         border: 1px solid $gray;
+
+        @include media-query-sm {
+            width: 50%;
+         }
+
+         @include media-query-lg {
+            min-width: 160px;
+            width: auto
+        }
 
         &::placeholder {
             font-style: italic;

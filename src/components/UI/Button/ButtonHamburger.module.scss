@@ -1,47 +1,40 @@
-@import './../../../styles/main';
-
+@import "./../../../styles/main";
 
 .burger {
+  width: 50px;
+  height: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+
+  @include media-query-md {
+    display: none;
+  }
+
+  span {
+    display: block;
+    height: 5px;
     width: 50px;
-    height: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 0;
-    background: transparent;
-    padding: 0;
-    outline: none;
-    cursor: pointer;
+    background: $gray;
+    transition: all 0.2s;
+  }
 
-
-    @include media-query-md {
-
-        display: none;
-        background: red
-    }
-
+  &.active {
     span {
-        display: block;
-        height: 5px;
-        width: 50px;
-        background: #fff;
-        transition: all 0.2s;
+      &:nth-of-type(1) {
+        transform: translateY(10px) rotate(45deg);
+        transition: 0.2s;
+      }
 
+      &:nth-of-type(2) {
+        transform: rotate(-45deg);
+        transition: 0.2s;
+      }
     }
-
-    &.active {
-        span {
-            &:nth-of-type(1) {
-                transform: translateY(10px) rotate(45deg);
-                transition: 0.2s;
-
-            }
-
-            &:nth-of-type(2) {
-                transform: rotate(-45deg);
-                transition: 0.2s;
-
-            }
-        }
-    }
+  }
 }
