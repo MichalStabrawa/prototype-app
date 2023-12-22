@@ -54,7 +54,9 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
             {!flag ? (
               <div className={classes.chart}>
                 <h3>
-                  {data.code} ask & bid from <span className={classes.date}>{dateFrom}</span> to <span className={classes.date}>{dateTo}</span> 
+                  {data.code} ask & bid from{" "}
+                  <span className={classes.date}>{dateFrom}</span> to{" "}
+                  <span className={classes.date}>{dateTo}</span>
                 </h3>
                 <div className={classes.max_min}>
                   <p>
@@ -64,13 +66,16 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                     </span>
                     ,<span className={classes.min}>min bid:</span>{" "}
                     <span> {minBidAsk.bid}</span>,
-              <span className={classes.min}> min ask:</span>      <span>{minBidAsk.ask}</span>,
+                    <span className={classes.min}> min ask:</span>{" "}
+                    <span>{minBidAsk.ask}</span>,
                   </p>
                   <p>
-                  <span className={classes.date}>date: {maxBidAsk.effectiveDate}</span>
-                  <span className={classes.max}> max bid:</span>
+                    <span className={classes.date}>
+                      date: {maxBidAsk.effectiveDate}
+                    </span>
+                    <span className={classes.max}> max bid:</span>
                     <span>{maxBidAsk.bid}</span>
-                
+
                     <span className={classes.max}>max ask:</span>
                     <span> {maxBidAsk.ask}</span>
                   </p>
@@ -106,7 +111,9 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
             ) : (
               <div className={classes.chart}>
                 <h3>
-                {data.code} ask & bid from <span className={classes.date}>{dateFrom}</span> to <span className={classes.date}>{dateTo}</span> 
+                  {data.code} ask & bid from{" "}
+                  <span className={classes.date}>{dateFrom}</span> to{" "}
+                  <span className={classes.date}>{dateTo}</span>
                 </h3>
                 <div className={classes.max_min}>
                   <p>
@@ -116,12 +123,16 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                     </span>
                     ,<span className={classes.min}>min bid:</span>{" "}
                     <span> {minBidAsk.bid}</span>,
-                    <span className={classes.max}> max bid:</span>
-                    <span>{maxBidAsk.bid}</span>
+                    <span className={classes.min}> min ask:</span>{" "}
+                    <span>{minBidAsk.ask}</span>,
                   </p>
                   <p>
-                    <span className={classes.min}> min ask:</span>
-                    <span>{minBidAsk.ask}</span>,
+                    <span className={classes.date}>
+                      date: {maxBidAsk.effectiveDate}
+                    </span>
+                    <span className={classes.max}> max bid:</span>
+                    <span>{maxBidAsk.bid}</span>
+
                     <span className={classes.max}>max ask:</span>
                     <span> {maxBidAsk.ask}</span>
                   </p>

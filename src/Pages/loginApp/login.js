@@ -42,8 +42,9 @@ const LoginApp = (props) => {
   };
 
   return (
-    <div className={classes.login}>
+    <main className={classes.login}>
       <Wrapper>
+      
         <div className={classes.login__wrapper}>
           <h1>Login</h1>
           <form onSubmit={loginHandler}>
@@ -86,8 +87,9 @@ const LoginApp = (props) => {
             <Link to="..">back</Link>
           </div>
         </div>
+       
       </Wrapper>
-    </div>
+    </main>
   );
 };
 
