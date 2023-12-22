@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/MichalStabrawa/prototype-app/static/css/main.9f3e862c.css",
-    "main.js": "/MichalStabrawa/prototype-app/static/js/main.017904cd.js",
-    "static/js/787.c98b0661.chunk.js": "/MichalStabrawa/prototype-app/static/js/787.c98b0661.chunk.js",
-    "static/media/financial.jpg": "/MichalStabrawa/prototype-app/static/media/financial.976f121e199e023d6d4a.jpg",
-    "static/media/bapp.png": "/MichalStabrawa/prototype-app/static/media/bapp.6742e3eb50f4aa47e380.png",
-    "static/media/slick.svg": "/MichalStabrawa/prototype-app/static/media/slick.2630a3e3eab21c607e21.svg",
-    "static/media/slick.eot": "/MichalStabrawa/prototype-app/static/media/slick.a4e97f5a2a64f0ab1323.eot",
-    "static/media/slick.ttf": "/MichalStabrawa/prototype-app/static/media/slick.c94f7671dcc99dce43e2.ttf",
-    "static/media/slick.woff": "/MichalStabrawa/prototype-app/static/media/slick.295183786cd8a1389865.woff",
-    "index.html": "/MichalStabrawa/prototype-app/index.html",
-    "main.9f3e862c.css.map": "/MichalStabrawa/prototype-app/static/css/main.9f3e862c.css.map",
-    "main.017904cd.js.map": "/MichalStabrawa/prototype-app/static/js/main.017904cd.js.map",
-    "787.c98b0661.chunk.js.map": "/MichalStabrawa/prototype-app/static/js/787.c98b0661.chunk.js.map"
+    "main.css": "/prototype-app/static/css/main.a83f8a6d.css",
+    "main.js": "/prototype-app/static/js/main.212768bb.js",
+    "static/js/787.c98b0661.chunk.js": "/prototype-app/static/js/787.c98b0661.chunk.js",
+    "static/media/financial.jpg": "/prototype-app/static/media/financial.976f121e199e023d6d4a.jpg",
+    "static/media/bapp.png": "/prototype-app/static/media/bapp.6742e3eb50f4aa47e380.png",
+    "static/media/slick.svg": "/prototype-app/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/prototype-app/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/prototype-app/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/prototype-app/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/prototype-app/index.html",
+    "main.a83f8a6d.css.map": "/prototype-app/static/css/main.a83f8a6d.css.map",
+    "main.212768bb.js.map": "/prototype-app/static/js/main.212768bb.js.map",
+    "787.c98b0661.chunk.js.map": "/prototype-app/static/js/787.c98b0661.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f3e862c.css",
-    "static/js/main.017904cd.js"
+    "static/css/main.a83f8a6d.css",
+    "static/js/main.212768bb.js"
   ]
 }
