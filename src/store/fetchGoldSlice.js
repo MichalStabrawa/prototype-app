@@ -8,7 +8,7 @@ const initialState = {
 
 export const fetchContent = createAsyncThunk("fetchContent", async () => {
   try {
-    const res = await fetch("http://api.nbp.pl/api/exchangerates/tables/B");
+    const res = await fetch("http://api.nbp.pl/api/exchangerates/tables/B/");
     if (!res.ok) {
       throw new Error("Somthing went wrong");
     }

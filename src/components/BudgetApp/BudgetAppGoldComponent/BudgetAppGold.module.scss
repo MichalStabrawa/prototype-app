@@ -2,7 +2,11 @@
 
 .ba_main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+
+  @include media-query-md {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .ba_gold {

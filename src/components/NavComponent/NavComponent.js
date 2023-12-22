@@ -5,7 +5,7 @@ import logo from "../../assets/bapp.png";
 import Button from "../UI/Button/Button";
 import ButtonHamburger from "../UI/Button/ButtonHamburger";
 import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
@@ -35,18 +35,39 @@ const NavComponent = (props) => {
       />
       <ul className={!active ? classes.nav : classes.nav_active}>
         <li className={classes.nav_item}>
-          <NavLink to=".." className={({isActive})=>isActive?classes.active:undefined}>Home</NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            Home
+          </NavLink>
         </li>
         <li className={classes.nav_item}>
-          <NavLink to="exchange" className={({isActive})=>isActive?classes.active:undefined}>Exchange rates</NavLink>
+          <NavLink
+            to="exchange"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            Exchange rates
+          </NavLink>
         </li>
         <li className={classes.nav_item}>
-          <NavLink to="aboutUs" className={({isActive})=>isActive?classes.active:undefined}>About Us</NavLink>
+          <NavLink
+            to="aboutUs"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            About Us
+          </NavLink>
         </li>
 
         <li className={classes.nav_item}>Lorem3</li>
         <li className={classes.nav_item}>
-          <Link to={auth ? "/" : "/login"} onClick={logOffHandler}>
+          <Link to={auth ? "/" : "login"} onClick={logOffHandler}>
             <Button
               name={auth ? "LogOff" : "Login"}
               color={buttonStyles.btn_transparent}

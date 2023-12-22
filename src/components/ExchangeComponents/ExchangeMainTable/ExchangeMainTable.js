@@ -18,7 +18,7 @@ const ExchangeMainTable = () => {
         <thead>
           <tr>
             <th>code</th>
-            <th>currency</th>
+            <th className={classes.currency}>Currency</th>
             <th>bid</th>
             <th>ask</th>
             <th>mid</th>
@@ -33,7 +33,7 @@ const ExchangeMainTable = () => {
               return (
                 <tr key={index}>
                   <td className={classes.code}>{el.code}</td>
-                  <td>{el.currency}</td>
+                  <td className={classes.currency}>{el.currency}</td>
                   <td>{el.rates[9].bid}</td>
                   <td>{el.rates[9].ask}</td>
                   <td>{(el.rates[9].ask + el.rates[9].bid) / 2}</td>

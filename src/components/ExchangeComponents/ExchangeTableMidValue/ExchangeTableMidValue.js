@@ -21,13 +21,13 @@ const ExchangeTableMidValue = (props) => {
         <thead>
           <tr>
             <th>code</th>
-            <th>currency</th>
+            <th className={classes.currency}>currency</th>
             <th>mid value</th>
             <th>rate</th>
             <th>rate arrow</th>
             <th>date</th>
-            <th>lastValue</th>
-            <th>last date</th>
+            <th className={classes.last_value}>lastValue</th>
+            <th className={classes.last_date}>last date</th>
           </tr>
         </thead>
         <tbody>
@@ -48,7 +48,7 @@ const ExchangeTableMidValue = (props) => {
                 return (
                   <tr key={index}>
                     <td className={classes.code}>{el.code}</td>
-                    <td>{el.currency}</td>
+                    <td className={classes.currency}>{el.currency}</td>
                     <td className={classes.bold}>{el.mid}</td>
                     <td
                       className={`${classes.rate} ${
@@ -65,8 +65,8 @@ const ExchangeTableMidValue = (props) => {
                     <td className={classes.date}>
                       {data[0].rates[9].effectiveDate}
                     </td>
-                    <td>{el.lastValue}</td>
-                    <td className={classes.date}>
+                    <td className={classes.last_value}>{el.lastValue}</td>
+                    <td className={`${classes.date} ${classes.last_date}`}>
                       {data[0].rates[8].effectiveDate}
                     </td>
                   </tr>

@@ -20,12 +20,17 @@
 
   &__count {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr ;
     gap: 20px;
+
+    @include media-query-lg {
+      grid-template-columns: 1fr 1fr;
+    }
 
     &__ex {
       padding: 0 20px 20px 20px;
       box-shadow: $boxshadow;
+      padding-top:20px
     }
   }
 
