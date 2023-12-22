@@ -1,5 +1,9 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  createHashRouter,
+} from "react-router-dom";
 import NavComponent from "./components/NavComponent/NavComponent";
 import Home from "./Pages/home/home";
 import Login from "./Pages/loginApp/login";
@@ -32,9 +36,9 @@ function App() {
     setFlag(!flag);
   };
 
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
-      path: "/prototype-app",
+      path: "/",
       element: <RootLayout />,
       children: [
         { index: true, element: <Home /> },
@@ -45,10 +49,9 @@ function App() {
         {
           path: "exchange",
           element: <ExchangeRates flag={flag} click={handleSend} />,
-          children: [],
+         
         },
-        { path: "exchange/:id", element: <ExchangeDetails /> }
-        
+        { path: "/exchange/:id", element: <ExchangeDetails /> }
       ],
     },
   ]);
