@@ -54,7 +54,7 @@ const TableRates = (props) => {
               <th className={classes.currency}>currency</th>
               <th>value</th>
               <th>rate arrow</th>
-              <th>rate</th>
+              <th className={classes.rate}>rate</th>
               <th>date</th>
               <th>link</th>
             </tr>
