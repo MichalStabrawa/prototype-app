@@ -69,4 +69,29 @@
       color: red;
     }
   }
+
+  .min_max {
+    text-align: right;
+    margin-top:20px;
+    font-weight: bold;
+
+    .min {
+      color:red
+    }
+
+    .max {
+      color: green;
+    }
+
+    .date_min_max {
+      font-style: italic;
+      font-weight: lighter;
+      
+    }
+
+    .content {
+      display: inline-block;
+     
+    }
+  }
 }
