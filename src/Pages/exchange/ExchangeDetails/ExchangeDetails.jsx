@@ -14,6 +14,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import minMaxBidAsk from "../../../utils/minMaxBidAsk";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -42,6 +43,8 @@ function ExchangeDetails() {
   const [data, setData] = useState();
   const [dataLast, setDataLast] = useState();
   const [key, setKey] = useState("3");
+  const [minBidAsk, setMinBidAsk] = useState(null);
+  const [maxBidAsk, setMaxBidAsk] = useState(null);
 
   //ask bid data
   const currencyLastTopCount = useSelector(
@@ -85,6 +88,15 @@ function ExchangeDetails() {
     }
   }, [key, params.id]);
 
+  useEffect(() => {
+    minMaxBidAsk(
+      currencyLastTopCount,
+      statusLastTop,
+      setMinBidAsk,
+      setMaxBidAsk
+    );
+  }, [statusLastTop]);
+
   if (isLoading) {
     return (
       <Spinner animation="border" role="status">
@@ -92,6 +104,9 @@ function ExchangeDetails() {
       </Spinner>
     );
   }
+
+  console.log("CurrencyLastTop");
+  console.log(currencyLastTopCount);
 
   return (
     <section className={classes.exchange_wrapper}>
@@ -201,6 +216,17 @@ function ExchangeDetails() {
                             <Line type="linear" dataKey="ask" stroke="violet" />
                           </LineChart>
                         </ResponsiveContainer>
+                        <div className={classes.min_max}>
+                          <p className={classes.content}>
+                            {" "}
+                        <span className={classes.min}> min bid: </span>   {minBidAsk.bid} <span className={classes.min}>min ask:</span>  {minBidAsk.ask}{" "}
+                      <span className={classes.date_min_max}> date: {minBidAsk.effectiveDate}</span>     
+                          </p>
+                          <p>
+                         <span className={classes.max}>max bid: </span>   {maxBidAsk.bid} <span className={classes.max}> max ask :</span>{maxBidAsk.ask}{" "}
+                       <span className={classes.date_min_max}>    date: {maxBidAsk.effectiveDate}</span> 
+                          </p>
+                        </div>
                       </div>
                     )}
                   </Col>
