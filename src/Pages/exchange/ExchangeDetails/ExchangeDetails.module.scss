@@ -70,28 +70,24 @@
     }
   }
 
-  .min_max {
-    text-align: right;
-    margin-top:20px;
-    font-weight: bold;
+  .table_min_max {
+    margin-top:40px;
+    font-size: 12px;
+
+    @include media-query-sm{
+      font-size: 1rem;
+    }
 
     .min {
-      color:red
+      color:red;
     }
 
     .max {
-      color: green;
+      color:green;
     }
 
     .date_min_max {
       font-style: italic;
-      font-weight: lighter;
-      
-    }
-
-    .content {
-      display: inline-block;
-     
     }
   }
 }

@@ -15,6 +15,7 @@ import Alert from "react-bootstrap/Alert";
 import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+import Table from "react-bootstrap/Table";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -220,30 +221,35 @@ function ExchangeDetails() {
                     )}
                   </Col>
                   <Col xs={12}>
-                    {" "}
-                    {minBidAsk && maxBidAsk && statusLastTop === "success" && (
-                      <div className={classes.min_max}>
-                        <p className={classes.content}>
-                          {" "}
-                          <span className={classes.min}> min bid: </span>{" "}
-                          {minBidAsk.bid}{" "}
-                          <span className={classes.min}>min ask:</span>{" "}
-                          {minBidAsk.ask}{" "}
-                          <span className={classes.date_min_max}>
-                            {" "}
-                            date: {minBidAsk.effectiveDate}
-                          </span>
-                        </p>
-                        <p>
-                          <span className={classes.max}>max bid: </span>{" "}
-                          {maxBidAsk.bid}{" "}
-                          <span className={classes.max}> max ask :</span>
-                          {maxBidAsk.ask}{" "}
-                          <span className={classes.date_min_max}>
-                            {" "}
-                            date: {maxBidAsk.effectiveDate}
-                          </span>
-                        </p>
+                    {statusLastTop === "success" && minBidAsk && maxBidAsk && (
+                      <div className={classes.table_min_max}>
+                        {" "}
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>min Bid</th>
+                              <th>min Ask</th>
+                              <th>date (min)</th>
+                              <th>max Bid</th>
+                              <th>max Ask</th>
+                              <th>date (max)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className={classes.min}>{minBidAsk.bid}</td>
+                              <td className={classes.min}>{minBidAsk.ask}</td>
+                              <td className={classes.date_min_max}>
+                                {minBidAsk.effectiveDate}
+                              </td>
+                              <td className={classes.max}>{maxBidAsk.bid}</td>
+                              <td className={classes.max}>{maxBidAsk.ask}</td>
+                              <td className={classes.date_min_max}>
+                                {maxBidAsk.effectiveDate}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </Table>
                       </div>
                     )}
                   </Col>
