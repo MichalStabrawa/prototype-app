@@ -216,17 +216,36 @@ function ExchangeDetails() {
                             <Line type="linear" dataKey="ask" stroke="violet" />
                           </LineChart>
                         </ResponsiveContainer>
-                        <div className={classes.min_max}>
-                          <p className={classes.content}>
-                            {" "}
-                        <span className={classes.min}> min bid: </span>   {minBidAsk.bid} <span className={classes.min}>min ask:</span>  {minBidAsk.ask}{" "}
-                      <span className={classes.date_min_max}> date: {minBidAsk.effectiveDate}</span>     
-                          </p>
-                          <p>
-                         <span className={classes.max}>max bid: </span>   {maxBidAsk.bid} <span className={classes.max}> max ask :</span>{maxBidAsk.ask}{" "}
-                       <span className={classes.date_min_max}>    date: {maxBidAsk.effectiveDate}</span> 
-                          </p>
-                        </div>
+                        {minBidAsk &&
+                          maxBidAsk &&
+                          statusLastTop === "success" && (
+                            <div className={classes.min_max}>
+                              <p className={classes.content}>
+                                {" "}
+                                <span className={classes.min}>
+                                  {" "}
+                                  min bid:{" "}
+                                </span>{" "}
+                                {minBidAsk.bid}{" "}
+                                <span className={classes.min}>min ask:</span>{" "}
+                                {minBidAsk.ask}{" "}
+                                <span className={classes.date_min_max}>
+                                  {" "}
+                                  date: {minBidAsk.effectiveDate}
+                                </span>
+                              </p>
+                              <p>
+                                <span className={classes.max}>max bid: </span>{" "}
+                                {maxBidAsk.bid}{" "}
+                                <span className={classes.max}> max ask :</span>
+                                {maxBidAsk.ask}{" "}
+                                <span className={classes.date_min_max}>
+                                  {" "}
+                                  date: {maxBidAsk.effectiveDate}
+                                </span>
+                              </p>
+                            </div>
+                          )}
                       </div>
                     )}
                   </Col>
