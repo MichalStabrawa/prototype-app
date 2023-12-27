@@ -14,6 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Button from "../../UI/Button/Button";
+import Alert from "react-bootstrap/Alert";
 
 import classes from "./ExchangeFromToDateChart.module.scss";
 
@@ -46,7 +47,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
     <>
       <div>
         {status === "error" && (
-          <p className={classes.error}>Error fetch date</p>
+          <Alert variant="danger">Wrong fetch data !!!</Alert>
         )}
         {data && status === "success" && minBidAsk && (
           <div>
