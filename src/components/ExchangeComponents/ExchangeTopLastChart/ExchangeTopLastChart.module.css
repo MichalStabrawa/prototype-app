@@ -1,12 +1,1 @@
-.chart_wrapper > button {
-  margin-bottom: 20px;
-}
-
-.chart {
-  height: 350px;
-  margin-bottom: 50px;
-}
-
-.error {
-  color: red;
-}
+.chart_wrapper>button{margin-bottom:20px}.chart{height:350px;margin-bottom:50px}.error{color:red}.title{margin-bottom:20px}.code,.currency{color:#334565}.code{font-weight:bold;padding:5px;background:#f5f5f5;border-radius:5px}

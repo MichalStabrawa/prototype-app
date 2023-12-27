@@ -406,6 +406,9 @@ const ExchangeRates = (props) => {
                 <div className={classes.chart_top}>
                   <ExchangeTopLastChart index="0" />{" "}
                   <ExchangeTopLastChart index="1" />
+                  <ExchangeTopLastChart index="2" />
+                  <ExchangeTopLastChart index="3" />
+                  <ExchangeTopLastChart index="4" />
                 </div>
               )}
         </BudgetAppSection>

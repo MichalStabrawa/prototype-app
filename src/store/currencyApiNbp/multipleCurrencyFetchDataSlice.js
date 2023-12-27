@@ -23,6 +23,9 @@ export const multipleCurrencyFetchData = createAsyncThunk(
         fetch("https://api.nbp.pl/api/exchangerates/rates/c/chf/last/10").then(
           (response) => response.json()
         ),
+        fetch("https://api.nbp.pl/api/exchangerates/rates/c/jpy/last/10").then(
+          (response) => response.json()
+        ),
       ]);
 
       return res;
