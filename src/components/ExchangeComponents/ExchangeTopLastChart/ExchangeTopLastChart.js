@@ -122,6 +122,7 @@ const ExchangeTopLastChart = ({ index }) => {
                   <BarChart
                     width={500}
                     height={300}
+                    barSize={30}
                     data={data[index].rates}
                     margin={{
                       top: 5,
