@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   LineChart,
@@ -16,11 +16,15 @@ import {
 import Button from "../../UI/Button/Button";
 
 import classes from "./ExchangeTopLastChart.module.scss";
+import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+import Table from "react-bootstrap/Table";
 
 const ExchangeTopLastChart = ({ index }) => {
   const data = useSelector((state) => state.multiple.data);
   const status = useSelector((state) => state.multiple.status);
   const [flag, setFlag] = useState(false);
+  const [minBidAsk, setMinBidAsk] = useState();
+  const [maxBidAsk, setMaxBidAsk] = useState();
 
   const changeChartHandler = () => {
     console.log("FLAG");
@@ -28,19 +32,26 @@ const ExchangeTopLastChart = ({ index }) => {
     setFlag(!flag);
   };
 
-  console.log('DATA Multiple')
-  console.log(data)
+  useEffect(() => {
+    minMaxBidAsk(data[index], status, setMinBidAsk, setMaxBidAsk);
+  }, [status]);
 
   return (
     <>
-      <div >
+      <div>
         {status === "error" && <p>Error ExchangeTopLastChart</p>}
         {data && status === "success" && (
           <div className={classes.chart_wrapper}>
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
-                <h3 className={classes.title}><span className={classes.code}>{data[index].code}</span> Top 10 bid ask rates <span className={classes.currency}>[{data[index].currency}]</span></h3>
+                <h3 className={classes.title}>
+                  <span className={classes.code}>{data[index].code}</span> Top
+                  10 bid ask rates{" "}
+                  <span className={classes.currency}>
+                    [{data[index].currency}]
+                  </span>
+                </h3>
                 <ResponsiveContainer width="100%" height="90%">
                   <LineChart
                     width={500}
@@ -67,10 +78,46 @@ const ExchangeTopLastChart = ({ index }) => {
                     <Line type="monotone" dataKey="ask" stroke="#82ca9d" />
                   </LineChart>
                 </ResponsiveContainer>
+                {minBidAsk && maxBidAsk && (
+                  <div className={classes.table_min_max}>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>min Bid</th>
+                          <th>min Ask</th>
+                          <th>date (min)</th>
+                          <th>max Bid</th>
+                          <th>max Ask</th>
+                          <th>date (max)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className={classes.min}>{minBidAsk.bid}</td>
+                          <td className={classes.min}>{minBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {minBidAsk.effectiveDate}
+                          </td>
+                          <td className={classes.max}>{maxBidAsk.bid}</td>
+                          <td className={classes.max}>{maxBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {maxBidAsk.effectiveDate}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                )}
               </div>
             ) : (
               <div className={classes.chart}>
-                <h3 className={classes.title}><span className={classes.code}>{data[index].code}</span> Top 10 bid ask  <span className={classes.currency}>[{data[index].currency}]</span></h3>
+                <h3 className={classes.title}>
+                  <span className={classes.code}>{data[index].code}</span> Top
+                  10 bid ask{" "}
+                  <span className={classes.currency}>
+                    [{data[index].currency}]
+                  </span>
+                </h3>
                 <ResponsiveContainer width="100%" height="90%">
                   <BarChart
                     width={500}
@@ -85,7 +132,7 @@ const ExchangeTopLastChart = ({ index }) => {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={[ "dataMax"]} />
+                    <YAxis domain={["dataMax"]} />
                     <Tooltip />
                     <Legend />
                     <Bar
@@ -100,6 +147,36 @@ const ExchangeTopLastChart = ({ index }) => {
                     />
                   </BarChart>
                 </ResponsiveContainer>
+                {minBidAsk && maxBidAsk && (
+                  <div className={classes.table_min_max}>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>min Bid</th>
+                          <th>min Ask</th>
+                          <th>date (min)</th>
+                          <th>max Bid</th>
+                          <th>max Ask</th>
+                          <th>date (max)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className={classes.min}>{minBidAsk.bid}</td>
+                          <td className={classes.min}>{minBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {minBidAsk.effectiveDate}
+                          </td>
+                          <td className={classes.max}>{maxBidAsk.bid}</td>
+                          <td className={classes.max}>{maxBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {maxBidAsk.effectiveDate}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                )}
               </div>
             )}
           </div>
