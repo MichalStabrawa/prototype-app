@@ -28,6 +28,9 @@ const ExchangeTopLastChart = ({ index }) => {
     setFlag(!flag);
   };
 
+  console.log('DATA Multiple')
+  console.log(data)
+
   return (
     <>
       <div >
@@ -37,7 +40,7 @@ const ExchangeTopLastChart = ({ index }) => {
             <Button click={changeChartHandler} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
-                <h3>{data[index].code} Top 10 bid ask rates</h3>
+                <h3 className={classes.title}><span className={classes.code}>{data[index].code}</span> Top 10 bid ask rates <span className={classes.currency}>[{data[index].currency}]</span></h3>
                 <ResponsiveContainer width="100%" height="90%">
                   <LineChart
                     width={500}
@@ -56,7 +59,7 @@ const ExchangeTopLastChart = ({ index }) => {
                     <Tooltip />
                     <Legend />
                     <Line
-                      type="linear"
+                      type="monotone"
                       dataKey="bid"
                       stroke="blue"
                       activeDot={{ r: 8 }}
@@ -67,7 +70,7 @@ const ExchangeTopLastChart = ({ index }) => {
               </div>
             ) : (
               <div className={classes.chart}>
-                <h3>{data[index].code} Top 10 bid ask </h3>
+                <h3 className={classes.title}><span className={classes.code}>{data[index].code}</span> Top 10 bid ask  <span className={classes.currency}>[{data[index].currency}]</span></h3>
                 <ResponsiveContainer width="100%" height="90%">
                   <BarChart
                     width={500}
@@ -82,17 +85,17 @@ const ExchangeTopLastChart = ({ index }) => {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={["dataMin-0.1", "dataMax"]} />
+                    <YAxis domain={[ "dataMax"]} />
                     <Tooltip />
                     <Legend />
                     <Bar
                       dataKey="bid"
-                      fill="#8884d8"
+                      fill="#174478"
                       activeBar={<Rectangle fill="pink" stroke="blue" />}
                     />
                     <Bar
                       dataKey="ask"
-                      fill="#82ca9d"
+                      fill="#125E3D"
                       activeBar={<Rectangle fill="gold" stroke="purple" />}
                     />
                   </BarChart>

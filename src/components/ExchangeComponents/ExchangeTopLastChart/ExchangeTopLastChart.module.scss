@@ -1,14 +1,36 @@
+@import '../../../styles/main';
+
 .chart_wrapper {
 
   &>button {
     margin-bottom: 20px;
+   
   }
 }
 
 .chart {
   height: 350px;
   margin-bottom: 50px;
+ 
 }
 .error {
   color: red;
 }
+
+.title {
+  margin-bottom: 20px;
+}
+
+.code, .currency {
+color:$darkblue;
+
+}
+
+.code {
+  font-weight: bold;
+  padding:5px;
+  background:$graylight;
+  border-radius: 5px;
+}
+
+

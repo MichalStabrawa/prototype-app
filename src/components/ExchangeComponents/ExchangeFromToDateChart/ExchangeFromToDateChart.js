@@ -17,6 +17,8 @@ import Button from "../../UI/Button/Button";
 import Alert from "react-bootstrap/Alert";
 
 import classes from "./ExchangeFromToDateChart.module.scss";
+import Table from "react-bootstrap/Table";
+import buttonStyles from '../../UI/Button/Button.module.scss';
 
 const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
   const data = useSelector((state) => state.singleCurrencyDateFromTo.data);
@@ -51,7 +53,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
         )}
         {data && status === "success" && minBidAsk && (
           <div>
-            <Button click={changeChartHandler} name="Change chart" />
+            <Button click={changeChartHandler} color={buttonStyles.btn_transparent} name="Change chart" />
             {!flag ? (
               <div className={classes.chart}>
                 <h3>
@@ -59,28 +61,6 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                   <span className={classes.date}>{dateFrom}</span> to{" "}
                   <span className={classes.date}>{dateTo}</span>
                 </h3>
-                <div className={classes.max_min}>
-                  <p>
-                    <span className={classes.date}>
-                      {" "}
-                      date: {minBidAsk.effectiveDate}
-                    </span>
-                    ,<span className={classes.min}>min bid:</span>{" "}
-                    <span> {minBidAsk.bid}</span>,
-                    <span className={classes.min}> min ask:</span>{" "}
-                    <span>{minBidAsk.ask}</span>,
-                  </p>
-                  <p>
-                    <span className={classes.date}>
-                      date: {maxBidAsk.effectiveDate}
-                    </span>
-                    <span className={classes.max}> max bid:</span>
-                    <span>{maxBidAsk.bid}</span>
-
-                    <span className={classes.max}>max ask:</span>
-                    <span> {maxBidAsk.ask}</span>
-                  </p>
-                </div>
 
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
@@ -108,6 +88,33 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                     <Line type="linear" dataKey="ask" stroke="violet" />
                   </LineChart>
                 </ResponsiveContainer>
+                <div className={classes.table_min_max}>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>min Bid</th> <th>min Ask</th>
+                        <th>date (min)</th>
+                        <th>max Bid</th>
+                        <th>max Ask</th>
+                        <th>date (max)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className={classes.min}>{minBidAsk.bid}</td>
+                        <td className={classes.min}>{minBidAsk.ask}</td>
+                        <td className={classes.date_min_max}>
+                          {minBidAsk.effectiveDate}
+                        </td>
+                        <td className={classes.max}>{maxBidAsk.bid}</td>
+                        <td className={classes.max}>{maxBidAsk.ask}</td>
+                        <td className={classes.date_min_max}>
+                          {maxBidAsk.effectiveDate}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
               </div>
             ) : (
               <div className={classes.chart}>
@@ -116,28 +123,7 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                   <span className={classes.date}>{dateFrom}</span> to{" "}
                   <span className={classes.date}>{dateTo}</span>
                 </h3>
-                <div className={classes.max_min}>
-                  <p>
-                    <span className={classes.date}>
-                      {" "}
-                      date: {minBidAsk.effectiveDate}
-                    </span>
-                    ,<span className={classes.min}>min bid:</span>{" "}
-                    <span> {minBidAsk.bid}</span>,
-                    <span className={classes.min}> min ask:</span>{" "}
-                    <span>{minBidAsk.ask}</span>,
-                  </p>
-                  <p>
-                    <span className={classes.date}>
-                      date: {maxBidAsk.effectiveDate}
-                    </span>
-                    <span className={classes.max}> max bid:</span>
-                    <span>{maxBidAsk.bid}</span>
 
-                    <span className={classes.max}>max ask:</span>
-                    <span> {maxBidAsk.ask}</span>
-                  </p>
-                </div>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     width={500}
@@ -167,6 +153,34 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
                     />
                   </BarChart>
                 </ResponsiveContainer>
+                <div className={classes.table_min_max}>
+                  {" "}
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>min Bid</th> <th>min Ask</th>
+                        <th>date (min)</th>
+                        <th>max Bid</th>
+                        <th>max Ask</th>
+                        <th>date (max)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className={classes.min}>{minBidAsk.bid}</td>
+                        <td className={classes.min}>{minBidAsk.ask}</td>
+                        <td className={classes.date_min_max}>
+                          {minBidAsk.effectiveDate}
+                        </td>
+                        <td className={classes.max}>{maxBidAsk.bid}</td>
+                        <td className={classes.max}>{maxBidAsk.ask}</td>
+                        <td className={classes.date_min_max}>
+                          {maxBidAsk.effectiveDate}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
               </div>
             )}
           </div>
