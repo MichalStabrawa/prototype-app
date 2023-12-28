@@ -12,6 +12,7 @@ import FooterAppSection from "./components/FooterAppSection/FooterAppSection";
 import RemindLogin from "./Pages/remindLogin/remindLogin";
 import AboutUs from "./Pages/about/aboutUs";
 import ExchangeRates from "./Pages/exchange/exchange-rates";
+import BidAsk from "./Pages/bidask/bidAsk";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContent } from "./store/fetchGoldSlice";
 import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
@@ -51,7 +52,8 @@ function App() {
           element: <ExchangeRates flag={flag} click={handleSend} />,
          
         },
-        { path: "/exchange/:id", element: <ExchangeDetails /> }
+        { path: "/exchange/:id", element: <ExchangeDetails /> },
+        {path: "/bidask",element: <BidAsk/>}
       ],
     },
   ]);
