@@ -56,6 +56,16 @@ const NavComponent = (props) => {
         </li>
         <li className={classes.nav_item}>
           <NavLink
+            to="exchange"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            Bid&Ask
+          </NavLink>
+        </li>
+        <li className={classes.nav_item}>
+          <NavLink
             to="aboutUs"
             className={({ isActive }) =>
               isActive ? classes.active : undefined
