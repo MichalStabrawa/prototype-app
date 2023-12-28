@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function BidAsk() {
-  return <BudgetAppSection>
+  return(<BudgetAppSection>
     <header>
         <Container fluid>
             <Row>
@@ -13,7 +13,7 @@ function BidAsk() {
             </Row>
         </Container>
     </header>
-  </BudgetAppSection>;
+  </BudgetAppSection>) 
 }
 
 export default BidAsk;
