@@ -8,7 +8,6 @@ import Pagination from "../../Paggination/Pagination";
 import { MdReadMore } from "react-icons/md";
 import Button from "react-bootstrap/Button";
 
-
 const TableRates = (props) => {
   const data = props.data;
   const [tabData, setTabData] = useState([]);
@@ -23,11 +22,8 @@ const TableRates = (props) => {
   );
 
   const currentRecords = tabData.slice(indexOfFirstRecord, indexOfLastRecord);
-  console.log(currentRecords);
-  const nPages = Math.ceil(tabData.length / recordsPerPage);
 
-  console.log(`Tab data length: ${tabData.length}`);
-  console.log(currentRecords);
+  const nPages = Math.ceil(tabData.length / recordsPerPage);
 
   useEffect(() => {
     setEffectiveDate(data[1].effectiveDate);

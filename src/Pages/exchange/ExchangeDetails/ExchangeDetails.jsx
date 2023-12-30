@@ -34,6 +34,7 @@ import {
 } from "recharts";
 
 import classes from "./ExchangeDetails.module.scss";
+import BudgetAppSection from "../../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
 
 function ExchangeDetails() {
   const dispatch = useDispatch();
@@ -112,11 +113,17 @@ function ExchangeDetails() {
   return (
     <section className={classes.exchange_wrapper}>
       <Wrapper css="grey">
-        <header>
-          {" "}
-          <h1>Exchange Details</h1>
-          {errorLast}
-        </header>
+        <Container fluid>
+          <Row>
+            <Col>
+              <header>
+                {" "}
+                <h1>Exchange Details</h1>
+                {errorLast}
+              </header>
+            </Col>
+          </Row>
+        </Container>
       </Wrapper>
       <Wrapper css="grey">
         <main className={classes.exchange}>
@@ -136,37 +143,39 @@ function ExchangeDetails() {
             </Row>
             <Row>
               <Col xs={12} md={3}>
-                <h3>Rate for a particular currency</h3>
-                {currency && data && (
-                  <div>
-                    <h4 className={classes.code}>{data[0].code}</h4>
-                    <p className={classes.value}>
-                      <span>{data[0].mid}</span>{" "}
-                      <IconArrow
-                        arrow={getCurrentPrevDifferences(
-                          data[0].mid,
-                          dataLast[0].mid
-                        )}
-                      />
-                      <span
-                        className={`${classes.rate} ${
-                          classes[
-                            getCurrentPrevDifferences(
-                              data[0].mid,
-                              dataLast[0].mid
-                            )
-                          ]
-                        }`}
-                      >
-                        {(data[0].mid - dataLast[0].mid).toFixed(4)}
-                      </span>
-                    </p>
-                    <p className={classes.currency}> {data[0].currency} </p>
-                    <p className={classes.date}>
-                      <span>date: {currency[1].effectiveDate}</span>
-                    </p>
-                  </div>
-                )}
+                <BudgetAppSection>
+                  <h3>Rate for a particular currency</h3>
+                  {currency && data && (
+                    <div>
+                      <h4 className={classes.code}>{data[0].code}</h4>
+                      <p className={classes.value}>
+                        <span>{data[0].mid}</span>{" "}
+                        <IconArrow
+                          arrow={getCurrentPrevDifferences(
+                            data[0].mid,
+                            dataLast[0].mid
+                          )}
+                        />
+                        <span
+                          className={`${classes.rate} ${
+                            classes[
+                              getCurrentPrevDifferences(
+                                data[0].mid,
+                                dataLast[0].mid
+                              )
+                            ]
+                          }`}
+                        >
+                          {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                        </span>
+                      </p>
+                      <p className={classes.currency}> {data[0].currency} </p>
+                      <p className={classes.date}>
+                        <span>date: {currency[1].effectiveDate}</span>
+                      </p>
+                    </div>
+                  )}
+                </BudgetAppSection>
               </Col>
               <Col>
                 <Tabs
