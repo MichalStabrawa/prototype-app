@@ -11,6 +11,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { fetchNbpTableC } from "../../store/currencyApiNbp/currencyFetchTableC";
 import TableBidAsk from "../../components/UI/TableBidAsk/TableBidAsk";
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function BidAsk() {
   const dispatch = useDispatch();
@@ -125,19 +136,54 @@ function BidAsk() {
                       {status === "success" && selectedValueAsk()}
                     </Form.Select>
                   )}
-                      <div className={classes.count}>{inputValue==0 && selectedItem.value !==''?'0':   (selectedItem.value*inputValue ).toFixed(4)}
-              
+                  <div className={classes.count}>
+                    {inputValue == 0 && selectedItem.value !== ""
+                      ? "0"
+                      : (selectedItem.value * inputValue).toFixed(4)}
                   </div>
                   <div className={classes.btn_wrapper}>
                     <Button onClick={handleChoiceAction} variant="secondary">
                       {!choiceAction ? "change to ask" : "change to bid"}
                     </Button>
                   </div>
-
-              
                 </Col>
               </Col>
               <Col>{status === "success" && <TableBidAsk data={data} />}</Col>
+            </Row>
+            <Row>
+              <Col>
+                <div className={classes.chart}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      width={500}
+                      height={300}
+                      data={data[0].rates}
+                      margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="code" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar
+                        dataKey="bid"
+                        fill="#17a2b8"
+                        activeBar={<Rectangle fill="pink" stroke="blue" />}
+                      />
+                      <Bar
+                        dataKey="ask"
+                        fill="#b81a98"
+                        activeBar={<Rectangle fill="gold" stroke="purple" />}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </Col>
             </Row>
           </Container>
         </main>
