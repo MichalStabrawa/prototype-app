@@ -32,7 +32,9 @@
   }
 
   .chart {
-    height: 350px;
+    border-top: 1px solid $graylight;
+    padding-top:20px;
+    min-height: 350px;
     margin-top:30px;
   }
 }
