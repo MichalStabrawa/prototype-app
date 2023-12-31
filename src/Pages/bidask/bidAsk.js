@@ -47,7 +47,7 @@ function BidAsk() {
       value: "",
       code: "",
     });
-    setInputValue()
+    setInputValue();
   };
 
   const selectValueBid = () => {
@@ -125,19 +125,19 @@ function BidAsk() {
                       {status === "success" && selectedValueAsk()}
                     </Form.Select>
                   )}
-
-                  <Button onClick={handleChoiceAction} variant="secondary">
-                    {!choiceAction ? "change to ask" : "change to bid"}
-                  </Button>
-                  <div>
-                    {selectedItem.name} value: {selectedItem.value}
+                      <div className={classes.count}>{inputValue==0 && selectedItem.value !==''?'0':   (selectedItem.value*inputValue ).toFixed(4)}
+              
                   </div>
+                  <div className={classes.btn_wrapper}>
+                    <Button onClick={handleChoiceAction} variant="secondary">
+                      {!choiceAction ? "change to ask" : "change to bid"}
+                    </Button>
+                  </div>
+
+              
                 </Col>
               </Col>
-              <Col>
-              
-                {status==='success'&& <TableBidAsk data={data}/>}
-              </Col>
+              <Col>{status === "success" && <TableBidAsk data={data} />}</Col>
             </Row>
           </Container>
         </main>
