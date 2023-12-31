@@ -159,6 +159,7 @@ function BidAsk() {
                         <BarChart
                           width={500}
                           height={300}
+                          barSize={30}
                           data={data[0].rates}
                           margin={{
                             top: 5,
