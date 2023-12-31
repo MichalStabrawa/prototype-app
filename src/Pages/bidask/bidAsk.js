@@ -35,32 +35,47 @@ function BidAsk() {
     value: "",
     code: "",
   });
+  const [selectedItemAsk, setSelectedItemAsk] = useState({
+    name: "",
+    value: "",
+    code: "",
+  });
   const [inputValue, setInputValue] = useState(0);
+  const [inputValueAsk, setInputValueAsk] = useState("");
   const [choiceAction, setChoiceAction] = useState(false);
 
   const handleChange = (e) => {
     const index = e.target.selectedIndex;
     const option = e.target.childNodes[index];
     const name = e.target.name;
-    setSelectedItem({
-      name: option.getAttribute("data-names"),
-      value: e.target.value,
-      code: option.getAttribute("data-code"),
-    });
+
+    if (name === "bid") {
+      setSelectedItem({
+        name: option.getAttribute("data-names"),
+        value: e.target.value,
+        code: option.getAttribute("data-code"),
+      });
+    }
+    if (name === "ask") {
+      setSelectedItemAsk({
+        name: option.getAttribute("data-names"),
+        value: e.target.value,
+        code: option.getAttribute("data-code"),
+      });
+    } else {
+      return null;
+    }
   };
 
   const handleInput = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleChoiceAction = () => {
-    setChoiceAction(!choiceAction);
-    setSelectedItem({
-      name: "",
-      value: "",
-      code: "",
-    });
-    setInputValue();
+    if (e.target.name === "bid") {
+      setInputValue(e.target.value);
+    }
+    if (e.target.name === "ask") {
+      setInputValueAsk(e.target.value);
+    } else {
+      return null;
+    }
   };
 
   const selectValueBid = () => {
@@ -112,45 +127,66 @@ function BidAsk() {
               <Col xs={12} md={6}>
                 <h3>Sell or buy currency</h3>
                 <Col xs={12} md={6}>
+                  <h4>Sell currency</h4>
                   <Form.Control
                     onChange={handleInput}
                     type="number"
                     placeholder="count"
+                    name="bid"
                   />
-                  {!choiceAction ? (
-                    <Form.Select
-                      onChange={handleChange}
-                      aria-label="Default select example"
-                    >
-                      <option value="open this select">
-                        Open this select menu
-                      </option>
-                      {status === "success" && selectValueBid()}
-                    </Form.Select>
-                  ) : (
-                    <Form.Select
-                      onChange={handleChange}
-                      aria-label="Default select example"
-                    >
-                      <option value="open this select ask">
-                        Open this select menu ask
-                      </option>
-                      {status === "success" && selectedValueAsk()}
-                    </Form.Select>
-                  )}
+
+                  <Form.Select
+                    onChange={handleChange}
+                    aria-label="Default select example"
+                    name="bid"
+                  >
+                    <option value="open this select">
+                      Open this select menu
+                    </option>
+                    {status === "success" && selectValueBid()}
+                  </Form.Select>
+
                   <div className={classes.count}>
                     {inputValue == 0 && selectedItem.value !== ""
                       ? "0"
-                      : (selectedItem.value * inputValue).toFixed(4)}
+                      : (selectedItem.value * inputValue).toFixed(4) +
+                        " " +
+                        "PLN"}
                   </div>
-                  <div className={classes.btn_wrapper}>
-                    <Button onClick={handleChoiceAction} variant="secondary">
-                      {!choiceAction ? "change to ask" : "change to bid"}
-                    </Button>
+                </Col>
+                <Col xs={12} md={6}>
+                  <h4>Buy currency</h4>
+                  <Form.Control
+                    onChange={handleInput}
+                    type="number"
+                    placeholder="count"
+                    name="ask"
+                  />
+                  <Form.Select
+                    onChange={handleChange}
+                    aria-label="Default select example"
+                    name="ask"
+                  >
+                    <option value="open this select ask">
+                      Open this select menu ask
+                    </option>
+                    {status === "success" && selectedValueAsk()}
+                  </Form.Select>
+                  <div className={`${classes.count} ${classes.count_ask}`}>
+                    {inputValueAsk == 0 && selectedItemAsk.value !== ""
+                      ? "0"
+                      : (selectedItemAsk.value * inputValueAsk).toFixed(4) +
+                        " " +
+                        "PLN"}
                   </div>
                 </Col>
               </Col>
-              <Col>{status === "success" && <TableBidAsk data={data} />}</Col>
+              <Col>
+                {" "}
+                <BudgetAppSection>
+                  {status === "success" && <TableBidAsk data={data} />}
+                </BudgetAppSection>
+              </Col>
             </Row>
             <Row>
               <Col>
@@ -192,43 +228,41 @@ function BidAsk() {
                   )}
                 </div>
                 <div className={classes.chart}>
-                  {
-                    (status === "success" && (
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart
-                          width={500}
-                          height={400}
-                          data={data[0].rates}
-                          margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                          }}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="code" />
-                          <YAxis />
-                          <Tooltip />
-                          <Area
-                            type="monotone"
-                            dataKey="bid"
-                            stackId="1"
-                            stroke="#8884d8"
-                            fill="#8884d8"
-                          />
+                  {status === "success" && (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart
+                        width={500}
+                        height={400}
+                        data={data[0].rates}
+                        margin={{
+                          top: 10,
+                          right: 30,
+                          left: 0,
+                          bottom: 0,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="code" />
+                        <YAxis />
+                        <Tooltip />
+                        <Area
+                          type="monotone"
+                          dataKey="bid"
+                          stackId="1"
+                          stroke="#8884d8"
+                          fill="#8884d8"
+                        />
 
-                          <Area
-                            type="monotone"
-                            dataKey="ask"
-                            stackId="1"
-                            stroke="#ffc658"
-                            fill="#ffc658"
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    ))
-                  }
+                        <Area
+                          type="monotone"
+                          dataKey="ask"
+                          stackId="1"
+                          stroke="#ffc658"
+                          fill="#ffc658"
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
               </Col>
             </Row>
