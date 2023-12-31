@@ -29,6 +29,19 @@
     color:$drywhite;
     border-radius: 5px;
     padding:10px;
+    font-size: 1.25rem;
+    background-color: #17a2b8;
+
+    &_ask {
+      background-color:#b81a98 ;
+    }
+
+  }
+
+  h4 {
+    padding-top:10px;
+    border-top:1px solid $graylight;
+    color:$bluegrey;
   }
 
   .chart {
