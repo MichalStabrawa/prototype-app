@@ -1,0 +1,45 @@
+@import '../../../styles/main';
+
+.table_rates {
+  margin-top: 20px;
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .date {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  .currency, .rate  {
+    display:none;
+
+    @include media-query-sm {
+      display: table-cell;
+    }
+  }
+
+  .rate {
+    font-size: 0.85rem;
+    font-style: italic;
+
+    &.green {
+      color: green;
+    }
+    &.red {
+      color: red;
+    }
+  }
+ 
+}
+
+.code {
+    background-color: $darkbluelight;
+    color:gold;
+    border-bottom: 1px solid;
+  }
