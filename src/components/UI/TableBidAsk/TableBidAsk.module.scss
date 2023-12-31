@@ -1,4 +1,4 @@
-@import '../../../styles/main';
+@import "../../../styles/main";
 
 .table_rates {
   margin-top: 20px;
@@ -16,8 +16,9 @@
     font-size: 0.85rem;
   }
 
-  .currency, .rate  {
-    display:none;
+  .currency,
+  .rate {
+    display: none;
 
     @include media-query-sm {
       display: table-cell;
@@ -35,11 +36,9 @@
       color: red;
     }
   }
- 
-}
-
-.code {
+  .code {
     background-color: $darkbluelight;
-    color:gold;
+    color: gold;
     border-bottom: 1px solid;
   }
+}
