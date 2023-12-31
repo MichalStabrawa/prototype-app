@@ -11,10 +11,23 @@
   background-color: $drywhite;
   h3 {
     margin-bottom: 30px;
-    color:$darkblue;
+    color: $brownlight;
   }
 
   input[type="number"],select {
     margin-bottom: 20px;
+  }
+
+  .btn_wrapper {
+    margin-bottom: 20px;;
+  }
+  .count {
+    margin-bottom: 30px;
+    display: inline-block;
+    width:150px;
+    background-color: $bluegrey;
+    color:$drywhite;
+    border-radius: 5px;
+    padding:10px;
   }
 }
