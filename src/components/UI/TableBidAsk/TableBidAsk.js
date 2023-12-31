@@ -52,7 +52,6 @@ const TableBidAsk = ({ data }) => {
               <th className={classes.currency}>currency</th>
               <th>value bid</th>
               <th>value ask</th>
-
               <th>date</th>
             </tr>
           </thead>
@@ -63,8 +62,8 @@ const TableBidAsk = ({ data }) => {
                   <tr key={index}>
                     <td className={classes.code}>{el.code}</td>
                     <td className={classes.currency}>{el.currency}</td>
-                    <td>{el.bid}</td>
-                    <td>{el.ask}</td>
+                    <td className={classes.bid}>{el.bid}</td>
+                    <td className={classes.ask}>{el.ask}</td>
                     <td className={classes.date}>{effectiveDate}</td>
                   </tr>
                 );
