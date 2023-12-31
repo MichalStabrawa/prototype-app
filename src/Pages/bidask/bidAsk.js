@@ -12,6 +12,8 @@ import Button from "react-bootstrap/Button";
 import { fetchNbpTableC } from "../../store/currencyApiNbp/currencyFetchTableC";
 import TableBidAsk from "../../components/UI/TableBidAsk/TableBidAsk";
 import {
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   Rectangle,
@@ -153,39 +155,77 @@ function BidAsk() {
             <Row>
               <Col>
                 <div className={classes.chart}>
+                  {status === "success" && (
+                    <span>date {data[0].effectiveDate}</span>
+                  )}
+                  {status === "success" && (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        width={500}
+                        height={300}
+                        barSize={30}
+                        data={data[0].rates}
+                        margin={{
+                          top: 5,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="code" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                          dataKey="bid"
+                          fill="#17a2b8"
+                          activeBar={<Rectangle fill="pink" stroke="blue" />}
+                        />
+                        <Bar
+                          dataKey="ask"
+                          fill="#b81a98"
+                          activeBar={<Rectangle fill="gold" stroke="purple" />}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  )}
+                </div>
+                <div className={classes.chart}>
                   {
                     (status === "success" && (
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
+                        <AreaChart
                           width={500}
-                          height={300}
-                          barSize={30}
+                          height={400}
                           data={data[0].rates}
                           margin={{
-                            top: 5,
+                            top: 10,
                             right: 30,
-                            left: 20,
-                            bottom: 5,
+                            left: 0,
+                            bottom: 0,
                           }}
                         >
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis dataKey="code" />
                           <YAxis />
                           <Tooltip />
-                          <Legend />
-                          <Bar
+                          <Area
+                            type="monotone"
                             dataKey="bid"
-                            fill="#17a2b8"
-                            activeBar={<Rectangle fill="pink" stroke="blue" />}
+                            stackId="1"
+                            stroke="#8884d8"
+                            fill="#8884d8"
                           />
-                          <Bar
+
+                          <Area
+                            type="monotone"
                             dataKey="ask"
-                            fill="#b81a98"
-                            activeBar={
-                              <Rectangle fill="gold" stroke="purple" />
-                            }
+                            stackId="1"
+                            stroke="#ffc658"
+                            fill="#ffc658"
                           />
-                        </BarChart>
+                        </AreaChart>
                       </ResponsiveContainer>
                     ))
                   }
