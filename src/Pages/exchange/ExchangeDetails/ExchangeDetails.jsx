@@ -16,6 +16,8 @@ import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import minMaxBidAsk from "../../../utils/minMaxBidAsk";
 import Table from "react-bootstrap/Table";
+import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
+import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -36,6 +38,9 @@ import {
 import classes from "./ExchangeDetails.module.scss";
 import BudgetAppSection from "../../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 function ExchangeDetails() {
   const dispatch = useDispatch();
   const params = useParams();
@@ -47,6 +52,7 @@ function ExchangeDetails() {
   const [key, setKey] = useState("3");
   const [minBidAsk, setMinBidAsk] = useState(null);
   const [maxBidAsk, setMaxBidAsk] = useState(null);
+  const [dataCarousel, setDataCarousel] = useState();
 
   //ask bid data
   const currencyLastTopCount = useSelector(
@@ -99,6 +105,16 @@ function ExchangeDetails() {
     );
   }, [statusLastTop]);
 
+  useEffect(() => {
+    if (status === "success") {
+      const tab = getCompareLastActualValue(
+        currency[1].rates,
+        currency[0].rates
+      );
+      setDataCarousel(tab);
+    }
+  }, [currency]);
+
   if (isLoading) {
     return (
       <Spinner animation="border" role="status">
@@ -112,14 +128,22 @@ function ExchangeDetails() {
 
   return (
     <section className={classes.exchange_wrapper}>
-      <Wrapper css="grey">
+      <Wrapper css="dark_blue">
         <Container fluid>
           <Row>
             <Col>
               <header>
                 {" "}
                 <h1>Exchange Details</h1>
-                {errorLast}
+                {currency.length > 0 ? (
+                  <div className={classes.carousel}>
+                    <ResponsiveCarousel
+                      data={dataCarousel}
+                      slidesToShow={5}
+                      effectiveDate={currency[1].effectiveDate}
+                    />
+                  </div>
+                ) : null}
               </header>
             </Col>
           </Row>

@@ -8,7 +8,7 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./bidask.module.scss";
 
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+
 import { fetchNbpTableC } from "../../store/currencyApiNbp/currencyFetchTableC";
 import TableBidAsk from "../../components/UI/TableBidAsk/TableBidAsk";
 import {
@@ -25,11 +25,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
+import getCompareLastActualValue from "../../utils/getCurrentLastValue";
+
 function BidAsk() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.tableC.data);
   const status = useSelector((state) => state.tableC.status);
   const isLoading = useSelector((state) => state.tableC.isLoading);
+  const currency = useSelector((state)=>state.currency.data);
+  const statusCurrency = useSelector(state=>state.currency.status);
   const [selectedItem, setSelectedItem] = useState({
     name: "",
     value: "",
@@ -42,7 +47,8 @@ function BidAsk() {
   });
   const [inputValue, setInputValue] = useState(0);
   const [inputValueAsk, setInputValueAsk] = useState("");
-  const [choiceAction, setChoiceAction] = useState(false);
+
+  const [dataCarousel, setDataCarousel] = useState();
 
   const handleChange = (e) => {
     const index = e.target.selectedIndex;
@@ -108,6 +114,12 @@ function BidAsk() {
     dispatch(fetchNbpTableC());
   }, [dispatch]);
 
+  useEffect(()=> {
+    if(statusCurrency ==='success') {
+      setDataCarousel(getCompareLastActualValue(currency[1].rates,currency[0].rates))
+    }
+  },[currency])
+
   if (isLoading) {
     return "LOADING......";
   }
@@ -115,9 +127,18 @@ function BidAsk() {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper css="dark_blue">
         <header className={classes.header}>
-          <h1>Bid & Ask currency</h1>
+          <h1 className={classes.title}>Bid & Ask currency</h1>
+          {currency.length > 0 ? (
+                  <div className={classes.carousel}>
+                    <ResponsiveCarousel
+                      data={dataCarousel}
+                      slidesToShow={5}
+                      effectiveDate={currency[1].effectiveDate}
+                    />
+                  </div>
+                ) : null}
         </header>
       </Wrapper>
       <Wrapper>
