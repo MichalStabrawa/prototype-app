@@ -193,7 +193,7 @@ const ExchangeRates = (props) => {
           <div>
             <ResponsiveCarousel
               data={data}
-              slidesToShow={6}
+              slidesToShow={5}
               effectiveDate={currency[1].effectiveDate}
             />
           </div>
