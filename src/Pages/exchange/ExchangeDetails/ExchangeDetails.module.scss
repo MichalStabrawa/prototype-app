@@ -5,11 +5,21 @@
 
   h3 {
     margin-bottom: 40px;
+    color: $brownlight;
   }
 
   header {
-    background: $white;
-    margin: 20px 0 20px;
+    margin: 20px 0;
+    background-color: $bluegrey;
+
+    h1 {
+      color: $graylight;
+    }
+
+    .carousel {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
   }
 
   .exchange {
@@ -71,19 +81,19 @@
   }
 
   .table_min_max {
-    margin-top:40px;
+    margin-top: 40px;
     font-size: 12px;
 
-    @include media-query-sm{
+    @include media-query-sm {
       font-size: 1rem;
     }
 
     .min {
-      color:red;
+      color: red;
     }
 
     .max {
-      color:green;
+      color: green;
     }
 
     .date_min_max {

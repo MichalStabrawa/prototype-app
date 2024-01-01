@@ -1,5 +1,18 @@
 @import "./../../styles/main";
 
+.header {
+  
+  padding-bottom: 40px;
+
+  .title {
+    color:$graylight;
+  }
+
+  .carousel {
+    margin-top:30px;
+  }
+}
+
 .exchange_wrapper {
   display: grid;
   background: $graylight;
