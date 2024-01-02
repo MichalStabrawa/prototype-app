@@ -36,8 +36,12 @@ const TableBidAsk = ({ data }) => {
     <>
       <div className={classes.table_rates}>
         <h3>
-          TABLE: {data[0].table}{" "}
-          <span className={classes.date}>date: {effectiveDate}</span>
+          TABLE: {data[0].table}
+          <span className={classes.date}>
+            {" "}
+            , date: {effectiveDate}, no: {data[0].no}, trading date:{" "}
+            {data[0].tradingDate}
+          </span>
         </h3>
         <table>
           <thead>
