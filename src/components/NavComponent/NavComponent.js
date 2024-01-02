@@ -74,8 +74,6 @@ const NavComponent = (props) => {
             About Us
           </NavLink>
         </li>
-
-        <li className={classes.nav_item}>Lorem3</li>
         <li className={classes.nav_item}>
           <Link to={auth ? "/" : "login"} onClick={logOffHandler}>
             <Button
