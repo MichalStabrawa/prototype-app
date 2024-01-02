@@ -2,13 +2,7 @@ import classes from "./TableBidAsk.module.scss";
 
 import { useState, useEffect } from "react";
 
-import IconArrow from "../iconArrow/iconArrow";
-import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
-import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
-import { Link } from "react-router-dom";
 import Pagination from "../../Paggination/Pagination";
-import { MdReadMore } from "react-icons/md";
-import Button from "react-bootstrap/Button";
 
 const TableBidAsk = ({ data }) => {
   const [tabData, setTabData] = useState([]);
