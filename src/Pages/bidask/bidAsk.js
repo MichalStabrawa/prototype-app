@@ -33,8 +33,8 @@ function BidAsk() {
   const data = useSelector((state) => state.tableC.data);
   const status = useSelector((state) => state.tableC.status);
   const isLoading = useSelector((state) => state.tableC.isLoading);
-  const currency = useSelector((state)=>state.currency.data);
-  const statusCurrency = useSelector(state=>state.currency.status);
+  const currency = useSelector((state) => state.currency.data);
+  const statusCurrency = useSelector((state) => state.currency.status);
   const [selectedItem, setSelectedItem] = useState({
     name: "",
     value: "",
@@ -114,11 +114,13 @@ function BidAsk() {
     dispatch(fetchNbpTableC());
   }, [dispatch]);
 
-  useEffect(()=> {
-    if(statusCurrency ==='success') {
-      setDataCarousel(getCompareLastActualValue(currency[1].rates,currency[0].rates))
+  useEffect(() => {
+    if (statusCurrency === "success") {
+      setDataCarousel(
+        getCompareLastActualValue(currency[1].rates, currency[0].rates)
+      );
     }
-  },[currency])
+  }, [currency]);
 
   if (isLoading) {
     return "LOADING......";
@@ -131,14 +133,14 @@ function BidAsk() {
         <header className={classes.header}>
           <h1 className={classes.title}>Bid & Ask currency</h1>
           {currency.length > 0 ? (
-                  <div className={classes.carousel}>
-                    <ResponsiveCarousel
-                      data={dataCarousel}
-                      slidesToShow={5}
-                      effectiveDate={currency[1].effectiveDate}
-                    />
-                  </div>
-                ) : null}
+            <div className={classes.carousel}>
+              <ResponsiveCarousel
+                data={dataCarousel}
+                slidesToShow={5}
+                effectiveDate={currency[1].effectiveDate}
+              />
+            </div>
+          ) : null}
         </header>
       </Wrapper>
       <Wrapper>
@@ -147,6 +149,14 @@ function BidAsk() {
             <Row>
               <Col xs={12} md={6}>
                 <h3>Sell or buy currency</h3>
+                {status === "success" && (
+                  <p className={classes.description}>
+                    table: {data[0].table}, effective date:{" "}
+                    {data[0].effectiveDate}, no: {data[0].no}, trading date:{" "}
+                    {data[0].tradingDate}
+                  </p>
+                )}
+
                 <Col xs={12} md={6}>
                   <h4>Sell currency</h4>
                   <Form.Control
@@ -213,7 +223,15 @@ function BidAsk() {
               <Col>
                 <div className={classes.chart}>
                   {status === "success" && (
-                    <span>date {data[0].effectiveDate}</span>
+                    <div className={classes.description_chart}>
+                      <p>
+                        Table {data[0].table},{" "}
+                        <span>
+                          date {data[0].effectiveDate}, no: {data[0].no},
+                          trading date: {data[0].tradingDate}
+                        </span>
+                      </p>
+                    </div>
                   )}
                   {status === "success" && (
                     <ResponsiveContainer width="100%" height="100%">
@@ -249,6 +267,17 @@ function BidAsk() {
                   )}
                 </div>
                 <div className={classes.chart}>
+                  {status === "success" && (
+                    <div className={classes.description_chart}>
+                      <p>
+                        Table {data[0].table},{" "}
+                        <span>
+                          date {data[0].effectiveDate}, no: {data[0].no},
+                          trading date: {data[0].tradingDate}
+                        </span>
+                      </p>
+                    </div>
+                  )}
                   {status === "success" && (
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart

@@ -2,13 +2,7 @@ import classes from "./TableBidAsk.module.scss";
 
 import { useState, useEffect } from "react";
 
-import IconArrow from "../iconArrow/iconArrow";
-import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
-import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
-import { Link } from "react-router-dom";
 import Pagination from "../../Paggination/Pagination";
-import { MdReadMore } from "react-icons/md";
-import Button from "react-bootstrap/Button";
 
 const TableBidAsk = ({ data }) => {
   const [tabData, setTabData] = useState([]);
@@ -42,8 +36,12 @@ const TableBidAsk = ({ data }) => {
     <>
       <div className={classes.table_rates}>
         <h3>
-          TABLE: {data[0].table}{" "}
-          <span className={classes.date}>date: {effectiveDate}</span>
+          TABLE: {data[0].table}
+          <span className={classes.date}>
+            {" "}
+            , date: {effectiveDate}, no: {data[0].no}, trading date:{" "}
+            {data[0].tradingDate}
+          </span>
         </h3>
         <table>
           <thead>

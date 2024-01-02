@@ -7,11 +7,11 @@
   min-height: 150px;
   padding-bottom: 40px;
   .title {
-    color:$graylight;
+    color: $graylight;
   }
 
   .carousel {
-    margin-top:30px
+    margin-top: 30px;
   }
 }
 .main {
@@ -22,40 +22,54 @@
     color: $brownlight;
   }
 
-  input[type="number"],select {
+  input[type="number"],
+  select {
     margin-bottom: 20px;
   }
 
   .btn_wrapper {
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
   }
   .count {
     margin-bottom: 30px;
     display: inline-block;
-    width:150px;
+    width: 150px;
     background-color: $bluegrey;
-    color:$drywhite;
+    color: $drywhite;
     border-radius: 5px;
-    padding:10px;
+    padding: 10px;
     font-size: 1.25rem;
     background-color: #17a2b8;
 
     &_ask {
-      background-color:#b81a98 ;
+      background-color: #b81a98;
     }
-
   }
 
   h4 {
-    padding-top:10px;
-    border-top:1px solid $graylight;
-    color:$bluegrey;
+    padding-top: 10px;
+    border-top: 1px solid $graylight;
+    color: $bluegrey;
   }
+
+
 
   .chart {
     border-top: 1px solid $graylight;
-    padding-top:20px;
+    padding:20px 0;
     height: 350px;
-    margin-top:30px;
+    margin-top: 30px;
+
+    .description_chart {
+      color: $bluegrey;
+
+      span {
+        font-style: italic;
+      }
+    }
+  }
+  .description {
+    color: $darkblue;
+    font-style: italic;
   }
 }
