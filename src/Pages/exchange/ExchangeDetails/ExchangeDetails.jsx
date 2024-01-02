@@ -194,9 +194,12 @@ function ExchangeDetails() {
                         </span>
                       </p>
                       <p className={classes.currency}> {data[0].currency} </p>
+
                       <p className={classes.date}>
                         <span>date: {currency[1].effectiveDate}</span>
                       </p>
+                      <p className={classes.date}>no: {currency[1].no}</p>
+                      <p>table: {currency[1].table}</p>
                     </div>
                   )}
                 </BudgetAppSection>
