@@ -106,11 +106,11 @@ const Gold = () => {
                           )}%)`}</span>
                         </Card.Text>
                         <Card.Text>
-                          <p className={classes.prev_price}>
+                          {" "}
+                          <span className={classes.prev_price}>
                             {" "}
                             Previous price: {gold[0].cena} PLN/g{" "}
-                          </p>
-
+                          </span>
                           <span className={classes.date}>
                             previous date: {gold[0].data}
                           </span>
