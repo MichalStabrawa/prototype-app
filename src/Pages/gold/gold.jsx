@@ -9,6 +9,7 @@ import Card from "react-bootstrap/Card";
 import { GiGoldBar } from "react-icons/gi";
 import IconArrow from "../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
+import {countPercentCurrLastValue} from "../../utils/countPercentCurrentLastValue";
 
 const Gold = () => {
   const gold = useSelector((state) => state.goldFetch.data);
@@ -37,11 +38,11 @@ const Gold = () => {
         <main className={classes.gold}>
           <Container fluid>
             <Row>
-              <Col xs={12} md={6}>
-                <h2 className={classes.title}>Actual gold price </h2>
+              <Col xs={12} md={4}>
+                <h2 className={classes.title}>Actual Gold prices </h2>
                 {status === "success" && (
                   <Card className="mb-2">
-                    <Card.Header as="h5">Gold price actual</Card.Header>
+                    <Card.Header as="h5">Current gold price</Card.Header>
                     <Card.Body>
                       <Card.Title>{gold[1].cena} PLN/g</Card.Title>
                       <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
@@ -64,6 +65,14 @@ const Gold = () => {
                             gold[0].cena
                           )}
                         />
+                        <span  className={`${classes.rate} ${
+                            classes[
+                              getCurrentPrevDifferences(
+                                gold[1].cena,
+                                gold[0].cena
+                              )
+                            ]
+                          }`}>{`(${countPercentCurrLastValue(gold[1].cena,gold[0].cena)}%)`}</span>
                       </Card.Text>
                       <Card.Text>
                         <p className={classes.prev_price}>
@@ -79,6 +88,7 @@ const Gold = () => {
                   </Card>
                 )}
               </Col>
+              <Col md={8}></Col>
             </Row>
           </Container>
         </main>
