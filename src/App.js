@@ -19,7 +19,7 @@ import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
 
 import { RotatingLines } from "react-loader-spinner";
 import { multipleCurrencyFetchData } from "./store/currencyApiNbp/multipleCurrencyFetchDataSlice";
-
+import { goldFetch } from "./store/goldApiNbp/goldFetchApiSlice";
 import { useEffect, useState } from "react";
 import RootLayout from "./Pages/Root";
 import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
@@ -29,6 +29,7 @@ function App() {
   const tableKind = useSelector((state) => state.table.table);
 
   const currency = useSelector((state) => state.currency.data);
+  const gold = useSelector(state=>state.goldFetch.data)
   const [flag, setFlag] = useState(false);
 
   const isLoading = useSelector((state) => state.content.isLoading);
@@ -65,6 +66,7 @@ function App() {
 
   useEffect(() => {
     dispatch(multipleCurrencyFetchData());
+    dispatch(goldFetch())
   }, [dispatch]);
 
   return (

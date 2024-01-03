@@ -7,8 +7,7 @@ import ArrowRight from "../../../assets/icons8-right-48.png";
 const IconArrow = (props) => {
   const { arrow } = props;
   const [src, setSrc] = useState("");
-  console.log("ARROW");
-  console.log(arrow);
+
   const getSrc = () => {
     if (arrow === null) {
       setSrc(ArrowRight);

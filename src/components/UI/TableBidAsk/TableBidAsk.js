@@ -12,21 +12,13 @@ const TableBidAsk = ({ data }) => {
   const [recordsPerPage] = useState(15);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  console.log(
-    `indexOfLastRecord: ${indexOfLastRecord}, indexOfFirstRecord: ${indexOfFirstRecord}`
-  );
 
   const currentRecords = data[0].rates.slice(
     indexOfFirstRecord,
     indexOfLastRecord
   );
 
-  console.log(currentRecords);
-
   const nPages = Math.ceil(tabData.length / recordsPerPage);
-
-  console.log("bidAsk data");
-  console.log(data);
 
   useEffect(() => {
     setEffectiveDate(data[0].effectiveDate);
