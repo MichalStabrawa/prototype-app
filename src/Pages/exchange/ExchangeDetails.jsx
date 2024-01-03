@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { singleCurrencyLastFewTimes } from "../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
+import { BsCurrencyExchange } from "react-icons/bs";
 
 function ExchangeDetails() {
   const dispatch = useDispatch();
@@ -56,7 +57,12 @@ function ExchangeDetails() {
       <Wrapper>
         <header>
           {" "}
-          <h1>Exchange Details</h1>
+          <h1>
+            Exchange Details test
+            <span>
+              <BsCurrencyExchange />
+            </span>
+          </h1>
           <Link to="/exchange">back</Link>
         </header>
       </Wrapper>

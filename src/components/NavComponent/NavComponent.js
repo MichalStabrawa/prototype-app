@@ -66,6 +66,16 @@ const NavComponent = (props) => {
         </li>
         <li className={classes.nav_item}>
           <NavLink
+            to="gold"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            Gold
+          </NavLink>
+        </li>
+        <li className={classes.nav_item}>
+          <NavLink
             to="aboutUs"
             className={({ isActive }) =>
               isActive ? classes.active : undefined

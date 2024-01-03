@@ -34,6 +34,8 @@ import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/Res
 import ExchangeFromToDate from "../../components/ExchangeComponents/ExchangeFromToDate/ExchangeFromToDate";
 import { Link, useParams } from "react-router-dom";
 
+import { BsCurrencyExchange } from "react-icons/bs";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -187,7 +189,7 @@ const ExchangeRates = (props) => {
     <>
       <Wrapper css="dark_blue">
         <header className={classes.header}>
-          <h1 className={classes.title}>Exchange Rates </h1>
+          <h1 className={classes.title}>Exchange Rates <span><BsCurrencyExchange /></span></h1>
           {param !== "" && <Link to={param}> Params</Link>}
 
           {currency.length > 0 ? (

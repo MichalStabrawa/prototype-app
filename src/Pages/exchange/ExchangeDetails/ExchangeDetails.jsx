@@ -41,6 +41,8 @@ import BudgetAppSection from "../../../components/BudgetApp/BudgetAppSection/Bud
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { BsCurrencyExchange } from "react-icons/bs";
+
 function ExchangeDetails() {
   const dispatch = useDispatch();
   const params = useParams();
@@ -53,6 +55,7 @@ function ExchangeDetails() {
   const [minBidAsk, setMinBidAsk] = useState(null);
   const [maxBidAsk, setMaxBidAsk] = useState(null);
   const [dataCarousel, setDataCarousel] = useState();
+  
 
   //ask bid data
   const currencyLastTopCount = useSelector(
@@ -134,7 +137,7 @@ function ExchangeDetails() {
             <Col>
               <header>
                 {" "}
-                <h1>Exchange Details</h1>
+                <h1>Exchange Details <span><BsCurrencyExchange /></span></h1>
                 {currency.length > 0 ? (
                   <div className={classes.carousel}>
                     <ResponsiveCarousel
