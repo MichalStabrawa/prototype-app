@@ -31,10 +31,22 @@ const Gold = () => {
     (state) => state.goldFetchTopLast.status
   );
   const [key, setKey] = useState("3");
+  const [maxPrice, setMax] = useState();
 
   useEffect(() => {
     dispatch(goldFetchTopLastCount({ number: +key }));
   }, [dispatch, key]);
+
+  useEffect(() => {
+    if (statusTopLastCount === "success" && goldLastTopCount.cena !=='') {
+      const max = [...goldLastTopCount].reduce((prev, next) =>
+        prev.cena > next.cena ? prev : next
+      );
+
+      setMax(max);
+    }
+  }, [dispatch,statusTopLastCount]);
+  console.log(maxPrice)
   return (
     <>
       <header className={classes.header}>
@@ -143,6 +155,7 @@ const Gold = () => {
                     {statusTopLastCount === "success" && (
                       <div className={classes.chart}>
                         <SimpleLineChart data={goldLastTopCount} />
+                  
                       </div>
                     )}
                   </Col>
