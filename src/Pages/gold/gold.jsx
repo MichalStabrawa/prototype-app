@@ -62,63 +62,66 @@ const Gold = () => {
               <Col xs={12} md={4}>
                 <h2 className={classes.title}>Actual Gold prices </h2>
                 {status === "success" && (
-                  <Card className="mb-2">
-                    <Card.Header as="h5">Current gold price</Card.Header>
-                    <Card.Body>
-                      <Card.Title>
-                        {gold[1].cena} PLN/g{" "}
-                        <IconArrow
-                          arrow={getCurrentPrevDifferences(
+                  <div className={classes.card_wrapper}>
+                    {" "}
+                    <Card className="mb-2">
+                      <Card.Header as="h5">Current gold price</Card.Header>
+                      <Card.Body>
+                        <Card.Title>
+                          {gold[1].cena} PLN/g{" "}
+                          <IconArrow
+                            arrow={getCurrentPrevDifferences(
+                              gold[1].cena,
+                              gold[0].cena
+                            )}
+                          />
+                        </Card.Title>
+                        <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
+                        <Card.Text>
+                          <span
+                            className={`${classes.rate} ${
+                              classes[
+                                getCurrentPrevDifferences(
+                                  gold[1].cena,
+                                  gold[0].cena
+                                )
+                              ]
+                            }`}
+                          >
+                            {(gold[1].cena - gold[0].cena).toFixed(4)}
+                          </span>
+
+                          <span
+                            className={`${classes.rate} ${
+                              classes[
+                                getCurrentPrevDifferences(
+                                  gold[1].cena,
+                                  gold[0].cena
+                                )
+                              ]
+                            }`}
+                          >{`(${countPercentCurrLastValue(
                             gold[1].cena,
                             gold[0].cena
-                          )}
-                        />
-                      </Card.Title>
-                      <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
-                      <Card.Text>
-                        <span
-                          className={`${classes.rate} ${
-                            classes[
-                              getCurrentPrevDifferences(
-                                gold[1].cena,
-                                gold[0].cena
-                              )
-                            ]
-                          }`}
-                        >
-                          {(gold[1].cena - gold[0].cena).toFixed(4)}
-                        </span>
+                          )}%)`}</span>
+                        </Card.Text>
+                        <Card.Text>
+                          <p className={classes.prev_price}>
+                            {" "}
+                            Previous price: {gold[0].cena} PLN/g{" "}
+                          </p>
 
-                        <span
-                          className={`${classes.rate} ${
-                            classes[
-                              getCurrentPrevDifferences(
-                                gold[1].cena,
-                                gold[0].cena
-                              )
-                            ]
-                          }`}
-                        >{`(${countPercentCurrLastValue(
-                          gold[1].cena,
-                          gold[0].cena
-                        )}%)`}</span>
-                      </Card.Text>
-                      <Card.Text>
-                        <p className={classes.prev_price}>
-                          {" "}
-                          Previous price: {gold[0].cena} PLN/g{" "}
-                        </p>
-
-                        <span className={classes.date}>
-                          previous date: {gold[0].data}
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
+                          <span className={classes.date}>
+                            previous date: {gold[0].data}
+                          </span>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 )}
               </Col>
               <Col md={8}>
-                <h3>Last {key} top count gold</h3>
+                <h3 className={classes.title_top}>Last {key} top count gold</h3>
                 <Tabs
                   id="controlled-tab-example"
                   activeKey={key}

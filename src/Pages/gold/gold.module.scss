@@ -55,5 +55,25 @@
 
   .chart {
     height: 350px;
+    margin-top: 40px;
+  }
+
+  .title_top {
+    margin-bottom: 40px;
+    padding-top: 20px;
+    border-top: 1px solid $graylight;
+
+    @include media-query-md {
+      padding-top: 0;
+      border: 0;
+    }
+  }
+
+  .card_wrapper {
+    margin-bottom: 40px;
+
+    @include media-query-md {
+      margin-bottom: 0;
+    }
   }
 }
