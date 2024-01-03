@@ -44,7 +44,12 @@ const Gold = () => {
                   <Card className="mb-2">
                     <Card.Header as="h5">Current gold price</Card.Header>
                     <Card.Body>
-                      <Card.Title>{gold[1].cena} PLN/g</Card.Title>
+                      <Card.Title>{gold[1].cena} PLN/g    <IconArrow
+                          arrow={getCurrentPrevDifferences(
+                            gold[1].cena,
+                            gold[0].cena
+                          )}
+                        /></Card.Title>
                       <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
                       <Card.Text>
                         <span
@@ -59,12 +64,7 @@ const Gold = () => {
                         >
                           {(gold[1].cena - gold[0].cena).toFixed(4)}
                         </span>
-                        <IconArrow
-                          arrow={getCurrentPrevDifferences(
-                            gold[1].cena,
-                            gold[0].cena
-                          )}
-                        />
+                     
                         <span  className={`${classes.rate} ${
                             classes[
                               getCurrentPrevDifferences(
