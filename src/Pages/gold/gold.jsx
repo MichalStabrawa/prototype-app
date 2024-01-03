@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
+import { RotatingLines } from "react-loader-spinner";
 
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -31,10 +33,28 @@ const Gold = () => {
     (state) => state.goldFetchTopLast.status
   );
   const [key, setKey] = useState("3");
+  const [maxPrice, setMax] = useState();
+  const [minPrice, setMin] = useState();
 
   useEffect(() => {
     dispatch(goldFetchTopLastCount({ number: +key }));
   }, [dispatch, key]);
+
+  useEffect(() => {
+    if (statusTopLastCount === "success" && goldLastTopCount.cena !== "") {
+      const max = [...goldLastTopCount].reduce((prev, next) =>
+        prev.cena > next.cena ? prev : next
+      );
+
+      const min = [...goldLastTopCount].reduce((prev, next) =>
+        prev.cena < next.cena ? prev : next
+      );
+
+      setMax(max);
+      setMin(min);
+    }
+  }, [dispatch, statusTopLastCount]);
+  console.log(maxPrice);
   return (
     <>
       <header className={classes.header}>
@@ -137,6 +157,19 @@ const Gold = () => {
                 </Tabs>
                 <Row>
                   <Col>
+                    {(isLoadingLastTopCount ||
+                      statusTopLastCount === "pending") && (
+                      <div className="loader">
+                        is Loading ....
+                        <RotatingLines
+                          strokeColor="grey"
+                          strokeWidth="5"
+                          animationDuration="0.75"
+                          width="96"
+                          visible={true}
+                        />
+                      </div>
+                    )}
                     {statusTopLastCount === "error" && (
                       <Alert>Error fetch</Alert>
                     )}
@@ -145,6 +178,35 @@ const Gold = () => {
                         <SimpleLineChart data={goldLastTopCount} />
                       </div>
                     )}
+                    {statusTopLastCount === "success" &&
+                      maxPrice &&
+                      minPrice && (
+                        <div className={classes.table_min_max}>
+                          {" "}
+                          <Table striped bordered hover>
+                            <thead>
+                              <tr>
+                                <th>min value</th>
+                                <th>date (min)</th>
+                                <th>max value</th>
+                                <th>date (max)</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className={classes.min}>{minPrice.cena}</td>
+                                <td className={classes.date_min_max}>
+                                  {minPrice.data}
+                                </td>
+                                <td className={classes.max}>{maxPrice.cena}</td>
+                                <td className={classes.date_min_max}>
+                                  {maxPrice.data}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </div>
+                      )}
                   </Col>
                 </Row>
               </Col>
