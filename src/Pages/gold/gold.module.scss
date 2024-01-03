@@ -12,11 +12,11 @@
   .icon_wrapper {
     display: inline-block;
     background-color: $darkblue;
-    color:gold;
+    color: gold;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding:10px;
+    padding: 10px;
     border-radius: 50%;
   }
 }
@@ -42,7 +42,7 @@
 
   .rate {
     font-weight: bold;
-    margin-right: 10px;;
+    margin-right: 10px;
 
     &.green {
       color: green;
@@ -51,5 +51,9 @@
     &.red {
       color: red;
     }
+  }
+
+  .chart {
+    height: 350px;
   }
 }

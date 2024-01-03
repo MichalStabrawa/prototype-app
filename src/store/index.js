@@ -10,6 +10,7 @@ import singleCurrencyFetchDateFromDateToReducer from "./currencyApiNbp/singleCur
 import singleCurrencyLastFewTimesReducer from "./currencyApiNbp/singleCurrencyLastFewTimes";
 import fetchNbpTableCReducer from "./currencyApiNbp/currencyFetchTableC";
 import goldFetchApiSlice from "./goldApiNbp/goldFetchApiSlice";
+import goldFetchApiReducer from "./goldApiNbp/goldFetchTopLastCount";
 
 const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ const store = configureStore({
     singleCurrencyLastFewTimes: singleCurrencyLastFewTimesReducer,
     tableC: fetchNbpTableCReducer,
     goldFetch: goldFetchApiSlice,
+    goldFetchTopLast: goldFetchApiReducer,
   },
 });
 
