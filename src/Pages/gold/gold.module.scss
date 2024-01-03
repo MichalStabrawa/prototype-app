@@ -1,11 +1,43 @@
-@import '../../styles/main';
+@import "../../styles/main";
 
 .header {
-    background-color:$bluegrey;
-    margin-top:30px;
-    color:$gold;
+  background-color: $bluegrey;
+  margin-top: 30px;
+  color: $gold;
+
+  &_description {
+    font-size: 1.25rem;
+  }
 }
 
 .gold {
+  margin-top: 20px;
+  padding: 20px 0 40px;
+  color: $darkblue;
 
+  .title {
+    margin-bottom: 40px;
+  }
+
+  .prev_price {
+    padding-top: 5px;
+    border-top: 1px solid $graylight;
+  }
+
+  .date {
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .rate {
+    font-weight: bold;
+
+    &.green {
+      color: green;
+    }
+
+    &.red {
+      color: red;
+    }
+  }
 }
