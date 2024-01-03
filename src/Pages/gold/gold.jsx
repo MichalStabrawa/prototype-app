@@ -98,6 +98,7 @@ const Gold = () => {
                         </Card.Title>
                         <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
                         <Card.Text>
+                          <span>amount:</span>
                           <span
                             className={`${classes.rate} ${
                               classes[
@@ -110,7 +111,9 @@ const Gold = () => {
                           >
                             {(gold[1].cena - gold[0].cena).toFixed(4)}
                           </span>
-
+                        </Card.Text>
+                        <Card.Text>
+                          <span>%:</span>
                           <span
                             className={`${classes.rate} ${
                               classes[
