@@ -6,6 +6,7 @@ import classes from "./HeaderComponent.module.scss";
 import ResponsiveCarousel from "../Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FcCurrencyExchange } from "react-icons/fc";
 
 const HeaderComponent = (props) => {
   const data = useSelector((state) => state.currency.data);
@@ -22,8 +23,15 @@ const HeaderComponent = (props) => {
 
   return (
     <header className={classes.header}>
-      <h1>Header lorem ipsum</h1>
-      <p>Lorem ipsum description</p>
+      <h1>
+        Budget APP
+        <span>
+          <FcCurrencyExchange />
+        </span>
+      </h1>
+      <p className={classes.description}>
+        Check currency and gold rates, compare currencies, buy and sell.
+      </p>
       {status === "success" && dataCurrentLast && (
         <ResponsiveCarousel
           data={dataCurrentLast}

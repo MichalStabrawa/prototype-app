@@ -13,6 +13,8 @@ import RemindLogin from "./Pages/remindLogin/remindLogin";
 import AboutUs from "./Pages/about/aboutUs";
 import ExchangeRates from "./Pages/exchange/exchange-rates";
 import BidAsk from "./Pages/bidask/bidAsk";
+import Gold from "./Pages/gold/gold";
+
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContent } from "./store/fetchGoldSlice";
 import { fetchNbpTableA } from "./store/currencyApiNbp/currencyNbpSlice";
@@ -54,7 +56,8 @@ function App() {
          
         },
         { path: "/exchange/:id", element: <ExchangeDetails /> },
-        {path: "/bidask",element: <BidAsk/>}
+        {path: "/bidask",element: <BidAsk/>},
+        {path:"gold",element: <Gold/>}
       ],
     },
   ]);
