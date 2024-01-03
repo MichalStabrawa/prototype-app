@@ -22,7 +22,7 @@ const Gold = () => {
             <Col>
               <h1>
                 Gold section{" "}
-                <span>
+                <span className={classes.icon_wrapper}>
                   <GiGoldBar />
                 </span>
               </h1>

@@ -1,12 +1,23 @@
 @import "../../styles/main";
 
 .header {
-  background-color: $bluegrey;
+  background-color: goldenrod;
   margin-top: 30px;
-  color: $gold;
+  color: $darkblue;
 
   &_description {
     font-size: 1.25rem;
+  }
+
+  .icon_wrapper {
+    display: inline-block;
+    background-color: $darkblue;
+    color:gold;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+    border-radius: 50%;
   }
 }
 
