@@ -78,4 +78,25 @@
       margin-bottom: 0;
     }
   }
+
+  .table_min_max {
+    margin-top: 40px;
+    font-size: 12px;
+
+    @include media-query-sm {
+      font-size: 1rem;
+    }
+
+    .min {
+      color: red;
+    }
+
+    .max {
+      color: green;
+    }
+
+    .date_min_max {
+      font-style: italic;
+    }
+  }
 }
