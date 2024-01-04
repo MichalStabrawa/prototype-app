@@ -56,7 +56,6 @@ const CompareGoldPricesByDate = () => {
 
       {statusGoldDate === "success" && status === "success" && (
         <div className={classes.table}>
-          {" "}
           <Table striped bordered hover>
             <thead>
               <tr>

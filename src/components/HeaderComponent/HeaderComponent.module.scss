@@ -1,33 +1,35 @@
-@import '../../styles/main';
+@import "../../styles/main";
 
 .header {
-    height: 60vh;
-    padding: $padding20;
-    text-align: left;
-    background: url('../../assets/financial.jpg') no-repeat;
-    background-position: bottom right;
-    background-size: contain;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: 10px 0;
+  height: auto;
+  padding: $padding20;
+  text-align: left;
+  background: url("../../assets/financial.jpg") no-repeat;
+  background-position: bottom right;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px 0;
 
-    h1 {
-        font-size: 48px;
-        margin-bottom: 20px;
-        color:$darkblue;
-    }
-    .description{
-        font-size: 32px;
-        margin: 0;
-        
-        color:$bluegrey;
-        padding-bottom: 20px;
+  @include media-query-sm {
+    height: 80vh;
+  }
 
-        @include media-query-md {
-            max-width: 45%;
-        }
-       
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: $darkblue;
+  }
+  .description {
+    font-size: 32px;
+    margin: 0;
+
+    color: $bluegrey;
+    padding-bottom: 20px;
+
+    @include media-query-md {
+      max-width: 45%;
     }
-   
+  }
 }
