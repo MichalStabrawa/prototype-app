@@ -1,0 +1,43 @@
+@import "../../styles/main";
+
+.compare {
+  padding: 20px 0;
+ 
+  @include media-query-sm {
+    width:60%;
+  }
+  .label {
+    display: inline-block;
+    padding: 20px 0;
+    font-style: italic;
+  }
+
+  .table {
+    font-size: 0.8rem;
+
+    @include media-query-sm {
+      font-size: 1.125rem;
+    }
+    .date {
+      font-style: italic;
+      @include media-query-sm {
+        font-size: 1rem;
+      }
+    }
+    .value {
+      font-weight: bold;
+      color: $darkblue;
+    }
+  }
+  .red,
+  .green {
+    font-weight: bold;
+  }
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+}

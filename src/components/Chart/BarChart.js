@@ -4,6 +4,8 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 export default function BartChart(props) {
 const {data}= props
 
+console.log(data)
+
 return(
     <ResponsiveContainer width="50%" height="100%">
     <BarChart
@@ -19,7 +21,7 @@ return(
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis  domain={[100,'dataMax+10']}/>
+      <YAxis  domain={[100,'dataMax']}/>
       <Tooltip />
       <Legend />
       <Bar

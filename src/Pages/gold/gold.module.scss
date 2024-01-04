@@ -22,10 +22,13 @@
 }
 
 .gold {
-  margin-top: 20px;
-  padding: 20px 0 40px;
+  
+
   color: $darkblue;
 
+  &_section {
+    padding: 30px 0;
+  }
   .title {
     margin-bottom: 40px;
   }
@@ -99,5 +102,9 @@
     .date_min_max {
       font-style: italic;
     }
+  }
+
+  .amount {
+    margin-right: 5px;;
   }
 }
