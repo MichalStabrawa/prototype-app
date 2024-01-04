@@ -20,7 +20,7 @@ import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastVa
 import { goldFetchTopLastCount } from "../../store/goldApiNbp/goldFetchTopLastCount";
 import SimpleLineChart from "../../components/Chart/SimpleLineChart";
 import CalculateGoldComponent from "../../components/CalculateGoldComponent/CalculateGoldComponent";
-import CompareGoldPricesByDate from "../../components/CompareGoldPricesByDate/CompareGoldPricesByDate";
+import CompareGoldPricesByDate from "../../components/CalculateGoldPriceByDateComponent/CompareGoldPricesByDate";
 
 const Gold = () => {
   const dispatch = useDispatch();
