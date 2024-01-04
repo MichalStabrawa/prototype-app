@@ -19,6 +19,7 @@ import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
 import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
 import { goldFetchTopLastCount } from "../../store/goldApiNbp/goldFetchTopLastCount";
 import SimpleLineChart from "../../components/Chart/SimpleLineChart";
+import CalculateGoldComponent from "../../components/CalculateGoldComponent/CalculateGoldComponent";
 
 const Gold = () => {
   const dispatch = useDispatch();
@@ -74,149 +75,175 @@ const Gold = () => {
           </Row>
         </Container>
       </header>
-
-      <Wrapper css="grey">
-        <main className={classes.gold}>
-          <Container fluid>
-            <Row>
-              <Col xs={12} md={4}>
-                <h2 className={classes.title}>Actual Gold prices </h2>
-                {status === "success" && (
-                  <div className={classes.card_wrapper}>
-                    {" "}
-                    <Card className="mb-2">
-                      <Card.Header as="h5">Current gold price</Card.Header>
-                      <Card.Body>
-                        <Card.Title>
-                          {gold[1].cena} PLN/g{" "}
-                          <IconArrow
-                            arrow={getCurrentPrevDifferences(
+      <main className={classes.gold}>
+        <Wrapper css="grey">
+          <section className={classes.gold_section}>
+            <Container fluid>
+              <Row>
+                <Col xs={12} md={3}>
+                  <h2 className={classes.title}>Actual Gold prices </h2>
+                  {status === "success" && (
+                    <div className={classes.card_wrapper}>
+                      {" "}
+                      <Card className="mb-2">
+                        <Card.Header as="h5">Current gold price</Card.Header>
+                        <Card.Body>
+                          <Card.Title>
+                            {gold[1].cena} PLN/g{" "}
+                            <IconArrow
+                              arrow={getCurrentPrevDifferences(
+                                gold[1].cena,
+                                gold[0].cena
+                              )}
+                            />
+                          </Card.Title>
+                          <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
+                          <Card.Text>
+                            <span className={classes.amount}>amount:</span>
+                            <span
+                              className={`${classes.rate} ${
+                                classes[
+                                  getCurrentPrevDifferences(
+                                    gold[1].cena,
+                                    gold[0].cena
+                                  )
+                                ]
+                              }`}
+                            >
+                              {(gold[1].cena - gold[0].cena).toFixed(4)}
+                            </span>
+                          </Card.Text>
+                          <Card.Text>
+                            <span className={classes.amount}>%:</span>
+                            <span
+                              className={`${classes.rate} ${
+                                classes[
+                                  getCurrentPrevDifferences(
+                                    gold[1].cena,
+                                    gold[0].cena
+                                  )
+                                ]
+                              }`}
+                            >{`(${countPercentCurrLastValue(
                               gold[1].cena,
                               gold[0].cena
-                            )}
-                          />
-                        </Card.Title>
-                        <Card.Text>{`date: ${gold[1].data}`}</Card.Text>
-                        <Card.Text>
-                          <span>amount:</span>
-                          <span
-                            className={`${classes.rate} ${
-                              classes[
-                                getCurrentPrevDifferences(
-                                  gold[1].cena,
-                                  gold[0].cena
-                                )
-                              ]
-                            }`}
-                          >
-                            {(gold[1].cena - gold[0].cena).toFixed(4)}
-                          </span>
-                        </Card.Text>
-                        <Card.Text>
-                          <span>%:</span>
-                          <span
-                            className={`${classes.rate} ${
-                              classes[
-                                getCurrentPrevDifferences(
-                                  gold[1].cena,
-                                  gold[0].cena
-                                )
-                              ]
-                            }`}
-                          >{`(${countPercentCurrLastValue(
-                            gold[1].cena,
-                            gold[0].cena
-                          )}%)`}</span>
-                        </Card.Text>
-                        <Card.Text>
-                          {" "}
-                          <span className={classes.prev_price}>
+                            )}%)`}</span>
+                          </Card.Text>
+                          <Card.Text>
                             {" "}
-                            Previous price: {gold[0].cena} PLN/g{" "}
-                          </span>
-                          <span className={classes.date}>
-                            previous date: {gold[0].data}
-                          </span>
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                )}
-              </Col>
-              <Col md={8}>
-                <h3 className={classes.title_top}>Last {key} top count gold</h3>
-                <Tabs
-                  id="controlled-tab-example"
-                  activeKey={key}
-                  onSelect={(k) => setKey(k)}
-                  className="mb-3"
-                >
-                  <Tab eventKey="3" title="3d"></Tab>
-                  <Tab eventKey="7" title="7d"></Tab>
-                  <Tab eventKey="14" title="14d"></Tab>
-                  <Tab eventKey="30" title="1M"></Tab>
-                  <Tab eventKey="90" title="3M"></Tab>
-                  <Tab eventKey="180" title="6M"></Tab>
-                </Tabs>
-                <Row>
-                  <Col>
-                    {(isLoadingLastTopCount ||
-                      statusTopLastCount === "pending") && (
-                      <div className="loader">
-                        is Loading ....
-                        <RotatingLines
-                          strokeColor="grey"
-                          strokeWidth="5"
-                          animationDuration="0.75"
-                          width="96"
-                          visible={true}
-                        />
-                      </div>
-                    )}
-                    {statusTopLastCount === "error" && (
-                      <Alert>Error fetch</Alert>
-                    )}
-                    {statusTopLastCount === "success" && (
-                      <div className={classes.chart}>
-                        <SimpleLineChart data={goldLastTopCount} />
-                      </div>
-                    )}
-                    {statusTopLastCount === "success" &&
-                      maxPrice &&
-                      minPrice && (
-                        <div className={classes.table_min_max}>
-                          {" "}
-                          <Table striped bordered hover>
-                            <thead>
-                              <tr>
-                                <th>min value</th>
-                                <th>date (min)</th>
-                                <th>max value</th>
-                                <th>date (max)</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td className={classes.min}>{minPrice.cena}</td>
-                                <td className={classes.date_min_max}>
-                                  {minPrice.data}
-                                </td>
-                                <td className={classes.max}>{maxPrice.cena}</td>
-                                <td className={classes.date_min_max}>
-                                  {maxPrice.data}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </Table>
+                            <span className={classes.prev_price}>
+                              {" "}
+                              Previous price: {gold[0].cena} PLN/g{" "}
+                            </span>
+                            <span className={classes.date}>
+                              previous date: {gold[0].data}
+                            </span>
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  )}
+                </Col>
+                <Col xs={12} md={9}>
+                  <h3 className={classes.title_top}>
+                    Last {key} top count gold
+                  </h3>
+                  <Tabs
+                    id="controlled-tab-example"
+                    activeKey={key}
+                    onSelect={(k) => setKey(k)}
+                    className="mb-3"
+                  >
+                    <Tab eventKey="3" title="3d"></Tab>
+                    <Tab eventKey="7" title="7d"></Tab>
+                    <Tab eventKey="14" title="14d"></Tab>
+                    <Tab eventKey="30" title="1M"></Tab>
+                    <Tab eventKey="90" title="3M"></Tab>
+                    <Tab eventKey="180" title="6M"></Tab>
+                  </Tabs>
+                  <Row>
+                    <Col>
+                      {(isLoadingLastTopCount ||
+                        statusTopLastCount === "pending") && (
+                        <div className="loader">
+                          is Loading ....
+                          <RotatingLines
+                            strokeColor="grey"
+                            strokeWidth="5"
+                            animationDuration="0.75"
+                            width="96"
+                            visible={true}
+                          />
                         </div>
                       )}
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
-        </main>
-      </Wrapper>
+                      {statusTopLastCount === "error" && (
+                        <Alert>Error fetch</Alert>
+                      )}
+                      {statusTopLastCount === "success" && (
+                        <div className={classes.chart}>
+                          <SimpleLineChart data={goldLastTopCount} />
+                        </div>
+                      )}
+                      {statusTopLastCount === "success" &&
+                        maxPrice &&
+                        minPrice && (
+                          <div className={classes.table_min_max}>
+                            {" "}
+                            <Table striped bordered hover>
+                              <thead>
+                                <tr>
+                                  <th>min value</th>
+                                  <th>date (min)</th>
+                                  <th>max value</th>
+                                  <th>date (max)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td className={classes.min}>
+                                    {minPrice.cena}
+                                  </td>
+                                  <td className={classes.date_min_max}>
+                                    {minPrice.data}
+                                  </td>
+                                  <td className={classes.max}>
+                                    {maxPrice.cena}
+                                  </td>
+                                  <td className={classes.date_min_max}>
+                                    {maxPrice.data}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </Table>
+                          </div>
+                        )}
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        </Wrapper>
+        <Wrapper>
+          <section className={classes.gold_section}>
+            <Container fluid>
+              <Row>
+                <Col md={3}>
+                  <div className={classes.card_wrapper}>
+                    <h3>Calculate the value of grams of gold</h3>
+                    <CalculateGoldComponent/>
+                  </div>
+                </Col>
+                <Col>
+                  <div className={classes.card_wrapper}>
+                    <h3>Compare gold prices by date</h3>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        </Wrapper>
+      </main>
     </>
   );
 };
