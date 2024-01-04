@@ -20,6 +20,7 @@ import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastVa
 import { goldFetchTopLastCount } from "../../store/goldApiNbp/goldFetchTopLastCount";
 import SimpleLineChart from "../../components/Chart/SimpleLineChart";
 import CalculateGoldComponent from "../../components/CalculateGoldComponent/CalculateGoldComponent";
+import CompareGoldPricesByDate from "../../components/CompareGoldPricesByDate/CompareGoldPricesByDate";
 
 const Gold = () => {
   const dispatch = useDispatch();
@@ -228,15 +229,22 @@ const Gold = () => {
           <section className={classes.gold_section}>
             <Container fluid>
               <Row>
-                <Col md={3}>
+                <Col md={6} lg={4}>
                   <div className={classes.card_wrapper}>
                     <h3>Calculate the value of grams of gold</h3>
-                    <CalculateGoldComponent/>
+                    <CalculateGoldComponent />
                   </div>
                 </Col>
                 <Col>
                   <div className={classes.card_wrapper}>
                     <h3>Compare gold prices by date</h3>
+                    <Row>
+                      <Col xs={12} >
+                        {" "}
+                        <CompareGoldPricesByDate />
+                      </Col>
+                   
+                    </Row>
                   </div>
                 </Col>
               </Row>
