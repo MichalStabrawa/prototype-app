@@ -9,6 +9,27 @@
     font-style: italic;
   }
 
+  .table {
+    font-size: 0.8rem;
+
+    @include media-query-sm {
+      font-size: 1.125rem;
+    }
+    .date {
+      font-style: italic;
+      @include media-query-sm {
+        font-size: 1rem;
+      }
+    }
+    .value {
+      font-weight: bold;
+      color: $darkblue;
+    }
+  }
+  .red,
+  .green {
+    font-weight: bold;
+  }
   .red {
     color: red;
   }
