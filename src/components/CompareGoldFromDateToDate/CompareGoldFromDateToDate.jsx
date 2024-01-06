@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./CompareGoldFromDateToDate.module.scss";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import { goldFetchFromToDate } from "../../store/goldApiNbp/goldFetchFromToDateSlice";
+
 const CompareGoldFromDateToDate = () => {
+  const dispatch = useDispatch();
+  const goldFromToDate = useSelector((state) => state.goldFetchFromToDate.data);
+  const isLoading = useSelector((state) => state.goldFetchFromToDate.isLoading);
+  const status = useSelector((state) => state.goldFetchFromToDate.status);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [fetch, setFetch] = useState(false);
 
   const handleInput = (event) => {
     event.preventDefault();
@@ -17,6 +25,16 @@ const CompareGoldFromDateToDate = () => {
       setToDate(event.target.value);
     }
   };
+
+  const handleFetch = () => {
+    setFetch(true);
+  };
+
+  useEffect(() => {
+    if (fromDate !== "" && toDate !== "") {
+      dispatch(goldFetchFromToDate({ fromDate: fromDate, toDate: toDate }));
+    }
+  }, [dispatch, fetch]);
 
   return (
     <div className={classes.compare}>
@@ -44,7 +62,13 @@ const CompareGoldFromDateToDate = () => {
       </Form.Group>
       <div className={classes.btn_wrapper}>
         {" "}
-        <Button  variant="outline-warning" disabled={fromDate==='' && toDate===''}>check it</Button>
+        <Button
+          onClick={handleFetch}
+          variant="outline-warning"
+          disabled={fromDate === "" && toDate === ""}
+        >
+          check it
+        </Button>
       </div>
     </div>
   );

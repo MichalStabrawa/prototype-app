@@ -24,6 +24,7 @@ export const goldFetchFromToDate = createAsyncThunk(
       const data = await res.json();
       return data;
     } catch (error) {
+      initialState.status = 'rejected';
       console.log(error);
     }
   }
@@ -40,7 +41,7 @@ const goldFetchFromToDateSlice = createSlice({
     });
     builder.addCase(goldFetchFromToDate.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.action = action.payload;
+      state.data = action.payload;
       state.status = "success";
     });
     builder.addCase(goldFetchFromToDate.rejected, (state, action) => {
