@@ -21,7 +21,7 @@ import { goldFetchTopLastCount } from "../../store/goldApiNbp/goldFetchTopLastCo
 import SimpleLineChart from "../../components/Chart/SimpleLineChart";
 import CalculateGoldComponent from "../../components/CalculateGoldComponent/CalculateGoldComponent";
 import CompareGoldPricesByDate from "../../components/CalculateGoldPriceByDateComponent/CompareGoldPricesByDate";
-
+import CompareGoldFromDateToDate from "../../components/CompareGoldFromDateToDate/CompareGoldFromDateToDate";
 const Gold = () => {
   const dispatch = useDispatch();
   const gold = useSelector((state) => state.goldFetch.data);
@@ -239,12 +239,27 @@ const Gold = () => {
                   <div className={classes.card_wrapper}>
                     <h3>Compare gold prices by date</h3>
                     <Row>
-                      <Col xs={12} >
+                      <Col xs={12}>
                         {" "}
                         <CompareGoldPricesByDate />
                       </Col>
-                   
                     </Row>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        </Wrapper>
+        <Wrapper css="grey">
+          <section className={classes.gold_section}>
+            <Container fluid>
+              <Row>
+                <Col>
+                  {" "}
+                  <div className={classes.card_wrapper}>
+                    {" "}
+                    <h3>Compare gold values from date to date.</h3>
+                    <CompareGoldFromDateToDate/>
                   </div>
                 </Col>
               </Row>

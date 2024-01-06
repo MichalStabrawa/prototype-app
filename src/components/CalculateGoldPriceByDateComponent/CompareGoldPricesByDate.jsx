@@ -44,7 +44,11 @@ const CompareGoldPricesByDate = () => {
 
   return (
     <div className={classes.compare}>
-      <Form.Control type="date" onChange={handleInputValue}></Form.Control>
+      <Form.Control
+        style={{ width: "50%" }}
+        type="date"
+        onChange={handleInputValue}
+      ></Form.Control>
       <Form.Label>
         <span className={classes.label}>
           Select a date and check the value.

@@ -11,6 +11,7 @@
   justify-content: center;
   flex-direction: column;
   margin: 10px 0;
+  height: auto;
 
   @include media-query-sm {
     height: 80vh;
