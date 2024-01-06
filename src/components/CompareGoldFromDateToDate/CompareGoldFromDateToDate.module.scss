@@ -24,4 +24,27 @@
 .chart {
   margin-top: 30px;
   height: 350px;
+  background:#fff;
+}
+.table_min_max {
+  margin-top: 40px;
+  font-size: 12px;
+
+  @include media-query-sm {
+    font-size: 1rem;
+  }
+
+  .min {
+    color: red;
+    font-weight: bold;
+  }
+
+  .max {
+    color: green;
+    font-weight: bold;
+  }
+
+  .date_min_max {
+    font-style: italic;
+  }
 }
