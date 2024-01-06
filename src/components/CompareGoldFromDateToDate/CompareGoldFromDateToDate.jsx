@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
 import {
   LineChart,
   Line,
@@ -26,6 +27,8 @@ const CompareGoldFromDateToDate = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [fetch, setFetch] = useState(false);
+  const [maxPrice, setMax] = useState();
+  const [minPrice, setMin] = useState();
 
   const handleInput = (event) => {
     event.preventDefault();
@@ -43,15 +46,30 @@ const CompareGoldFromDateToDate = () => {
   };
 
   useEffect(() => {
-   
-    if ( fetch===true) {
+    if (fetch === true) {
       dispatch(goldFetchFromToDate({ fromDate: fromDate, toDate: toDate }));
     }
     setFetch(false);
   }, [dispatch, fetch]);
+  
+  useEffect(() => {
+    if (status === "success") {
+      const max = [...goldFromToDate].reduce((prev, next) =>
+        prev.cena > next.cena ? prev : next
+      );
+
+      const min = [...goldFromToDate].reduce((prev, next) =>
+        prev.cena < next.cena ? prev : next
+      );
+
+      setMax(max);
+      setMin(min);
+    }
+  }, [dispatch, status]);
 
   return (
-    <Row>
+    <div>
+       <Row>
       <Col xs={12} md={6}>
         {" "}
         <div className={classes.compare}>
@@ -90,7 +108,7 @@ const CompareGoldFromDateToDate = () => {
         </div>
       </Col>
       <Col xs={12}>
-        {status === "success" && isLoading ===false  && (
+        {status === "success" && isLoading === false && (
           <div className={classes.chart}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -122,6 +140,44 @@ const CompareGoldFromDateToDate = () => {
         )}
       </Col>
     </Row>
+    <Row>
+      <Col>
+      {status === "success" &&
+                        maxPrice &&
+                        minPrice && (
+                          <div className={classes.table_min_max}>
+                            {" "}
+                            <Table striped bordered hover>
+                              <thead>
+                                <tr>
+                                  <th>min value</th>
+                                  <th>date (min)</th>
+                                  <th>max value</th>
+                                  <th>date (max)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td className={classes.min}>
+                                    {minPrice.cena}
+                                  </td>
+                                  <td className={classes.date_min_max}>
+                                    {minPrice.data}
+                                  </td>
+                                  <td className={classes.max}>
+                                    {maxPrice.cena}
+                                  </td>
+                                  <td className={classes.date_min_max}>
+                                    {maxPrice.data}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </Table>
+                          </div>
+                        )}</Col>
+    </Row>
+    </div>
+   
   );
 };
 
