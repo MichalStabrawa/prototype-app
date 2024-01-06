@@ -254,7 +254,7 @@ const Gold = () => {
           <section className={classes.gold_section}>
             <Container fluid>
               <Row>
-                <Col md={6}>
+                <Col md={12} lg={6}>
                   {" "}
                   <div className={classes.card_wrapper}>
                     {" "}

@@ -2,17 +2,22 @@
 
 .compare {
   margin-top: 30px;
- display: grid;
- grid-template-columns: 1fr;
- gap:20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 
- @include media-query-sm {
-    grid-template-columns: 1fr 1fr;
- }
+  @include media-query-sm {
+    grid-template-columns: 1fr 1fr auto;
+  }
 
   .label {
     display: inline-block;
     padding: 5px 0;
     font-style: italic;
+  }
+
+  .btn_wrapper {
+    display: flex;
+    align-items: end;
   }
 }

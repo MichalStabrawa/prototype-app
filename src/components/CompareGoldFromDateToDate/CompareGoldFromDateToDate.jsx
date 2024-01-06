@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import classes from "./CompareGoldFromDateToDate.module.scss";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const CompareGoldFromDateToDate = () => {
   const [fromDate, setFromDate] = useState("");
@@ -41,6 +42,10 @@ const CompareGoldFromDateToDate = () => {
           name="toDate"
         ></Form.Control>
       </Form.Group>
+      <div className={classes.btn_wrapper}>
+        {" "}
+        <Button  variant="outline-warning" disabled={fromDate==='' && toDate===''}>check it</Button>
+      </div>
     </div>
   );
 };
