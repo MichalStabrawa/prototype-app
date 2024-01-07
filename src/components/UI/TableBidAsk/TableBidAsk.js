@@ -60,15 +60,12 @@ const TableBidAsk = ({ data }) => {
                     <td className={classes.ask}>{el.ask}</td>
                     <td className={classes.date}>{effectiveDate}</td>
                     <td>
-                      {" "}
-                      <td>
-                        <Link to={`/bidask/${el.code}`}>
-                          {" "}
-                          <Button variant="link">
-                            more <MdReadMore />
-                          </Button>{" "}
-                        </Link>
-                      </td>
+                      <Link to={`/bidask/${el.code}`}>
+                        {" "}
+                        <Button variant="link">
+                          more <MdReadMore />
+                        </Button>{" "}
+                      </Link>
                     </td>
                   </tr>
                 );
