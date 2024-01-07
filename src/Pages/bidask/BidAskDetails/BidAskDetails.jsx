@@ -163,12 +163,13 @@ const BidAskDetails = () => {
                 {" "}
                 <Card border="light">
                   <Card.Header as="h5" text="dark">
-                    {params.id}
+                   code:  {params.id}
                   </Card.Header>
                   <Card.Body>
                     <Card.Subtitle>
+                      currency:{" "} 
                       {statusLastTop === "success" &&
-                        currencyLastTopCount.currency}
+                         currencyLastTopCount.currency}
                     </Card.Subtitle>
                     <Card.Title>
                       <span className={classes.bid}>
@@ -178,9 +179,12 @@ const BidAskDetails = () => {
                       </span>
                     </Card.Title>
                     <Card.Title>
-                      ask:{" "}
-                      {statusLastTop === "success" &&
-                        currencyLastTopCount.rates[findLastIndex()].ask}
+                      <span className={classes.ask}>
+                        {" "}
+                        ask:{" "}
+                        {statusLastTop === "success" &&
+                          currencyLastTopCount.rates[findLastIndex()].ask}
+                      </span>
                     </Card.Title>
                     <Card.Text>
                       no:{" "}
@@ -244,10 +248,14 @@ const BidAskDetails = () => {
                             <Line
                               type="linear"
                               dataKey="bid"
-                              stroke="blue"
                               activeDot={{ r: 8 }}
+                              stroke="#17a2b8"
                             />
-                            <Line type="linear" dataKey="ask" stroke="violet" />
+                            <Line
+                              type="linear"
+                              dataKey="ask"
+                              stroke="#b81a98"
+                            />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
