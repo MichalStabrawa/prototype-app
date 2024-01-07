@@ -117,20 +117,24 @@ const BidAskDetails = () => {
             <Row>
               <Col xs={12} md={3}>
                 {" "}
-                <Card>
-                  <Card.Header as="h5">{params.id}</Card.Header>
+                <Card border="light">
+                  <Card.Header as="h5" text="dark">
+                    {params.id}
+                  </Card.Header>
                   <Card.Body>
                     <Card.Subtitle>currency:</Card.Subtitle>
-                    <Card.Title>bid:</Card.Title>
+                    <Card.Title>
+                      <span className={classes.bid}>bid:</span>
+                    </Card.Title>
                     <Card.Title>ask:</Card.Title>
-                    <Card.Text>
-                    date:
-                    </Card.Text>
-                 
+                    <Card.Text>no:</Card.Text>
+                    <Card.Text>date:</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>   <Tabs
+              <Col>
+                {" "}
+                <Tabs
                   id="controlled-tab-example"
                   activeKey={key}
                   onSelect={(k) => setKey(k)}
@@ -144,7 +148,11 @@ const BidAskDetails = () => {
                   <Tab eventKey="60" title="2m"></Tab>
                   <Tab eventKey="90" title="3m"></Tab>
                   <Tab eventKey="180" title="6m"></Tab>
-                </Tabs></Col>
+                </Tabs>
+                <Row>
+                  <Col>{key}</Col>
+                </Row>
+              </Col>
             </Row>
           </Container>
         </section>
