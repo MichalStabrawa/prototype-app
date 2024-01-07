@@ -143,7 +143,9 @@ const CompareGoldFromDateToDate = () => {
       </Row>
       <Row>
         <Col>
-       {status ==='rejected' &&  <Alert variant="danger">Error fetch data!!!</Alert>} 
+          {status === "rejected" && (
+            <Alert variant="danger">Error fetch data!!!</Alert>
+          )}
           {status === "success" && maxPrice && minPrice && (
             <div className={classes.table_min_max}>
               {" "}
