@@ -29,7 +29,10 @@
     @include media-query-sm {
       font-size: 1rem;
     }
-
+    .min,
+    .max {
+      font-weight: bold;
+    }
     .min {
       color: red;
     }
@@ -49,14 +52,14 @@
   margin-top: 10px;
   padding: 10px 0;
   border-top: 1px solid $graylight;
-  color:#b81a98;
+  color: #b81a98;
 }
 
 .ask {
-    color:#17a2b8;
-    display: block;
-    padding-bottom: 10px;
-    border-bottom: 1px solid $graylight;
+  color: #17a2b8;
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $graylight;
 }
 .tab_content {
   height: 400px;
