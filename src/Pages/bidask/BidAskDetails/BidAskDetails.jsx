@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 
 import classes from "./BidAskDetails.module.scss";
 import Wrapper from "../../../components/UI/Wrapper/Wrapper";
@@ -21,8 +22,19 @@ import Card from "react-bootstrap/Card";
 import { TiArrowBackOutline } from "react-icons/ti";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
+import { RotatingLines } from "react-loader-spinner";
 
 import { BsCurrencyExchange } from "react-icons/bs";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const BidAskDetails = () => {
   const dispatch = useDispatch();
@@ -52,6 +64,13 @@ const BidAskDetails = () => {
     (state) => state.singleCurrencyLastFewTimes.error
   );
 
+  const findLastIndex = () => {
+    if (statusLastTop === "success") {
+      const lastDataIndex = currencyLastTopCount.rates.length - 1;
+      return lastDataIndex;
+    }
+  };
+
   useEffect(() => {
     if (status === "success") {
       const tab = getCompareLastActualValue(
@@ -62,13 +81,26 @@ const BidAskDetails = () => {
     }
   }, [currency]);
 
-  if (isLoading || isLoadingLastTop) {
-    return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+  useEffect(() => {
+    if (params.id !== "") {
+      dispatch(
+        singleCurrencyLastFewTimes({
+          code: params.id,
+          number: +key,
+        })
+      );
+    }
+  }, [key, params.id]);
+
+  useEffect(() => {
+    minMaxBidAsk(
+      currencyLastTopCount,
+      statusLastTop,
+      setMinBidAsk,
+      setMaxBidAsk
     );
-  }
+  }, [statusLastTop]);
+
   return (
     <main className={classes.bid_ask}>
       <Wrapper css="dark_blue">
@@ -98,6 +130,18 @@ const BidAskDetails = () => {
         </Container>
       </Wrapper>
       <Wrapper css="grey">
+        {isLoadingLastTop && (
+          <div className={classes.loader}>
+            {" "}
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </div>
+        )}
         <section className={classes.bid_ask__wrapper}>
           <Container fluid>
             <Row>
@@ -122,18 +166,42 @@ const BidAskDetails = () => {
                     {params.id}
                   </Card.Header>
                   <Card.Body>
-                    <Card.Subtitle>currency:</Card.Subtitle>
+                    <Card.Subtitle>
+                      {statusLastTop === "success" &&
+                        currencyLastTopCount.currency}
+                    </Card.Subtitle>
                     <Card.Title>
-                      <span className={classes.bid}>bid:</span>
+                      <span className={classes.bid}>
+                        bid:{" "}
+                        {statusLastTop === "success" &&
+                          currencyLastTopCount.rates[findLastIndex()].bid}{" "}
+                      </span>
                     </Card.Title>
-                    <Card.Title>ask:</Card.Title>
-                    <Card.Text>no:</Card.Text>
-                    <Card.Text>date:</Card.Text>
+                    <Card.Title>
+                      ask:{" "}
+                      {statusLastTop === "success" &&
+                        currencyLastTopCount.rates[findLastIndex()].ask}
+                    </Card.Title>
+                    <Card.Text>
+                      no:{" "}
+                      {statusLastTop === "success" &&
+                        currencyLastTopCount.rates[findLastIndex()].no}
+                    </Card.Text>
+                    <Card.Text>
+                      date:{" "}
+                      {statusLastTop === "success" &&
+                        currencyLastTopCount.rates[findLastIndex()]
+                          .effectiveDate}
+                    </Card.Text>
+                    <Card.Text>
+                      table:{" "}
+                      {statusLastTop === "success" &&
+                        currencyLastTopCount.table}
+                    </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
               <Col>
-                {" "}
                 <Tabs
                   id="controlled-tab-example"
                   activeKey={key}
@@ -150,7 +218,74 @@ const BidAskDetails = () => {
                   <Tab eventKey="180" title="6m"></Tab>
                 </Tabs>
                 <Row>
-                  <Col>{key}</Col>
+                  <Col xs={12}>
+                    {errorLast && (
+                      <Alert variant="warning">Error fetch data</Alert>
+                    )}
+                    {statusLastTop === "success" && (
+                      <div className={classes.tab_content}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <LineChart
+                            width={500}
+                            height={300}
+                            data={currencyLastTopCount.rates}
+                            margin={{
+                              top: 15,
+                              right: 30,
+                              left: 20,
+                              bottom: 5,
+                            }}
+                          >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="effectiveDate" />
+                            <YAxis domain={["dataMin,dataMax"]} />
+                            <Tooltip />
+                            <Legend />
+                            <Line
+                              type="linear"
+                              dataKey="bid"
+                              stroke="blue"
+                              activeDot={{ r: 8 }}
+                            />
+                            <Line type="linear" dataKey="ask" stroke="violet" />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      </div>
+                    )}
+                  </Col>
+                  <Col xs={12}>
+                    {statusLastTop === "success" && minBidAsk && maxBidAsk && (
+                      <div className={classes.table_min_max}>
+                        {" "}
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>min Bid</th>
+                              <th>min Ask</th>
+                              <th>date (min)</th>
+                              <th>max Bid</th>
+                              <th>max Ask</th>
+                              <th>date (max)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className={classes.min}>{minBidAsk.bid}</td>
+                              <td className={classes.min}>{minBidAsk.ask}</td>
+                              <td className={classes.date_min_max}>
+                                {minBidAsk.effectiveDate}
+                              </td>
+                              <td className={classes.max}>{maxBidAsk.bid}</td>
+                              <td className={classes.max}>{maxBidAsk.ask}</td>
+                              <td className={classes.date_min_max}>
+                                {maxBidAsk.effectiveDate}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+                  </Col>
                 </Row>
               </Col>
             </Row>
