@@ -18,7 +18,7 @@ import Alert from "react-bootstrap/Alert";
 
 import classes from "./ExchangeFromToDateChart.module.scss";
 import Table from "react-bootstrap/Table";
-import buttonStyles from '../../UI/Button/Button.module.scss';
+import buttonStyles from "../../UI/Button/Button.module.scss";
 
 const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
   const data = useSelector((state) => state.singleCurrencyDateFromTo.data);
@@ -53,7 +53,11 @@ const ExchangeFromToDateChart = ({ dateFrom, dateTo }) => {
         )}
         {data && status === "success" && minBidAsk && (
           <div>
-            <Button click={changeChartHandler} color={buttonStyles.btn_transparent} name="Change chart" />
+            <Button
+              click={changeChartHandler}
+              color={buttonStyles.btn_transparent}
+              name="Change chart"
+            />
             {!flag ? (
               <div className={classes.chart}>
                 <h3>

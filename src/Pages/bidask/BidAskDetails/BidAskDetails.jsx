@@ -160,6 +160,7 @@ const BidAskDetails = () => {
             </Row>
             <Row>
               <Col xs={12} md={3}>
+                <div className={classes.card_wrapper}>
                 {" "}
                 <Card border="light">
                   <Card.Header as="h5" text="dark">
@@ -204,6 +205,7 @@ const BidAskDetails = () => {
                     </Card.Text>
                   </Card.Body>
                 </Card>
+                </div>
               </Col>
               <Col>
                 <Tabs
