@@ -25,6 +25,7 @@ import { goldFetch } from "./store/goldApiNbp/goldFetchApiSlice";
 import { useEffect, useState } from "react";
 import RootLayout from "./Pages/Root";
 import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
+import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
         },
         { path: "/exchange/:id", element: <ExchangeDetails /> },
         {path: "/bidask",element: <BidAsk/>},
+        {path: "/bidask/:id", element:<BidAskDetails/>},
         {path:"gold",element: <Gold/>}
       ],
     },

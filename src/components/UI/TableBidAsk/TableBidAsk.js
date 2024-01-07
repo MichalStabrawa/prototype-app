@@ -3,6 +3,9 @@ import classes from "./TableBidAsk.module.scss";
 import { useState, useEffect } from "react";
 
 import Pagination from "../../Paggination/Pagination";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { MdReadMore } from "react-icons/md";
 
 const TableBidAsk = ({ data }) => {
   const [tabData, setTabData] = useState([]);
@@ -43,6 +46,7 @@ const TableBidAsk = ({ data }) => {
               <th>value bid</th>
               <th>value ask</th>
               <th>date</th>
+              <th>link</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +59,14 @@ const TableBidAsk = ({ data }) => {
                     <td className={classes.bid}>{el.bid}</td>
                     <td className={classes.ask}>{el.ask}</td>
                     <td className={classes.date}>{effectiveDate}</td>
+                    <td>
+                      <Link to={`/bidask/${el.code}`}>
+                        {" "}
+                        <Button variant="link">
+                          more <MdReadMore />
+                        </Button>{" "}
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}
