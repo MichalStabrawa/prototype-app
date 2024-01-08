@@ -34,7 +34,7 @@ import {
 } from "recharts";
 
 import classes from "./ExchangeDetails.module.scss";
-import BudgetAppSection from "../../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
+import { countPercentCurrLastValue } from "../../../utils/countPercentCurrentLastValue";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -180,10 +180,13 @@ function ExchangeDetails() {
                 <h3>Rate for a particular currency</h3>
                 {status === "success" && data && (
                   <Card>
-                    <Card.Header as="h5"><span className={classes.descr}>code:</span>{data[0].code}</Card.Header>
+                    <Card.Header as="h5">
+                      <span className={classes.descr}>code:</span>
+                      {data[0].code}
+                    </Card.Header>
                     <Card.Body>
                       <Card.Title>
-                      <span className={classes.descr}>amount:</span>
+                        <span className={classes.descr}>amount:</span>
                         <span>{data[0].mid}</span>{" "}
                         <span>
                           <IconArrow
@@ -195,14 +198,14 @@ function ExchangeDetails() {
                         </span>
                       </Card.Title>
                       <Card.Subtitle>
-                      
-                        <span className={classes.currency}><span className={classes.descr}>currency:</span>
-                          
+                        <span className={classes.currency}>
+                          <span className={classes.descr}>currency:</span>
+
                           {data[0].currency}
                         </span>{" "}
                       </Card.Subtitle>
                       <Card.Text>
-                      <span className={classes.descr}>change:</span>
+                        <span className={classes.descr}>change:</span>
                         <span
                           className={`${classes.rate} ${
                             classes[
@@ -213,7 +216,25 @@ function ExchangeDetails() {
                             ]
                           }`}
                         >
-                           {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                          {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span className={classes.descr}>%:</span>
+                        <span
+                          className={`${classes.rate} ${
+                            classes[
+                              getCurrentPrevDifferences(
+                                data[0].mid,
+                                dataLast[0].mid
+                              )
+                            ]
+                          }`}
+                        >
+                          {`(${countPercentCurrLastValue(
+                            data[0].mid,
+                            dataLast[0].mid
+                          )}%)`}
                         </span>
                       </Card.Text>
                       <Card.Text>
