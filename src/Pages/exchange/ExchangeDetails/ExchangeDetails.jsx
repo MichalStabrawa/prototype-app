@@ -278,7 +278,6 @@ function ExchangeDetails() {
                               stroke="blue"
                               activeDot={{ r: 8 }}
                             />
-                            <Line type="linear" dataKey="ask" stroke="violet" />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
