@@ -20,7 +20,7 @@ import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
-import {singleCurrBidLastTopCountFetch} from '../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice';
+import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
   LineChart,
@@ -47,14 +47,6 @@ function ExchangeDetails() {
   const currency = useSelector((state) => state.currency.data);
   const status = useSelector((state) => state.currency.status);
   const isLoading = useSelector((state) => state.currency.isLoading);
-  const [data, setData] = useState();
-  const [dataLast, setDataLast] = useState();
-  const [key, setKey] = useState("3");
-  const [minBidAsk, setMinBidAsk] = useState(null);
-  const [maxBidAsk, setMaxBidAsk] = useState(null);
-  const [dataCarousel, setDataCarousel] = useState();
-
-  //ask bid data
   const currencyLastTopCount = useSelector(
     (state) => state.singleCurrBidTopLastCount.data
   );
@@ -68,7 +60,14 @@ function ExchangeDetails() {
   const errorLast = useSelector(
     (state) => state.singleCurrBidTopLastCount.error
   );
+  const [data, setData] = useState();
+  const [dataLast, setDataLast] = useState();
+  const [key, setKey] = useState("3");
+  const [minMid, setMinMid] = useState(null);
+  const [maxMid, setMaxMid] = useState(null);
+  const [dataCarousel, setDataCarousel] = useState();
 
+  //ask bid data
 
 
   const filterCurrency = (data) => {
@@ -86,25 +85,30 @@ function ExchangeDetails() {
   }, [currency]);
 
   useEffect(() => {
-    if (params.id !== ""&& status==="success" ) {
+    if (params.id !== "" && status === "success") {
       dispatch(
         singleCurrBidLastTopCountFetch({
-          table:currency[1].table,
+          table: currency[1].table,
           code: params.id,
           topCount: +key,
         })
       );
     }
-  }, [key, params.id]);
+  }, [dispatch,key, params.id,currency,status]);
 
   useEffect(() => {
-    minMaxBidAsk(
-      currencyLastTopCount,
-      statusLastTop,
-      setMinBidAsk,
-      setMaxBidAsk
-    );
-  }, [statusLastTop]);
+    if (statusLastTop === "success") {
+      const min = [...currencyLastTopCount.rates].reduce((prev, next) =>
+        prev.mid < next.bid ? prev : next
+      );
+      const max = [...currencyLastTopCount.rates].reduce((prev, next) =>
+        prev.mid > next.mid ? prev : next
+      );
+
+      setMinMid(min);
+      setMaxMid(max);
+    }
+  }, [statusLastTop,currencyLastTopCount.rates]);
 
   useEffect(() => {
     if (status === "success") {
@@ -231,7 +235,7 @@ function ExchangeDetails() {
                     {errorLast && (
                       <Alert variant="warning">Error fetch data</Alert>
                     )}
-                     {statusLastTop === "success" && (
+                    {statusLastTop === "success" && (
                       <div className={classes.tab_content}>
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
@@ -260,40 +264,36 @@ function ExchangeDetails() {
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
-                    )} 
+                    )}
                   </Col>
                   <Col xs={12}>
-                    {/* {statusLastTop === "success" && minBidAsk && maxBidAsk && (
+                    {statusLastTop === "success" && minMid && maxMid && (
                       <div className={classes.table_min_max}>
                         {" "}
                         <Table striped bordered hover>
                           <thead>
                             <tr>
-                              <th>min Bid</th>
-                              <th>min Ask</th>
+                              <th>min value</th>
                               <th>date (min)</th>
-                              <th>max Bid</th>
-                              <th>max Ask</th>
+                              <th>max value</th>
                               <th>date (max)</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <td className={classes.min}>{minBidAsk.bid}</td>
-                              <td className={classes.min}>{minBidAsk.ask}</td>
+                              <td className={classes.min}>{minMid.mid}</td>
                               <td className={classes.date_min_max}>
-                                {minBidAsk.effectiveDate}
+                                {minMid.effectiveDate}
                               </td>
-                              <td className={classes.max}>{maxBidAsk.bid}</td>
-                              <td className={classes.max}>{maxBidAsk.ask}</td>
+                              <td className={classes.max}>{maxMid.mid}</td>
                               <td className={classes.date_min_max}>
-                                {maxBidAsk.effectiveDate}
+                                {maxMid.effectiveDate}
                               </td>
                             </tr>
                           </tbody>
                         </Table>
                       </div>
-                    )} */}
+                    )}
                   </Col>
                 </Row>
               </Col>
