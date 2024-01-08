@@ -5,7 +5,7 @@
 
   h3 {
     margin-bottom: 40px;
-    color: $brownlight;
+    color: $darkblue;
   }
 
   header {
@@ -51,14 +51,16 @@
     }
 
     .date {
+      display:block;
       font-style: italic;
       padding: 5px;
-      border-bottom: 1px solid $darkbluelight;
+      border-bottom: 1px solid $graylight;
     }
 
     .currency {
       font-size: 22px;
-      padding: 0 5px 0 5px;
+      display: block;
+      padding: 10px 0;
     }
 
     .tab_content {

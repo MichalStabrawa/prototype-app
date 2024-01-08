@@ -8,18 +8,18 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
-import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+
 import Table from "react-bootstrap/Table";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
-import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
 import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
@@ -69,7 +69,6 @@ function ExchangeDetails() {
 
   //ask bid data
 
-
   const filterCurrency = (data) => {
     return data[1].rates.filter((el) => el.code === params.id);
   };
@@ -94,12 +93,13 @@ function ExchangeDetails() {
         })
       );
     }
-  }, [dispatch,key, params.id,currency,status]);
+  }, [dispatch, key, params.id, currency, status]);
 
   useEffect(() => {
     if (statusLastTop === "success") {
+      console.log(currencyLastTopCount);
       const min = [...currencyLastTopCount.rates].reduce((prev, next) =>
-        prev.mid < next.bid ? prev : next
+        prev.mid < next.mid ? prev : next
       );
       const max = [...currencyLastTopCount.rates].reduce((prev, next) =>
         prev.mid > next.mid ? prev : next
@@ -108,7 +108,7 @@ function ExchangeDetails() {
       setMinMid(min);
       setMaxMid(max);
     }
-  }, [statusLastTop,currencyLastTopCount.rates]);
+  }, [statusLastTop, currencyLastTopCount]);
 
   useEffect(() => {
     if (status === "success") {
@@ -177,19 +177,30 @@ function ExchangeDetails() {
             </Row>
             <Row>
               <Col xs={12} md={3}>
-                <BudgetAppSection>
-                  <h3>Rate for a particular currency</h3>
-                  {currency && data && (
-                    <div>
-                      <h4 className={classes.code}>{data[0].code}</h4>
-                      <p className={classes.value}>
-                        <span>{data[0].mid}</span>{" "}
-                        <IconArrow
-                          arrow={getCurrentPrevDifferences(
-                            data[0].mid,
-                            dataLast[0].mid
-                          )}
-                        />
+                <h3>Rate for a particular currency</h3>
+                {status === "success" && data && (
+                  <Card>
+                    <Card.Header as="h5">code: {data[0].code}</Card.Header>
+                    <Card.Body>
+                      <Card.Title>
+                        {" "}
+                        <span>mid value: {data[0].mid}</span>{" "}
+                        <span>
+                          <IconArrow
+                            arrow={getCurrentPrevDifferences(
+                              data[0].mid,
+                              dataLast[0].mid
+                            )}
+                          />
+                        </span>
+                      </Card.Title>
+                      <Card.Subtitle>
+                        <span className={classes.currency}>
+                          currency:
+                          {data[0].currency}
+                        </span>{" "}
+                      </Card.Subtitle>
+                      <Card.Text>
                         <span
                           className={`${classes.rate} ${
                             classes[
@@ -200,19 +211,26 @@ function ExchangeDetails() {
                             ]
                           }`}
                         >
-                          {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                          change: {(data[0].mid - dataLast[0].mid).toFixed(4)}
                         </span>
-                      </p>
-                      <p className={classes.currency}> {data[0].currency} </p>
-
-                      <p className={classes.date}>
-                        <span>date: {currency[1].effectiveDate}</span>
-                      </p>
-                      <p className={classes.date}>no: {currency[1].no}</p>
-                      <p>table: {currency[1].table}</p>
-                    </div>
-                  )}
-                </BudgetAppSection>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={classes.date}>
+                          date: {currency[1].effectiveDate}
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span className={classes.date}>
+                          no: {currency[1].no}
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span>table: {currency[1].table}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )}
               </Col>
               <Col>
                 <Tabs
