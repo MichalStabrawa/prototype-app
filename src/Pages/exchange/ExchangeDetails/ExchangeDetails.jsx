@@ -8,24 +8,22 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
-import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+
 import Table from "react-bootstrap/Table";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
-import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
+import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
   LineChart,
-  BarChart,
-  Rectangle,
-  Bar,
   Line,
   XAxis,
   YAxis,
@@ -49,30 +47,27 @@ function ExchangeDetails() {
   const currency = useSelector((state) => state.currency.data);
   const status = useSelector((state) => state.currency.status);
   const isLoading = useSelector((state) => state.currency.isLoading);
-  const [data, setData] = useState();
-  const [dataLast, setDataLast] = useState();
-  const [key, setKey] = useState("3");
-  const [minBidAsk, setMinBidAsk] = useState(null);
-  const [maxBidAsk, setMaxBidAsk] = useState(null);
-  const [dataCarousel, setDataCarousel] = useState();
-  
-
-  //ask bid data
   const currencyLastTopCount = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.data
+    (state) => state.singleCurrBidTopLastCount.data
   );
   const isLoadingLastTop = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.isLoading
+    (state) => state.singleCurrBidTopLastCount.isLoading
   );
 
   const statusLastTop = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.status
+    (state) => state.singleCurrBidTopLastCount.status
   );
   const errorLast = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.error
+    (state) => state.singleCurrBidTopLastCount.error
   );
+  const [data, setData] = useState();
+  const [dataLast, setDataLast] = useState();
+  const [key, setKey] = useState("3");
+  const [minMid, setMinMid] = useState(null);
+  const [maxMid, setMaxMid] = useState(null);
+  const [dataCarousel, setDataCarousel] = useState();
 
-  const [number, setNumber] = useState(3);
+  //ask bid data
 
   const filterCurrency = (data) => {
     return data[1].rates.filter((el) => el.code === params.id);
@@ -89,24 +84,31 @@ function ExchangeDetails() {
   }, [currency]);
 
   useEffect(() => {
-    if (params.id !== "") {
+    if (params.id !== "" && status === "success") {
       dispatch(
-        singleCurrencyLastFewTimes({
+        singleCurrBidLastTopCountFetch({
+          table: currency[1].table,
           code: params.id,
-          number: +key,
+          topCount: +key,
         })
       );
     }
-  }, [key, params.id]);
+  }, [dispatch, key, params.id, currency, status]);
 
   useEffect(() => {
-    minMaxBidAsk(
-      currencyLastTopCount,
-      statusLastTop,
-      setMinBidAsk,
-      setMaxBidAsk
-    );
-  }, [statusLastTop]);
+    if (statusLastTop === "success") {
+      console.log(currencyLastTopCount);
+      const min = [...currencyLastTopCount.rates].reduce((prev, next) =>
+        prev.mid < next.mid ? prev : next
+      );
+      const max = [...currencyLastTopCount.rates].reduce((prev, next) =>
+        prev.mid > next.mid ? prev : next
+      );
+
+      setMinMid(min);
+      setMaxMid(max);
+    }
+  }, [statusLastTop, currencyLastTopCount]);
 
   useEffect(() => {
     if (status === "success") {
@@ -137,7 +139,12 @@ function ExchangeDetails() {
             <Col>
               <header>
                 {" "}
-                <h1>Exchange Details <span><BsCurrencyExchange /></span></h1>
+                <h1>
+                  Exchange Details{" "}
+                  <span>
+                    <BsCurrencyExchange />
+                  </span>
+                </h1>
                 {currency.length > 0 ? (
                   <div className={classes.carousel}>
                     <ResponsiveCarousel
@@ -170,19 +177,30 @@ function ExchangeDetails() {
             </Row>
             <Row>
               <Col xs={12} md={3}>
-                <BudgetAppSection>
-                  <h3>Rate for a particular currency</h3>
-                  {currency && data && (
-                    <div>
-                      <h4 className={classes.code}>{data[0].code}</h4>
-                      <p className={classes.value}>
-                        <span>{data[0].mid}</span>{" "}
-                        <IconArrow
-                          arrow={getCurrentPrevDifferences(
-                            data[0].mid,
-                            dataLast[0].mid
-                          )}
-                        />
+                <h3>Rate for a particular currency</h3>
+                {status === "success" && data && (
+                  <Card>
+                    <Card.Header as="h5">code: {data[0].code}</Card.Header>
+                    <Card.Body>
+                      <Card.Title>
+                        {" "}
+                        <span>mid value: {data[0].mid}</span>{" "}
+                        <span>
+                          <IconArrow
+                            arrow={getCurrentPrevDifferences(
+                              data[0].mid,
+                              dataLast[0].mid
+                            )}
+                          />
+                        </span>
+                      </Card.Title>
+                      <Card.Subtitle>
+                        <span className={classes.currency}>
+                          currency:
+                          {data[0].currency}
+                        </span>{" "}
+                      </Card.Subtitle>
+                      <Card.Text>
                         <span
                           className={`${classes.rate} ${
                             classes[
@@ -193,19 +211,26 @@ function ExchangeDetails() {
                             ]
                           }`}
                         >
-                          {(data[0].mid - dataLast[0].mid).toFixed(4)}
+                          change: {(data[0].mid - dataLast[0].mid).toFixed(4)}
                         </span>
-                      </p>
-                      <p className={classes.currency}> {data[0].currency} </p>
-
-                      <p className={classes.date}>
-                        <span>date: {currency[1].effectiveDate}</span>
-                      </p>
-                      <p className={classes.date}>no: {currency[1].no}</p>
-                      <p>table: {currency[1].table}</p>
-                    </div>
-                  )}
-                </BudgetAppSection>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={classes.date}>
+                          date: {currency[1].effectiveDate}
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span className={classes.date}>
+                          no: {currency[1].no}
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span>table: {currency[1].table}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )}
               </Col>
               <Col>
                 <Tabs
@@ -249,7 +274,7 @@ function ExchangeDetails() {
                             <Legend />
                             <Line
                               type="linear"
-                              dataKey="bid"
+                              dataKey="mid"
                               stroke="blue"
                               activeDot={{ r: 8 }}
                             />
@@ -260,31 +285,27 @@ function ExchangeDetails() {
                     )}
                   </Col>
                   <Col xs={12}>
-                    {statusLastTop === "success" && minBidAsk && maxBidAsk && (
+                    {statusLastTop === "success" && minMid && maxMid && (
                       <div className={classes.table_min_max}>
                         {" "}
                         <Table striped bordered hover>
                           <thead>
                             <tr>
-                              <th>min Bid</th>
-                              <th>min Ask</th>
+                              <th>min value</th>
                               <th>date (min)</th>
-                              <th>max Bid</th>
-                              <th>max Ask</th>
+                              <th>max value</th>
                               <th>date (max)</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <td className={classes.min}>{minBidAsk.bid}</td>
-                              <td className={classes.min}>{minBidAsk.ask}</td>
+                              <td className={classes.min}>{minMid.mid}</td>
                               <td className={classes.date_min_max}>
-                                {minBidAsk.effectiveDate}
+                                {minMid.effectiveDate}
                               </td>
-                              <td className={classes.max}>{maxBidAsk.bid}</td>
-                              <td className={classes.max}>{maxBidAsk.ask}</td>
+                              <td className={classes.max}>{maxMid.mid}</td>
                               <td className={classes.date_min_max}>
-                                {maxBidAsk.effectiveDate}
+                                {maxMid.effectiveDate}
                               </td>
                             </tr>
                           </tbody>
