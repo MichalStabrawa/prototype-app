@@ -20,12 +20,10 @@ import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
 import { singleCurrencyLastFewTimes } from "../../../store/currencyApiNbp/singleCurrencyLastFewTimes";
+import {singleCurrBidLastTopCountFetch} from '../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice';
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
   LineChart,
-  BarChart,
-  Rectangle,
-  Bar,
   Line,
   XAxis,
   YAxis,
@@ -55,24 +53,23 @@ function ExchangeDetails() {
   const [minBidAsk, setMinBidAsk] = useState(null);
   const [maxBidAsk, setMaxBidAsk] = useState(null);
   const [dataCarousel, setDataCarousel] = useState();
-  
 
   //ask bid data
   const currencyLastTopCount = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.data
+    (state) => state.singleCurrBidTopLastCount.data
   );
   const isLoadingLastTop = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.isLoading
+    (state) => state.singleCurrBidTopLastCount.isLoading
   );
 
   const statusLastTop = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.status
+    (state) => state.singleCurrBidTopLastCount.status
   );
   const errorLast = useSelector(
-    (state) => state.singleCurrencyLastFewTimes.error
+    (state) => state.singleCurrBidTopLastCount.error
   );
 
-  const [number, setNumber] = useState(3);
+
 
   const filterCurrency = (data) => {
     return data[1].rates.filter((el) => el.code === params.id);
@@ -89,11 +86,12 @@ function ExchangeDetails() {
   }, [currency]);
 
   useEffect(() => {
-    if (params.id !== "") {
+    if (params.id !== ""&& status==="success" ) {
       dispatch(
-        singleCurrencyLastFewTimes({
+        singleCurrBidLastTopCountFetch({
+          table:currency[1].table,
           code: params.id,
-          number: +key,
+          topCount: +key,
         })
       );
     }
@@ -137,7 +135,12 @@ function ExchangeDetails() {
             <Col>
               <header>
                 {" "}
-                <h1>Exchange Details <span><BsCurrencyExchange /></span></h1>
+                <h1>
+                  Exchange Details{" "}
+                  <span>
+                    <BsCurrencyExchange />
+                  </span>
+                </h1>
                 {currency.length > 0 ? (
                   <div className={classes.carousel}>
                     <ResponsiveCarousel
@@ -228,7 +231,7 @@ function ExchangeDetails() {
                     {errorLast && (
                       <Alert variant="warning">Error fetch data</Alert>
                     )}
-                    {statusLastTop === "success" && (
+                     {statusLastTop === "success" && (
                       <div className={classes.tab_content}>
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
@@ -249,7 +252,7 @@ function ExchangeDetails() {
                             <Legend />
                             <Line
                               type="linear"
-                              dataKey="bid"
+                              dataKey="mid"
                               stroke="blue"
                               activeDot={{ r: 8 }}
                             />
@@ -257,10 +260,10 @@ function ExchangeDetails() {
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
-                    )}
+                    )} 
                   </Col>
                   <Col xs={12}>
-                    {statusLastTop === "success" && minBidAsk && maxBidAsk && (
+                    {/* {statusLastTop === "success" && minBidAsk && maxBidAsk && (
                       <div className={classes.table_min_max}>
                         {" "}
                         <Table striped bordered hover>
@@ -290,7 +293,7 @@ function ExchangeDetails() {
                           </tbody>
                         </Table>
                       </div>
-                    )}
+                    )} */}
                   </Col>
                 </Row>
               </Col>
