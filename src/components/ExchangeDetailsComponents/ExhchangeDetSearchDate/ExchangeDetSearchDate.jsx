@@ -42,7 +42,8 @@ function ExchangeDetSearchDate({ data, currency }) {
       <Row>
         <Col>
           <h2 className={classes.title}>
-            Search currency to date for {data[0].code} {data[0].currency}
+            Search currency to date for {data && data[0].code}{" "}
+            {data && data[0].currency}
           </h2>
         </Col>
       </Row>
@@ -59,7 +60,7 @@ function ExchangeDetSearchDate({ data, currency }) {
               {data && data[0].currency}
             </span>
           </Form.Label>
-          {status === "error" && lastDate  && (
+          {status === "error" && lastDate && (
             <Alert variant="danger">
               Error fetch data selected: {lastDate}
             </Alert>
