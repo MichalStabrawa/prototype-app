@@ -342,7 +342,7 @@ function ExchangeDetails() {
         </section>
       </Wrapper>
       <Wrapper>
-        <section className={classes.exchange}>
+        <section className={`${classes.exchange} ${classes.next}`}>
           <Container fluid>
             <Row>
               <Col>

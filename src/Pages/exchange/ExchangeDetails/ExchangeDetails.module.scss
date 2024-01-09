@@ -68,6 +68,11 @@
       height: 400px;
       border: 1px solid;
     }
+
+    &.next {
+      height:auto;
+      min-height: 400px;
+    }
   }
 
   .rate {
