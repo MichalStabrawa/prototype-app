@@ -19,7 +19,7 @@ import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences"
 import Table from "react-bootstrap/Table";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
-
+import ExchangeDetSearchDate from "../../../components/ExchangeDetailsComponents/ExhchangeDetSearchDate/ExchangeDetSearchDate";
 import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
@@ -132,7 +132,7 @@ function ExchangeDetails() {
   console.log(currencyLastTopCount);
 
   return (
-    <section className={classes.exchange_wrapper}>
+    <main className={classes.exchange_wrapper}>
       <Wrapper css="dark_blue">
         <Container fluid>
           <Row>
@@ -160,7 +160,7 @@ function ExchangeDetails() {
         </Container>
       </Wrapper>
       <Wrapper css="grey">
-        <main className={classes.exchange}>
+        <section className={classes.exchange}>
           <Container fluid>
             <Row>
               <Col>
@@ -339,9 +339,27 @@ function ExchangeDetails() {
               </Col>
             </Row>
           </Container>
-        </main>
+        </section>
       </Wrapper>
-    </section>
+      <Wrapper>
+        <section className={classes.exchange}>
+          <Container fluid>
+            <Row>
+              <Col>
+                {" "}
+                <Row>
+                  <Col>
+                    {status === "success" && data && (
+                      <ExchangeDetSearchDate data={data} currency={currency}/>
+                    )}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+      </Wrapper>
+    </main>
   );
 }
 
