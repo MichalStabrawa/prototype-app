@@ -25,7 +25,7 @@ export const singleFetchDataFromDateTo = createAsyncThunk(
 
       return data;
     } catch (error) {
-      initialState.status="error";
+      initialState.status = "error";
       console.log(error);
     }
   }
@@ -33,7 +33,7 @@ export const singleFetchDataFromDateTo = createAsyncThunk(
 
 const singleCurrencyFetchDateFromDateToSlice = createSlice({
   name: "singleCurrencyDateFromTo",
-  initialState:initialState,
+  initialState: initialState,
   reducers: {
     deleteData(state) {
       state.data = [{ currency: "", code: "", mid: "" }];
