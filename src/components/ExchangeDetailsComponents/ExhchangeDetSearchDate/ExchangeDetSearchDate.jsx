@@ -5,6 +5,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
+import Alert from "react-bootstrap/Alert";
+import { RotatingLines } from "react-loader-spinner";
 
 import { singleCurrencyDateFetch } from "../../../store/currencyApiNbp/singleCurrencyFetchDateSlice";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
@@ -14,6 +16,7 @@ function ExchangeDetSearchDate({ data, currency }) {
   const fetchData = useSelector((state) => state.singleCurrency.data);
   const isLoading = useSelector((state) => state.singleCurrency.isLoading);
   const status = useSelector((state) => state.singleCurrency.status);
+  const error = useSelector((state) => state.singleCurrency.error);
   const [lastDate, setLastDate] = useState();
 
   const handleInputDate = (e) => {
@@ -52,19 +55,37 @@ function ExchangeDetSearchDate({ data, currency }) {
           ></Form.Control>
           <Form.Label>
             <span className={classes.label}>
-              Select a date and check the value.
+              Select a date and check the value: {data && data[0].code}{" "}
+              {data && data[0].currency}
             </span>
           </Form.Label>
+          {status === "error" && (
+            <Alert variant="danger">
+              Error fetch data selected: {lastDate}
+            </Alert>
+          )}
         </Col>
         <Col>
           <div className={classes.table}>
+            {isLoading && (
+              <div className={classes.loader}>
+                {" "}
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="96"
+                  visible={true}
+                />
+              </div>
+            )}
             <Table striped bordered hover>
               <thead>
                 <tr>
                   <th>current value</th>
                   <th>date</th>
-                  <th>selected date</th>
                   <th>selected value</th>
+                  <th>selected date</th>
 
                   <th>amount</th>
                   <th>%</th>
@@ -74,39 +95,40 @@ function ExchangeDetSearchDate({ data, currency }) {
                 <tr>
                   <td className={classes.value}>{data[0].mid} </td>
                   {/* <td className={classes.date}>{gold[1].data}</td> */}
-                  <td className={classes.value}>{currency[1].effectiveDate}</td>
-                  <td className={classes.date}>{lastDate}</td>
-                  <td className={classes.date}>
+                  <td className={classes.rate}>{currency[1].effectiveDate}</td>
+
+                  <td className={classes.value}>
                     {status === "success" && fetchData.rates[0].mid}
                   </td>
+                  <td className={classes.rate}>{lastDate}</td>
                   <td
-                    className={`${
-                      classes[
-                        `${
-                          status === "succes" &&
+                    className={
+                      status === "success" &&
+                      `${classes.rate} ${
+                        classes[
                           getCurrentPrevDifferences(
                             data[0].mid,
                             fetchData.rates[0].mid
                           )
-                        }`
-                      ]
-                    }`}
+                        ]
+                      }`
+                    }
                   >
                     {status === "success" &&
-                      (data[0].mid, fetchData.rates[0].mid).toFixed(4)}
+                      (data[0].mid - fetchData.rates[0].mid).toFixed(4)}
                   </td>
                   <td
-                    className={`${
-                      classes[
-                        `${
-                          status === "succes" &&
+                    className={
+                      status === "success" &&
+                      `${classes.rate} ${
+                        classes[
                           getCurrentPrevDifferences(
                             data[0].mid,
                             fetchData.rates[0].mid
                           )
-                        }`
-                      ]
-                    }`}
+                        ]
+                      }`
+                    }
                   >
                     {status === "success" &&
                       (
@@ -117,7 +139,10 @@ function ExchangeDetSearchDate({ data, currency }) {
                 </tr>
               </tbody>
             </Table>
-            <label>Last selected date {lastDate}</label>
+            <label className={classes.rate}>
+              selected date: {lastDate}, selected code: {data && data[0].code},
+              selected currency: {data && data[0].currency}
+            </label>
           </div>
         </Col>
       </Row>

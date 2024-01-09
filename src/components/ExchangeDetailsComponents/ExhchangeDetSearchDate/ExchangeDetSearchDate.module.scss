@@ -13,14 +13,35 @@
     font-style: italic;
   }
 }
-
-
-
-
-  .green {
-    color: green;
-  }
-  .red {
-    color: red;
+.table {
+  position: relative;
+  tbody td.value {
+    font-weight: bold;
+    color: $darkbluelight;
+    font-style: italic;
   }
 
+  .rate {
+    color: $darkblue;
+    font-size: 0.85rem;
+    font-style: italic;
+    &.green,
+    &.red {
+      font-weight: bold;
+    }
+    &.green {
+      color: green;
+    }
+    &.red {
+      color: red;
+    }
+  }
+  .loader {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
