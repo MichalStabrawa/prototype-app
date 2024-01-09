@@ -256,21 +256,25 @@ function ExchangeDetails() {
                 )}
               </Col>
               <Col>
-                <Tabs
-                  id="controlled-tab-example"
-                  activeKey={key}
-                  onSelect={(k) => setKey(k)}
-                  className="mb-3"
-                >
-                  <Tab eventKey="3" title="3D"></Tab>
-                  <Tab eventKey="7" title="7D"></Tab>
-                  <Tab eventKey="14" title="14D"></Tab>
-                  <Tab eventKey="21" title="21D"></Tab>
-                  <Tab eventKey="30" title="1m"></Tab>
-                  <Tab eventKey="60" title="2m"></Tab>
-                  <Tab eventKey="90" title="3m"></Tab>
-                  <Tab eventKey="180" title="6m"></Tab>
-                </Tabs>
+                <div className={classes.tab_wrapper}>
+                  {" "}
+                  <Tabs
+                    id="controlled-tab-example"
+                    activeKey={key}
+                    onSelect={(k) => setKey(k)}
+                    className="mb-3"
+                  >
+                    <Tab eventKey="3" title="3D"></Tab>
+                    <Tab eventKey="7" title="7D"></Tab>
+                    <Tab eventKey="14" title="14D"></Tab>
+                    <Tab eventKey="21" title="21D"></Tab>
+                    <Tab eventKey="30" title="1m"></Tab>
+                    <Tab eventKey="60" title="2m"></Tab>
+                    <Tab eventKey="90" title="3m"></Tab>
+                    <Tab eventKey="180" title="6m"></Tab>
+                  </Tabs>
+                </div>
+
                 <Row>
                   <Col xs={12}>
                     {errorLast && (
@@ -350,7 +354,7 @@ function ExchangeDetails() {
                 <Row>
                   <Col>
                     {status === "success" && data && (
-                      <ExchangeDetSearchDate data={data} currency={currency}/>
+                      <ExchangeDetSearchDate data={data} currency={currency} />
                     )}
                   </Col>
                 </Row>

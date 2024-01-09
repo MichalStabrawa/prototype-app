@@ -59,7 +59,7 @@ function ExchangeDetSearchDate({ data, currency }) {
               {data && data[0].currency}
             </span>
           </Form.Label>
-          {status === "error" && (
+          {status === "error" && lastDate  && (
             <Alert variant="danger">
               Error fetch data selected: {lastDate}
             </Alert>

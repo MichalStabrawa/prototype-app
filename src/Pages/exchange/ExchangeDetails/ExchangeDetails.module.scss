@@ -54,8 +54,8 @@
       display: block;
       font-style: italic;
       padding: 5px;
-    
-      border-top:1px solid $graylight;
+
+      border-top: 1px solid $graylight;
     }
 
     .currency {
@@ -70,8 +70,8 @@
     }
 
     &.next {
-      height:auto;
-      min-height: 400px;
+      height: auto;
+      min-height: 360px;
     }
   }
 
@@ -105,6 +105,13 @@
 
     .date_min_max {
       font-style: italic;
+    }
+  }
+  .tab_wrapper {
+    margin-top: 20px;
+
+    @include media-query-md {
+      margin-top: 0;
     }
   }
 }
