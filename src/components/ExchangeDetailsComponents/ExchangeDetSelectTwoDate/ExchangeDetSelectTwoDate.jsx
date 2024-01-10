@@ -129,7 +129,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
             <div className={classes.chart}>
               {error && (
                 <Alert variant="danger">
-                  Error fetch data somthing went wrong,change a date
+                 {error}
                 </Alert>
               )}
 

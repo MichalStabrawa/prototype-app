@@ -24,8 +24,8 @@ export const exchangeFetchMidForToDate = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (err) {
-      initialState.status = "rejected";
       console.log(err);
+      throw err;
     }
   }
 );
