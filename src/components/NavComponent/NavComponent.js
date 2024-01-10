@@ -8,6 +8,7 @@ import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import Navbar from 'react-bootstrap/Navbar'
 
 const NavComponent = (props) => {
   const dispatch = useDispatch();
