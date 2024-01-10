@@ -302,7 +302,7 @@ function ExchangeDetails() {
                             <Line
                               type="linear"
                               dataKey="mid"
-                              stroke="blue"
+                              stroke="#365486"
                               activeDot={{ r: 8 }}
                             />
                           </LineChart>

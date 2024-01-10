@@ -15,10 +15,13 @@
 }
 .table {
   position: relative;
-  tbody td.value {
-    font-weight: bold;
-    color: $darkbluelight;
-    font-style: italic;
+  tbody {
+    td.value {
+      font-weight: bold;
+      color: $darkbluelight;
+      font-style: italic;
+    }
+
   }
 
   .rate {
@@ -48,4 +51,16 @@
 
 .chart {
   height: 350px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+ 
+}
+
+.mid_last {
+  
+  color:#7FC7D9;
+}
+
+.mid_value {
+  color:#365486;
 }

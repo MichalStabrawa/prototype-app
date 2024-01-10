@@ -123,11 +123,11 @@ function ExchangeDetSearchDate({ data, currency }) {
                     <Legend />
                     <Bar
                       dataKey="mid"
-                      fill="#8884d8"
+                      fill="#365486"
                       background={{ fill: "#eee" }}
                       barSize={20}
                     />
-                    <Bar dataKey="midLast" fill="#82ca9d" barSize={20} />
+                    <Bar dataKey="midLast" fill="#7FC7D9" barSize={20} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -147,9 +147,9 @@ function ExchangeDetSearchDate({ data, currency }) {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>current value</th>
+                  <th  ><span className={classes.mid_value}>current value</span></th>
                   <th>date</th>
-                  <th>selected value</th>
+                  <th> <span className={classes.mid_last}>selected value</span></th>
                   <th>selected date</th>
 
                   <th>amount</th>
@@ -205,8 +205,14 @@ function ExchangeDetSearchDate({ data, currency }) {
               </tbody>
             </Table>
             <label className={classes.rate}>
-              selected date: {lastDate}, selected code: {data && data[0].code},
-              selected currency: {data && data[0].currency}
+              selected date: {lastDate}{" "}
+              {currentLastData && (
+                <span className={classes.mid_last}>
+                  ,*midLast(selected value), value: {currentLastData[0].midLast}
+                </span>
+              )}
+              , selected code: {data && data[0].code}, selected currency:{" "}
+              {data && data[0].currency}
             </label>
           </div>
         </Col>
