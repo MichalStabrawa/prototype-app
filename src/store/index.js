@@ -14,7 +14,8 @@ import goldFetchApiReducer from "./goldApiNbp/goldFetchTopLastCount";
 import goldFetchDateReducer from "./goldApiNbp/goldFetchDateSlice";
 import goldFetchFromToDateReducer from "./goldApiNbp/goldFetchFromToDateSlice";
 
-import singleCurrBidLastTopCountReducer from './currencyApiNbp/singleCurrencyBidLastTopCountSlice';
+import singleCurrBidLastTopCountReducer from "./currencyApiNbp/singleCurrencyBidLastTopCountSlice";
+import exchangeFetchMidForToDateSlice from "./currencyApiNbp/exchangeFetchMidForToDateSlice";
 
 const store = configureStore({
   reducer: {
@@ -26,12 +27,13 @@ const store = configureStore({
     multiple: multipleCurrencyFetchDataSliceReducer,
     singleCurrencyDateFromTo: singleCurrencyFetchDateFromDateToReducer,
     singleCurrencyLastFewTimes: singleCurrencyLastFewTimesReducer,
-    singleCurrBidTopLastCount:singleCurrBidLastTopCountReducer,
+    singleCurrBidTopLastCount: singleCurrBidLastTopCountReducer,
+    exchangeMidFetchStartEndDate: exchangeFetchMidForToDateSlice,
     tableC: fetchNbpTableCReducer,
     goldFetch: goldFetchApiSlice,
     goldFetchTopLast: goldFetchApiReducer,
     goldFetchDate: goldFetchDateReducer,
-    goldFetchFromToDate: goldFetchFromToDateReducer
+    goldFetchFromToDate: goldFetchFromToDateReducer,
   },
 });
 
