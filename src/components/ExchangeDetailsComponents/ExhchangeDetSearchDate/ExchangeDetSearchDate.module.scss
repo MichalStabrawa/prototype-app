@@ -15,6 +15,11 @@
 }
 .table {
   position: relative;
+  font-size:12px;
+
+  @include media-query-sm {
+    font-size: 1rem;;
+  }
   tbody {
     td.value {
       font-weight: bold;
