@@ -61,7 +61,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
   };
 
   useEffect(() => {
-    if ((fromDate && toDate && table, fetch)) {
+    if ((fromDate && toDate && table, fetch === true)) {
       dispatch(
         exchangeFetchMidForToDate({
           table: table,
@@ -79,7 +79,9 @@ function ExchangeDetaSelectTwoDate({ code }) {
       <Container fluid>
         <Row>
           <Col>
-            <h2 className={classes.title}>Date to date</h2>
+            <h2 className={classes.title}>
+              Select {params.id} currency rates from dates to dates{" "}
+            </h2>
           </Col>
         </Row>
         <Row>
@@ -123,32 +125,33 @@ function ExchangeDetaSelectTwoDate({ code }) {
           </Col>
           <Col xs={12}>
             <div className={classes.chart}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={null}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="data" />
-                  <YAxis domain={"maxValue"} />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="cena"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-              </ResponsiveContainer>
+              {status === "success" && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    width={500}
+                    height={300}
+                    data={dataFetch.rates}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="effectiveDate" />
+                    <YAxis domain={"maxValue"} />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="mid"
+                      stroke="#8884d8"
+                      activeDot={{ r: 8 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </Col>
         </Row>
