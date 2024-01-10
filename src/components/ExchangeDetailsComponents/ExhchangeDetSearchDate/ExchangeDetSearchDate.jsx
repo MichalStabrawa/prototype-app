@@ -49,13 +49,6 @@ function ExchangeDetSearchDate({ data, currency }) {
     setLastDate(e.target.value);
   };
 
-  console.log("DATA TABLE");
-  console.log(data);
-  console.log("Currency");
-  console.log(currency);
-  console.log("currentLastData");
-  console.log(currentLastData);
-
   useEffect(() => {
     if (data && currency)
       dispatch(
@@ -147,11 +140,15 @@ function ExchangeDetSearchDate({ data, currency }) {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th  ><span className={classes.mid_value}>current value</span></th>
+                  <th>
+                    <span className={classes.mid_value}>current value</span>
+                  </th>
                   <th>date</th>
-                  <th> <span className={classes.mid_last}>selected value</span></th>
+                  <th>
+                    {" "}
+                    <span className={classes.mid_last}>selected value</span>
+                  </th>
                   <th>selected date</th>
-
                   <th>amount</th>
                   <th>%</th>
                 </tr>
@@ -161,7 +158,6 @@ function ExchangeDetSearchDate({ data, currency }) {
                   <td className={classes.value}>{data[0].mid} </td>
                   {/* <td className={classes.date}>{gold[1].data}</td> */}
                   <td className={classes.rate}>{currency[1].effectiveDate}</td>
-
                   <td className={classes.value}>
                     {status === "success" && fetchData.rates[0].mid}
                   </td>

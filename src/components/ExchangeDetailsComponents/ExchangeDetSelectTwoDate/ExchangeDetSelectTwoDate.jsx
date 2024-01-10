@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import classes from "./ExchangeDetaSelectTwoDate.module.scss";
 import Container from "react-bootstrap/Container";
@@ -21,7 +22,25 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function ExchangeDetaSelectTwoDate() {
+import { exchangeFetchMidForToDate } from "../../../store/currencyApiNbp/exchangeFetchMidForToDateSlice";
+
+function ExchangeDetaSelectTwoDate({ code }) {
+  const dispatch = useDispatch();
+  const params = useParams();
+  const dataFetch = useSelector(
+    (state) => state.exchangeMidFetchStartEndDate.data
+  );
+  const isLoading = useSelector(
+    (state) => state.exchangeMidFetchStartEndDate.isLoading
+  );
+  const status = useSelector(
+    (state) => state.exchangeMidFetchStartEndDate.status
+  );
+  const error = useSelector(
+    (state) => state.exchangeMidFetchStartEndDate.error
+  );
+
+  const table = useSelector((state) => state.table.table);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [fetch, setFetch] = useState(false);
@@ -40,6 +59,21 @@ function ExchangeDetaSelectTwoDate() {
       setToDate(event.target.value);
     }
   };
+
+  useEffect(() => {
+    if ((fromDate && toDate && table, fetch)) {
+      dispatch(
+        exchangeFetchMidForToDate({
+          table: table,
+          code: params.id,
+          startDate: fromDate,
+          endDate: toDate,
+        })
+      );
+
+      setFetch(false);
+    }
+  }, [dispatch, fetch, fromDate, toDate, table, params.id]);
   return (
     <section className={classes.wrapper}>
       <Container fluid>
@@ -85,38 +119,37 @@ function ExchangeDetaSelectTwoDate() {
                 </Button>
               </div>
             </div>
+            {fromDate} {toDate}
           </Col>
           <Col xs={12}>
-
-              <div className={classes.chart}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    width={500}
-                    height={300}
-                    data={null}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="data" />
-                    <YAxis domain={"maxValue"} />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="cena"
-                      stroke="#8884d8"
-                      activeDot={{ r: 8 }}
-                    />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-         
+            <div className={classes.chart}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  width={500}
+                  height={300}
+                  data={null}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="data" />
+                  <YAxis domain={"maxValue"} />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="cena"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                  />
+                  <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </Col>
         </Row>
       </Container>
