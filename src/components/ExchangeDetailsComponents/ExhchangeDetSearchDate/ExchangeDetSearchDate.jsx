@@ -10,6 +10,16 @@ import { RotatingLines } from "react-loader-spinner";
 
 import { singleCurrencyDateFetch } from "../../../store/currencyApiNbp/singleCurrencyFetchDateSlice";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function ExchangeDetSearchDate({ data, currency }) {
   const dispatch = useDispatch();
@@ -18,6 +28,22 @@ function ExchangeDetSearchDate({ data, currency }) {
   const status = useSelector((state) => state.singleCurrency.status);
   const error = useSelector((state) => state.singleCurrency.error);
   const [lastDate, setLastDate] = useState();
+  const [currentLastData, setCurrentLastData] = useState();
+
+  const makeCurrentLastData = (last, data) => {
+    if (status === "success" && lastDate && data) {
+      const newData = { ...data[0] };
+
+      const tabFetchData = { ...last.rates[0] };
+      tabFetchData["midLast"] = tabFetchData["mid"];
+      delete tabFetchData["mid"];
+      tabFetchData["fetchDate"] = tabFetchData["effectiveDate"];
+      delete tabFetchData["effectiveDate"];
+
+      const getNewCurrentFetchData = Object.assign(newData, tabFetchData);
+      setCurrentLastData([getNewCurrentFetchData]);
+    }
+  };
 
   const handleInputDate = (e) => {
     setLastDate(e.target.value);
@@ -25,7 +51,10 @@ function ExchangeDetSearchDate({ data, currency }) {
 
   console.log("DATA TABLE");
   console.log(data);
+  console.log("Currency");
   console.log(currency);
+  console.log("currentLastData");
+  console.log(currentLastData);
 
   useEffect(() => {
     if (data && currency)
@@ -37,6 +66,11 @@ function ExchangeDetSearchDate({ data, currency }) {
         })
       );
   }, [lastDate, dispatch, currency, data]);
+
+  useEffect(() => {
+    makeCurrentLastData(fetchData, data);
+  }, [lastDate, fetchData, data, dispatch]);
+
   return (
     <div className={classes.details_wrapper}>
       <Row>
@@ -68,6 +102,36 @@ function ExchangeDetSearchDate({ data, currency }) {
         </Col>
         <Col>
           <div className={classes.table}>
+            {data && currentLastData && status === "success" && (
+              <div className={classes.chart}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    width={500}
+                    height={300}
+                    data={currentLastData}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="code" />
+                    <YAxis type="number" domain={["auto", "auto"]} />
+                    <Tooltip />
+                    <Legend />
+                    <Bar
+                      dataKey="mid"
+                      fill="#8884d8"
+                      background={{ fill: "#eee" }}
+                      barSize={20}
+                    />
+                    <Bar dataKey="midLast" fill="#82ca9d" barSize={20} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
             {isLoading && (
               <div className={classes.loader}>
                 {" "}
