@@ -45,6 +45,9 @@ function ExchangeDetaSelectTwoDate({ code }) {
   const [toDate, setToDate] = useState();
   const [fetch, setFetch] = useState(false);
 
+  console.log(`Status: ${status}`);
+  console.log(`Error: ${error}`);
+
   const handleFetch = () => {
     setFetch(true);
   };
@@ -121,10 +124,15 @@ function ExchangeDetaSelectTwoDate({ code }) {
                 </Button>
               </div>
             </div>
-            {fromDate} {toDate}
           </Col>
           <Col xs={12}>
             <div className={classes.chart}>
+              {error && (
+                <Alert variant="danger">
+                  Error fetch data somthing went wrong,change a date
+                </Alert>
+              )}
+
               {status === "success" && (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
@@ -144,7 +152,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
                     <Tooltip />
                     <Legend />
                     <Line
-                      type="monotone"
+                      type="line"
                       dataKey="mid"
                       stroke="#8884d8"
                       activeDot={{ r: 8 }}
