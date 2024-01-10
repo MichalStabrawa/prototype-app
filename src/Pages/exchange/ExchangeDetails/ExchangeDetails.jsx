@@ -20,6 +20,7 @@ import Table from "react-bootstrap/Table";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import ExchangeDetSearchDate from "../../../components/ExchangeDetailsComponents/ExhchangeDetSearchDate/ExchangeDetSearchDate";
+import ExchangeDetaSelectTwoDate from "../../../components/ExchangeDetailsComponents/ExchangeDetSelectTwoDate/ExchangeDetSelectTwoDate";
 import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
 import {
@@ -361,6 +362,11 @@ function ExchangeDetails() {
               </Col>
             </Row>
           </Container>
+        </section>
+      </Wrapper>
+      <Wrapper>
+        <section className={`${classes.exchange} `}>
+        <ExchangeDetaSelectTwoDate/>
         </section>
       </Wrapper>
     </main>
