@@ -43,6 +43,7 @@ const exchangeFetchMidForToDateSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
       state.status = "success";
+      state.error=null;
     });
     builder.addCase(exchangeFetchMidForToDate.rejected, (state, action) => {
       state.isLoading = false;
