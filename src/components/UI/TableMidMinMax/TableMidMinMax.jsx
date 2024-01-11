@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import classes from "./TableMidMinMax.module.css";
+import classes from "./TableMidMinMax.module.scss";
 
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -28,7 +28,7 @@ function TableMidMinMax({ data, status }) {
   return (
     <Col>
       {status === "success" && maxPrice && minPrice && (
-        <div className={classes.wrapper}>
+        <div className={classes.table_wrapper}>
           {" "}
           <div className={classes.table_min_max}>
             {" "}
