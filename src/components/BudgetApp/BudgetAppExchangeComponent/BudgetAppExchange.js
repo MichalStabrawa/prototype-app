@@ -33,6 +33,7 @@ const { reducerDate, initialDate, fetchNbpTopCountReducer } = Reducer;
 
 const BudgetAppExchange = (props) => {
   const dataCurrencySelector = useSelector((state) => state.currency.data);
+  const status = useSelector((state) => state.currency.status);
   const table = useSelector((state) => state.table.table);
   const [data, setData] = useState(null);
   const [stateDate, dispatchDate] = useReducer(reducerDate, initialDate);
@@ -87,59 +88,63 @@ const BudgetAppExchange = (props) => {
     <Wrapper css={props.css}>
       {isLoading && <p>Is Loading</p>}
       <div className={classes.exchange_item}>
-        <div className={classes.exchange_item_current}>
-          <h3></h3>
-        </div>
+        <div className={classes.exchange_item_current}></div>
         <div>
-          <div>
-            <div>
-              <Card className="mb-2">
-                <Card.Header>Table: {table}</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    {" "}
-                    <span>
-                      Current NBP:{stateDate.currentDate},current date:{" "}
-                      {getCurrentDate()}
-                    </span>
-                  </Card.Text>
-                  <Select
-                    name="Count"
-                    catchValue={addExchangeHandler}
-                    exchange={data}
-                  ></Select>
-                  <InputComponent
-                    name="Count"
-                    type="number"
-                    value={props.exchangeValue}
-                    action={props.addHandlerInput}
-                  />
-                  <Card.Text>
+          <Card className="mb-2">
+            <Card.Header>
+              <span className={classes.card_header}>
+                <span>Table: {table}</span>
+                <span>
+                  no: {status === "success" && dataCurrencySelector[1].no}
+                </span>
+              </span>
+            </Card.Header>
+            <Card.Body>
+              <Card.Text>
+                {" "}
+                <span>
+                  Current NBP:{stateDate.currentDate},current date:{" "}
+                  {getCurrentDate()}
+                </span>
+              </Card.Text>
+              <Select
+                name="Count"
+                catchValue={addExchangeHandler}
+                exchange={data}
+              ></Select>
+              <InputComponent
+                name="Count"
+                type="number"
+                value={props.exchangeValue}
+                action={props.addHandlerInput}
+              />
+              <Card.Text>
+                {currency.value !== "" &&
+                  currency.value !== undefined &&
+                  `${currency.code} (${currency.name}) to w przeliczeniu`}
+              </Card.Text>
+              <Card.Text>
+                {" "}
+                <span className={classes.equal}>
+                  <span>
                     {currency.value !== "" &&
                       currency.value !== undefined &&
-                      `${currency.code} (${currency.name}) to w przeliczeniu`}
-                  </Card.Text>
-                  <Card.Text>
-                    {" "}
-                    <span className={classes.equal}>
-                      <span>
-                        {currency.value !== "" &&
-                          currency.value !== undefined &&
-                          `${(+props.exchangeValue * currency.value).toFixed(
-                            2
-                          )} PLN`}
-                      </span>
-                    </span>{" "}
-                  </Card.Text>
-                </Card.Body>{" "}
-              </Card>
-            </div>
-          </div>
+                      `${(+props.exchangeValue * currency.value).toFixed(
+                        2
+                      )} PLN`}
+                  </span>
+                </span>{" "}
+              </Card.Text>
+            </Card.Body>{" "}
+          </Card>
         </div>
       </div>
       <div className={classes.exchange_item}>
         {false && <ExchangeMainTable />}
         <ExchangeTableMidValue dataMid={data} />
+        {status === "success" && (
+          <p>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</p>
+        )}
       </div>
       <div className={classes.chart}>
         <ResponsiveContainer width="100%" height="100%">

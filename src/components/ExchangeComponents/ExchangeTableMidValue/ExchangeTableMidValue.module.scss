@@ -1,5 +1,11 @@
 @import "../../../styles/main";
-
+.description {
+  margin-top:20px;
+  font-style: italic;
+  font-size: 0.85rem;
+  padding: 10px 0;
+  border-top:1px solid $graylight;
+}
 .table_rates {
   overflow-x: auto;
 

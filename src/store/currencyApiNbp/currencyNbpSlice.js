@@ -34,7 +34,7 @@ const fetchNbpTableASlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchNbpTableA.pending, (state) => {
       state.isLoading = true;
-      state.status='pennding'
+      state.status='pending'
     });
     builder.addCase(fetchNbpTableA.fulfilled, (state, action) => {
       state.isLoading = false;

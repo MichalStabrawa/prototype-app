@@ -77,6 +77,11 @@ const ExchangeTableMidValue = (props) => {
             })}
         </tbody>
       </table>
+      <p className={classes.description}>
+            *Mid – calculated currency average exchange rate (for tables A and
+            B),*Table – table type,*Currency – currency name,*Code – currency
+            code
+          </p>
     </div>
   );
 };

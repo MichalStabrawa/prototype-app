@@ -257,8 +257,6 @@ const BudgetAppComponent = (props) => {
     <section className={classes.budgetapp}>
       <div className={classes.bapp_wrapper}>
         <BudgetAppSection title="Exchange rates" css="ba_section-full">
-          {auth && <h2>Start</h2>}
-
           <BudgetAppExchange
             css="wrapper-content"
             exchangeValue={exchangeValue}
