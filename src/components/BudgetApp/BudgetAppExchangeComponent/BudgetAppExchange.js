@@ -148,7 +148,10 @@ const BudgetAppExchange = (props) => {
       </div>
       <div className={classes.chart}>
         <ResponsiveContainer width="100%" height="100%">
-          <label>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</label>
+          {status === "success" && (
+            <label>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</label>
+          )}
+
           <ComposedChart
             width={300}
             height={300}
