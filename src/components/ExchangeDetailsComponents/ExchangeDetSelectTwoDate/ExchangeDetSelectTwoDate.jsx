@@ -25,7 +25,7 @@ import {
 import { exchangeFetchMidForToDate } from "../../../store/currencyApiNbp/exchangeFetchMidForToDateSlice";
 import TableMidMinMax from "../../../components/UI/TableMidMinMax/TableMidMinMax";
 
-function ExchangeDetaSelectTwoDate({ code }) {
+function ExchangeDetaSelectTwoDate({ code ,currency}) {
   const dispatch = useDispatch();
   const params = useParams();
   const dataFetch = useSelector(
@@ -65,6 +65,9 @@ function ExchangeDetaSelectTwoDate({ code }) {
     }
   };
 
+console.log("dataFetch");
+console.log(dataFetch)
+
   useEffect(() => {
     if ((fromDate && toDate && table, fetch === true)) {
       dispatch(
@@ -85,7 +88,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
         <Row>
           <Col>
             <h2 className={classes.title}>
-              Select {params.id} currency rates from dates to dates{" "}
+              Select {params.id},currency rates from dates to dates{" "}
             </h2>
           </Col>
         </Row>

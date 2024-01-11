@@ -155,7 +155,7 @@ function ExchangeDetSearchDate({ data, currency }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className={classes.value}>{data[0].mid} </td>
+                  <td className={classes.value}>{data && data[0].mid} </td>
                   {/* <td className={classes.date}>{gold[1].data}</td> */}
                   <td className={classes.rate}>{currency[1].effectiveDate}</td>
                   <td className={classes.value}>

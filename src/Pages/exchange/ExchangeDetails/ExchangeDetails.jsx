@@ -355,7 +355,7 @@ function ExchangeDetails() {
                 <Row>
                   <Col>
                     {status === "success" && data && (
-                      <ExchangeDetSearchDate data={data} currency={currency} />
+                      <ExchangeDetSearchDate currency={currency} />
                     )}
                   </Col>
                 </Row>
@@ -366,7 +366,8 @@ function ExchangeDetails() {
       </Wrapper>
       <Wrapper>
         <section className={`${classes.exchange} `}>
-        <ExchangeDetaSelectTwoDate/>
+          {" "}
+          <ExchangeDetaSelectTwoDate />
         </section>
       </Wrapper>
     </main>
