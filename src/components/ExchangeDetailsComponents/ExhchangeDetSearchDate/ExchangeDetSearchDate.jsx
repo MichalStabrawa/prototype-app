@@ -95,7 +95,7 @@ function ExchangeDetSearchDate({ data, currency }) {
         </Col>
         <Col>
           <div className={classes.table}>
-            {data && currentLastData && status === "success" && (
+            { currentLastData && status === "success" && (
               <div className={classes.chart}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart

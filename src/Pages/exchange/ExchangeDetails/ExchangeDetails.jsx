@@ -354,8 +354,8 @@ function ExchangeDetails() {
                 {" "}
                 <Row>
                   <Col>
-                    {status === "success" && data && (
-                      <ExchangeDetSearchDate currency={currency} />
+                    {status === "success" && data !== undefined && (
+                      <ExchangeDetSearchDate data={data} currency={currency} />
                     )}
                   </Col>
                 </Row>
