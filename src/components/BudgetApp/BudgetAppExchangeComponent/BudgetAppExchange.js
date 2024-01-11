@@ -7,6 +7,7 @@ import InputComponent from "../../UI/Input/InputComponent";
 import getCurrentDate from "../../../utils/dateFunction";
 import fetchNBP from "../../../store/fetchNbpApi";
 import fetchCurrentNBP from "../../../store/fetchNbpCurrentApi";
+import Card from "react-bootstrap/Card";
 
 import { Link } from "react-router-dom";
 import {
@@ -87,40 +88,57 @@ const BudgetAppExchange = (props) => {
       {isLoading && <p>Is Loading</p>}
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}>
-          <h3>Table {table}</h3>
-          <span>
-            Current NBP {stateDate.currentDate} {getCurrentDate()}
-          </span>
-          <Select
-            name="Count"
-            catchValue={addExchangeHandler}
-            exchange={data}
-          ></Select>
+          <h3></h3>
         </div>
         <div>
-          {currency.value !== "" && currency.value !== undefined && (
+          <div>
             <div>
-              <div>
-                <InputComponent
-                  name="Count"
-                  type="number"
-                  value={props.exchangeValue}
-                  action={props.addHandlerInput}
-                />
-                {currency.code} {`(${currency.name})`} to w przeliczeniu
-              </div>
-              <p className={classes.equal}>
-                <span>
-                  {`${(+props.exchangeValue * currency.value).toFixed(2)} PLN`}
-                </span>
-              </p>
+              <Card className="mb-2">
+                <Card.Header>Table: {table}</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    {" "}
+                    <span>
+                      Current NBP:{stateDate.currentDate},current date:{" "}
+                      {getCurrentDate()}
+                    </span>
+                  </Card.Text>
+                  <Select
+                    name="Count"
+                    catchValue={addExchangeHandler}
+                    exchange={data}
+                  ></Select>
+                  <InputComponent
+                    name="Count"
+                    type="number"
+                    value={props.exchangeValue}
+                    action={props.addHandlerInput}
+                  />
+                  <Card.Text>
+                    {currency.value !== "" &&
+                      currency.value !== undefined &&
+                      `${currency.code} (${currency.name}) to w przeliczeniu`}
+                  </Card.Text>
+                  <Card.Text>
+                    {" "}
+                    <span className={classes.equal}>
+                      <span>
+                        {currency.value !== "" &&
+                          currency.value !== undefined &&
+                          `${(+props.exchangeValue * currency.value).toFixed(
+                            2
+                          )} PLN`}
+                      </span>
+                    </span>{" "}
+                  </Card.Text>
+                </Card.Body>{" "}
+              </Card>
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div className={classes.exchange_item}>
         {false && <ExchangeMainTable />}
-
         <ExchangeTableMidValue dataMid={data} />
       </div>
       <div className={classes.chart}>

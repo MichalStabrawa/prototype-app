@@ -19,7 +19,7 @@ const ExchangeTableMidValue = (props) => {
     <div>
       <table className={classes.table_rates}>
         <thead>
-          <tr>
+          <tr className={classes.table_rates_head}>
             <th>code</th>
             <th className={classes.currency}>currency</th>
             <th>mid value</th>

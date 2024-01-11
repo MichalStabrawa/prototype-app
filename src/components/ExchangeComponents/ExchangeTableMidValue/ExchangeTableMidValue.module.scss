@@ -2,6 +2,10 @@
 
 .table_rates {
   overflow-x: auto;
+
+  &_head {
+    background-color: #f8f8f8;
+  }
   th,
   td {
     text-align: left;
@@ -22,15 +26,15 @@
     border-bottom: 1px solid;
   }
 
-  .currency,   .last_date ,.last_value{
-    display:none;
+  .currency,
+  .last_date,
+  .last_value {
+    display: none;
 
     @include media-query-lg {
       display: table-cell;
     }
   }
-
-
 
   .rate {
     font-size: 0.85rem;
