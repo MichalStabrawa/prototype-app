@@ -27,9 +27,6 @@ function TableMidMinMax({ data, status }) {
   }, [status, data]);
   return (
     <Col>
-      {status === "rejected" && (
-        <Alert variant="danger">Error fetch data!!!</Alert>
-      )}
       {status === "success" && maxPrice && minPrice && (
         <div className={classes.wrapper}>
           {" "}
