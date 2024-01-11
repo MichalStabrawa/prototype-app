@@ -17,7 +17,7 @@ export const exchangeFetchMidForToDate = createAsyncThunk(
 
       if (!response.ok) {
         throw new Error(
-          `Somthing went wrong with fetch API: http://api.nbp.pl/api/exchangerates/rates/${table}/${code}/${startDate}/${endDate}/`
+          `Somthing went wrong with fetch data ${code} ${startDate}/${endDate}`
         );
       }
 
@@ -43,7 +43,7 @@ const exchangeFetchMidForToDateSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
       state.status = "success";
-      state.error=null;
+      state.error = null;
     });
     builder.addCase(exchangeFetchMidForToDate.rejected, (state, action) => {
       state.isLoading = false;

@@ -152,7 +152,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
                     <Line
                       type="line"
                       dataKey="mid"
-                      stroke="#8884d8"
+                      stroke="#365486"
                       activeDot={{ r: 8 }}
                     />
                   </LineChart>
@@ -161,7 +161,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
             </div>
           </Col>
           <Row>
-            <TableMidMinMax status={status} data={dataFetch} />
+            <TableMidMinMax status={status} data={dataFetch} dateStart={fromDate} dateEnd={toDate}/>
           </Row>
         </Row>
       </Container>
