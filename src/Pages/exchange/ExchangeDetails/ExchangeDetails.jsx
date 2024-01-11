@@ -275,7 +275,6 @@ function ExchangeDetails() {
                     <Tab eventKey="180" title="6m"></Tab>
                   </Tabs>
                 </div>
-
                 <Row>
                   <Col xs={12}>
                     {errorLast && (
@@ -337,6 +336,7 @@ function ExchangeDetails() {
                             </tr>
                           </tbody>
                         </Table>
+                        <p className={classes.description}>*Mid – calculated currency average exchange rate (for tables A and B),*Table – table type,*Currency – currency name,*Code – currency code</p>
                       </div>
                     )}
                   </Col>

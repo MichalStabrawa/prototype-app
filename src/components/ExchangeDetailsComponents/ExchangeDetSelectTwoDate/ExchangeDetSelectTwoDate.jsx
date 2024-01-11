@@ -25,7 +25,7 @@ import {
 import { exchangeFetchMidForToDate } from "../../../store/currencyApiNbp/exchangeFetchMidForToDateSlice";
 import TableMidMinMax from "../../../components/UI/TableMidMinMax/TableMidMinMax";
 
-function ExchangeDetaSelectTwoDate({ code ,currency}) {
+function ExchangeDetaSelectTwoDate({ code, currency }) {
   const dispatch = useDispatch();
   const params = useParams();
   const dataFetch = useSelector(
@@ -65,8 +65,8 @@ function ExchangeDetaSelectTwoDate({ code ,currency}) {
     }
   };
 
-console.log("dataFetch");
-console.log(dataFetch)
+  console.log("dataFetch");
+  console.log(dataFetch);
 
   useEffect(() => {
     if ((fromDate && toDate && table, fetch === true)) {
@@ -134,7 +134,7 @@ console.log(dataFetch)
             <div className={classes.chart}>
               {error && <Alert variant="danger">{error}</Alert>}
 
-              {status === "success" && (
+              {status === "success" && dataFetch.code === params.id && (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     width={500}
@@ -164,7 +164,14 @@ console.log(dataFetch)
             </div>
           </Col>
           <Row>
-            <TableMidMinMax status={status} data={dataFetch} dateStart={fromDate} dateEnd={toDate}/>
+            {dataFetch.code === params.id && (
+              <TableMidMinMax
+                status={status}
+                data={dataFetch}
+                dateStart={fromDate}
+                dateEnd={toDate}
+              />
+            )}
           </Row>
         </Row>
       </Container>
