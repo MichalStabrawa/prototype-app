@@ -23,6 +23,7 @@ import {
 } from "recharts";
 
 import { exchangeFetchMidForToDate } from "../../../store/currencyApiNbp/exchangeFetchMidForToDateSlice";
+import TableMidMinMax from "../../../components/UI/TableMidMinMax/TableMidMinMax";
 
 function ExchangeDetaSelectTwoDate({ code }) {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
 
   console.log(`Status: ${status}`);
   console.log(`Error: ${error}`);
+  console.log(dataFetch);
 
   const handleFetch = () => {
     setFetch(true);
@@ -127,11 +129,7 @@ function ExchangeDetaSelectTwoDate({ code }) {
           </Col>
           <Col xs={12}>
             <div className={classes.chart}>
-              {error && (
-                <Alert variant="danger">
-                 {error}
-                </Alert>
-              )}
+              {error && <Alert variant="danger">{error}</Alert>}
 
               {status === "success" && (
                 <ResponsiveContainer width="100%" height="100%">
@@ -162,6 +160,9 @@ function ExchangeDetaSelectTwoDate({ code }) {
               )}
             </div>
           </Col>
+          <Row>
+            <TableMidMinMax status={status} data={dataFetch} />
+          </Row>
         </Row>
       </Container>
     </section>
