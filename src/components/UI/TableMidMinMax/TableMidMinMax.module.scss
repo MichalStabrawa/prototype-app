@@ -1,0 +1,38 @@
+@import "../../../styles/main";
+
+.table_wrapper {
+  .table_min_max {
+    margin-top: 40px;
+    font-size: 12px;
+
+    @include media-query-sm {
+      font-size: 1rem;
+    }
+
+    .min {
+      color: red;
+      font-weight: bold;
+    }
+
+    .max {
+      color: green;
+      font-weight: bold;
+    }
+
+    .date_min_max {
+      font-style: italic;
+    }
+  }
+
+  div[role="alert"] {
+    margin-top: 20px;
+  }
+  .description {
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .text {
+    color:$bluemid;
+  }
+}
