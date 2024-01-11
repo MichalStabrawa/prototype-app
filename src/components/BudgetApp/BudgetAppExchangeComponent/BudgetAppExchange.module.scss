@@ -73,6 +73,8 @@
   margin-top: 20px;
   grid-column-start: 1;
   grid-column-end: 3;
+  padding-top:20px;
+  border-top: 1px solid $graylight;
 }
 
 .exchange_item:nth-last-child(1) {
