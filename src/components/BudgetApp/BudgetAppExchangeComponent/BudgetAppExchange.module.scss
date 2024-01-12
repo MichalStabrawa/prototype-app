@@ -60,12 +60,13 @@
 }
 
 .next {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 100%;
   display: flex;
   justify-content: center;
   grid-column-start: 1;
   grid-column-end: 3;
+  padding-bottom: 20px;
 }
 
 .chart {

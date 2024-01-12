@@ -16,6 +16,7 @@
         background-color: $drywhite;
         max-width: 100%;
         border: 1px solid $gray;
+        padding-left:5px;
 
         @include media-query-sm {
             width: 50%;
@@ -28,6 +29,7 @@
 
         &::placeholder {
             font-style: italic;
+            margin-left:5px;
         }
     }
 

@@ -169,7 +169,7 @@ function ExchangeDetails() {
                   {" "}
                   <Link to="/exchange">
                     {" "}
-                    <Button variant="secondary">
+                    <Button variant="outline-secondary">
                       <TiArrowBackOutline /> Back
                     </Button>
                   </Link>

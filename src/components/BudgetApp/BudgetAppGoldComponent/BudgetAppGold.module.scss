@@ -57,3 +57,15 @@
   padding-top: 20px;
   border-top: 1px solid $graylight;
 }
+
+.btn_section {
+  margin-top:40px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.chart_wrapper {
+  &_title {
+    margin-bottom: 20px;;
+  }
+}

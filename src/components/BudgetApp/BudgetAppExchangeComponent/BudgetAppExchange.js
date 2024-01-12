@@ -8,6 +8,7 @@ import getCurrentDate from "../../../utils/dateFunction";
 import fetchNBP from "../../../store/fetchNbpApi";
 import fetchCurrentNBP from "../../../store/fetchNbpCurrentApi";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
 import {
@@ -24,7 +25,6 @@ import {
 
 import Reducer from "./../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
-import Button from "../../UI/Button/Button";
 
 import ExchangeMainTable from "../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable";
 import ExchangeTableMidValue from "../../ExchangeComponents/ExchangeTableMidValue/ExchangeTableMidValue";
@@ -175,7 +175,7 @@ const BudgetAppExchange = (props) => {
       </div>
       <div className={classes.next}>
         <Link to="exchange">
-          <Button name="more" />
+          <Button variant="outline-secondary">More...</Button>
         </Link>
       </div>
     </Wrapper>

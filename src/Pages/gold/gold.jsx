@@ -24,7 +24,7 @@ import CompareGoldPricesByDate from "../../components/CalculateGoldPriceByDateCo
 import CompareGoldFromDateToDate from "../../components/CompareGoldFromDateToDate/CompareGoldFromDateToDate";
 const Gold = () => {
   const dispatch = useDispatch();
-  const gold = useSelector((state) => state.goldFetch.data);
+  const gold = useSelector((state) => state.goldFetch.data); 
   const status = useSelector((state) => state.goldFetch.status);
   const isLoading = useSelector((state) => state.goldFetch.isLoading);
   const goldLastTopCount = useSelector((state) => state.goldFetchTopLast.data);

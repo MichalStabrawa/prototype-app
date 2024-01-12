@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink,Link } from "react-router-dom";
 import React from "react";
 import {
   fetchNbpGold,
@@ -18,6 +19,8 @@ import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences"
 import { FaInfoCircle } from "react-icons/fa";
 import { VscLaw } from "react-icons/vsc";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -139,7 +142,10 @@ export default function BudgetAppGold({ props }) {
             </p>
           )}
           <p>
-            <span ><span className={classes.date}>Selected gold value: </span>{data.cena} PLN/g,</span>{" "}
+            <span>
+              <span className={classes.date}>Selected gold value: </span>
+              {data.cena} PLN/g,
+            </span>{" "}
             <span className={classes.date}>selected date: {data.data}</span>
           </p>
           {goldChart && (
@@ -150,10 +156,18 @@ export default function BudgetAppGold({ props }) {
         </div>
       </div>
       <div className={classes.chart_wrapper}>
-        <h3>Last 30 top count gold </h3>
+        <h3 className={classes.chart_wrapper_title}>Last 30 top count gold </h3>
         <div className={classes.chart}>
           <SimpleLineChart data={goldTopCount} />
         </div>
+      </div>
+      <div className={classes.btn_section}>
+      <NavLink to="gold">
+            {" "}
+            <Button  variant="outline-secondary">
+             More...
+            </Button>
+          </NavLink>
       </div>
     </Wrapper>
   );
