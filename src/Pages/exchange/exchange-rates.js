@@ -369,12 +369,14 @@ const ExchangeRates = (props) => {
                       />
                     )}
                     <Card.Text>
-                      {" "}
-                      <Button
-                        name="check"
-                        click={props.click}
-                        disabled={singleCurrency === null || compareDataLive}
-                      />
+                      <span className={classes.btn_wrapper}>
+                        {" "}
+                        <Button
+                          name="check"
+                          click={props.click}
+                          disabled={singleCurrency === null || compareDataLive}
+                        />
+                      </span>
                     </Card.Text>
                   </Card.Body>
                 </Card>
