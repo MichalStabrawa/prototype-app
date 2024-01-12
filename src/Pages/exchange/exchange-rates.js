@@ -25,7 +25,7 @@ import {
 } from "../../store/currencyApiNbp/singleCurrencyFetchDateSlice";
 
 import getCurrentDate from "../../utils/dateFunction";
-import Button from "../../components/UI/Button/Button";
+import Button from "react-bootstrap/Button";
 import { ThreeCircles } from "react-loader-spinner";
 import ButtonStyles from "../../components/UI/Button/Button.module.scss";
 import { FaInfoCircle } from "react-icons/fa";
@@ -68,6 +68,9 @@ const ExchangeRates = (props) => {
   const params = useParams();
 
   const currentDate = getCurrentDate();
+
+  console.log("CURRENCY");
+  console.log(currency);
 
   const compareDataLive = dateValue === "" || dateValue >= currentDate;
   if (dateValue !== "" && dateValue >= currentDate) {
@@ -213,16 +216,24 @@ const ExchangeRates = (props) => {
             <div className={classes.exchange_wrapper__count}>
               {currency.length > 0 ? (
                 <div>
-                  <Button
-                    click={changeKindOfTableHandler}
-                    name={
-                      table === "A"
+                  <div className={classes.table_wrapper}>
+                    <h3>
+                      Table: {table},
+                      <span className={classes.date}>
+                        {" "}
+                        effectiveDate: {currency[1].effectiveDate}
+                      </span>
+                    </h3>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={changeKindOfTableHandler}
+                      color={ButtonStyles.btn_transparent}
+                    >
+                      {table === "A"
                         ? "Checkout to Table B"
-                        : "Checkout to Table A"
-                    }
-                    color={ButtonStyles.btn_transparent}
-                  />
-
+                        : "Checkout to Table A"}{" "}
+                    </Button>
+                  </div>
                   <TableRates data={currency} link={param} />
                 </div>
               ) : null}
