@@ -7,6 +7,16 @@ import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Table from "react-bootstrap/Table";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const CompareGoldPricesByDate = () => {
   const dispatch = useDispatch();
@@ -43,66 +53,75 @@ const CompareGoldPricesByDate = () => {
   }, [dispatch, lastDate]);
 
   return (
-    <div className={classes.compare}>
-      <Form.Control
-        style={{ width: "50%" }}
-        type="date"
-        onChange={handleInputValue}
-      ></Form.Control>
-      <Form.Label>
-        <span className={classes.label}>
-          Select a date and check the value.
-        </span>
-      </Form.Label>
-      {statusGoldDate === "error" && (
-        <Alert variant="warning">Error fetch data</Alert>
-      )}
-
-      {statusGoldDate === "success" && status === "success" && (
-        <div className={classes.table}>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>current value</th>
-                <th>date</th>
-                <th>selected value</th>
-                <th>selected date</th>
-                <th>amount</th>
-                <th>%</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className={classes.value}> {gold[1].cena}</td>
-                <td className={classes.date}>{gold[1].data}</td>
-                <td className={classes.value}>{goldDate[0].cena}</td>
-                <td className={classes.date}>{goldDate[0].data}</td>
-                <td
-                  className={`${
-                    classes[
-                      getCurrentPrevDifferences(gold[1].cena, goldDate[0].cena)
-                    ]
-                  }`}
-                >
-                  {(gold[1].cena - goldDate[0].cena).toFixed(4)}
-                </td>
-                <td
-                  className={`${
-                    classes[
-                      getCurrentPrevDifferences(gold[1].cena, goldDate[0].cena)
-                    ]
-                  }`}
-                >
-                  {((100 * gold[1].cena) / goldDate[0].cena - 100).toFixed(4) +
-                    "%"}
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-          <label>Gold price = PLN/1g</label>
-        </div>
-      )}
-    </div>
+    <>
+      <div className={classes.compare}>
+        <Form.Control
+          style={{ width: "50%" }}
+          type="date"
+          onChange={handleInputValue}
+        ></Form.Control>
+        <Form.Label>
+          <span className={classes.label}>
+            Select a date and check the value.
+          </span>
+        </Form.Label>
+        {statusGoldDate === "error" && (
+          <Alert variant="warning">Error fetch data</Alert>
+        )}
+        {statusGoldDate === "success" && status === "success" && (
+          <div className={classes.table}>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>current value</th>
+                  <th>date</th>
+                  <th>selected value</th>
+                  <th>selected date</th>
+                  <th>amount</th>
+                  <th>%</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className={classes.value}> {gold[1].cena}</td>
+                  <td className={classes.date}>{gold[1].data}</td>
+                  <td className={classes.value}>{goldDate[0].cena}</td>
+                  <td className={classes.date}>{goldDate[0].data}</td>
+                  <td
+                    className={`${
+                      classes[
+                        getCurrentPrevDifferences(
+                          gold[1].cena,
+                          goldDate[0].cena
+                        )
+                      ]
+                    }`}
+                  >
+                    {(gold[1].cena - goldDate[0].cena).toFixed(4)}
+                  </td>
+                  <td
+                    className={`${
+                      classes[
+                        getCurrentPrevDifferences(
+                          gold[1].cena,
+                          goldDate[0].cena
+                        )
+                      ]
+                    }`}
+                  >
+                    {((100 * gold[1].cena) / goldDate[0].cena - 100).toFixed(
+                      4
+                    ) + "%"}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+            <label>Gold price = PLN/1g</label>
+          </div>
+        )}
+        <div className={classes.chart}></div>
+      </div>
+    </>
   );
 };
 

@@ -13,11 +13,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import Button from "../../UI/Button/Button";
 
 import classes from "./ExchangeTopLastChart.module.scss";
 import minMaxBidAsk from "../../../utils/minMaxBidAsk";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
 const ExchangeTopLastChart = ({ index }) => {
   const data = useSelector((state) => state.multiple.data);
@@ -42,7 +42,9 @@ const ExchangeTopLastChart = ({ index }) => {
         {status === "error" && <p>Error ExchangeTopLastChart</p>}
         {data && status === "success" && (
           <div className={classes.chart_wrapper}>
-            <Button click={changeChartHandler} name="Change chart" />
+            <Button onClick={changeChartHandler} variant="outline-secondary">
+              Change the chart
+            </Button>
             {!flag ? (
               <div className={classes.chart}>
                 <h3 className={classes.title}>
@@ -72,10 +74,10 @@ const ExchangeTopLastChart = ({ index }) => {
                     <Line
                       type="monotone"
                       dataKey="bid"
-                      stroke="blue"
+                      stroke="#365486"
                       activeDot={{ r: 8 }}
                     />
-                    <Line type="monotone" dataKey="ask" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="ask" stroke="#7FC7D9" />
                   </LineChart>
                 </ResponsiveContainer>
                 {minBidAsk && maxBidAsk && (
@@ -138,12 +140,12 @@ const ExchangeTopLastChart = ({ index }) => {
                     <Legend />
                     <Bar
                       dataKey="bid"
-                      fill="#174478"
+                      fill="#365486"
                       activeBar={<Rectangle fill="pink" stroke="blue" />}
                     />
                     <Bar
                       dataKey="ask"
-                      fill="#125E3D"
+                      fill="#7FC7D9"
                       activeBar={<Rectangle fill="gold" stroke="purple" />}
                     />
                   </BarChart>

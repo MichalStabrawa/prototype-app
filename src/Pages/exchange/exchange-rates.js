@@ -196,8 +196,6 @@ const ExchangeRates = (props) => {
               <BsCurrencyExchange />
             </span>
           </h1>
-          {param !== "" && <Link to={param}> Params</Link>}
-
           {currency.length > 0 ? (
             <div className={classes.carousel}>
               <ResponsiveCarousel
