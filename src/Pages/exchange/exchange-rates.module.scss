@@ -1,15 +1,14 @@
 @import "./../../styles/main";
 
 .header {
-  
   padding-bottom: 40px;
 
   .title {
-    color:$graylight;
+    color: $graylight;
   }
 
   .carousel {
-    margin-top:30px;
+    margin-top: 30px;
   }
 }
 
@@ -33,7 +32,7 @@
 
   &__count {
     display: grid;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
     gap: 20px;
 
     @include media-query-lg {
@@ -42,8 +41,7 @@
 
     &__ex {
       padding: 0 20px 20px 20px;
-      box-shadow: $boxshadow;
-      padding-top:20px
+      padding-top: 20px;
     }
   }
 
@@ -100,15 +98,14 @@
   }
 
   .button_wrapper {
-    margin-top:20px;
+    margin-top: 20px;
   }
 
   .chart_top {
     margin-top: 20px;
-    padding-top:20px;
+    padding-top: 20px;
     border-top: 1px solid $graylight;
   }
- 
 }
 
 header {
@@ -116,20 +113,28 @@ header {
 }
 
 .chart {
- 
   height: 450px;
   margin-top: 40px;
 }
 
 .error {
-  color:red;
-  border:1px solid red;
+  color: red;
+  border: 1px solid red;
   font-style: italic;
-  padding:5px;
+  padding: 5px;
 }
 
 .date_chart {
   font-style: italic;
   font-size: 16px;
   font-weight: normal;
+}
+
+
+.card_wrapper {
+  margin-bottom: 40px;
+}
+
+.title {
+  margin-bottom: 40px;
 }

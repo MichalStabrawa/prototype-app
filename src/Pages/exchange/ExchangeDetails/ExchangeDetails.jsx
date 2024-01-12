@@ -17,6 +17,7 @@ import IconArrow from "../../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 
 import Table from "react-bootstrap/Table";
+
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import ExchangeDetSearchDate from "../../../components/ExchangeDetailsComponents/ExhchangeDetSearchDate/ExchangeDetSearchDate";
