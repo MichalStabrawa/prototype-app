@@ -40,10 +40,10 @@ const TableRates = (props) => {
     <>
       <div className={classes.table_rates}>
         <h3>
-          TABLE: {data[0].table}{" "}
+          Table: {data[0].table}{" "}
           <span className={classes.date}>date: {effectiveDate}</span>
         </h3>
-        <table>
+        <table className={classes.table}>
           <thead>
             <tr>
               <th>code</th>
