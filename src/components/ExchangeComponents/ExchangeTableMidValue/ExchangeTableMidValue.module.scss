@@ -1,17 +1,24 @@
 @import "../../../styles/main";
 .description {
-  margin-top:20px;
+  margin-top: 20px;
   font-style: italic;
   font-size: 0.85rem;
   padding: 10px 0;
-  border-top:1px solid $graylight;
+  border-top: 1px solid $graylight;
 }
 .table_rates {
   overflow-x: auto;
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 5px; /* Adjust the value as needed */
+  overflow: hidden; /* Ensure the border-radius is applied */
 
-  &_head {
-    background-color: #f8f8f8;
+  th {
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    padding: 8px;
+    background-color: #f2f2f2;
   }
+
   th,
   td {
     text-align: left;
@@ -28,8 +35,9 @@
 
   .code {
     background: $darkbluelight;
-    color: gold;
+    color: #fff;
     border-bottom: 1px solid;
+    border-left: 1px solid $darkbluelight;
   }
 
   .currency,
