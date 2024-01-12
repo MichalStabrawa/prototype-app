@@ -7,7 +7,7 @@ const {data}= props
 console.log(data)
 
 return(
-    <ResponsiveContainer width="50%" height="100%">
+    <ResponsiveContainer width="100%" height="100%">
     <BarChart
       width={200}
       height={400}
@@ -21,7 +21,7 @@ return(
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis  domain={[100,'dataMax']}/>
+      <YAxis  domain={['auto','auto']}/>
       <Tooltip />
       <Legend />
       <Bar

@@ -2,6 +2,21 @@
 
 .table_rates {
   margin-top: 20px;
+
+  .table {
+    overflow-x: auto;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensure the border-radius is applied */
+  }
+
+  th {
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    padding: 8px;
+    background-color: #f2f2f2;
+  }
+
   th,
   td {
     text-align: left;
@@ -38,7 +53,7 @@
   }
   .code {
     background-color: $darkbluelight;
-    color: gold;
+    color: #fff;
     border-bottom: 1px solid;
   }
 

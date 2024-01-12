@@ -17,6 +17,7 @@ import IconArrow from "../../UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import { FaInfoCircle } from "react-icons/fa";
 import { VscLaw } from "react-icons/vsc";
+import Card from "react-bootstrap/Card";
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -73,37 +74,60 @@ export default function BudgetAppGold({ props }) {
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <p className={classes.gold_price}>Current gold price  </p>
-          <p>
-            <span className={classes.date}>{gold.data}</span>{" "}
-            <span>{gold.cena} PLN/g</span> 
-            <IconArrow
-              arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
-            />
-           
-          </p>
-          <p>Current date: {getCurrentDate()} </p>
-          <p>Previous quote</p>
-          <p>
-          <span className={classes.date}> {goldLast.data}</span> <span>{goldLast.cena}</span>
-          </p>
-          <div className={classes.ba_gold_count}>
-            <label>Count</label>
-            <InputComponent
-              type="number"
-              action={handleInputCount}
-              value={inputCount}
-              placeholder="0"
-            />
-            <p className={classes.equal}>{count} <span> <VscLaw size={28}/></span></p>
-          </div>
+          <Card>
+            <Card.Header>
+              <h4>Current gold price</h4>
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>
+                <span>
+                  {gold.cena} PLN/g{" "}
+                  <IconArrow
+                    arrow={getCurrentPrevDifferences(gold.cena, goldLast.cena)}
+                  />
+                </span>
+              </Card.Title>
+
+              <Card.Text>
+                date: <span className={classes.date}>{gold.data}</span>
+              </Card.Text>
+              <Card.Text>
+                {" "}
+                <p>Current date: {getCurrentDate()} </p>
+              </Card.Text>
+              <Card.Subtitle>Previous quote</Card.Subtitle>
+              <Card.Text>
+                {" "}
+                <span className={classes.date}> {goldLast.data}</span>{" "}
+                <span>{goldLast.cena}</span>
+              </Card.Text>
+              <Card.Text>
+                <span className={classes.input}></span>
+                <InputComponent
+                  type="number"
+                  action={handleInputCount}
+                  value={inputCount}
+                  placeholder="0"
+                />
+              </Card.Text>
+              <Card.Text>
+                {" "}
+                <span className={classes.equal}>
+                  {count}{" "}
+                  <span>
+                    {" "}
+                    <VscLaw size={28} />
+                  </span>
+                </span>
+                <span>PLN/g</span>
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </div>
         <div className={classes.ba_gold}>
-          <label>choose data</label>
-          <p>
-            <span className={classes.date}> {data.data}</span>{" "}
-            <span>{data.cena} PLN/g</span>
-          </p>
+          <h4>Previous gold price rates</h4>
+          <label>Select a date and check the previous rate</label>
+
           <InputComponent
             type="date"
             action={handleInputDate}
@@ -111,9 +135,13 @@ export default function BudgetAppGold({ props }) {
           ></InputComponent>
           {currentDate > getCurrentDate() && (
             <p className={classes.info}>
-           <FaInfoCircle />   Wrong DATE!!!! Change for currently date or less
+              <FaInfoCircle /> Wrong DATE!!!! Change for currently date or less
             </p>
           )}
+          <p>
+            <span ><span className={classes.date}>Selected gold value: </span>{data.cena} PLN/g,</span>{" "}
+            <span className={classes.date}>selected date: {data.data}</span>
+          </p>
           {goldChart && (
             <div className={classes.gold_chart_compare}>
               <BarChart data={goldChart} />
@@ -121,7 +149,7 @@ export default function BudgetAppGold({ props }) {
           )}
         </div>
       </div>
-      <div className={classes.chart_wrapper} >
+      <div className={classes.chart_wrapper}>
         <h3>Last 30 top count gold </h3>
         <div className={classes.chart}>
           <SimpleLineChart data={goldTopCount} />

@@ -38,7 +38,7 @@ const TableBidAsk = ({ data }) => {
             {data[0].tradingDate}
           </span>
         </h3>
-        <table>
+        <table className={classes.table}>
           <thead>
             <tr>
               <th>code</th>

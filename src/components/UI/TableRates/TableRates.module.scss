@@ -1,4 +1,4 @@
-@import '../../../styles/main';
+@import "../../../styles/main";
 
 .table_rates {
   margin-top: 20px;
@@ -9,6 +9,13 @@
     width: 100%;
     border-radius: 5px; /* Adjust the value as needed */
     overflow: hidden; /* Ensure the border-radius is applied */
+
+    .code {
+      background: $darkbluelight;
+      color: #fff;
+      border-bottom: 1px solid;
+      border-left: 1px solid $darkbluelight;
+    }
   }
 
   th {
@@ -30,8 +37,9 @@
     font-size: 0.85rem;
   }
 
-  .currency, .rate  {
-    display:none;
+  .currency,
+  .rate {
+    display: none;
 
     @include media-query-sm {
       display: table-cell;

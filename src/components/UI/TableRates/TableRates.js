@@ -60,7 +60,7 @@ const TableRates = (props) => {
               currentRecords.map((el, index) => {
                 return (
                   <tr key={index}>
-                    <td>{el.code}</td>
+                    <td className={classes.code}>{el.code}</td>
                     <td className={classes.currency}>{el.currency}</td>
                     <td>{el.mid}</td>
                     <td>

@@ -1,20 +1,19 @@
 @import "../../../styles/main";
 
 .ba_main {
+  margin-top:20px;
   display: grid;
   grid-template-columns: 1fr;
 
   @include media-query-md {
     grid-template-columns: 1fr 1fr;
+    gap:20px;
   }
 }
 
 .ba_gold {
   span {
     font-weight: bold;
-    margin-left: 10px;
-
-  
   }
 
   .date {
@@ -25,31 +24,36 @@
   .info {
     color: red;
   }
+  .input {
+    display: block;
+    border-top:1px solid $graylight;
+  }
 }
 
 .gold_chart_compare {
   height: 300px;
   margin-top: 40px;
+  width:100%
 }
 
 .chart {
   height: 250px;
   font-size: small;
 }
- .equal {
-  font-size:20px;
-  padding:10px;
+.equal {
+  font-size: 20px;
+  padding: 10px;
   background: goldenrod;
-  border:1px solid $darkbluelight;
-  max-width:200px;
-  color:#fff;
-  display:flex;
+  border: 1px solid $darkbluelight;
+  max-width: 200px;
+  color: #fff;
+  display: flex;
   align-items: center;
-  height:52px;
+  height: 52px;
 }
 
 .chart_wrapper {
-  margin-top:20px;
-  padding-top:20px;
+  margin-top: 20px;
+  padding-top: 20px;
   border-top: 1px solid $graylight;
 }
