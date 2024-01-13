@@ -214,9 +214,9 @@ function BidAsk() {
               </Col>
               <Col>
                 {" "}
-                <BudgetAppSection>
+              
                   {status === "success" && <TableBidAsk data={data} />}
-                </BudgetAppSection>
+              
               </Col>
             </Row>
             <Row>

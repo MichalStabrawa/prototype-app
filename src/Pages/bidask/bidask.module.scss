@@ -3,7 +3,7 @@
 .header {
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
     0 0 0 1px rgba(10, 10, 10, 0.02);
-  margin-bottom: 20px;
+  margin-bottom: 90px;
   min-height: 150px;
   padding-bottom: 40px;
   .title {
@@ -19,7 +19,6 @@
   background-color: $drywhite;
   h3 {
     margin-bottom: 30px;
-    color: $brownlight;
   }
 
   input[type="number"],
@@ -52,11 +51,9 @@
     color: $bluegrey;
   }
 
-
-
   .chart {
     border-top: 1px solid $graylight;
-    padding:20px 0;
+    padding: 20px 0;
     height: 350px;
     margin-top: 30px;
 

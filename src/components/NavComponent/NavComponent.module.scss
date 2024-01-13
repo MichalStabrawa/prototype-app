@@ -12,6 +12,10 @@
   max-width: 1980px;
   margin: 0 auto;
   flex-wrap: wrap;
+  position: fixed;
+  z-index:100;
+  width: 100%;
+  top:0;
 
   .active {
     color: $brownlight;
