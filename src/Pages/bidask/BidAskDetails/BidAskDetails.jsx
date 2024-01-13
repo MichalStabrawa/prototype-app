@@ -307,7 +307,7 @@ const BidAskDetails = () => {
       <Wrapper>
         <section className={classes.bid_ask__wrapper}>
         {statusLastTop === "success" &&
-                          currencyLastTopCount.currency &&  <BidAskSectionSingleDate code={params.id} currency={currencyLastTopCount.currency}/>}
+                          currencyLastTopCount.currency &&  <BidAskSectionSingleDate code={params.id} currency={currencyLastTopCount.currency} data={ currencyLastTopCount.rates[findLastIndex()]}/>}
      
         </section>
       </Wrapper>
