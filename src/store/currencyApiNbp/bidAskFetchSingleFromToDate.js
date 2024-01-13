@@ -7,7 +7,7 @@ const initialState = {
   status: "initialized",
 };
 
-const fetchBidAskSingleFromToDate = createAsyncThunk(
+export const fetchBidAskSingleFromToDate = createAsyncThunk(
   "fetchBidAskSingleFromToDate",
   async ({ code, startDate, endDate }) => {
     try {
