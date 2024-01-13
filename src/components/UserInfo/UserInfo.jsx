@@ -14,6 +14,8 @@ const UserInfo = () => {
   console.log("USER DATA");
   console.log(userData);
 
+  const user = auth.currentUser;
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -54,17 +56,16 @@ const UserInfo = () => {
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               {auth1 ? <FaUser /> : <FaRegUser />}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">User: </Dropdown.Item>
+              <Dropdown.Item href="#/action-1">
+                User: {auth1 ? user?.email : "sign in"}{" "}
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
           {/* Render other user data as needed */}
         </div>
-      ) : (
-        <p>No user signed in</p>
-      )}
+      ) : null}
     </>
   );
 };
