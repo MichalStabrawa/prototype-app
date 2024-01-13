@@ -23,6 +23,7 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { RotatingLines } from "react-loader-spinner";
+import BidAskSectionSingleDate from "../BidAskSectionSingleDate/BidAskSectionSingleDate";
 
 import { BsCurrencyExchange } from "react-icons/bs";
 import {
@@ -161,50 +162,51 @@ const BidAskDetails = () => {
             <Row>
               <Col xs={12} md={3}>
                 <div className={classes.card_wrapper}>
-                {" "}
-                <Card border="light">
-                  <Card.Header as="h5" text="dark">
-                   code:  {params.id}
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Subtitle>
-                      currency:{" "} 
-                      {statusLastTop === "success" &&
-                         currencyLastTopCount.currency}
-                    </Card.Subtitle>
-                    <Card.Title>
-                      <span className={classes.bid}>
-                        bid:{" "}
+                  {" "}
+                  <Card border="light">
+                    <Card.Header as="h5" text="dark">
+                      code: {params.id}
+                    </Card.Header>
+                    <Card.Body>
+                      <Card.Subtitle>
+                        currency:{" "}
                         {statusLastTop === "success" &&
-                          currencyLastTopCount.rates[findLastIndex()].bid}{" "}
-                      </span>
-                    </Card.Title>
-                    <Card.Title>
-                      <span className={classes.ask}>
-                        {" "}
-                        ask:{" "}
+                          currencyLastTopCount.currency}
+                      </Card.Subtitle>
+                      <Card.Title>
+                        <span className={classes.bid}>
+                          bid:{" "}
+                          {statusLastTop === "success" &&
+                            currencyLastTopCount.rates[findLastIndex()]
+                              .bid}{" "}
+                        </span>
+                      </Card.Title>
+                      <Card.Title>
+                        <span className={classes.ask}>
+                          {" "}
+                          ask:{" "}
+                          {statusLastTop === "success" &&
+                            currencyLastTopCount.rates[findLastIndex()].ask}
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        no:{" "}
                         {statusLastTop === "success" &&
-                          currencyLastTopCount.rates[findLastIndex()].ask}
-                      </span>
-                    </Card.Title>
-                    <Card.Text>
-                      no:{" "}
-                      {statusLastTop === "success" &&
-                        currencyLastTopCount.rates[findLastIndex()].no}
-                    </Card.Text>
-                    <Card.Text>
-                      date:{" "}
-                      {statusLastTop === "success" &&
-                        currencyLastTopCount.rates[findLastIndex()]
-                          .effectiveDate}
-                    </Card.Text>
-                    <Card.Text>
-                      table:{" "}
-                      {statusLastTop === "success" &&
-                        currencyLastTopCount.table}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                          currencyLastTopCount.rates[findLastIndex()].no}
+                      </Card.Text>
+                      <Card.Text>
+                        date:{" "}
+                        {statusLastTop === "success" &&
+                          currencyLastTopCount.rates[findLastIndex()]
+                            .effectiveDate}
+                      </Card.Text>
+                      <Card.Text>
+                        table:{" "}
+                        {statusLastTop === "success" &&
+                          currencyLastTopCount.table}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </div>
               </Col>
               <Col>
@@ -300,6 +302,17 @@ const BidAskDetails = () => {
               </Col>
             </Row>
           </Container>
+        </section>
+      </Wrapper>
+      <Wrapper>
+        <section className={classes.bid_ask__wrapper}>
+          {statusLastTop === "success" && currencyLastTopCount.currency && (
+            <BidAskSectionSingleDate
+              code={params.id}
+              currency={currencyLastTopCount.currency}
+              currentData={currencyLastTopCount.rates[findLastIndex()]}
+            />
+          )}
         </section>
       </Wrapper>
     </main>
