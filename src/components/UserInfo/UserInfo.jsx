@@ -53,7 +53,10 @@ const UserInfo = () => {
       ) : userData ? (
         <div>
           <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle
+              variant={auth1 ? "success" : "outline-secondary"}
+              id="dropdown-basic"
+            >
               {auth1 ? <FaUser /> : <FaRegUser />}
             </Dropdown.Toggle>
             <Dropdown.Menu>

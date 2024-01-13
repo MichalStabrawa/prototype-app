@@ -1,0 +1,22 @@
+@import '../../../styles/main';
+
+.success {
+    height: calc(80vh - 90px);
+    text-align: center;
+
+    .text {
+        padding:40px 0;
+        h1 {
+            margin-bottom: 20px;;
+        }
+    }
+
+    .wrapper {
+        width:100%;
+        border-top:1px solid $graylight;
+        padding:40px 0;
+        h4 {
+            margin-bottom: 30px;
+        }
+    }
+}

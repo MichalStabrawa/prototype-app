@@ -11,29 +11,35 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
 import { useNavigate } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
+import LoginSuccess from "./LoginSuccess/LoginSuccess";
 
 const LoginApp = () => {
+  const authUser = useSelector((state) => state.auth.isAuthenticated);
   const [email, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [currentUser,setCurrentUser] = useState('')
+  const [currentUser, setCurrentUser] = useState("");
+  const [errorLogin, setErrorLogin] = useState();
 
+  const user = auth.currentUser;
   const handleSignIn = async (e) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       const currentUser = auth.currentUser;
-      console.log(`USER TO: ${currentUser.email}`)
+      console.log(`USER TO: ${currentUser.email}`);
       if (currentUser) {
-       
         const signInDate = new Date().toISOString();
         await database
           .ref(`users/${currentUser.uid}/signInDates`)
-          .push([{date: signInDate,email:currentUser.email}]);
+          .push([{ date: signInDate, email: currentUser.email }]);
         console.log("User signed in at:", signInDate);
-        setCurrentUser(currentUser)
+        setCurrentUser(currentUser);
+        setErrorLogin(null);
       }
       dispatch(authActions.login());
     } catch (error) {
       console.error("Error signing in:", error.message);
+      setErrorLogin(error);
     }
   };
 
@@ -57,10 +63,12 @@ const LoginApp = () => {
 
     if (email.length > 0 && password.length > 0) {
       handleSignIn();
-
-      navigate("/");
+      setPassword("");
+      setLogin("");
     } else {
       alert("Login or Password incorect");
+      setPassword("");
+      setLogin("");
     }
   };
   useEffect(() => {
@@ -74,56 +82,68 @@ const LoginApp = () => {
 
     return () => unsubscribe();
   }, []);
-console.log('AUTH')
-  console.log(auth.currentUser)
+  console.log("AUTH");
+  console.log(auth.currentUser);
 
   return (
     <main className={classes.login}>
-      <Wrapper>
-        <div className={classes.login__wrapper}>
-          <h1>Login {currentUser}</h1>
-          <form onSubmit={loginHandler}>
-            <InputComponent
-              placeholder="Login"
-              name="Login"
-              type="email"
-              value={email}
-              action={addLogin}
-            />
-            <div className={classes.login__wrapper__link}>
-              <Link to="remind-login">I don't remember the username</Link>
-            </div>
+      {authUser && user ? (
+        <LoginSuccess user={user} />
+      ) : (
+        <Wrapper>
+          <div className={classes.login__wrapper}>
+            <h1>Sign in</h1>
+            <form onSubmit={loginHandler}>
+              <InputComponent
+                placeholder="Login"
+                name="Login"
+                type="email"
+                value={email}
+                action={addLogin}
+              />
+              <div className={classes.login__wrapper__link}>
+                <Link to="remind-login">I don't remember the username</Link>
+              </div>
 
-            <InputComponent
-              placeholder="Password"
-              name="Password"
-              type="password"
-              value={password}
-              action={addpassword}
-            />
-            <div className={classes.login__wrapper__link}>
-              <Link to="remind-login">I don't remember the password</Link>
+              <InputComponent
+                placeholder="Password"
+                name="Password"
+                type="password"
+                value={password}
+                action={addpassword}
+              />
+              <div className={classes.login__wrapper__link}>
+                <Link to="remind-login">I don't remember the password</Link>
+              </div>
+              <Button
+                name={"Submit"}
+                color={buttonStyles.btn_transparent}
+                type="submit"
+                disabled={password.length < 6}
+              />
+              {errorLogin && (
+                <div className={classes.alert}>
+                  {" "}
+                  <Alert variant="danger">
+                    Wrong email or password!!! Try again log in!!!
+                  </Alert>
+                </div>
+              )}
+            </form>
+            <div className="login__register">
+              <h2>Do you have not login?</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor{" "}
+              </p>
+              <Link to="/register">
+                <Button name={"Register"}></Button>
+              </Link>
+              <Link to="..">back</Link>
             </div>
-            <Button
-              name={"Submit"}
-              color={buttonStyles.btn_transparent}
-              type="submit"
-            />
-          </form>
-
-          <div className="login__register">
-            <h2>Do you have not login?</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor{" "}
-            </p>
-            <Link to="/register">
-              <Button name={"Register"}></Button>
-            </Link>
-            <Link to="..">back</Link>
           </div>
-        </div>
-      </Wrapper>
+        </Wrapper>
+      )}
     </main>
   );
 };
