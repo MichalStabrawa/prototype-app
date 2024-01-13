@@ -16,7 +16,7 @@ import goldFetchFromToDateReducer from "./goldApiNbp/goldFetchFromToDateSlice";
 
 import singleCurrBidLastTopCountReducer from "./currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import exchangeFetchMidForToDateSlice from "./currencyApiNbp/exchangeFetchMidForToDateSlice";
-
+import fetchBidAskSingleDateSliceReducer from './currencyApiNbp/bidAskFetchSingleDate'
 const store = configureStore({
   reducer: {
     content: fetchGoldReducer,
@@ -34,6 +34,8 @@ const store = configureStore({
     goldFetchTopLast: goldFetchApiReducer,
     goldFetchDate: goldFetchDateReducer,
     goldFetchFromToDate: goldFetchFromToDateReducer,
+    bidAskSingleDate: fetchBidAskSingleDateSliceReducer,
+
   },
 });
 
