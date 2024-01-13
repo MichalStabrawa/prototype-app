@@ -24,6 +24,7 @@ import ResponsiveCarousel from "../../../components/Carousel/ResponsiveCarousel/
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { RotatingLines } from "react-loader-spinner";
 import BidAskSectionSingleDate from "../BidAskSectionSingleDate/BidAskSectionSingleDate";
+import BidAskFromToDate from "../BidAskFromToDate/BidAskFromToDate";
 
 import { BsCurrencyExchange } from "react-icons/bs";
 import {
@@ -311,6 +312,16 @@ const BidAskDetails = () => {
               code={params.id}
               currency={currencyLastTopCount.currency}
               currentData={currencyLastTopCount.rates[findLastIndex()]}
+            />
+          )}
+        </section>
+      </Wrapper>
+      <Wrapper css="grey">
+        <section className={classes.bid_ask__wrapper}>
+          {statusLastTop === "success" && currencyLastTopCount.currency && (
+            <BidAskFromToDate
+              code={params.id}
+              currency={currencyLastTopCount.currency}
             />
           )}
         </section>
