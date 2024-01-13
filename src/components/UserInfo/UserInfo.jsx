@@ -50,7 +50,7 @@ const UserInfo = () => {
     <>
       {loading ? (
         <p>Loading...</p>
-      ) : userData ? (
+      ) : (
         <div>
           <Dropdown>
             <Dropdown.Toggle
@@ -68,7 +68,7 @@ const UserInfo = () => {
 
           {/* Render other user data as needed */}
         </div>
-      ) : null}
+      ) }
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { auth } from "../../firebase/firebase";
+import { auth, database } from "../../firebase/firebase";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 import classes from "./register.module.scss";
@@ -19,6 +19,7 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepatPassword] = useState("");
   const [enabledSubmit, setEnabledSubmit] = useState(true);
+  const [error, setErrorRegister] = useState();
 
   const user = auth.currentUser;
 
@@ -26,10 +27,23 @@ const Register = (props) => {
     e.preventDefault();
     try {
       await auth.createUserWithEmailAndPassword(email, password);
+      const currentUser = auth.currentUser;
+      console.log(`USER Register TO: ${currentUser.email}`);
+      if (currentUser) {
+        const signInDate = new Date().toISOString();
+        await database
+          .ref(`users/${currentUser.uid}/registerDate`)
+          .push({ date: signInDate, email: currentUser.email });
+        console.log("User signed up at:", signInDate);
+
+        setErrorRegister(null);
+      }
       dispatch(authActions.login());
       setEmail("");
       setPassword("");
+      setErrorRegister(null)
     } catch (error) {
+      setErrorRegister(error);
       console.error("Error signing up:", error.message);
     }
   };

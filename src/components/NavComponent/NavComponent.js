@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import classes from "./NavComponent.module.scss";
 import buttonStyles from "../UI/Button/Button.module.scss";
 import logo from "../../assets/bapp.png";
 import Button from "../UI/Button/Button";
 import ButtonHamburger from "../UI/Button/ButtonHamburger";
 import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
-import { NavLink, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+
 import { authActions } from "../../store/auth";
 import { auth } from "../../firebase/firebase";
 import { FaUser, FaRegUser } from "react-icons/fa";
@@ -14,8 +16,13 @@ import UserInfo from "../UserInfo/UserInfo";
 
 const NavComponent = (props) => {
   const dispatch = useDispatch();
+
   const auth1 = useSelector((state) => state.auth.isAuthenticated);
   const [active, setActive] = useState(false);
+
+  const user = auth.currentUser;
+  console.log("NAV auth current user");
+  console.log(user);
 
   const showMobileNav = () => {
     setActive(!active);
@@ -25,7 +32,7 @@ const NavComponent = (props) => {
     try {
       await auth.signOut();
 
-      console.log("User signed out");
+      console.log(`User signing out`);
     } catch (error) {
       console.error("Error signing out:", error.message);
     }
@@ -47,6 +54,12 @@ const NavComponent = (props) => {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!auth1) {
+      handleSignOut();
+    }
+  }, [auth1]);
 
   return (
     <nav className={classes.navbar}>
