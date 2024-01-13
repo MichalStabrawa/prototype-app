@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import classes from "./NavComponent.module.scss";
 import buttonStyles from "../UI/Button/Button.module.scss";
 import logo from "../../assets/bapp.png";
@@ -9,6 +9,8 @@ import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { auth } from "../../firebase/firebase";
+import { FaUser, FaRegUser } from "react-icons/fa";
+import UserInfo from "../UserInfo/UserInfo";
 
 const NavComponent = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const NavComponent = (props) => {
   };
 
   const logOffHandler = () => {
-    handleSignOut()
+    handleSignOut();
     dispatch(authActions.logoff());
   };
 
@@ -116,10 +118,16 @@ const NavComponent = (props) => {
             />
           </Link>
         </li>
+        {!auth1 && (
+          <li className={classes.nav_item}>
+            <Link to="register">
+              <Button name={"Register"}></Button>
+            </Link>
+          </li>
+        )}
+
         <li className={classes.nav_item}>
-          <Link to="register">
-            <Button name={"Register"}></Button>
-          </Link>
+          <UserInfo />
         </li>
       </ul>
     </nav>

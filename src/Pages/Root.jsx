@@ -6,7 +6,7 @@ function RootLayout() {
   return (
     <>
       <NavComponent />
-      <UserInfo/>
+
       <Outlet />
       <FooterAppSection />
     </>
