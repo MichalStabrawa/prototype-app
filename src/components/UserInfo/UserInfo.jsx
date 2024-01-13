@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { auth, database } from "../../firebase/firebase";
 import authSlice from "../../store/auth";
@@ -26,9 +27,19 @@ const UserInfo = () => {
 
           // Fetch user data from the Realtime Database asynchronously
           const snapshot = await userRef.once("value");
-          const userDataFromDatabase = snapshot.val();
+          const data = snapshot.val();
 
-          setUserData(userDataFromDatabase);
+          const loadedSalary = [];
+          for (const key in data) {
+            for (const innerKey in data[key]) {
+              loadedSalary.push({
+                date: data[key][innerKey].date,
+                email: data[key][innerKey].email,
+              });
+            }
+          }
+
+          setUserData(loadedSalary);
         } else {
           // If no user is signed in, set user data state to null
           setUserData(null);
@@ -61,14 +72,14 @@ const UserInfo = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">
-                User: {auth1 ? user?.email : "sign in"}{" "}
+                User: {auth1 ? user?.email : <Link to="/login">sign in</Link>}{" "}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
           {/* Render other user data as needed */}
         </div>
-      ) }
+      )}
     </>
   );
 };

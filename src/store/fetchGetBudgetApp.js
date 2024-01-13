@@ -18,6 +18,8 @@ const fetchGetBudgetApp = async function (
       throw new Error("Somthing went wrong");
     }
     const data = await response.json();
+    console.log('DATA SALARY fetch')
+    console.log(data)
 
     const loadedSalary = [];
     for (const key in data) {
@@ -29,6 +31,7 @@ const fetchGetBudgetApp = async function (
         });
       }
     }
+    console.log(loadedSalary)
     changeSummary(loadedSalary);
   } catch (error) {
     setErrorGet(error.message);

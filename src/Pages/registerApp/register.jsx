@@ -33,7 +33,7 @@ const Register = (props) => {
         const signInDate = new Date().toISOString();
         await database
           .ref(`users/${currentUser.uid}/registerDate`)
-          .push({ date: signInDate, email: currentUser.email });
+          .push({ RegisterDate: signInDate, email: currentUser.email });
         console.log("User signed up at:", signInDate);
 
         setErrorRegister(null);
