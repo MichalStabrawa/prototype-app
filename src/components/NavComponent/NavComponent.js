@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./NavComponent.module.scss";
 import buttonStyles from "../UI/Button/Button.module.scss";
 import logo from "../../assets/bapp.png";
@@ -8,20 +8,45 @@ import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
-import Navbar from 'react-bootstrap/Navbar'
+import { auth } from "../../firebase/firebase";
+import { FaUser, FaRegUser } from "react-icons/fa";
+import UserInfo from "../UserInfo/UserInfo";
 
 const NavComponent = (props) => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.isAuthenticated);
+  const auth1 = useSelector((state) => state.auth.isAuthenticated);
   const [active, setActive] = useState(false);
 
   const showMobileNav = () => {
     setActive(!active);
   };
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+
+      console.log("User signed out");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
+
   const logOffHandler = () => {
+    handleSignOut();
     dispatch(authActions.logoff());
   };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User is signed in:", user.email);
+      } else {
+        console.log("User is signed out");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <nav className={classes.navbar}>
@@ -86,17 +111,23 @@ const NavComponent = (props) => {
           </NavLink>
         </li>
         <li className={classes.nav_item}>
-          <Link to={auth ? "/" : "login"} onClick={logOffHandler}>
+          <Link to={auth1 ? "/" : "login"} onClick={logOffHandler}>
             <Button
-              name={auth ? "LogOff" : "Login"}
+              name={auth1 ? "LogOff" : "Login"}
               color={buttonStyles.btn_transparent}
             />
           </Link>
         </li>
+        {!auth1 && (
+          <li className={classes.nav_item}>
+            <Link to="register">
+              <Button name={"Register"}></Button>
+            </Link>
+          </li>
+        )}
+
         <li className={classes.nav_item}>
-          <Link to="register">
-            <Button name={"Register"}></Button>
-          </Link>
+          <UserInfo />
         </li>
       </ul>
     </nav>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { auth } from '../../firebase/firebase';
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 import classes from "./register.module.scss";
@@ -9,15 +10,24 @@ import loginStyles from "../loginApp/login.module.scss";
 import { Link } from "react-router-dom";
 
 const Register = (props) => {
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepatPassword] = useState("");
   const [enabledSubmit, setEnabledSubmit] = useState(true);
 
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.error('Error signing up:', error.message);
+    }
+  };
+
   const addLogin = (e) => {
     const loginValue = e.target.value;
 
-    setLogin(loginValue);
+    setEmail(loginValue);
   };
 
   const addpassword = (e) => {
@@ -32,7 +42,7 @@ const Register = (props) => {
   };
 
   const enabledButton = () => {
-    if (login !== "" && password !== "" && password === repeatPassword) {
+    if (email !== "" && password !== "" && password === repeatPassword) {
       setEnabledSubmit(false);
     } else {
       setEnabledSubmit(true);
@@ -52,7 +62,7 @@ const Register = (props) => {
               placeholder="Login"
               name="Login"
               type="email"
-              value={login}
+              value={email}
               action={addLogin}
             />
             <InputComponent
@@ -83,6 +93,7 @@ const Register = (props) => {
               name={"Submit"}
               color={buttonStyles.btn_transparent}
               disabled={enabledSubmit}
+              click={handleSignUp}
             /><Link to="..">back</Link>
           </form>
         </div>

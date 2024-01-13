@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth, database } from "../../firebase/firebase";
+
 import classes from "./login.module.scss";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import InputComponent from "../../components/UI/Input/InputComponent";
@@ -10,12 +12,32 @@ import { authActions } from "../../store/auth";
 
 import { useNavigate } from "react-router-dom";
 
-const LoginApp = (props) => {
-  const [login, setLogin] = useState("");
+const LoginApp = () => {
+  const [email, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [currentUser,setCurrentUser] = useState('')
+
+  const handleSignIn = async (e) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      const currentUser = auth.currentUser;
+      console.log(`USER TO: ${currentUser.email}`)
+      if (currentUser) {
+       
+        const signInDate = new Date().toISOString();
+        await database
+          .ref(`users/${currentUser.uid}/signInDates`)
+          .push([{date: signInDate,email:currentUser.email}]);
+        console.log("User signed in at:", signInDate);
+        setCurrentUser(currentUser)
+      }
+      dispatch(authActions.login());
+    } catch (error) {
+      console.error("Error signing in:", error.message);
+    }
+  };
 
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.isAuthenticated);
 
   const navigate = useNavigate();
 
@@ -33,26 +55,39 @@ const LoginApp = (props) => {
   const loginHandler = (e) => {
     e.preventDefault();
 
-    if (login.length > 0 && password.length > 0) {
-      dispatch(authActions.login());
+    if (email.length > 0 && password.length > 0) {
+      handleSignIn();
+
       navigate("/");
     } else {
       alert("Login or Password incorect");
     }
   };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User is signed in:", user.email);
+      } else {
+        console.log("User is signed out");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+console.log('AUTH')
+  console.log(auth.currentUser)
 
   return (
     <main className={classes.login}>
       <Wrapper>
-      
         <div className={classes.login__wrapper}>
-          <h1>Login</h1>
+          <h1>Login {currentUser}</h1>
           <form onSubmit={loginHandler}>
             <InputComponent
               placeholder="Login"
               name="Login"
               type="email"
-              value={login}
+              value={email}
               action={addLogin}
             />
             <div className={classes.login__wrapper__link}>
@@ -75,19 +110,19 @@ const LoginApp = (props) => {
               type="submit"
             />
           </form>
+
           <div className="login__register">
             <h2>Do you have not login?</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor{" "}
             </p>
-            <Link to="register">
+            <Link to="/register">
               <Button name={"Register"}></Button>
             </Link>
             <Link to="..">back</Link>
           </div>
         </div>
-       
       </Wrapper>
     </main>
   );
