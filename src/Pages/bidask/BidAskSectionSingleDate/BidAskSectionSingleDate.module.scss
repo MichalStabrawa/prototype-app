@@ -1,3 +1,5 @@
+@import '../../../styles/main';
+
 .single {
 padding-top:40px;
 .title {
@@ -8,5 +10,33 @@ padding-top:40px;
     display: inline-block;
     padding: 20px 0;
     font-style: italic;
+  }
+
+  .table_min_max {
+    margin-top: 40px;
+    font-size: 12px;
+
+    @include media-query-sm {
+      font-size: 1rem;
+    }
+
+    .min {
+      color: #17a2b8;
+    }
+
+    .max {
+      color: #b81a98;
+    }
+
+    .date_min_max {
+      font-style: italic;
+    }
+    .description {
+      font-size:0.85rem;
+      font-style: italic;
+    }
+  }
+  .chart {
+    height: 350px;
   }
 }

@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchBidAskSingleDate = createAsyncThunk(
   "fetchBidAskSingleDate",
-  async () => {
+  async ({code,date}) => {
     try {
       const response = await fetch(
         `http://api.nbp.pl/api/exchangerates/rates/c/${code}/${date}/`

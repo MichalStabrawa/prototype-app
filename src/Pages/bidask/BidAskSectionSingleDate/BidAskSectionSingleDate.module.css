@@ -1,13 +1,1 @@
-.single {
-  padding-top: 40px;
-}
-
-.single .title {
-  padding-bottom: 20px;
-}
-
-.single .label {
-  display: inline-block;
-  padding: 20px 0;
-  font-style: italic;
-}
+.single{padding-top:40px}.single .title{padding-bottom:20px}.single .label{display:inline-block;padding:20px 0;font-style:italic}.single .table_min_max{margin-top:40px;font-size:12px}@media(min-width: 576px){.single .table_min_max{font-size:1rem}}.single .table_min_max .min{color:#17a2b8}.single .table_min_max .max{color:#b81a98}.single .table_min_max .date_min_max{font-style:italic}.single .table_min_max .description{font-size:.85rem;font-style:italic}.single .chart{height:350px}
