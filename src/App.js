@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import RootLayout from "./Pages/Root";
 import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
 import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
+import ErrorPage from "./Pages/Error/ErrorPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
     {
       path: "/",
       element: <RootLayout />,
+      errorElement: <ErrorPage/>,
       children: [
         { index: true, element: <Home /> },
         { path: "aboutUs", element: <AboutUs /> },
