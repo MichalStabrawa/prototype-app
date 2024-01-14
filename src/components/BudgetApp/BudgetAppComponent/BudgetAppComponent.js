@@ -15,6 +15,7 @@ import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
 import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
+import TestFirabase from "../../TestFirabase/TestFirebase";
 import {
   AreaChart,
   Area,
@@ -266,6 +267,10 @@ const BudgetAppComponent = (props) => {
         <BudgetAppSection title="Gold price" css="ba_section-full">
           <BudgetAppGold />
         </BudgetAppSection>
+        <section>
+          <h2>Test add Salary</h2>
+          <TestFirabase/>
+        </section>
         {auth && (
           <>
             {" "}
