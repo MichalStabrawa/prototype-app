@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 import SelectFromToDates from "../../../components/UI/SelectFromToDates/SelectFromToDates";
 import { fetchBidAskSingleFromToDate } from "../../../store/currencyApiNbp/bidAskFetchSingleFromToDate";
 import {
@@ -19,6 +19,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
+import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+
 function BidAskFromToDate({ currency }) {
   const dispatch = useDispatch();
   const { data, isLoading, status, error } = useSelector(
@@ -27,6 +30,8 @@ function BidAskFromToDate({ currency }) {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [fetch, setFetch] = useState(false);
+  const [minBidAsk, setMinBidAsk] = useState(null);
+  const [maxBidAsk, setMaxBidAsk] = useState(null);
 
   const params = useParams();
 
@@ -56,6 +61,10 @@ function BidAskFromToDate({ currency }) {
       setFetch(false);
     }
   }, [dispatch, fetch]);
+
+  useEffect(() => {
+    minMaxBidAsk(data, status, setMinBidAsk, setMaxBidAsk);
+  }, [status]);
 
   return (
     <div className={classes.main}>
@@ -108,6 +117,42 @@ function BidAskFromToDate({ currency }) {
                 </ResponsiveContainer>
               </div>
             )}
+            <Row>
+              <Col>
+                {" "}
+                {status === "success" && minBidAsk && maxBidAsk && (
+                  <div className={classes.table_min_max}>
+                    {" "}
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>min Bid</th>
+                          <th>min Ask</th>
+                          <th>date (min)</th>
+                          <th>max Bid</th>
+                          <th>max Ask</th>
+                          <th>date (max)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className={classes.min}>{minBidAsk.bid}</td>
+                          <td className={classes.min}>{minBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {minBidAsk.effectiveDate}
+                          </td>
+                          <td className={classes.max}>{maxBidAsk.bid}</td>
+                          <td className={classes.max}>{maxBidAsk.ask}</td>
+                          <td className={classes.date_min_max}>
+                            {maxBidAsk.effectiveDate}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
