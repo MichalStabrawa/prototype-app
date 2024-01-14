@@ -1,0 +1,13 @@
+@import "../../styles/main";
+
+.table {
+  margin-top: 20px;
+
+  table {
+    border-color: transparent;
+
+    td:nth-last-of-type(1) {
+      text-align: right;
+    }
+  }
+}

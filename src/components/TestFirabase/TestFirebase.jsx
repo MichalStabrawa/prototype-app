@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth, database } from "../../firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
+import classes from "./AddSalary.module.scss";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -126,14 +127,14 @@ const TestFirebase = () => {
           </Button>
         </Form>
 
-        <div>
+        <div className={classes.table}>
           {tableData.length > 0 && (
-            <Table striped="columns">
+            <Table striped bordered hover>
               <thead>
                 <tr>
                   <th> Name salary</th>
                   <th>expenses value</th>
-                  <th></th>
+                  <th>delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -151,14 +152,6 @@ const TestFirebase = () => {
               </tbody>
             </Table>
           )}
-          <ul>
-            {tableData.length > 0 &&
-              tableData.map((element) => (
-                <li key={element.id}>
-                  {element.name} {element.expenses} {element.id}
-                </li>
-              ))}
-          </ul>
         </div>
       </>
     </div>
