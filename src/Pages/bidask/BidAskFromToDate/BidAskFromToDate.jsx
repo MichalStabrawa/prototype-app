@@ -103,7 +103,7 @@ function BidAskFromToDate({ currency }) {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={["dataMin,dataMax"]} />
+                    <YAxis domain={["dataMin","auto"]} />
                     <Tooltip />
                     <Legend />
                     <Line

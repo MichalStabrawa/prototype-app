@@ -1,4 +1,14 @@
 @import "../../styles/main";
+.alert {
+  margin-top:20px;
+
+  &_span {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
+  }
+}
 
 .table {
   margin-top: 20px;

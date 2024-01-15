@@ -23,7 +23,7 @@ const UserInfo = () => {
         const currentUser = auth.currentUser;
 
         if (currentUser) {
-          const userRef = database.ref(`users/${currentUser.uid}/signInDates`);
+          const userRef = database.ref(`users/${currentUser.uid}/salary`);
 
           // Fetch user data from the Realtime Database asynchronously
           const snapshot = await userRef.once("value");
@@ -33,8 +33,9 @@ const UserInfo = () => {
           for (const key in data) {
             for (const innerKey in data[key]) {
               loadedSalary.push({
-                date: data[key][innerKey].date,
-                email: data[key][innerKey].email,
+                name: data[key][innerKey].name,
+                expenses: data[key][innerKey].expenses,
+                id: data[key][innerKey].id
               });
             }
           }
@@ -72,7 +73,7 @@ const UserInfo = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">
-                User: {auth1 ? user?.email : <Link to="/login">sign in</Link>}{" "}
+                User: {auth1 ?<div><span> {user?.email} <ul>{userData.map((el,index)=><li key={el.index}>{el.name}</li>)}</ul> </span></div>: <Link to="/login">sign in</Link>}{" "}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

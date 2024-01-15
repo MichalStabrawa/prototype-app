@@ -15,7 +15,7 @@ import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
 import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
-import TestFirabase from "../../TestFirabase/TestFirebase";
+import AddSalary from "../../AddSalary/AddSalary";
 import {
   AreaChart,
   Area,
@@ -267,149 +267,103 @@ const BudgetAppComponent = (props) => {
         <BudgetAppSection title="Gold price" css="ba_section-full">
           <BudgetAppGold />
         </BudgetAppSection>
-        <section>
-          <h2>Test add Salary</h2>
-          <TestFirabase/>
-        </section>
+
         {auth && (
           <>
-            {" "}
-            <BudgetAppSection title="Add Salary" css="ba_section_full_mobile">
-              <InputComponent
-                name="NameSalary"
-                type="text"
-                placeholder="Add name"
-                action={addHandlerInput}
-                value={state.name}
-              />
-              <InputComponent
-                name="Salary"
-                type="number"
-                placeholder="Add value"
-                action={addHandlerInput}
-                value={state.value}
-              />
-              {!emptyInputSalary && (
-                <p className={classes.invalid}>One input is empty!!!</p>
-              )}
-              <div className={classes.bapp_btn}>
-                <Button name="Add" click={addNameAndSalary} />
-                <Button
-                  name="Clear"
-                  color={buttonStyles.btn_red}
-                  click={clearInputNameValue}
-                />
+            <BudgetAppSection>
+              {" "}
+              <div>
+                <h2>Add your salary or other income</h2>
+                <AddSalary />
               </div>
-            </BudgetAppSection>
-            <BudgetAppSection title="Total Founds" css="ba_section_full_mobile">
-              {saveSalary && (
-                <Button name="Save" click={addSaveSalaryHandler} />
-              )}
-              {summary.length > 0 && (
-                <Button
-                  name="Filter"
-                  color={buttonStyles.btn_transparent}
-                  click={showAndHideFilter}
-                ></Button>
-              )}
-              <div className={classes.filter}>
-                {" "}
-                {filter && (
-                  <BudgetAppFilters
-                    salaryOnChange={addHandlerFilterSalary}
-                    data={summary}
-                  ></BudgetAppFilters>
-                )}
-              </div>
-
-              {isLoadingGet && <p>IS LOADING</p>}
-              <BudgetAppTable
-                summary={summary}
-                totalSumary={total}
-                restSalary={total - totalExspenses}
-              ></BudgetAppTable>
-            </BudgetAppSection>
-            <BudgetAppSection
-              title="Add Exspenses"
-              css="ba_section_full_mobile"
-            >
-              <InputComponent
-                name="NameExpenses"
-                type="text"
-                placeholder="Add name"
-                action={addHandlerInput}
-                value={stateSummary.nameSalary}
-              />
-              <InputComponent
-                name="ValueExpenses"
-                type="number"
-                placeholder="Add value"
-                action={addHandlerInput}
-                value={stateSummary.salaryValue}
-              />
-              {!emptyExpensesInput && (
-                <p className={classes.invalid}>One input is empty!!!</p>
-              )}
-              <div className={classes.bapp_btn}>
-                <Button name="Add" click={addExpenses} />
-                <Button
-                  name="Clear"
-                  color={buttonStyles.btn_red}
-                  click={clearInputExspenses}
-                />
-              </div>
-              <div className={classes.bar_chart}>
-                {stateUploadLocal.length !== 0 && (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart
-                      width={500}
-                      height={400}
-                      data={stateUploadLocal}
-                      margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="5 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis
-                        domain={["auto", maxVal]}
-                        allowDataOverflow={true}
-                      />
-                      <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="value"
-                        stroke="#8884d8"
-                        fill="#8884d8"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                )}
-              </div>
-            </BudgetAppSection>
-            <BudgetAppSection
-              title="Total Exspenses"
-              css="ba_section_full_mobile"
-            >
-              {auth.toString()}
-              {stateExpenses.length !== 0 && (
-                <Button name="Save" click={addSaveExpensesHandler} />
-              )}
-              <BudgetAppTable
-                summary={stateUploadLocal}
-                totalSumary={totalExspenses}
-              ></BudgetAppTable>
-              {stateExpenses.length ? (
-                <Button
-                  name="Save 1"
-                  click={setLocalStorageExspenses}
-                  color={buttonStyles.btn_footer}
-                />
-              ) : null}
             </BudgetAppSection>{" "}
+            <BudgetAppSection></BudgetAppSection>
+            {false && (
+              <>
+                {" "}
+                <BudgetAppSection
+                  title="Add Exspenses"
+                  css="ba_section_full_mobile"
+                >
+                  <InputComponent
+                    name="NameExpenses"
+                    type="text"
+                    placeholder="Add name"
+                    action={addHandlerInput}
+                    value={stateSummary.nameSalary}
+                  />
+                  <InputComponent
+                    name="ValueExpenses"
+                    type="number"
+                    placeholder="Add value"
+                    action={addHandlerInput}
+                    value={stateSummary.salaryValue}
+                  />
+                  {!emptyExpensesInput && (
+                    <p className={classes.invalid}>One input is empty!!!</p>
+                  )}
+                  <div className={classes.bapp_btn}>
+                    <Button name="Add" click={addExpenses} />
+                    <Button
+                      name="Clear"
+                      color={buttonStyles.btn_red}
+                      click={clearInputExspenses}
+                    />
+                  </div>
+                  <div className={classes.bar_chart}>
+                    {stateUploadLocal.length !== 0 && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart
+                          width={500}
+                          height={400}
+                          data={stateUploadLocal}
+                          margin={{
+                            top: 10,
+                            right: 30,
+                            left: 0,
+                            bottom: 0,
+                          }}
+                        >
+                          <CartesianGrid strokeDasharray="5 3" />
+                          <XAxis dataKey="name" />
+                          <YAxis
+                            domain={["auto", maxVal]}
+                            allowDataOverflow={true}
+                          />
+                          <Tooltip />
+                          <Area
+                            type="monotone"
+                            dataKey="value"
+                            stroke="#8884d8"
+                            fill="#8884d8"
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    )}
+                  </div>
+                </BudgetAppSection>
+                <BudgetAppSection
+                  title="Total Exspenses"
+                  css="ba_section_full_mobile"
+                >
+                  {auth.toString()}
+                  {stateExpenses.length !== 0 && (
+                    <Button name="Save" click={addSaveExpensesHandler} />
+                  )}
+                  <BudgetAppTable
+                    summary={stateUploadLocal}
+                    totalSumary={totalExspenses}
+                  ></BudgetAppTable>
+                  {stateExpenses.length ? (
+                    <Button
+                      name="Save 1"
+                      click={setLocalStorageExspenses}
+                      color={buttonStyles.btn_footer}
+                    />
+                  ) : null}
+                </BudgetAppSection>{" "}
+              </>
+            )}
           </>
         )}
       </div>

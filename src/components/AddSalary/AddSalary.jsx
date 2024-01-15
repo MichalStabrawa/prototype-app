@@ -6,8 +6,10 @@ import classes from "./AddSalary.module.scss";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import Alert from "react-bootstrap/Alert";
+import CloseButton from "react-bootstrap/CloseButton";
 
-const TestFirebase = () => {
+const AddSalary = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -23,12 +25,16 @@ const TestFirebase = () => {
     id: null,
   });
   const [tableData, setTableData] = useState([]);
+  const [openAlert, setOpenAlert] = useState(false);
+
+  console.log(tableData);
 
   console.log(user);
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value, id: uniqueId });
+    setOpenAlert(false)
   };
 
   const handleSubmit = (e) => {
@@ -39,6 +45,14 @@ const TestFirebase = () => {
       expenses: "",
       id: null,
     });
+  };
+
+  const countTableValue = () => {
+    const sum = tableData.reduce((prev, cur) => {
+      return prev + +cur.expenses;
+    }, 0);
+
+    return sum;
   };
 
   useEffect(() => {
@@ -71,11 +85,15 @@ const TestFirebase = () => {
     }
   };
 
-  const handleDataToTable = (e) => {};
+  const handleDeletedExpense = (e) => {
+    const id = e.target.dataset.id;
+    console.log(e.target.dataset.id);
+    const deleted = [...tableData].filter((el) => el.id !== id);
+    setTableData(deleted);
+  };
 
   const handleAddData = () => {
     if (user) {
-      const { name, date, value } = data;
       const dataRef = database.ref(`users/${user.uid}/salary/`);
 
       // Add data to the real-time database
@@ -85,7 +103,12 @@ const TestFirebase = () => {
       // Clear the data input fields after adding
       setData({ name: "", date: "", uniqueId: "", value: "" });
       setTableData([]);
+      setOpenAlert(true);
     }
+  };
+
+  const closeAlert = () => {
+    setOpenAlert(false);
   };
 
   return (
@@ -100,9 +123,10 @@ const TestFirebase = () => {
               value={formData.name}
               onChange={handleInputChange}
               name="name"
+              size="lg"
             />
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              Add your name salary, bonuses or other income
             </Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -113,44 +137,66 @@ const TestFirebase = () => {
               name="expenses"
               value={formData.expenses}
               onChange={handleInputChange}
+              size="lg"
             />
+            <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Add
+          <Button size="lg" variant="primary" type="submit">
+            Add expenses
           </Button>{" "}
           <Button
-            variant="info"
+            size="lg"
+            variant="outline-primary"
             onClick={handleAddData}
             disabled={!tableData.length}
           >
-            Save 1
+            Save expenses
           </Button>
         </Form>
+        {openAlert &&  (
+          <div className={classes.alert}>
+            <Alert variant="success">
+              <span className={classes.alert_span}>
+                save success!!!
+                <CloseButton onClick={closeAlert} />
+              </span>{" "}
+            </Alert>
+          </div>
+        )}
 
         <div className={classes.table}>
           {tableData.length > 0 && (
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th> Name salary</th>
-                  <th>expenses value</th>
-                  <th>delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((el, index) => {
-                  return (
-                    <tr key={el.id}>
-                      <td>{el.name}</td>
-                      <td>{el.expenses}</td>
-                      <td>
-                        <Button data-id={el.id}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div>
+              sum of value: {countTableValue()}
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th> Name salary</th>
+                    <th>expenses value</th>
+                    <th>delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableData.map((el, index) => {
+                    return (
+                      <tr key={el.id}>
+                        <td>{el.name}</td>
+                        <td>{el.expenses}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            data-id={el.id}
+                            onClick={handleDeletedExpense}
+                          >
+                            X
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
           )}
         </div>
       </>
@@ -158,4 +204,4 @@ const TestFirebase = () => {
   );
 };
 
-export default TestFirebase;
+export default AddSalary;
