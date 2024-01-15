@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useHistory } from "react-router-dom";
+import  { useRef } from 'react';
 import classes from "./LoginSuccess.module.scss";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,6 +10,7 @@ import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrNext } from "react-icons/gr";
 
 function LoginSuccess({ user }) {
+  
   const url = useLocation();
   console.log("PARAMS");
   console.log(url.pathname);
@@ -29,7 +31,7 @@ function LoginSuccess({ user }) {
           <Col>
             <div className={classes.wrapper}>
               <h4>Go to home page</h4>
-              <Link to="/">
+              <Link to="/#section">
                 <Button variant="outline-dark">
                   home{" "}
                   <span>
