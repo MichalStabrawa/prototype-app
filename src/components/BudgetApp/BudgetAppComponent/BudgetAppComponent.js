@@ -26,6 +26,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import maxValue from "../../../utils/maxValue";
+import ShowSavedSalary from "../../ShowSavedSalary/ShowSavedSalary";
 
 const {
   reducer,
@@ -66,6 +67,8 @@ const BudgetAppComponent = (props) => {
     []
   );
   const auth = useSelector((state) => state.auth.isAuthenticated);
+  const dataUser = useSelector((state) => state.fetchUserSalary.data);
+  const status = useSelector((state) => state.fetchUserSalary.status);
 
   const currentDate = getCurrentDate();
   const maxVal = maxValue(stateUploadLocal);
@@ -277,7 +280,10 @@ const BudgetAppComponent = (props) => {
                 <AddSalary />
               </div>
             </BudgetAppSection>{" "}
-            <BudgetAppSection></BudgetAppSection>
+            <BudgetAppSection>
+              <h2>Saved Salary</h2>
+              <ShowSavedSalary />
+            </BudgetAppSection>
             {false && (
               <>
                 {" "}

@@ -1,12 +1,18 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import { auth, database } from "../../firebase/firebase";
 import authSlice from "../../store/auth";
 import { FaUser, FaRegUser } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
+import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 
 const UserInfo = () => {
+  const dispatch = useDispatch();
+  const { data, isLoading, status, error } = useSelector(
+    (state) => state.fetchUserSalary
+  );
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,6 +20,10 @@ const UserInfo = () => {
 
   console.log("USER DATA");
   console.log(userData);
+  console.log("STATE REDUX");
+  console.log(status);
+  console.log(data);
+  console.log(isLoading);
 
   const user = auth.currentUser;
 
@@ -35,7 +45,7 @@ const UserInfo = () => {
               loadedSalary.push({
                 name: data[key][innerKey].name,
                 expenses: data[key][innerKey].expenses,
-                id: data[key][innerKey].id
+                id: data[key][innerKey].id,
               });
             }
           }
@@ -56,7 +66,14 @@ const UserInfo = () => {
 
     // Call the async function
     fetchUserData();
-  }, [auth, auth1]); // The empty dependency array ensures that this effect runs only once on mount
+  }, [auth, auth1]);
+  // The empty dependency array ensures that this effect runs only once on mount;
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserSalary({ auth: auth, database: database }));
+    }
+  }, [dispatch, user]);
 
   return (
     <>
@@ -73,7 +90,22 @@ const UserInfo = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">
-                User: {auth1 ?<div><span> {user?.email} <ul>{userData.map((el,index)=><li key={el.index}>{el.name}</li>)}</ul> </span></div>: <Link to="/login">sign in</Link>}{" "}
+                User:{" "}
+                {auth1 && status === "success" ? (
+                  <div>
+                    <span>
+                      {" "}
+                      {user?.email}{" "}
+                      <ul>
+                        {data.map((el, index) => (
+                          <li key={index}>{el.name}</li>
+                        ))}
+                      </ul>{" "}
+                    </span>
+                  </div>
+                ) : (
+                  <Link to="/login">sign in</Link>
+                )}{" "}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

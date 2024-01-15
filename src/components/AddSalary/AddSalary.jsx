@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { auth, database } from "../../firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import classes from "./AddSalary.module.scss";
@@ -8,8 +9,10 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
+import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 
 const AddSalary = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -34,7 +37,7 @@ const AddSalary = () => {
     const uniqueId = uuidv4();
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value, id: uniqueId });
-    setOpenAlert(false)
+    setOpenAlert(false);
   };
 
   const handleSubmit = (e) => {
@@ -104,6 +107,7 @@ const AddSalary = () => {
       setData({ name: "", date: "", uniqueId: "", value: "" });
       setTableData([]);
       setOpenAlert(true);
+      dispatch(fetchUserSalary({ auth: auth, database: database }));
     }
   };
 
@@ -153,7 +157,7 @@ const AddSalary = () => {
             Save expenses
           </Button>
         </Form>
-        {openAlert &&  (
+        {openAlert && (
           <div className={classes.alert}>
             <Alert variant="success">
               <span className={classes.alert_span}>
