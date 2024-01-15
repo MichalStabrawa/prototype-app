@@ -38,7 +38,7 @@ const {
   fetchNbpTopCountReducer,
 } = Reducer;
 
-const BudgetAppComponent = (props) => {
+const BudgetAppComponent = ({ sectionRef }) => {
   const [summary, changeSummary] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stateSummary, dispatchSummary] = useReducer(
@@ -253,6 +253,9 @@ const BudgetAppComponent = (props) => {
     setFilterSalaryValue(e.target.value);
   };
 
+  console.log("BUDGETCOMPONET");
+  console.log(sectionRef);
+
   useEffect(() => {
     changeSummary(filters);
   }, [filterSalaryValue]);
@@ -279,11 +282,13 @@ const BudgetAppComponent = (props) => {
             >
               {" "}
               <div>
-                <AddSalary />
+                <AddSalary sectionRef={sectionRef} />
               </div>
             </BudgetAppSection>{" "}
-            <BudgetAppSection title="Last salary values" css="ba_section_full_mobile">
-            
+            <BudgetAppSection
+              title="Last salary values"
+              css="ba_section_full_mobile"
+            >
               <ShowSavedSalary />
             </BudgetAppSection>
             {false && (

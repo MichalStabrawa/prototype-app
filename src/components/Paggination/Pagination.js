@@ -35,7 +35,7 @@ function Pagination({ nPages, setCurrentPage, currentPage }) {
                   setCurrentPage(pgNumber);
                 }}
                 className="page-link"
-                href="javascript:void(0)"
+                href="#"
               >
                 {pgNumber}
               </a>

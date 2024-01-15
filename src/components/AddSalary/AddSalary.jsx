@@ -11,7 +11,7 @@ import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 
-const AddSalary = () => {
+const AddSalary = ({sectionRef}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -102,7 +102,7 @@ const AddSalary = () => {
       // Add data to the real-time database
       dataRef.push(tableData);
       console.log("Save DATA");
-      console.log(tableData);
+
       // Clear the data input fields after adding
       setData({ name: "", date: "", uniqueId: "", value: "" });
       setTableData([]);
@@ -116,7 +116,7 @@ const AddSalary = () => {
   };
 
   return (
-    <div>
+    <div ref={sectionRef}>
       <>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -154,7 +154,7 @@ const AddSalary = () => {
             onClick={handleAddData}
             disabled={!tableData.length}
           >
-            Save 
+            Save
           </Button>
         </Form>
         {openAlert && (
