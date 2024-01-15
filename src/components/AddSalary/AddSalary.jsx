@@ -90,7 +90,7 @@ const AddSalary = () => {
 
   const handleDeletedExpense = (e) => {
     const id = e.target.dataset.id;
-    console.log(e.target.dataset.id);
+
     const deleted = [...tableData].filter((el) => el.id !== id);
     setTableData(deleted);
   };
@@ -120,7 +120,7 @@ const AddSalary = () => {
       <>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Name salary</Form.Label>
+            <Form.Label>Add name salary</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
@@ -134,7 +134,7 @@ const AddSalary = () => {
             </Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Add Expenses</Form.Label>
+            <Form.Label>Add salary value</Form.Label>
             <Form.Control
               type="number"
               placeholder="Expenses"
@@ -146,15 +146,15 @@ const AddSalary = () => {
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
           <Button size="lg" variant="primary" type="submit">
-            Add expenses
+            Add +
           </Button>{" "}
           <Button
             size="lg"
-            variant="outline-primary"
+            variant="outline-success"
             onClick={handleAddData}
             disabled={!tableData.length}
           >
-            Save expenses
+            Save 
           </Button>
         </Form>
         {openAlert && (

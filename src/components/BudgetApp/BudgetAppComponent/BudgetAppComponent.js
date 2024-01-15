@@ -273,15 +273,17 @@ const BudgetAppComponent = (props) => {
 
         {auth && (
           <>
-            <BudgetAppSection>
+            <BudgetAppSection
+              title="Add salary or other income"
+              css="ba_section_full_mobile"
+            >
               {" "}
               <div>
-                <h2>Add your salary or other income</h2>
                 <AddSalary />
               </div>
             </BudgetAppSection>{" "}
-            <BudgetAppSection>
-              <h2>Saved Salary</h2>
+            <BudgetAppSection title="Last salary values" css="ba_section_full_mobile">
+            
               <ShowSavedSalary />
             </BudgetAppSection>
             {false && (
