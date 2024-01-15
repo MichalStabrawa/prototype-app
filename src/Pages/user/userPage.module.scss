@@ -2,12 +2,14 @@
 @import "../../styles/main";
 
 .user_main {
+    color:$gray;
   .header {
     padding: 40px 20px;
     background-color: $drywhite;
   }
 
   .daschboard {
+    color:$gray;
     padding: 40px 0;
     background-color: #fffbf5;
     .icon_wrapper {
@@ -35,9 +37,16 @@
   .card {
     margin-bottom: 20px;
     height: 100%;
+    color: $gray;
   }
 
   .card_info {
     margin-bottom: 20px;
+    color:$gray;
+  }
+
+  .chart {
+    height: 400px;
+    margin-top:20px;
   }
 }
