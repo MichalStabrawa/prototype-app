@@ -65,7 +65,7 @@ function ShowSavedSalary() {
           </tbody>
         </Table>
       )}
-      {nPages > 0 && (
+      {nPages > 10 && (
         <Pagination
           nPages={nPages}
           currentPage={currentPage}
