@@ -27,13 +27,14 @@ import RootLayout from "./Pages/Root";
 import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
 import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
 import ErrorPage from "./Pages/Error/ErrorPage";
+import { BsTypeH1 } from "react-icons/bs";
 
 function App() {
   const dispatch = useDispatch();
   const tableKind = useSelector((state) => state.table.table);
 
   const currency = useSelector((state) => state.currency.data);
-  const gold = useSelector(state=>state.goldFetch.data)
+  const gold = useSelector((state) => state.goldFetch.data);
   const [flag, setFlag] = useState(false);
 
   const isLoading = useSelector((state) => state.content.isLoading);
@@ -46,22 +47,33 @@ function App() {
     {
       path: "/",
       element: <RootLayout />,
-      errorElement: <ErrorPage/>,
+      errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <Home /> },
-        { path: "aboutUs", element: <AboutUs /> },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
-        { path: "login/remind-login", element: <RemindLogin /> },
+        { index: true, element: <Home />, errorElement: <ErrorPage /> },
+        { path: "aboutUs", element: <AboutUs />, errorElement: <ErrorPage /> },
+        { path: "login", element: <Login />, errorElement: <ErrorPage /> },
+        {
+          path: "register",
+          element: <Register />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "login/remind-login",
+          element: <RemindLogin />,
+          errorElement: <ErrorPage />,
+        },
         {
           path: "exchange",
           element: <ExchangeRates flag={flag} click={handleSend} />,
-         
+          errorElement: <ErrorPage />,
         },
-        { path: "/exchange/:id", element: <ExchangeDetails /> },
-        {path: "/bidask",element: <BidAsk/>},
-        {path: "/bidask/:id", element:<BidAskDetails/>},
-        {path:"gold",element: <Gold/>}
+        { path: "gold", element: <Gold />, errorElement: <ErrorPage /> },
+        {
+          path: "/exchange/:id",
+          element: <ExchangeDetails />,
+        },
+        { path: "/bidask", element: <BidAsk /> },
+        { path: "/bidask/:id", element: <BidAskDetails /> },
       ],
     },
   ]);
@@ -73,7 +85,7 @@ function App() {
 
   useEffect(() => {
     dispatch(multipleCurrencyFetchData());
-    dispatch(goldFetch())
+    dispatch(goldFetch());
   }, [dispatch]);
 
   return (
