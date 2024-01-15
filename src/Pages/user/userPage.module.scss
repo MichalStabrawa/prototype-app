@@ -1,0 +1,43 @@
+
+@import "../../styles/main";
+
+.user_main {
+  .header {
+    padding: 40px 20px;
+    background-color: $drywhite;
+  }
+
+  .daschboard {
+    padding: 40px 0;
+    background-color: #fffbf5;
+    .icon_wrapper {
+      display: inline-block;
+      font-size: 2rem;
+      background-color: $pinkLight;
+      display: flex;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      color: $pinkMedium;
+
+      &.rev {
+        background-color: $pastelGreenRegularLight;
+        color: $pastelGreenDark;
+      }
+
+      &.exp {
+        background-color: $pastelRed;
+      }
+    }
+  }
+  .card {
+    margin-bottom: 20px;
+    height: 100%;
+  }
+
+  .card_info {
+    margin-bottom: 20px;
+  }
+}
