@@ -2,7 +2,7 @@ import "./App.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  createHashRouter,
+  createHashRouter,Routes
 } from "react-router-dom";
 import NavComponent from "./components/NavComponent/NavComponent";
 import Home from "./Pages/home/home";
@@ -27,7 +27,9 @@ import RootLayout from "./Pages/Root";
 import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
 import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
 import ErrorPage from "./Pages/Error/ErrorPage";
-import { BsTypeH1 } from "react-icons/bs";
+import UserPage from "./Pages/user/userPage";
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ function App() {
 
   const currency = useSelector((state) => state.currency.data);
   const gold = useSelector((state) => state.goldFetch.data);
+  const auth = useSelector((state) => state.auth.isAuthenticated);
   const [flag, setFlag] = useState(false);
 
   const isLoading = useSelector((state) => state.content.isLoading);
@@ -74,6 +77,10 @@ function App() {
         },
         { path: "/bidask", element: <BidAsk /> },
         { path: "/bidask/:id", element: <BidAskDetails /> },
+        {
+          path: 'user',
+          element: <UserPage  isAuthenticated={auth}/>,
+        },
       ],
     },
   ]);

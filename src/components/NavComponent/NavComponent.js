@@ -123,6 +123,16 @@ const NavComponent = (props) => {
             About Us
           </NavLink>
         </li>
+        {auth1 &&   <li className={classes.nav_item}>
+          <NavLink
+            to="user"
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+          >
+            My budget
+          </NavLink>
+        </li>}
         <li className={classes.nav_item}>
           <Link to={auth1 ? "/" : "login"} onClick={logOffHandler}>
             <Button
