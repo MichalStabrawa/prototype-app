@@ -1,18 +1,19 @@
+import classes from "./AddExpensess.module.scss";
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { auth, database } from "../../firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
-import classes from "./AddSalary.module.scss";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
-import Badge from 'react-bootstrap/Badge'
+import Badge from "react-bootstrap/Badge";
+import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
-
-const AddSalary = ({sectionRef}) => {
+const AddExpenses = ({ sectionRef }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,17 +96,17 @@ const AddSalary = ({sectionRef}) => {
 
   const handleAddData = () => {
     if (user) {
-      const dataRef = database.ref(`users/${user.uid}/salary/`);
+      const dataRef = database.ref(`users/${user.uid}/expenses/`);
 
       // Add data to the real-time database
       dataRef.push(tableData);
-      console.log("Save DATA salary");
+      console.log("Save DATA expenses");
 
       // Clear the data input fields after adding
       setData({ name: "", date: "", uniqueId: "", value: "" });
       setTableData([]);
       setOpenAlert(true);
-      dispatch(fetchUserSalary({ auth: auth, database: database }));
+      dispatch(fetchUserExpenses({ auth: auth, database: database }));
     }
   };
 
@@ -114,11 +115,12 @@ const AddSalary = ({sectionRef}) => {
   };
 
   return (
-    <div className={classes.salary} ref={sectionRef}>
+    <div className={classes.expenses}>
+      <h5>Add expenses</h5>
       <>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Add name salary</Form.Label>
+            <Form.Label>Add name expenses</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
@@ -127,15 +129,13 @@ const AddSalary = ({sectionRef}) => {
               name="name"
               size="lg"
             />
-            <Form.Text className="text-muted">
-              Add your name salary, bonuses or other income
-            </Form.Text>
+            <Form.Text className="text-muted">Add your name expenses</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Add salary value</Form.Label>
+            <Form.Label>Add expenses value</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Revenue"
+              placeholder="Expenses"
               name="expenses"
               value={formData.expenses}
               onChange={handleInputChange}
@@ -173,7 +173,7 @@ const AddSalary = ({sectionRef}) => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th> Name salary</th>
+                    <th> Name expenses</th>
                     <th>expenses value</th>
                     <th>delete</th>
                   </tr>
@@ -206,4 +206,4 @@ const AddSalary = ({sectionRef}) => {
   );
 };
 
-export default AddSalary;
+export default AddExpenses;

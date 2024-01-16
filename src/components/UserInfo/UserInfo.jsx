@@ -7,6 +7,7 @@ import authSlice from "../../store/auth";
 import { FaUser, FaRegUser } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
+import {fetchUserExpenses} from '../../store/fetchUserData/fetchUserExpenses';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -17,13 +18,6 @@ const UserInfo = () => {
   const [loading, setLoading] = useState(true);
 
   const auth1 = useSelector((state) => state.auth.isAuthenticated);
-
-  console.log("USER DATA");
-  console.log(userData);
-  console.log("STATE REDUX");
-  console.log(status);
-  console.log(data);
-  console.log(isLoading);
 
   const user = auth.currentUser;
 
@@ -72,8 +66,11 @@ const UserInfo = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchUserSalary({ auth: auth, database: database }));
+      dispatch(fetchUserExpenses({ auth: auth, database: database }))
     }
   }, [dispatch, user]);
+
+
 
   return (
     <>

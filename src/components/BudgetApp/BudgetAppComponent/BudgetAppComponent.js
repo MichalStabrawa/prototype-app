@@ -1,5 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import InputComponent from "../../UI/Input/InputComponent";
 import Button from "../../UI/Button/Button";
 import BudgetAppSection from "../BudgetAppSection/BudgetAppSection";
@@ -13,9 +14,10 @@ import getCurrentDate from "../../../utils/dateFunction";
 import fetchGetBudgetApp from "../../../store/fetchGetBudgetApp";
 import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
-import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
+
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
 import AddSalary from "../../AddSalary/AddSalary";
+import ButtonBtn from "react-bootstrap/Button";
 import {
   AreaChart,
   Area,
@@ -27,6 +29,8 @@ import {
 } from "recharts";
 import maxValue from "../../../utils/maxValue";
 import ShowSavedSalary from "../../ShowSavedSalary/ShowSavedSalary";
+import AddExpenses from "../../AddExpenses/AddExpenses";
+import ShowSavedExpenses from "../../ShowSavedExpenses/ShowSavedExpenses";
 
 const {
   reducer,
@@ -280,12 +284,27 @@ const BudgetAppComponent = ({ sectionRef }) => {
               <div>
                 <AddSalary sectionRef={sectionRef} />
               </div>
+              <div>
+                <AddExpenses />
+              </div>
             </BudgetAppSection>{" "}
             <BudgetAppSection
               title="Last salary values"
               css="ba_section_full_mobile"
             >
               <ShowSavedSalary />
+              <div>
+                <ShowSavedExpenses title="expenses"/>
+              </div>
+            </BudgetAppSection>
+            <BudgetAppSection css="ba_section-full">
+              <div className={classes.go_to}>
+                <h5>Check the exact status of your budget.</h5>
+                <p>Control your income and expenses.View charts and analyses</p>
+                <Link to="user">
+                  <ButtonBtn variant="outline-info">Go to My Budget</ButtonBtn>
+                </Link>
+              </div>
             </BudgetAppSection>
             {false && (
               <>

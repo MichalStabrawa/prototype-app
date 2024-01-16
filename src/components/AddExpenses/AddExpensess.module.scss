@@ -1,0 +1,19 @@
+@import '../../styles/main';
+
+.expenses {
+padding:40px 0;
+border-top: 1px solid $pastelBlue;
+
+.table {
+    margin-top: 20px;
+  
+    table {
+      border-color: transparent;
+  
+      td:nth-last-of-type(1) {
+        text-align: right;
+      }
+    }
+  }
+
+}
