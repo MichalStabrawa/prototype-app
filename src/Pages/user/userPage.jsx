@@ -32,10 +32,13 @@ function UserPage({ isAuthenticated }) {
     (state) => state.fetchUserSalary
   );
 
-  const dataExpenses = useSelector(state=>state.fetchUserExpenses.data);
-  const statusExpenses = useSelector(state=>state.fetchUserExpenses.status)
+  const dataExpenses = useSelector((state) => state.fetchUserExpenses.data);
+  const statusExpenses = useSelector((state) => state.fetchUserExpenses.status);
   const [maxSalary, setMaxSalary] = useState(0);
-  const [minSalary,setMinSalary] = useState(0);
+  const [minSalary, setMinSalary] = useState(0);
+  const [sumShowSalary, setSumShowSalary] = useState(0);
+  const [sumShowExpenses, setShowExpenses] = useState(0);
+  const [difference, setDifference] = useState();
 
   const sumSalary = () => {
     if (status === "success") {
@@ -55,18 +58,44 @@ function UserPage({ isAuthenticated }) {
     }
   };
 
+  useEffect(() => {
+    if (status === "success") {
+      const max = [...data].reduce(
+        (prev, next) => (+prev.expenses > +next.expenses ? prev : next),
+        data[0]
+      );
+
+      // console.log(data);
+      // const min = [...data].reduce(
+      //   (prev, next) => (+prev.expenses < +next.expenses ? prev : next),
+      //   data[0]
+      // );
+
+      const filteredData = data.filter((entry) => entry.expenses !== "");
+
+      const expensesValues = filteredData.map((entry) =>
+        parseInt(entry.expenses)
+      );
+
+      // Use reduce to find the minimum value
+      const minExpenses = expensesValues.reduce(
+        (min, value) => Math.min(min, value),
+        Infinity
+      );
+
+      console.log(minExpenses);
+
+      setMaxSalary(max);
+      setMinSalary(minExpenses);
+    }
+  }, [status, isLoading]);
 
   useEffect(() => {
-    const max = [...data].reduce((prev, next) =>
-      +prev.expenses > +next.expenses ? prev : next,data[0]
-    );
+    setSumShowSalary(sumSalary());
+    setShowExpenses(sumExpenses());
+  }, [status, isLoading, sumShowSalary, sumShowExpenses, statusExpenses]);
 
-    const min= [...data].reduce((prev, next) =>
-    +prev.expenses < +next.expenses ? prev : next,data[0])
-
-    setMaxSalary(max);
-    setMinSalary(min);
-  }, [status, isLoading]);
+  console.log(`MIN: ${minSalary.name}`);
   return (
     <main className={classes.user_main}>
       {!isAuthenticated && (
@@ -111,7 +140,9 @@ function UserPage({ isAuthenticated }) {
                           <Card.Text>
                             {" "}
                             <h3>
-                              <Badge bg="secondary">{sumSalary()-sumExpenses()} PLN</Badge>
+                              <Badge bg="secondary">
+                                {sumShowSalary - sumShowExpenses} PLN
+                              </Badge>
                             </h3>
                           </Card.Text>
                         </Card.Body>
@@ -134,7 +165,7 @@ function UserPage({ isAuthenticated }) {
                           <Card.Text>
                             {" "}
                             <h3>
-                              <Badge bg="success">{sumSalary()} PLN</Badge>
+                              <Badge bg="success">{sumShowSalary} PLN</Badge>
                             </h3>
                           </Card.Text>
                         </Card.Body>
@@ -157,7 +188,7 @@ function UserPage({ isAuthenticated }) {
                           <Card.Text>
                             {" "}
                             <h3>
-                              <Badge bg="danger">{sumExpenses()} PLN</Badge>
+                              <Badge bg="danger">{sumShowExpenses} PLN</Badge>
                             </h3>
                           </Card.Text>
                         </Card.Body>
@@ -170,7 +201,7 @@ function UserPage({ isAuthenticated }) {
                   <Card className={classes.card} border="light">
                     <Card.Body>
                       <AddSalary />
-                      <AddExpenses/>
+                      <AddExpenses />
                     </Card.Body>
                   </Card>{" "}
                 </Col>
@@ -178,8 +209,8 @@ function UserPage({ isAuthenticated }) {
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
-                      <ShowSavedSalary title="Your revenue"/>
-                      <ShowSavedExpenses title = "Your expenses"/>
+                      <ShowSavedSalary title="Your revenue" />
+                      <ShowSavedExpenses title="Your expenses" />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -242,8 +273,7 @@ function UserPage({ isAuthenticated }) {
                           <Badge bg="warning">
                             {" "}
                             <h5>
-                              min value:{" "}
-                              {status === "success" && minSalary.expenses}
+                              min value: {status === "success" && minSalary}
                             </h5>
                           </Badge>
                         </Card.Subtitle>{" "}
