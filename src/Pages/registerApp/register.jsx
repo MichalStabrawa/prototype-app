@@ -73,8 +73,6 @@ const Register = (props) => {
     }
   };
 
-  console.log(user);
-  console.log(authUser);
 
   useEffect(() => {
     enabledButton();

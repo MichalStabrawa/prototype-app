@@ -21,8 +21,6 @@ const NavComponent = (props) => {
   const [active, setActive] = useState(false);
 
   const user = auth.currentUser;
-  console.log("NAV auth current user");
-  console.log(user);
 
   const showMobileNav = () => {
     setActive(!active);
@@ -32,7 +30,6 @@ const NavComponent = (props) => {
     try {
       await auth.signOut();
 
-      console.log(`User signing out`);
     } catch (error) {
       console.error("Error signing out:", error.message);
     }

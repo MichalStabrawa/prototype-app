@@ -30,9 +30,6 @@ const AddSalary = ({sectionRef}) => {
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
 
-  console.log(tableData);
-
-  console.log(user);
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
     const { name, value } = e.target;

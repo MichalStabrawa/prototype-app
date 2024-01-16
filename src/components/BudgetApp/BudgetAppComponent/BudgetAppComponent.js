@@ -226,7 +226,6 @@ const BudgetAppComponent = ({ sectionRef }) => {
         fetchGetBudgetApp(setIsLoadingGet, setIsGetError, changeSummary);
       }, 500);
     } else {
-      alert(`Login Auth is ${auth}`);
     }
   };
 
@@ -252,9 +251,6 @@ const BudgetAppComponent = ({ sectionRef }) => {
     const option = e.target.childNodes[index];
     setFilterSalaryValue(e.target.value);
   };
-
-  console.log("BUDGETCOMPONET");
-  console.log(sectionRef);
 
   useEffect(() => {
     changeSummary(filters);

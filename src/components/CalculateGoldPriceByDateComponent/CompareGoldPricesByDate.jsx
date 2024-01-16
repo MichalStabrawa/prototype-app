@@ -32,8 +32,6 @@ const CompareGoldPricesByDate = () => {
   const handleInputValue = (e) => {
     setLastDate(e.target.value);
   };
-
-  console.log(compareData);
   useEffect(() => {
     if (status === "success" && gold) {
       setCompareData({

@@ -17,9 +17,6 @@ const TableRates = (props) => {
   const [recordsPerPage] = useState(15);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  console.log(
-    `indexOfLastRecord: ${indexOfLastRecord}, indexOfFirstRecord: ${indexOfFirstRecord}`
-  );
 
   const currentRecords = tabData.slice(indexOfFirstRecord, indexOfLastRecord);
 

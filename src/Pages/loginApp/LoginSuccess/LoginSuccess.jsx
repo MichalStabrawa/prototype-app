@@ -12,8 +12,7 @@ import { GrNext } from "react-icons/gr";
 function LoginSuccess({ user }) {
   
   const url = useLocation();
-  console.log("PARAMS");
-  console.log(url.pathname);
+ 
   return (
     <section className={classes.success}>
       <Container>

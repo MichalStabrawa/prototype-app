@@ -41,10 +41,7 @@ function UserPage({ isAuthenticated }) {
     }
   };
 
-  console.log("DataSalary USER");
-  console.log(data);
-  console.log(status);
-  console.log(isLoading);
+
   useEffect(() => {
     console.log("effect");
     console.log(data);

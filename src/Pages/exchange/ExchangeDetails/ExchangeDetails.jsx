@@ -99,7 +99,6 @@ function ExchangeDetails() {
 
   useEffect(() => {
     if (statusLastTop === "success") {
-      console.log(currencyLastTopCount);
       const min = [...currencyLastTopCount.rates].reduce((prev, next) =>
         prev.mid < next.mid ? prev : next
       );
@@ -129,9 +128,6 @@ function ExchangeDetails() {
       </Spinner>
     );
   }
-
-  console.log("CurrencyLastTop");
-  console.log(currencyLastTopCount);
 
   return (
     <main className={classes.exchange_wrapper}>
@@ -337,7 +333,11 @@ function ExchangeDetails() {
                             </tr>
                           </tbody>
                         </Table>
-                        <p className={classes.description}>*Mid – calculated currency average exchange rate (for tables A and B),*Table – table type,*Currency – currency name,*Code – currency code</p>
+                        <p className={classes.description}>
+                          *Mid – calculated currency average exchange rate (for
+                          tables A and B),*Table – table type,*Currency –
+                          currency name,*Code – currency code
+                        </p>
                       </div>
                     )}
                   </Col>

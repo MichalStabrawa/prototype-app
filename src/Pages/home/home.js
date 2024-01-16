@@ -9,7 +9,6 @@ const Home = (props) => {
     // Check if there is a hash in the URL and scroll to the section
 
     if (window.location.hash === "#/#section" && sectionRef.current) {
-      alert(window.location.hash);
       sectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
