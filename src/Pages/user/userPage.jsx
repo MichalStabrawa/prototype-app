@@ -31,6 +31,9 @@ function UserPage({ isAuthenticated }) {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
+
+  const dataExpenses = useSelector(state=>state.fetchUserExpenses.data);
+  const statusExpenses = useSelector(state=>state.fetchUserExpenses.status)
   const [maxSalary, setMaxSalary] = useState(0);
   const [minSalary,setMinSalary] = useState(0);
 
@@ -42,6 +45,16 @@ function UserPage({ isAuthenticated }) {
       return sum;
     }
   };
+
+  const sumExpenses = () => {
+    if (statusExpenses === "success") {
+      const sum = [...dataExpenses].reduce((prev, curr) => {
+        return prev + +curr.expenses;
+      }, 0);
+      return sum;
+    }
+  };
+
 
   useEffect(() => {
     const max = [...data].reduce((prev, next) =>
@@ -98,7 +111,7 @@ function UserPage({ isAuthenticated }) {
                           <Card.Text>
                             {" "}
                             <h3>
-                              <Badge bg="success">{sumSalary()} PLN</Badge>
+                              <Badge bg="secondary">{sumSalary()-sumExpenses()} PLN</Badge>
                             </h3>
                           </Card.Text>
                         </Card.Body>
@@ -140,6 +153,12 @@ function UserPage({ isAuthenticated }) {
                           </Card.Title>
                           <Card.Text>
                             <h5>Expenses</h5>
+                          </Card.Text>
+                          <Card.Text>
+                            {" "}
+                            <h3>
+                              <Badge bg="danger">{sumExpenses()} PLN</Badge>
+                            </h3>
                           </Card.Text>
                         </Card.Body>
                       </Card>
