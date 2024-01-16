@@ -30,7 +30,7 @@ function UserPage({ isAuthenticated }) {
     (state) => state.fetchUserSalary
   );
   const [maxSalary, setMaxSalary] = useState(0);
-  console.log(isAuthenticated);
+  const [minSalary,setMinSalary] = useState(0);
 
   const sumSalary = () => {
     if (status === "success") {
@@ -41,15 +41,16 @@ function UserPage({ isAuthenticated }) {
     }
   };
 
-
   useEffect(() => {
-    console.log("effect");
-    console.log(data);
     const max = [...data].reduce((prev, next) =>
-      +prev.expenses > +next.expenses ? prev : next
+      +prev.expenses > +next.expenses ? prev : next,data[0]
     );
 
+    const min= [...data].reduce((prev, next) =>
+    +prev.expenses < +next.expenses ? prev : next,data[0])
+
     setMaxSalary(max);
+    setMinSalary(min);
   }, [status, isLoading]);
   return (
     <main className={classes.user_main}>
@@ -215,11 +216,11 @@ function UserPage({ isAuthenticated }) {
                       <Card.Body>
                         <Card.Subtitle>
                           Revenue{" "}
-                          <Badge bg="secondary">
+                          <Badge bg="warning">
                             {" "}
                             <h5>
-                              max value:{" "}
-                              {status === "success" && maxSalary.expenses}
+                              min value:{" "}
+                              {status === "success" && minSalary.expenses}
                             </h5>
                           </Badge>
                         </Card.Subtitle>{" "}
