@@ -1,5 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import InputComponent from "../../UI/Input/InputComponent";
 import Button from "../../UI/Button/Button";
 import BudgetAppSection from "../BudgetAppSection/BudgetAppSection";
@@ -13,9 +14,10 @@ import getCurrentDate from "../../../utils/dateFunction";
 import fetchGetBudgetApp from "../../../store/fetchGetBudgetApp";
 import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
-import BudgetAppFilters from "../BudgetAppFiltersComponent/BudgetAppFIlters";
+
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
 import AddSalary from "../../AddSalary/AddSalary";
+import ButtonBtn from "react-bootstrap/Button";
 import {
   AreaChart,
   Area,
@@ -286,6 +288,15 @@ const BudgetAppComponent = ({ sectionRef }) => {
               css="ba_section_full_mobile"
             >
               <ShowSavedSalary />
+            </BudgetAppSection>
+            <BudgetAppSection css="ba_section-full">
+              <div className={classes.go_to}>
+                <h5>Check the exact status of your budget.</h5>
+                <p>Control your income and expenses.View charts and analyses</p>
+                <Link to="user">
+                  <ButtonBtn variant="outline-info">Go to My Budget</ButtonBtn>
+                </Link>
+              </div>
             </BudgetAppSection>
             {false && (
               <>

@@ -7,7 +7,7 @@ import Pagination from "../Paggination/Pagination";
 import { FaUser } from "react-icons/fa";
 import Badge from 'react-bootstrap/Badge';
 
-function ShowSavedSalary() {
+function ShowSavedSalary({title}) {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
@@ -31,6 +31,7 @@ function ShowSavedSalary() {
   };
   return (
     <div>
+      <p>{title}</p>
       {logInUser && (
         <p className={classes.user}>
           <FaUser className={classes.user_icon}/>

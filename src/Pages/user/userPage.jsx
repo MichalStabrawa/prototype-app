@@ -156,7 +156,7 @@ function UserPage({ isAuthenticated }) {
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
-                      <ShowSavedSalary />
+                      <ShowSavedSalary title="Your revenue"/>
                     </Card.Body>
                   </Card>
                 </Col>
