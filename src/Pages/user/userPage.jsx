@@ -10,6 +10,8 @@ import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import AddSalary from "../../components/AddSalary/AddSalary";
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import Badge from "react-bootstrap/Badge";
+import AddExpenses from "../../components/AddExpenses/AddExpenses";
+import ShowSavedExpenses from "../../components/ShowSavedExpenses/ShowSavedExpenses";
 import {
   AreaChart,
   Area,
@@ -149,6 +151,7 @@ function UserPage({ isAuthenticated }) {
                   <Card className={classes.card} border="light">
                     <Card.Body>
                       <AddSalary />
+                      <AddExpenses/>
                     </Card.Body>
                   </Card>{" "}
                 </Col>
@@ -157,6 +160,7 @@ function UserPage({ isAuthenticated }) {
                   <Card className={classes.card} border="light">
                     <Card.Body>
                       <ShowSavedSalary title="Your revenue"/>
+                      <ShowSavedExpenses title = "Your expenses"/>
                     </Card.Body>
                   </Card>
                 </Col>
