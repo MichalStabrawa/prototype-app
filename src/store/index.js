@@ -19,6 +19,8 @@ import exchangeFetchMidForToDateSlice from "./currencyApiNbp/exchangeFetchMidFor
 import fetchBidAskSingleDateSliceReducer from "./currencyApiNbp/bidAskFetchSingleDate";
 import fetchBidAskSingleFromToDateReducer from "./currencyApiNbp/bidAskFetchSingleFromToDate";
 import fetchUserSalaryReducer from "./fetchUserData/fetchUserSalary";
+import fetchUserExpensesReducer from './fetchUserData/fetchUserExpenses';
+
 const store = configureStore({
   reducer: {
     content: fetchGoldReducer,
@@ -39,6 +41,7 @@ const store = configureStore({
     bidAskSingleDate: fetchBidAskSingleDateSliceReducer,
     fetchBidAskSingleFromToDate: fetchBidAskSingleFromToDateReducer,
     fetchUserSalary: fetchUserSalaryReducer,
+    fetchUserExpenses:fetchUserExpensesReducer,
   },
 });
 

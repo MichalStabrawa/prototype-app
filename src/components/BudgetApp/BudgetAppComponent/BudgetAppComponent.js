@@ -29,6 +29,8 @@ import {
 } from "recharts";
 import maxValue from "../../../utils/maxValue";
 import ShowSavedSalary from "../../ShowSavedSalary/ShowSavedSalary";
+import AddExpenses from "../../AddExpenses/AddExpenses";
+import ShowSavedExpenses from "../../ShowSavedExpenses/ShowSavedExpenses";
 
 const {
   reducer,
@@ -282,12 +284,18 @@ const BudgetAppComponent = ({ sectionRef }) => {
               <div>
                 <AddSalary sectionRef={sectionRef} />
               </div>
+              <div>
+                <AddExpenses />
+              </div>
             </BudgetAppSection>{" "}
             <BudgetAppSection
               title="Last salary values"
               css="ba_section_full_mobile"
             >
               <ShowSavedSalary />
+              <div>
+                <ShowSavedExpenses title="expenses"/>
+              </div>
             </BudgetAppSection>
             <BudgetAppSection css="ba_section-full">
               <div className={classes.go_to}>

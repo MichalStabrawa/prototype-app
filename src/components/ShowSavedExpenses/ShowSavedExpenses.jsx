@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import classes from "./ShowSavedSalary.module.scss";
+import classes from "./ShowSavedExpenses.module.scss";
 import { auth } from "../../firebase/firebase";
 import Table from "react-bootstrap/Table";
 import Pagination from "../Paggination/Pagination";
 import { FaUser } from "react-icons/fa";
 import Badge from 'react-bootstrap/Badge';
 
-function ShowSavedSalary({title}) {
+function ShowSavedExpenses({title}) {
   const { data, status, isLoading, error } = useSelector(
-    (state) => state.fetchUserSalary
+    (state) => state.fetchUserExpenses
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
@@ -29,8 +29,8 @@ function ShowSavedSalary({title}) {
 
     return sum;
   };
-  console.log('DATA SAVED Salary');
-  console.log(data)
+  console.log('DATA SAVED EXPENSES');
+ console.log(data)
   return (
     <div>
       <p>{title}</p>
@@ -79,4 +79,4 @@ function ShowSavedSalary({title}) {
   );
 }
 
-export default ShowSavedSalary;
+export default ShowSavedExpenses;
