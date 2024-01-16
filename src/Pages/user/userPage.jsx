@@ -12,6 +12,10 @@ import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import Badge from "react-bootstrap/Badge";
 import AddExpenses from "../../components/AddExpenses/AddExpenses";
 import ShowSavedExpenses from "../../components/ShowSavedExpenses/ShowSavedExpenses";
+import Accordion from "react-bootstrap/Accordion";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FaSearch } from "react-icons/fa";
 import {
   AreaChart,
   Area,
@@ -209,6 +213,25 @@ function UserPage({ isAuthenticated }) {
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
+                      <div>
+                        {" "}
+                        <Accordion defaultActiveKey="0">
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>Filters</Accordion.Header>
+                            <Accordion.Body>
+                              <InputGroup size="sm" className="mb-3">
+                                <InputGroup.Text id="inputGroup-sizing-sm">
+                                  <FaSearch />
+                                </InputGroup.Text>
+                                <Form.Control
+                                  aria-label="Small"
+                                  aria-describedby="inputGroup-sizing-sm"
+                                />
+                              </InputGroup>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
+                      </div>
                       <ShowSavedSalary title="Your revenue" />
                       <ShowSavedExpenses title="Your expenses" />
                     </Card.Body>
