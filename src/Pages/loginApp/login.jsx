@@ -66,7 +66,7 @@ const LoginApp = () => {
       setPassword("");
       setLogin("");
     } else {
-      alert("Login or Password incorect");
+     
       setPassword("");
       setLogin("");
     }
@@ -82,8 +82,6 @@ const LoginApp = () => {
 
     return () => unsubscribe();
   }, []);
-  console.log("AUTH");
-  console.log(auth.currentUser);
 
   return (
     <main className={classes.login}>

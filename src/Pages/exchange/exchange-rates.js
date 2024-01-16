@@ -69,12 +69,8 @@ const ExchangeRates = (props) => {
 
   const currentDate = getCurrentDate();
 
-  console.log("CURRENCY");
-  console.log(currency);
-
   const compareDataLive = dateValue === "" || dateValue >= currentDate;
   if (dateValue !== "" && dateValue >= currentDate) {
-    console.log(`Compare ${dateValue >= currentDate}`);
   } else {
     console.log(dateValue >= currentDate);
   }
