@@ -12,7 +12,7 @@ import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
 import Badge from "react-bootstrap/Badge";
 import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
-import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
+
 const AddExpenses = ({ sectionRef }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");

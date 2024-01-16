@@ -34,7 +34,7 @@ const AddSalary = ({sectionRef}) => {
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value, id: uniqueId });
+    setFormData({ ...formData, [name]: +value, id: uniqueId });
     setOpenAlert(false);
   };
 
