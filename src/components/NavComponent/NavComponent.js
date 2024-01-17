@@ -7,6 +7,7 @@ import buttonStyles from "../UI/Button/Button.module.scss";
 import logo from "../../assets/bapp.png";
 import Button from "../UI/Button/Button";
 import ButtonHamburger from "../UI/Button/ButtonHamburger";
+import ButtonBtn from "react-bootstrap/Button";
 import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
 
 import { authActions } from "../../store/auth";
@@ -29,7 +30,6 @@ const NavComponent = (props) => {
   const handleSignOut = async () => {
     try {
       await auth.signOut();
-
     } catch (error) {
       console.error("Error signing out:", error.message);
     }
@@ -120,28 +120,27 @@ const NavComponent = (props) => {
             About Us
           </NavLink>
         </li>
-        {auth1 &&   <li className={classes.nav_item}>
-          <NavLink
-            to="user"
-            className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
-          >
-            My budget
-          </NavLink>
-        </li>}
+        {auth1 && (
+          <li className={classes.nav_item}>
+            <NavLink
+              to="user"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              My budget
+            </NavLink>
+          </li>
+        )}
         <li className={classes.nav_item}>
           <Link to={auth1 ? "/" : "login"} onClick={logOffHandler}>
-            <Button
-              name={auth1 ? "LogOff" : "Login"}
-              color={buttonStyles.btn_transparent}
-            />
+            <ButtonBtn size="sm" variant="outline-primary"> {auth1 ? "LogOff" : "Login"}</ButtonBtn>
           </Link>
         </li>
         {!auth1 && (
           <li className={classes.nav_item}>
             <Link to="register">
-              <Button name={"Register"}></Button>
+              <ButtonBtn size="sm">Register</ButtonBtn>
             </Link>
           </li>
         )}

@@ -46,10 +46,6 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
   const [toDate, setToDate] = useState();
   const [fetch, setFetch] = useState(false);
 
-  console.log(`Status: ${status}`);
-  console.log(`Error: ${error}`);
-  console.log(dataFetch);
-
   const handleFetch = () => {
     setFetch(true);
   };
@@ -64,9 +60,6 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
       setToDate(event.target.value);
     }
   };
-
-  console.log("dataFetch");
-  console.log(dataFetch);
 
   useEffect(() => {
     if ((fromDate && toDate && table, fetch === true)) {

@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 
 const FooterAppSection = () => {
   const location = useLocation();
-  console.log(location);
+
   return (
     <footer className={classes.footer}>
       <Card className="text-center" bg="dark" text="white">

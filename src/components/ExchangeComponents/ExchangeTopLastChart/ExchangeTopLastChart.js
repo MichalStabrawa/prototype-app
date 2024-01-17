@@ -27,8 +27,6 @@ const ExchangeTopLastChart = ({ index }) => {
   const [maxBidAsk, setMaxBidAsk] = useState();
 
   const changeChartHandler = () => {
-    console.log("FLAG");
-    console.log(flag);
     setFlag(!flag);
   };
 
