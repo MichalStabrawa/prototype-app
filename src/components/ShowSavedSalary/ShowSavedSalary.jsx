@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import classes from "./ShowSavedSalary.module.scss";
 import { auth } from "../../firebase/firebase";
@@ -7,13 +7,19 @@ import Pagination from "../Paggination/Pagination";
 import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
+import { filterSearchData } from "../../utils/filterInsideAccordion";
 
 function ShowSavedSalary({ title, filter }) {
-  const { data, status, isLoading, error } = useSelector(
-    (state) => state.fetchUserSalary
-  );
+  const dataSaved = useSelector((state) => state.fetchUserSalary.data);
+  const status = useSelector((state) => state.fetchUserSalary.status);
+  const isLoading = useSelector((state) => state.fetchUserSalary.isLoading);
+
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
+  const [search, setSearch] = useState("");
+  const [isChecked, setChecked] = useState(false);
+
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
@@ -24,14 +30,31 @@ function ShowSavedSalary({ title, filter }) {
   const logInUser = auth.currentUser;
 
   const countSumOfSalary = () => {
-    const sum = [...data].reduce((prev, curr) => {
+    const sum = [...dataSaved].reduce((prev, curr) => {
       return prev + +curr.expenses;
     }, 0);
 
     return sum;
   };
-  console.log("DATA SAVED Salary");
-  console.log(data);
+
+  const handleSearchInput = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSwitchToggle = () => {
+    setChecked(!isChecked);
+  };
+
+  useEffect(() => {
+    if (status === "success") {
+      setData(dataSaved);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    filterSearchData(isChecked, dataSaved, search, setData);
+  }, [search]);
+
   return (
     <div>
       <p>{title}</p>
@@ -53,8 +76,14 @@ function ShowSavedSalary({ title, filter }) {
       {status === "success" && (
         <>
           <div className={classes.filter}>
-            <FilterShowSalary />
+            <FilterShowSalary
+              filter={filter}
+              change={handleSearchInput}
+              isChecked={isChecked}
+              handleCheckbox={handleSwitchToggle}
+            />
           </div>
+          {search}
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -78,7 +107,7 @@ function ShowSavedSalary({ title, filter }) {
           </Table>
         </>
       )}
-      {nPages > 0 && (
+      {nPages > 0 && data.length > 10 && (
         <Pagination
           nPages={nPages}
           currentPage={currentPage}
