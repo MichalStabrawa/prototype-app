@@ -25,7 +25,6 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Cell,
   YAxis,
   Legend,
 } from "recharts";
@@ -42,7 +41,9 @@ function UserPage({ isAuthenticated }) {
   const [minSalary, setMinSalary] = useState(0);
   const [sumShowSalary, setSumShowSalary] = useState(0);
   const [sumShowExpenses, setShowExpenses] = useState(0);
-  const [difference, setDifference] = useState();
+
+  console.log(`Error? ${error}`);
+  console.log(data.length)
 
   const sumSalary = () => {
     if (status === "success") {
@@ -87,8 +88,6 @@ function UserPage({ isAuthenticated }) {
         Infinity
       );
 
-      console.log(minExpenses);
-
       setMaxSalary(max);
       setMinSalary(minExpenses);
     }
@@ -99,7 +98,6 @@ function UserPage({ isAuthenticated }) {
     setShowExpenses(sumExpenses());
   }, [status, isLoading, sumShowSalary, sumShowExpenses, statusExpenses]);
 
-  console.log(`MIN: ${minSalary.name}`);
   return (
     <main className={classes.user_main}>
       {!isAuthenticated && (
@@ -111,6 +109,7 @@ function UserPage({ isAuthenticated }) {
           </Row>
         </Container>
       )}
+
       {isAuthenticated && (
         <>
           {" "}
@@ -127,80 +126,79 @@ function UserPage({ isAuthenticated }) {
           <section className={classes.daschboard}>
             <Container fluid>
               <Row>
-                <Col xs={12} lg={3}>
-                  <Row>
-                    <Col xs={12}>
-                      {" "}
-                      <Card className={classes.card_info} border="light">
-                        <Card.Body>
-                          <Card.Title>
-                            <span className={classes.icon_wrapper}>
-                              <BsDatabase />
-                            </span>
-                          </Card.Title>
-                          <Card.Text>
-                            <h5>Saldo your budget</h5>
-                          </Card.Text>
-                          <Card.Text>
-                            {" "}
-                            <h3>
-                              <Badge bg="secondary">
-                                {sumShowSalary - sumShowExpenses} PLN
-                              </Badge>
-                            </h3>
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    <Col xs={12}>
-                      {" "}
-                      <Card className={classes.card_info} border="light">
-                        <Card.Body>
-                          <Card.Title>
-                            <span
-                              className={`${classes.icon_wrapper} ${classes.rev}`}
-                            >
-                              <FaArrowTrendUp />
-                            </span>
-                          </Card.Title>
-                          <Card.Text>
-                            <h5>Revenue</h5>
-                          </Card.Text>
-                          <Card.Text>
-                            {" "}
-                            <h3>
-                              <Badge bg="success">{sumShowSalary} PLN</Badge>
-                            </h3>
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    <Col xs={12}>
-                      {" "}
-                      <Card className={classes.card_info} border="light">
-                        <Card.Body>
-                          <Card.Title>
-                            <span
-                              className={`${classes.icon_wrapper} ${classes.exp}`}
-                            >
-                              <FaArrowTrendDown />
-                            </span>
-                          </Card.Title>
-                          <Card.Text>
-                            <h5>Expenses</h5>
-                          </Card.Text>
-                          <Card.Text>
-                            {" "}
-                            <h3>
-                              <Badge bg="danger">{sumShowExpenses} PLN</Badge>
-                            </h3>
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </Row>
+                <Col xs={12} md={4}>
+                  {" "}
+                  <Card className={classes.card_info} border="light">
+                    <Card.Body>
+                      <Card.Title>
+                        <span className={classes.icon_wrapper}>
+                          <BsDatabase />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <h5>Saldo your budget</h5>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={classes.badge}>
+                          <Badge bg="secondary">
+                            {sumShowSalary - sumShowExpenses} PLN
+                          </Badge>
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </Col>
-                <Col xs={12} lg={4}>
+                <Col xs={12} md={4}>
+                  {" "}
+                  <Card className={classes.card_info} border="light">
+                    <Card.Body>
+                      <Card.Title>
+                        <span
+                          className={`${classes.icon_wrapper} ${classes.rev}`}
+                        >
+                          <FaArrowTrendUp />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <h5>Revenue</h5>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={classes.badge}>
+                          <Badge bg="success">{sumShowSalary} PLN</Badge>
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col xs={12} md={4}>
+                  {" "}
+                  <Card className={classes.card_info} border="light">
+                    <Card.Body>
+                      <Card.Title>
+                        <span
+                          className={`${classes.icon_wrapper} ${classes.exp}`}
+                        >
+                          <FaArrowTrendDown />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <h5>Expenses</h5>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={classes.badge}>
+                          <Badge bg="danger">{sumShowExpenses} PLN</Badge>
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={4}>
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
@@ -209,7 +207,7 @@ function UserPage({ isAuthenticated }) {
                     </Card.Body>
                   </Card>{" "}
                 </Col>
-                <Col>
+                <Col md={8}>
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
@@ -219,107 +217,66 @@ function UserPage({ isAuthenticated }) {
                   </Card>
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} lg={6}>
-                  <div className={classes.chart}>
-                    <Card border="light">
-                      {" "}
-                      <Card.Body>
-                        <Card.Subtitle>
-                          Revenue{" "}
-                          <Badge bg="secondary">
-                            {" "}
-                            <h5>
-                              max value:{" "}
-                              {status === "success" && maxSalary.expenses}
-                            </h5>
-                          </Badge>
-                        </Card.Subtitle>{" "}
-                        <div style={{ width: "100%", height: 300 }}>
-                          {status === "success" && (
-                            <ResponsiveContainer width="100%" height="100%">
-                              <AreaChart
-                                width={500}
-                                height={400}
-                                data={data}
-                                margin={{
-                                  top: 10,
-                                  right: 30,
-                                  left: 0,
-                                  bottom: 0,
-                                }}
-                              >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis domain={[0, +maxSalary.expenses]} />
-                                <Tooltip />
-                                <Area
-                                  type="monotone"
-                                  dataKey="expenses"
-                                  stroke="#8884d8"
-                                  fill="#AAD9BB"
-                                />
-                              </AreaChart>
-                            </ResponsiveContainer>
-                          )}
-                        </div>
-                      </Card.Body>{" "}
-                    </Card>
-                  </div>
-                </Col>
-                <Col xs={12} lg={6}>
-                  <div className={classes.chart}>
-                    <Card border="light">
-                      {" "}
-                      <Card.Body>
-                        <Card.Subtitle>
-                          Revenue{" "}
-                          <Badge bg="warning">
-                            {" "}
-                            <h5>
-                              min value: {status === "success" && minSalary}
-                            </h5>
-                          </Badge>
-                        </Card.Subtitle>{" "}
-                        <div style={{ width: "100%", height: 300 }}>
-                          {status === "success" && (
-                            <ResponsiveContainer width="100%" height="100%">
-                              <BarChart
-                                width={500}
-                                height={300}
-                                data={data}
-                                margin={{
-                                  top: 20,
-                                  right: 30,
-                                  left: 20,
-                                  bottom: 5,
-                                }}
-                              >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis
-                                  yAxisId="left"
-                                  orientation="left"
-                                  stroke="#8884d8"
-                                  domain={[0, +maxSalary.expenses]}
-                                />
+              {data.length&&     <Row>
+             
+             <Col lg={6}>
+              
+             
+             </Col>
+             <Col xs={12} lg={6}>
+               <div className={classes.chart}>
+                 <Card border="light">
+                   {" "}
+                   <Card.Body>
+                     <Card.Subtitle>
+                       Revenue{" "}
+                       <Badge bg="warning">
+                         {" "}
+                         <h5>
+                           min value: {status === "success" && minSalary}
+                         </h5>
+                       </Badge>
+                     </Card.Subtitle>{" "}
+                     <div style={{ width: "100%", height: 300 }}>
+                       {status === "success" && data && maxSalary && (
+                         <ResponsiveContainer width="100%" height="100%">
+                           <BarChart
+                             width={500}
+                             height={300}
+                             data={data}
+                             margin={{
+                               top: 20,
+                               right: 30,
+                               left: 20,
+                               bottom: 5,
+                             }}
+                           >
+                             <CartesianGrid strokeDasharray="3 3" />
+                             <XAxis dataKey="name" />
+                             <YAxis
+                               yAxisId="left"
+                               orientation="left"
+                               stroke="#8884d8"
+                               domain={[0, +maxSalary.expenses]}
+                             />
 
-                                <Tooltip />
-                                <Legend />
-                                <Bar
-                                  yAxisId="left"
-                                  dataKey="expenses"
-                                  fill="#9FD8DF"
-                                />
-                              </BarChart>
-                            </ResponsiveContainer>
-                          )}
-                        </div>
-                      </Card.Body>{" "}
-                    </Card>
-                  </div>
-                </Col>
-              </Row>
+                             <Tooltip />
+                             <Legend />
+                             <Bar
+                               yAxisId="left"
+                               dataKey="expenses"
+                               fill="#9FD8DF"
+                             />
+                           </BarChart>
+                         </ResponsiveContainer>
+                       )}
+                     </div>
+                   </Card.Body>{" "}
+                 </Card>
+               </div>
+             </Col>
+           </Row>}
+          
             </Container>
           </section>
         </>
