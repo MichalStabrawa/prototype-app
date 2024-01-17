@@ -9,3 +9,15 @@ export default function getCurrentDate() {
   }
   return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date}`;
 }
+
+export function getMonthYear() {
+  let newDate = new Date();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+
+  
+  if (month< 10) {
+    return `${year}-${month < 10 ? `0${month}` : `${month}`}`;
+  }
+ 
+}
