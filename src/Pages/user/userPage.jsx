@@ -43,7 +43,7 @@ function UserPage({ isAuthenticated }) {
   const [sumShowExpenses, setShowExpenses] = useState(0);
 
   console.log(`Error? ${error}`);
-  console.log(data.length)
+  console.log(data.length);
 
   const sumSalary = () => {
     if (status === "success") {
@@ -217,66 +217,108 @@ function UserPage({ isAuthenticated }) {
                   </Card>
                 </Col>
               </Row>
-              {data.length&&     <Row>
-             
-             <Col lg={6}>
-              
-             
-             </Col>
-             <Col xs={12} lg={6}>
-               <div className={classes.chart}>
-                 <Card border="light">
-                   {" "}
-                   <Card.Body>
-                     <Card.Subtitle>
-                       Revenue{" "}
-                       <Badge bg="warning">
-                         {" "}
-                         <h5>
-                           min value: {status === "success" && minSalary}
-                         </h5>
-                       </Badge>
-                     </Card.Subtitle>{" "}
-                     <div style={{ width: "100%", height: 300 }}>
-                       {status === "success" && data && maxSalary && (
-                         <ResponsiveContainer width="100%" height="100%">
-                           <BarChart
-                             width={500}
-                             height={300}
-                             data={data}
-                             margin={{
-                               top: 20,
-                               right: 30,
-                               left: 20,
-                               bottom: 5,
-                             }}
-                           >
-                             <CartesianGrid strokeDasharray="3 3" />
-                             <XAxis dataKey="name" />
-                             <YAxis
-                               yAxisId="left"
-                               orientation="left"
-                               stroke="#8884d8"
-                               domain={[0, +maxSalary.expenses]}
-                             />
+              {data.length && (
+                <Row>
+                  <Col lg={6}>        <div className={classes.chart}>
+                    <Card border="light">
+                      {" "}
+                      <Card.Body>
+                        <Card.Subtitle>
+                          Revenue{" "}
+                          <Badge bg="secondary">
+                            {" "}
+                            <h5>
+                              max value:{" "}
+                              {status === "success" && maxSalary.expenses}
+                            </h5>
+                          </Badge>
+                        </Card.Subtitle>{" "}
+                        <div style={{ width: "100%", height: 300 }}>
+                          {status === "success" && (
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart
+                                width={500}
+                                height={400}
+                                data={data}
+                                margin={{
+                                  top: 10,
+                                  right: 30,
+                                  left: 0,
+                                  bottom: 0,
+                                }}
+                              >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, +maxSalary.expenses]} />
+                                <Tooltip />
+                                <Area
+                                  type="monotone"
+                                  dataKey="expenses"
+                                  stroke="#8884d8"
+                                  fill="#AAD9BB"
+                                />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          )}
+                        </div>
+                      </Card.Body>{" "}
+                    </Card>
+                  </div></Col>
+                  <Col xs={12} lg={6}>
+                    <div className={classes.chart}>
+                      <Card border="light">
+                        {" "}
+                        <Card.Body>
+                          <Card.Subtitle>
+                            Revenue{" "}
+                            <Badge bg="warning">
+                              {" "}
+                              <h5>
+                                min value: {status === "success" && minSalary}
+                              </h5>
+                            </Badge>
+                          </Card.Subtitle>{" "}
+                          <div style={{ width: "100%", height: 300 }}>
+                            {status === "success" && data && maxSalary && (
+                              <ResponsiveContainer width="100%" height="100%">
+                                <BarChart
+                                  width={500}
+                                  height={300}
+                                  data={data}
+                                  margin={{
+                                    top: 20,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                  }}
+                                >
+                                  <CartesianGrid strokeDasharray="3 3" />
+                                  <XAxis dataKey="name" />
+                                  <YAxis
+                                    yAxisId="left"
+                                    orientation="left"
+                                    stroke="#8884d8"
+                                    domain={[0, +maxSalary.expenses]}
+                                  />
 
-                             <Tooltip />
-                             <Legend />
-                             <Bar
-                               yAxisId="left"
-                               dataKey="expenses"
-                               fill="#9FD8DF"
-                             />
-                           </BarChart>
-                         </ResponsiveContainer>
-                       )}
-                     </div>
-                   </Card.Body>{" "}
-                 </Card>
-               </div>
-             </Col>
-           </Row>}
-          
+                                  <Tooltip />
+                                  <Legend />
+                                  <Bar
+                                  barSize={20}
+                                    yAxisId="left"
+                                    dataKey="expenses"
+                                    fill="#9FD8DF"
+                                  />
+                                </BarChart>
+                              </ResponsiveContainer>
+                            )}
+                          </div>
+                        </Card.Body>{" "}
+                      </Card>
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </Container>
           </section>
         </>
