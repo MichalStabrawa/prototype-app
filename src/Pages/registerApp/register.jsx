@@ -11,6 +11,7 @@ import loginStyles from "../loginApp/login.module.scss";
 import { Link } from "react-router-dom";
 import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
 import { authActions } from "../../store/auth";
+import Alert from "react-bootstrap/Alert";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -41,14 +42,16 @@ const Register = (props) => {
       dispatch(authActions.login());
       setEmail("");
       setPassword("");
-      setErrorRegister(null)
+      setErrorRegister(null);
     } catch (error) {
       setErrorRegister(error);
       console.error("Error signing up:", error.message);
+      setErrorRegister(error.message);
     }
   };
 
   const addLogin = (e) => {
+    
     const loginValue = e.target.value;
 
     setEmail(loginValue);
@@ -69,14 +72,18 @@ const Register = (props) => {
     if (email !== "" && password !== "" && password === repeatPassword) {
       setEnabledSubmit(false);
     } else {
+  
       setEnabledSubmit(true);
     }
   };
 
+ 
 
   useEffect(() => {
     enabledButton();
   }, [password, repeatPassword]);
+
+
 
   return (
     <div className={loginStyles.login}>
@@ -126,6 +133,12 @@ const Register = (props) => {
               />
               <Link to="..">back</Link>
             </form>
+            {error ===
+              "Firebase: The email address is already in use by another account. (auth/email-already-in-use)." && (
+              <Alert variant="danger">
+                The email address is already in use by another account.
+              </Alert>
+            )}
           </div>
         </Wrapper>
       )}
