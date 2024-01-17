@@ -5,9 +5,10 @@ import { auth } from "../../firebase/firebase";
 import Table from "react-bootstrap/Table";
 import Pagination from "../Paggination/Pagination";
 import { FaUser } from "react-icons/fa";
-import Badge from 'react-bootstrap/Badge';
+import Badge from "react-bootstrap/Badge";
+import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 
-function ShowSavedSalary({title}) {
+function ShowSavedSalary({ title, filter }) {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
@@ -29,44 +30,53 @@ function ShowSavedSalary({title}) {
 
     return sum;
   };
-  console.log('DATA SAVED Salary');
-  console.log(data)
+  console.log("DATA SAVED Salary");
+  console.log(data);
   return (
     <div>
       <p>{title}</p>
       {logInUser && (
         <p className={classes.user}>
-          <FaUser className={classes.user_icon}/>
+          <FaUser className={classes.user_icon} />
           {logInUser.email}
         </p>
       )}
       <div>
         <p className={classes.count}>
-          <span>sum of value:</span> <Badge bg="info"><h5>{countSumOfSalary()} PLN</h5></Badge>
+          <span>sum of value:</span>{" "}
+          <Badge bg="info">
+            <h5>{countSumOfSalary()} PLN</h5>
+          </Badge>
         </p>
       </div>
+
       {status === "success" && (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th> Name</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data &&
-              currentRecords.map((el, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{el.name}</td>
-                    <td>{el.expenses}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </Table>
+        <>
+          <div className={classes.filter}>
+            <FilterShowSalary />
+          </div>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th> Name</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data &&
+                currentRecords.map((el, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{el.name}</td>
+                      <td>{el.expenses}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
+        </>
       )}
       {nPages > 0 && (
         <Pagination
