@@ -292,7 +292,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
               title="Last salary values"
               css="ba_section_full_mobile"
             >
-              <ShowSavedSalary />
+              <ShowSavedSalary filter={false}/>
               <div>
                 <ShowSavedExpenses title="expenses"/>
               </div>

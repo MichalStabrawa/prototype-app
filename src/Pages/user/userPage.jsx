@@ -213,27 +213,8 @@ function UserPage({ isAuthenticated }) {
                   {" "}
                   <Card className={classes.card} border="light">
                     <Card.Body>
-                      <div>
-                        {" "}
-                        <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>Filters</Accordion.Header>
-                            <Accordion.Body>
-                              <InputGroup size="sm" className="mb-3">
-                                <InputGroup.Text id="inputGroup-sizing-sm">
-                                  <FaSearch />
-                                </InputGroup.Text>
-                                <Form.Control
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
-                                />
-                              </InputGroup>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                      </div>
-                      <ShowSavedSalary title="Your revenue" />
-                      <ShowSavedExpenses title="Your expenses" />
+                      <ShowSavedSalary filter={true} title="Your revenue" />
+                      <ShowSavedExpenses filter={true} title="Your expenses" />
                     </Card.Body>
                   </Card>
                 </Col>
