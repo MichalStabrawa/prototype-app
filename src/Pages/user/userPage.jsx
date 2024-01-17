@@ -219,7 +219,51 @@ function UserPage({ isAuthenticated }) {
               </Row>
               {data.length && (
                 <Row>
-                  <Col lg={6}></Col>
+                  <Col lg={6}>        <div className={classes.chart}>
+                    <Card border="light">
+                      {" "}
+                      <Card.Body>
+                        <Card.Subtitle>
+                          Revenue{" "}
+                          <Badge bg="secondary">
+                            {" "}
+                            <h5>
+                              max value:{" "}
+                              {status === "success" && maxSalary.expenses}
+                            </h5>
+                          </Badge>
+                        </Card.Subtitle>{" "}
+                        <div style={{ width: "100%", height: 300 }}>
+                          {status === "success" && (
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart
+                                width={500}
+                                height={400}
+                                data={data}
+                                margin={{
+                                  top: 10,
+                                  right: 30,
+                                  left: 0,
+                                  bottom: 0,
+                                }}
+                              >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, +maxSalary.expenses]} />
+                                <Tooltip />
+                                <Area
+                                  type="monotone"
+                                  dataKey="expenses"
+                                  stroke="#8884d8"
+                                  fill="#AAD9BB"
+                                />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          )}
+                        </div>
+                      </Card.Body>{" "}
+                    </Card>
+                  </div></Col>
                   <Col xs={12} lg={6}>
                     <div className={classes.chart}>
                       <Card border="light">
