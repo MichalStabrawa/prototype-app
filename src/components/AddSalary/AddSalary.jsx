@@ -9,10 +9,12 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
-import Badge from 'react-bootstrap/Badge'
+import Badge from "react-bootstrap/Badge";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
+import getCurrentDate from "../../utils/dateFunction";
+import { getMonthYear } from "../../utils/dateFunction";
 
-const AddSalary = ({sectionRef}) => {
+const AddSalary = ({ sectionRef }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,8 +27,12 @@ const AddSalary = ({sectionRef}) => {
   });
   const [formData, setFormData] = useState({
     name: "",
-    expenses: "",
+    expenses: 0,
+    category: "",
     id: null,
+    fullDate: "",
+    monthYear: "",
+    deadline: "off",
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
@@ -34,7 +40,21 @@ const AddSalary = ({sectionRef}) => {
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value, id: uniqueId });
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: name === "expenses" ? +value : value,
+      id: uniqueId,
+      fullDate: getCurrentDate(),
+      monthYear: getMonthYear(),
+    }));
+    setData((prevFormData) => ({
+      ...prevFormData,
+      [name]: name === "expenses" ? +value : value,
+      id: uniqueId,
+      fullDate: getCurrentDate(),
+      monthYear: getMonthYear(),
+    }));
     setOpenAlert(false);
   };
 
@@ -43,14 +63,18 @@ const AddSalary = ({sectionRef}) => {
     setTableData((prev) => [...prev, formData]);
     setFormData({
       name: "",
-      expenses: "",
+      expenses: 0,
+      category: "",
       id: null,
+      fullDate: "",
+      monthYear: "",
+      deadline: "off",
     });
   };
 
   const countTableValue = () => {
     const sum = tableData.reduce((prev, cur) => {
-      return prev + +cur.expenses;
+      return prev + cur.expenses;
     }, 0);
 
     return sum;
@@ -102,7 +126,15 @@ const AddSalary = ({sectionRef}) => {
       console.log("Save DATA salary");
 
       // Clear the data input fields after adding
-      setData({ name: "", date: "", uniqueId: "", value: "" });
+      setData({
+        name: "",
+        expenses: 0,
+        category: "",
+        id: null,
+        fullDate: "",
+        monthYear: "",
+        deadline: "off",
+      });
       setTableData([]);
       setOpenAlert(true);
       dispatch(fetchUserSalary({ auth: auth, database: database }));
@@ -143,6 +175,18 @@ const AddSalary = ({sectionRef}) => {
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
+          <Form.Select onChange={handleInputChange} size="lg" name="category">
+            <option>Category</option>
+            <option value="salary">Salary</option>
+            <option value="bonus">Bonus</option>
+          </Form.Select>
+          <Form.Check
+            onChange={handleInputChange}
+            name="deadline" // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label={formData.deadline === "on"? 'Deadline': 'Not deadline'}
+          />
           <Button size="lg" variant="primary" type="submit">
             Add +
           </Button>{" "}
