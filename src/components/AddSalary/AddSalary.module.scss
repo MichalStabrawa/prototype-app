@@ -11,7 +11,16 @@
 
 .salary {
   margin-bottom: 20px;
-  padding-bottom: 20px;;
+  padding-bottom: 20px;
+
+  .formTextCustom {
+    padding:0 0 10px;
+    color: rgba(33, 37, 41, 0.75);
+    margin-bottom: 10px;
+    display: inline-block;
+
+    // Add any other styles you need
+  }
 }
 
 .table {

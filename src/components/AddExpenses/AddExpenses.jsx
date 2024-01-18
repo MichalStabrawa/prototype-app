@@ -12,6 +12,8 @@ import Alert from "react-bootstrap/Alert";
 import CloseButton from "react-bootstrap/CloseButton";
 import Badge from "react-bootstrap/Badge";
 import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
+import getCurrentDate from "../../utils/dateFunction";
+import { getMonthYear } from "../../utils/dateFunction";
 
 const AddExpenses = ({ sectionRef }) => {
   const dispatch = useDispatch();
@@ -20,22 +22,53 @@ const AddExpenses = ({ sectionRef }) => {
   const [user, setUser] = useState(null);
   const [data, setData] = useState({
     name: "",
-    date: "",
-    uniqueId: "",
-    value: "",
+    expenses: 0,
+    category: "",
+    id: null,
+    fullDate: "",
+    monthYear: "",
+    deadline: "off",
   });
   const [formData, setFormData] = useState({
     name: "",
-    expenses: "",
+    expenses: 0,
+    category: "",
     id: null,
+    fullDate: "",
+    monthYear: "",
+    deadline: "off",
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value, id: uniqueId });
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      // Handle checkbox separately
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: checked ? "on" : "off", // Update checkbox value to 'on' or 'off'
+      }));
+    } else {
+      // Handle other input types
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value.toUpperCase(),
+        id: uniqueId,
+        fullDate: getCurrentDate(),
+        monthYear: getMonthYear(),
+      }));
+      setData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value,
+        id: uniqueId,
+        fullDate: getCurrentDate(),
+        monthYear: getMonthYear(),
+      }));
+    }
+
     setOpenAlert(false);
   };
 
@@ -44,14 +77,18 @@ const AddExpenses = ({ sectionRef }) => {
     setTableData((prev) => [...prev, formData]);
     setFormData({
       name: "",
-      expenses: "",
+      expenses: 0,
+      category: "",
       id: null,
+      fullDate: "",
+      monthYear: "",
+      deadline: "off",
     });
   };
 
   const countTableValue = () => {
     const sum = tableData.reduce((prev, cur) => {
-      return prev + +cur.expenses;
+      return prev + cur.expenses;
     }, 0);
 
     return sum;
@@ -103,7 +140,15 @@ const AddExpenses = ({ sectionRef }) => {
       console.log("Save DATA expenses");
 
       // Clear the data input fields after adding
-      setData({ name: "", date: "", uniqueId: "", value: "" });
+      setData({
+        name: "",
+        expenses: 0,
+        category: "",
+        id: null,
+        fullDate: "",
+        monthYear: "",
+        deadline: "off",
+      });
       setTableData([]);
       setOpenAlert(true);
       dispatch(fetchUserExpenses({ auth: auth, database: database }));
@@ -140,9 +185,28 @@ const AddExpenses = ({ sectionRef }) => {
               value={formData.expenses}
               onChange={handleInputChange}
               size="lg"
+              min="0"
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Add category</Form.Label>
+            <Form.Select onChange={handleInputChange} size="lg" name="category">
+              <option>Category</option>
+              <option value="salary">Salary</option>
+              <option value="bonus">Bonus</option>
+            </Form.Select>
+            <Form.Text className={classes.formTextCustom}>
+              Add your name salary, bonuses or other income
+            </Form.Text>
+          </Form.Group>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            label={formData.deadline === "on" ? "Deadline" : "Not deadline"}
+            name="deadline"
+            onChange={handleInputChange}
+          />
           <Button size="lg" variant="primary" type="submit">
             Add +
           </Button>{" "}

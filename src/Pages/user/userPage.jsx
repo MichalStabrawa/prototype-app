@@ -227,10 +227,10 @@ function UserPage({ isAuthenticated }) {
                           Revenue{" "}
                           <Badge bg="secondary">
                             {" "}
-                            <h5>
+                            <span className={classes.badge}>
                               max value:{" "}
                               {status === "success" && maxSalary.expenses}
-                            </h5>
+                            </span>
                           </Badge>
                         </Card.Subtitle>{" "}
                         <div style={{ width: "100%", height: 300 }}>

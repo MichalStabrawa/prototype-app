@@ -26,7 +26,11 @@ export const fetchUserSalary = createAsyncThunk(
             loadedSalary.push({
               name: data[key][innerKey].name,
               expenses: data[key][innerKey].expenses,
+              category: data[key][innerKey].category,
               id: data[key][innerKey].id,
+              fullDate: data[key][innerKey].fullDate,
+              monthYear: data[key][innerKey].monthYear,
+              deadline: data[key][innerKey].deadline
             });
           }
         }

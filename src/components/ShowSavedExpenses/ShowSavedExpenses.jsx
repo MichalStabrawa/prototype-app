@@ -83,27 +83,34 @@ function ShowSavedExpenses({ title, filter }) {
               handleCheckbox={handleSwitchToggle}
             />
           </div>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th> Name</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data &&
-                currentRecords.map((el, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{el.name}</td>
-                      <td>{el.expenses}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+          <div>
+            {" "}
+            <Table  responsive="sm" striped  hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th> Name</th>
+                  <th>Value</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data &&
+                  currentRecords.map((el, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{el.name}</td>
+                        <td>{el.expenses}</td>
+                        <td>{el.category}</td>
+                        <td>{el.fullDate}</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+          </div>
         </>
       )}
       {nPages > 0 && data.length > 10 && (
