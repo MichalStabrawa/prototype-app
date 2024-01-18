@@ -43,22 +43,32 @@ const AddExpenses = ({ sectionRef }) => {
 
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: name === "expenses" ? +value : value.toUpperCase(),
-      id: uniqueId,
-      fullDate: getCurrentDate(),
-      monthYear: getMonthYear(),
-    }));
-    setData((prevFormData) => ({
-      ...prevFormData,
-      [name]: name === "expenses" ? +value : value,
-      id: uniqueId,
-      fullDate: getCurrentDate(),
-      monthYear: getMonthYear(),
-    }));
+    if (type === "checkbox") {
+      // Handle checkbox separately
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: checked ? "on" : "off", // Update checkbox value to 'on' or 'off'
+      }));
+    } else {
+      // Handle other input types
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value.toUpperCase(),
+        id: uniqueId,
+        fullDate: getCurrentDate(),
+        monthYear: getMonthYear(),
+      }));
+      setData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value,
+        id: uniqueId,
+        fullDate: getCurrentDate(),
+        monthYear: getMonthYear(),
+      }));
+    }
+
     setOpenAlert(false);
   };
 
@@ -179,6 +189,24 @@ const AddExpenses = ({ sectionRef }) => {
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Add category</Form.Label>
+            <Form.Select onChange={handleInputChange} size="lg" name="category">
+              <option>Category</option>
+              <option value="salary">Salary</option>
+              <option value="bonus">Bonus</option>
+            </Form.Select>
+            <Form.Text className={classes.formTextCustom}>
+              Add your name salary, bonuses or other income
+            </Form.Text>
+          </Form.Group>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            label={formData.deadline === "on" ? "Deadline" : "Not deadline"}
+            name="deadline"
+            onChange={handleInputChange}
+          />
           <Button size="lg" variant="primary" type="submit">
             Add +
           </Button>{" "}

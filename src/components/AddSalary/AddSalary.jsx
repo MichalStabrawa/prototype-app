@@ -173,9 +173,9 @@ const AddSalary = ({ sectionRef }) => {
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
-          <Form.Label>Add category</Form.Label>
+       
           <Form.Group>
-            {" "}
+          <Form.Label>Add category</Form.Label>
             <Form.Select onChange={handleInputChange} size="lg" name="category">
               <option>Category</option>
               <option value="salary">Salary</option>
