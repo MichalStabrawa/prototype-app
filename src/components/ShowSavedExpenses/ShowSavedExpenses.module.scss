@@ -1,18 +1,25 @@
-@import '../..//styles/main';
+@import "../..//styles/main";
 
 .save {
-  
 }
 
 .count {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .user {
-    text-align: right;
+  text-align: right;
 }
 
 .user_icon {
-    color:green;
-    margin-right: 10px;
+  color: green;
+  margin-right: 10px;
+}
+
+.icon_off {
+  color: $pastelRed;
+}
+
+.icon_on {
+  color: $pastelGreenRegular;
 }

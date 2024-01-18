@@ -8,6 +8,8 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
+import { FaCalendarPlus } from "react-icons/fa";
+import { FaCalendarTimes } from "react-icons/fa";
 
 function ShowSavedExpenses({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
@@ -85,7 +87,7 @@ function ShowSavedExpenses({ title, filter }) {
           </div>
           <div>
             {" "}
-            <Table  responsive="sm" striped  hover>
+            <Table responsive="sm" striped hover>
               <thead>
                 <tr>
                   <th>#</th>
@@ -93,6 +95,7 @@ function ShowSavedExpenses({ title, filter }) {
                   <th>Value</th>
                   <th>Category</th>
                   <th>Date</th>
+                  <th>Deadline</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,6 +108,20 @@ function ShowSavedExpenses({ title, filter }) {
                         <td>{el.expenses}</td>
                         <td>{el.category}</td>
                         <td>{el.fullDate}</td>
+                        <td>
+                          {el.deadline === "off" && (
+                            <FaCalendarTimes
+                              size={20}
+                              className={classes.icon_off}
+                            />
+                          )}
+                          {el.deadline === "on" && (
+                            <FaCalendarPlus
+                              size={20}
+                              className={classes.icon_on}
+                            />
+                          )}{" "}
+                        </td>
                       </tr>
                     );
                   })}
