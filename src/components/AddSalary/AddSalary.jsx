@@ -32,7 +32,6 @@ const AddSalary = ({ sectionRef }) => {
     id: null,
     fullDate: "",
     monthYear: "",
-    deadline: "off",
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
@@ -43,7 +42,7 @@ const AddSalary = ({ sectionRef }) => {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: name === "expenses" ? +value : value,
+      [name]: name === "expenses" ? +value : value.toUpperCase(),
       id: uniqueId,
       fullDate: getCurrentDate(),
       monthYear: getMonthYear(),
@@ -68,7 +67,6 @@ const AddSalary = ({ sectionRef }) => {
       id: null,
       fullDate: "",
       monthYear: "",
-      deadline: "off",
     });
   };
 
@@ -133,7 +131,6 @@ const AddSalary = ({ sectionRef }) => {
         id: null,
         fullDate: "",
         monthYear: "",
-        deadline: "off",
       });
       setTableData([]);
       setOpenAlert(true);
@@ -172,21 +169,20 @@ const AddSalary = ({ sectionRef }) => {
               value={formData.expenses}
               onChange={handleInputChange}
               size="lg"
+              min="0"
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
-          <Form.Select onChange={handleInputChange} size="lg" name="category">
+          <Form.Label>Add category</Form.Label>
+          <Form.Group>    <Form.Select onChange={handleInputChange} size="lg" name="category">
             <option>Category</option>
             <option value="salary">Salary</option>
             <option value="bonus">Bonus</option>
           </Form.Select>
-          <Form.Check
-            onChange={handleInputChange}
-            name="deadline" // prettier-ignore
-            type="switch"
-            id="custom-switch"
-            label={formData.deadline === "on"? 'Deadline': 'Not deadline'}
-          />
+            <Form.Text className="text-muted">
+              Add your name salary, bonuses or other income
+            </Form.Text></Form.Group>
+      
           <Button size="lg" variant="primary" type="submit">
             Add +
           </Button>{" "}
