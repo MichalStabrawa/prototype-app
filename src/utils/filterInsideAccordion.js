@@ -7,9 +7,9 @@ export const filterSearchData = (isChecked,dataSaved,search,setData) => {
       setData(filterData);
     } else {
       const filterData = [...dataSaved].filter((el) =>
-        el.expenses.toLowerCase().includes(search)
-      );
-      console.log(filterData);
-      setData(filterData);
+      Array.isArray(el.expenses) && el.expenses.includes(search)
+    );
+    console.log(filterData);
+    setData(filterData);
     }
   };
