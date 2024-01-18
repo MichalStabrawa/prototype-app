@@ -173,19 +173,28 @@ const AddSalary = ({ sectionRef }) => {
             />
             <Form.Text className="text-muted">Add value</Form.Text>
           </Form.Group>
-       
           <Form.Group>
-          <Form.Label>Add category</Form.Label>
-            <Form.Select onChange={handleInputChange} size="lg" name="category">
-              <option>Category</option>
+            <Form.Label>Add category</Form.Label>
+            <Form.Select onChange={handleInputChange} name="category">
+              <option value=''>Category</option>
               <option value="salary">Salary</option>
               <option value="bonus">Bonus</option>
+              <option value="other">Other</option>
             </Form.Select>
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income
             </Form.Text>
           </Form.Group>
-          <Button size="lg" variant="primary" type="submit">
+          <Button
+            size="lg"
+            variant="primary"
+            type="submit"
+            disabled={
+              formData.name === "" ||
+              formData.expenses === 0 ||
+              formData.category === ""
+            }
+          >
             Add +
           </Button>{" "}
           <Button

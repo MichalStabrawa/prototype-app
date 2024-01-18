@@ -31,7 +31,7 @@ function ShowSavedSalary({ title, filter }) {
 
   const countSumOfSalary = () => {
     const sum = [...dataSaved].reduce((prev, curr) => {
-      return prev + +curr.expenses;
+      return prev + curr.expenses;
     }, 0);
 
     return sum;

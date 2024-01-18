@@ -74,6 +74,7 @@ const AddExpenses = ({ sectionRef }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setTableData((prev) => [...prev, formData]);
     setFormData({
       name: "",
@@ -159,6 +160,8 @@ const AddExpenses = ({ sectionRef }) => {
     setOpenAlert(false);
   };
 
+  console.log(formData)
+
   return (
     <div className={classes.expenses}>
       <h5>Add expenses</h5>
@@ -191,10 +194,13 @@ const AddExpenses = ({ sectionRef }) => {
           </Form.Group>
           <Form.Group>
             <Form.Label>Add category</Form.Label>
-            <Form.Select onChange={handleInputChange} size="lg" name="category">
-              <option>Category</option>
-              <option value="salary">Salary</option>
-              <option value="bonus">Bonus</option>
+            <Form.Select onChange={handleInputChange} name="category">
+              <option value=''>Category</option>
+              <option value="home">Home</option>
+              <option value="credits">Credits</option>
+              <option value="car">Car</option>
+              <option value="education">Education</option>
+              <option value="other">Other</option>
             </Form.Select>
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income
@@ -207,7 +213,16 @@ const AddExpenses = ({ sectionRef }) => {
             name="deadline"
             onChange={handleInputChange}
           />
-          <Button size="lg" variant="primary" type="submit">
+          <Button
+            size="lg"
+            variant="primary"
+            type="submit"
+            disabled={
+             ( formData.name === "" ||
+              formData.expenses === 0 ||
+              formData.category === "")
+            }
+          >
             Add +
           </Button>{" "}
           <Button

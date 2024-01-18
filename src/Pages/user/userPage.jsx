@@ -229,7 +229,7 @@ function UserPage({ isAuthenticated }) {
                             {" "}
                             <span className={classes.badge}>
                               max value:{" "}
-                              {status === "success" && maxSalary.expenses}
+                              {status === "success" && maxSalary && maxSalary.expenses}
                             </span>
                           </Badge>
                         </Card.Subtitle>{" "}
@@ -249,7 +249,7 @@ function UserPage({ isAuthenticated }) {
                               >
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
-                                <YAxis domain={[0, +maxSalary.expenses]} />
+                                <YAxis domain={[0, maxSalary.expenses]} />
                                 <Tooltip />
                                 <Area
                                   type="monotone"
