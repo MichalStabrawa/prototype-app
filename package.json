@@ -121,6 +121,7 @@
     "eslint-webpack-plugin": "^4.0.1",
     "firebase": "^10.7.2",
     "gh-pages": "^6.1.0",
+    "redux-mock-store": "^1.5.4",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "webpack": "^5.89.0"
