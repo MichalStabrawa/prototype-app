@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function BartChart(props) {
+ function BartChart(props) {
   const { data } = props;
 
   return (
@@ -48,3 +48,5 @@ export default function BartChart(props) {
     </ResponsiveContainer>
   );
 }
+
+export default BartChart

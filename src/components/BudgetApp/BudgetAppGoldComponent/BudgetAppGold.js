@@ -22,7 +22,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 
-export default function BudgetAppGold({ props }) {
+ function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -172,3 +172,5 @@ export default function BudgetAppGold({ props }) {
     </Wrapper>
   );
 }
+
+export default BudgetAppGold

@@ -7,3 +7,4 @@ const maxValue = (arr) => {
 };
 
 export default maxValue;
+
