@@ -10,6 +10,7 @@ import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { FaCalendarPlus } from "react-icons/fa";
 import { FaCalendarTimes } from "react-icons/fa";
+import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 
 function ShowSavedExpenses({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
@@ -21,6 +22,7 @@ function ShowSavedExpenses({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState(null);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -37,6 +39,10 @@ function ShowSavedExpenses({ title, filter }) {
     }, 0);
 
     return sum;
+  };
+
+  const radioChecked = (event) => {
+    setSelectedRadio(event.target.value);
   };
 
   const handleSearchInput = (e) => {
@@ -56,6 +62,10 @@ function ShowSavedExpenses({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+    sortSalaryExpenses(data, selectedRadio, setData);
+  }, [selectedRadio]);
 
   return (
     <div>
@@ -83,6 +93,8 @@ function ShowSavedExpenses({ title, filter }) {
               filter={filter}
               isChecked={isChecked}
               handleCheckbox={handleSwitchToggle}
+              radioChecked={radioChecked}
+              selectedRadio={selectedRadio}
             />
           </div>
           <div>
