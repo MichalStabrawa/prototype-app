@@ -8,6 +8,7 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
+import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 
 function ShowSavedSalary({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserSalary.data);
@@ -63,16 +64,7 @@ function ShowSavedSalary({ title, filter }) {
   }, [search]);
 
   useEffect(() => {
-    if (selectedRadio === "az") {
-      const sortedArrayAZ = [...data].sort((a, b) => a.name.localeCompare(b.name));
-
-      setData(sortedArrayAZ);
-    }
-    else {
-      const sortedArrayZA = [...data].sort((a,b)=>b.name.localeCompare(a.name))
-      setData(sortedArrayZA);
-      
-    }
+   sortSalaryExpenses(data,selectedRadio,setData)
   }, [selectedRadio]);
 
   return (
