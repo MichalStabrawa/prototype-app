@@ -7,14 +7,17 @@ import { Provider } from "react-redux"; // Import the Provider
 import configureStore from "redux-mock-store"; // You may need to install this package
 
 import HeaderComponent from "./HeaderComponent";
+import ResponsiveCarousel from "../Carousel/ResponsiveCarousel/ResponsiveCarousel";
 
 const mockStore = configureStore();
 const store = mockStore({ currency: { data: null, status: "idle" } });
 
-test("Header render", () => {
-  render(
-    <Provider store={store}>
-      <HeaderComponent />
-    </Provider>
-  );
+describe("Header render", () => {
+  test("Header render", () => {
+    render(
+      <Provider store={store}>
+        <HeaderComponent />
+      </Provider>
+    );
+  });
 });
