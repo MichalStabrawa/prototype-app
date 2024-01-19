@@ -8,6 +8,7 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
+import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 
 function ShowSavedSalary({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserSalary.data);
@@ -19,6 +20,9 @@ function ShowSavedSalary({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [checked, setRadioChecked] = useState("");
+
+  const [selectedRadio, setSelectedRadio] = useState(null);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -35,6 +39,10 @@ function ShowSavedSalary({ title, filter }) {
     }, 0);
 
     return sum;
+  };
+
+  const radioChecked = (event) => {
+    setSelectedRadio(event.target.value);
   };
 
   const handleSearchInput = (e) => {
@@ -54,6 +62,10 @@ function ShowSavedSalary({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+   sortSalaryExpenses(data,selectedRadio,setData)
+  }, [selectedRadio]);
 
   return (
     <div>
@@ -81,12 +93,14 @@ function ShowSavedSalary({ title, filter }) {
               change={handleSearchInput}
               isChecked={isChecked}
               handleCheckbox={handleSwitchToggle}
+              radioChecked={radioChecked}
+              selectedRadio={selectedRadio}
             />
           </div>
           {search}
           <div>
             {" "}
-            <Table responsive="sm" striped  hover >
+            <Table responsive="sm" striped hover>
               <thead>
                 <tr>
                   <th>#</th>
