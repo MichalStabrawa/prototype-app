@@ -20,8 +20,6 @@ function ShowSavedSalary({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
-  const [checked, setRadioChecked] = useState("");
-
   const [selectedRadio, setSelectedRadio] = useState(null);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -64,7 +62,7 @@ function ShowSavedSalary({ title, filter }) {
   }, [search]);
 
   useEffect(() => {
-   sortSalaryExpenses(data,selectedRadio,setData)
+    sortSalaryExpenses(data, selectedRadio, setData);
   }, [selectedRadio]);
 
   return (

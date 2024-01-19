@@ -5,14 +5,12 @@ export const sortSalaryExpenses = (data, selectedRadio, setData) => {
     );
 
     setData(sortedArrayAZ);
-  } else if(selectedRadio ==="za") {
+  } else if (selectedRadio === "za") {
     const sortedArrayZA = [...data].sort((a, b) =>
       b.name.localeCompare(a.name)
     );
     setData(sortedArrayZA);
-  }
-
-  else {
-    return null
+  } else {
+    return null;
   }
 };
