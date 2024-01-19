@@ -19,6 +19,9 @@ function ShowSavedSalary({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [checked, setRadioChecked] = useState("");
+
+  const [selectedRadio, setSelectedRadio] = useState(null);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -35,6 +38,10 @@ function ShowSavedSalary({ title, filter }) {
     }, 0);
 
     return sum;
+  };
+
+  const radioChecked = (event) => {
+    setSelectedRadio(event.target.value);
   };
 
   const handleSearchInput = (e) => {
@@ -54,6 +61,19 @@ function ShowSavedSalary({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+    if (selectedRadio === "az") {
+      const sortedArrayAZ = [...data].sort((a, b) => a.name.localeCompare(b.name));
+
+      setData(sortedArrayAZ);
+    }
+    else {
+      const sortedArrayZA = [...data].sort((a,b)=>b.name.localeCompare(a.name))
+      setData(sortedArrayZA);
+      
+    }
+  }, [selectedRadio]);
 
   return (
     <div>
@@ -81,12 +101,14 @@ function ShowSavedSalary({ title, filter }) {
               change={handleSearchInput}
               isChecked={isChecked}
               handleCheckbox={handleSwitchToggle}
+              radioChecked={radioChecked}
+              selectedRadio={selectedRadio}
             />
           </div>
           {search}
           <div>
             {" "}
-            <Table responsive="sm" striped  hover >
+            <Table responsive="sm" striped hover>
               <thead>
                 <tr>
                   <th>#</th>
