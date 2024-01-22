@@ -22,7 +22,7 @@ return (
       <YAxis  domain={[ 'dataMax']}/>
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="cena" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line type="monotone" dataKey="cena" stroke="#F2921D" activeDot={{ r: 8 }} />
       <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
     </LineChart>
   </ResponsiveContainer>
