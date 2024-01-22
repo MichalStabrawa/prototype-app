@@ -1,8 +1,8 @@
 @import "../../styles/main";
 
 .header {
-  background-color: goldenrod;
-  margin-top: 20px;
+  background-color: $goldPaste;
+  
   color: $darkblue;
 
   &_description {
@@ -11,7 +11,7 @@
 
   .icon_wrapper {
     display: inline-block;
-    background-color: $darkblue;
+    background-color: $goldBack2;
     color: gold;
     display: inline-flex;
     justify-content: center;
@@ -29,6 +29,19 @@
   }
   .title {
     margin-bottom: 40px;
+    display:flex;
+    align-items: center;
+    .gold_icon {
+      display: flex;
+      width: 46px;
+      height: 46px;
+      background-color: $goldBack2;
+      margin-right: 10px;
+      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+      color: $goldPaste;
+    }
   }
 
   .prev_price {
@@ -107,4 +120,6 @@
   .amount {
     margin-right: 5px;
   }
+
+ 
 }

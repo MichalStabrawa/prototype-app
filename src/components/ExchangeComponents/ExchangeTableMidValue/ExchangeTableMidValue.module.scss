@@ -34,10 +34,11 @@
   }
 
   .code {
-    background: $darkbluelight;
-    color: #fff;
-    border-bottom: 1px solid;
-    border-left: 1px solid $darkbluelight;
+    background: #BFCFE7;
+    color: $darkblue;
+    border-bottom: 1px solid #fff;
+    font-weight: 700;
+    border-left: 1px solid #BFCFE7;
   }
 
   .currency,
