@@ -8,13 +8,17 @@ const BudgetAppSection = ({ props, css, icon, title, children }) => {
     <div className={`${classes.ba_section} ${classes[additionalCss]}`}>
       <div className={classes.wrapper_}>
         <h1 className={classes.title}>
-          {icon === "gold" ? (
+          {icon === "gold" && (
             <span className={classes.icon_gold}>
               <GiGoldStack />
             </span>
-          ) : (
-            <span className={classes.icon_exchange}><FaExchangeAlt/></span>
           )}
+          {icon === "exchange" && (
+            <span className={classes.icon_exchange}>
+              <FaExchangeAlt />
+            </span>
+          )}
+
           {title}
         </h1>
       </div>

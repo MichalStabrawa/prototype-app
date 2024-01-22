@@ -7,7 +7,7 @@ import BudgetAppSection from "../BudgetAppSection/BudgetAppSection";
 import classes from "./BudgetAppComponent.module.scss";
 import buttonStyles from "./../../UI/Button/Button.module.scss";
 import BudgetAppTable from "../BudgetAppTable/BudgetAppTable";
-import Reducer from "./../../../store/store";
+import Reducer from "../../../store/store";
 import BudgetAppExchange from "../BudgetAppExchangeComponent/BudgetAppExchange";
 import fetchBudgetAppSalary from "../../../store/fetchBudgetAppSalary";
 import getCurrentDate from "../../../utils/dateFunction";
@@ -263,7 +263,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
   return (
     <section className={classes.budgetapp}>
       <div className={classes.bapp_wrapper}>
-        <BudgetAppSection title="Exchange rates" css="ba_section-full">
+        <BudgetAppSection title="Exchange rates" icon="exchange" css="ba_section-full">
           <BudgetAppExchange
             css="wrapper-content"
             exchangeValue={exchangeValue}
