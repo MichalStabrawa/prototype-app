@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import {
   fetchNbpGold,
@@ -20,7 +20,6 @@ import { FaInfoCircle } from "react-icons/fa";
 import { VscLaw } from "react-icons/vsc";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -77,7 +76,7 @@ export default function BudgetAppGold({ props }) {
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <Card>
+          <Card border='light'>
             <Card.Header>
               <h4>Current gold price</h4>
             </Card.Header>
@@ -162,12 +161,10 @@ export default function BudgetAppGold({ props }) {
         </div>
       </div>
       <div className={classes.btn_section}>
-      <NavLink to="gold">
-            {" "}
-            <Button  variant="outline-secondary">
-             More...
-            </Button>
-          </NavLink>
+        <NavLink to="gold">
+          {" "}
+          <Button variant="outline-secondary">More...</Button>
+        </NavLink>
       </div>
     </Wrapper>
   );

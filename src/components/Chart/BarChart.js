@@ -35,13 +35,13 @@ export default function BartChart(props) {
         <Bar
           dataKey="currentlyPrice"
           barSize={20}
-          fill="#8884d8"
+          fill="#F2921D"
           activeBar={<Rectangle fill="pink" stroke="blue" />}
         />
         <Bar
           dataKey="chosenData"
           barSize={20}
-          fill="#82ca9d"
+          fill="#A61F69"
           activeBar={<Rectangle fill="gold" stroke="purple" />}
         />
       </BarChart>

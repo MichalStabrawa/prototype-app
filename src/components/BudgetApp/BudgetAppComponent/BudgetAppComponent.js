@@ -270,7 +270,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
             addHandlerInput={addHandlerInput}
           />
         </BudgetAppSection>
-        <BudgetAppSection title="Gold price" css="ba_section-full">
+        <BudgetAppSection title="Gold price" icon="gold" css="ba_section-full">
           <BudgetAppGold />
         </BudgetAppSection>
 

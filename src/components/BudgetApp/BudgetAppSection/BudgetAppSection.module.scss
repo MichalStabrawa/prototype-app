@@ -5,6 +5,7 @@
     background-color: $white;
     box-shadow: $boxshadow2;
     border-radius: 8px;
+    color:#334565;
     
 }
 
@@ -19,4 +20,30 @@
     @media(min-width:768px) {
         grid-column: auto;
     }
+}
+.icon_exchange {
+    height: 48px;
+    width:48px;
+    background:#F8EDFF ;
+    color:#BFCFE7;
+    display:flex;
+    border-radius:8px;
+    justify-content: center;
+    margin-right: 10px;
+    align-items: center;;
+}
+.icon_gold {
+    height: 48px;
+    width:48px;
+    background:#A61F69 ;
+    color:#eec759;
+    display:flex;
+    border-radius:8px;
+    justify-content: center;
+    margin-right: 10px;;
+}
+
+.title {
+    display:flex;
+    margin-bottom: 40px;
 }
