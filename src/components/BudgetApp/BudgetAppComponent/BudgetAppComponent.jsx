@@ -283,6 +283,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
             <BudgetAppSection
               title="Add salary or other income"
               css="ba_section_full_mobile"
+              icon="salary"
             >
               {" "}
               <div>
@@ -295,6 +296,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
             <BudgetAppSection
               title="Last salary values"
               css="ba_section_full_mobile"
+              icon="salaryTab"
             >
               <ShowSavedSalary filter={false} />
               <div>

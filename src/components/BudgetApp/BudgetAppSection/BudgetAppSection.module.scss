@@ -21,7 +21,7 @@
   }
 }
 .icon_exchange,
-.icon_gold {
+.icon_gold,.icon_salary,.icon_salary_tab {
   height: 48px;
   width: 48px;
   display: flex;
@@ -38,6 +38,18 @@
 .icon_exchange {
   background: #f8edff;
   color: #bfcfe7;
+}
+
+.icon_salary {
+    background-color: $pastelGreenRegular;
+    color:$goldBackground;
+}
+
+.icon_salary_tab {
+    background-color: $pastelGreenRegular;
+    color: $pinkMedium;
+   
+    
 }
 
 .title {
