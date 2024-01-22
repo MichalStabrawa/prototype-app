@@ -1,6 +1,7 @@
 import classes from "./BudgetAppSection.module.scss";
 import { FaExchangeAlt } from "react-icons/fa";
 import { GiGoldStack } from "react-icons/gi";
+import { GiReceiveMoney } from "react-icons/gi";
 
 const BudgetAppSection = ({ props, css, icon, title, children }) => {
   const additionalCss = css;
@@ -16,6 +17,11 @@ const BudgetAppSection = ({ props, css, icon, title, children }) => {
           {icon === "exchange" && (
             <span className={classes.icon_exchange}>
               <FaExchangeAlt />
+            </span>
+          )}
+             {icon === "salary" && (
+            <span className={classes.icon_salary}>
+              <GiReceiveMoney />
             </span>
           )}
 
