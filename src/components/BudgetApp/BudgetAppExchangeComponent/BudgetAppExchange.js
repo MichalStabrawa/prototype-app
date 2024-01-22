@@ -90,7 +90,7 @@ const BudgetAppExchange = (props) => {
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}></div>
         <div>
-          <Card className="mb-2">
+          <Card className="mb-2" border='light'>
             <Card.Header>
               <span className={classes.card_header}>
                 <span>Table: {table}</span>

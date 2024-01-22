@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FcCurrencyExchange } from "react-icons/fc";
 
-const HeaderComponent = (props) => {
+const HeaderComponent = () => {
   const data = useSelector((state) => state.currency.data);
   const status = useSelector((state) => state.currency.status);
   const [dataCurrentLast, setDataCurrentLast] = useState(null);

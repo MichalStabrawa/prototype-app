@@ -8,7 +8,7 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./bidask.module.scss";
 
 import Form from "react-bootstrap/Form";
-import { BsCurrencyExchange } from "react-icons/bs";
+import { FcCurrencyExchange } from "react-icons/fc";
 
 import { fetchNbpTableC } from "../../store/currencyApiNbp/currencyFetchTableC";
 import TableBidAsk from "../../components/UI/TableBidAsk/TableBidAsk";
@@ -131,7 +131,12 @@ function BidAsk() {
     <>
       <Wrapper css="dark_blue">
         <header className={classes.header}>
-          <h1 className={classes.title}>Bid & Ask currency <span><BsCurrencyExchange /></span></h1>
+          <h1 className={classes.title}>
+            Bid & Ask currency{" "}
+            <span>
+              <FcCurrencyExchange />
+            </span>
+          </h1>
           {currency.length > 0 ? (
             <div className={classes.carousel}>
               <ResponsiveCarousel
@@ -212,12 +217,7 @@ function BidAsk() {
                   </div>
                 </Col>
               </Col>
-              <Col>
-                {" "}
-              
-                  {status === "success" && <TableBidAsk data={data} />}
-              
-              </Col>
+              <Col> {status === "success" && <TableBidAsk data={data} />}</Col>
             </Row>
             <Row>
               <Col>

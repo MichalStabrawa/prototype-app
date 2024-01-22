@@ -33,8 +33,7 @@ import ExchangeTopLastChart from "../../components/ExchangeComponents/ExchangeTo
 import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import ExchangeFromToDate from "../../components/ExchangeComponents/ExchangeFromToDate/ExchangeFromToDate";
 import { Link, useParams } from "react-router-dom";
-
-import { BsCurrencyExchange } from "react-icons/bs";
+import { FcCurrencyExchange } from "react-icons/fc";
 import Card from "react-bootstrap/Card";
 
 import "slick-carousel/slick/slick.css";
@@ -192,7 +191,7 @@ const ExchangeRates = (props) => {
           <h1 className={classes.title}>
             Exchange Rates{" "}
             <span>
-              <BsCurrencyExchange />
+              <FcCurrencyExchange />
             </span>
           </h1>
           {currency.length > 0 ? (
@@ -377,10 +376,11 @@ const ExchangeRates = (props) => {
                       <span className={classes.btn_wrapper}>
                         {" "}
                         <Button
-                          
                           onClick={props.click}
                           disabled={singleCurrency === null || compareDataLive}
-                        >Check</Button>
+                        >
+                          Check
+                        </Button>
                       </span>
                     </Card.Text>
                   </Card.Body>
