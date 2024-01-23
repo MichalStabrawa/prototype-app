@@ -14,6 +14,7 @@ import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 import getCurrentDate from "../../utils/dateFunction";
 import { getMonthYear } from "../../utils/dateFunction";
 
+
 const AddSalary = ({ sectionRef }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");

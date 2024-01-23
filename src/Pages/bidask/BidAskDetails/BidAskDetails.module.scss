@@ -1,9 +1,8 @@
 @import "../../../styles/main";
 
 .bid_ask {
+  color:$darkblue;
   header {
-    margin: 20px 0;
-
     h1 {
       color: $graylight;
     }
@@ -55,7 +54,7 @@
   margin-top: 10px;
   padding: 10px 0;
   border-top: 1px solid $graylight;
-  color:#17a2b8; 
+  color: #17a2b8;
 }
 
 .ask {

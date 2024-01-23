@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../../Paggination/Pagination";
 import { MdReadMore } from "react-icons/md";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 
 const TableRates = (props) => {
   const data = props.data;
@@ -36,57 +37,65 @@ const TableRates = (props) => {
   return (
     <>
       <div className={classes.table_rates}>
-        <table className={classes.table}>
-          <thead>
-            <tr>
-              <th>code</th>
-              <th className={classes.currency}>currency</th>
-              <th>value</th>
-              <th>rate arrow</th>
-              <th className={classes.rate}>rate</th>
-              <th>date</th>
-              <th>link</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data &&
-              currentRecords.map((el, index) => {
-                return (
-                  <tr key={index}>
-                    <td className={classes.code}>{el.code}</td>
-                    <td className={classes.currency}>{el.currency}</td>
-                    <td>{el.mid}</td>
-                    <td>
-                      <IconArrow
-                        arrow={getCurrentPrevDifferences(el.mid, el.lastValue)}
-                      />
-                    </td>
-                    <td
-                      className={`${classes.rate} ${
-                        classes[getCurrentPrevDifferences(el.mid, el.lastValue)]
-                      }`}
-                    >
-                      {(el.mid - el.lastValue).toFixed(4)}
-                    </td>
-                    <td className={classes.date}>{effectiveDate}</td>
-                    <td>
-                      <Link to={`/exchange/${el.code}`}>
-                        {" "}
-                        <Button variant="link">
-                          more <MdReadMore />
-                        </Button>{" "}
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-        <Pagination
-          nPages={nPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div className={classes.table_wrapper}>
+          {" "}
+          <Table responsive="sm" striped hover>
+            <thead>
+              <tr>
+                <th>code</th>
+                <th>currency</th>
+                <th>value</th>
+                <th>rate arrow</th>
+                <th className={classes.rate}>rate</th>
+                <th>date</th>
+                <th>link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data &&
+                currentRecords.map((el, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{el.code}</td>
+                      <td>{el.currency}</td>
+                      <td>{el.mid}</td>
+                      <td>
+                        <IconArrow
+                          arrow={getCurrentPrevDifferences(
+                            el.mid,
+                            el.lastValue
+                          )}
+                        />
+                      </td>
+                      <td
+                        className={`${classes.rate} ${
+                          classes[
+                            getCurrentPrevDifferences(el.mid, el.lastValue)
+                          ]
+                        }`}
+                      >
+                        {(el.mid - el.lastValue).toFixed(4)}
+                      </td>
+                      <td className={classes.date}>{effectiveDate}</td>
+                      <td>
+                        <Link to={`/exchange/${el.code}`}>
+                          {" "}
+                          <Button variant="link">
+                            more <MdReadMore />
+                          </Button>{" "}
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </div>
     </>
   );
