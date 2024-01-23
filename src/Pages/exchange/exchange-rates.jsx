@@ -35,6 +35,8 @@ import ExchangeFromToDate from "../../components/ExchangeComponents/ExchangeFrom
 import { Link, useParams } from "react-router-dom";
 import { FcCurrencyExchange } from "react-icons/fc";
 import Card from "react-bootstrap/Card";
+import { FaTable } from "react-icons/fa";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -212,7 +214,10 @@ const ExchangeRates = (props) => {
               {currency.length > 0 ? (
                 <div>
                   <div className={classes.table_wrapper}>
-                    <h3>
+                    <h3 className={classes.table_wrapper_title}>
+                      <span className={classes.wrapper_icon}>
+                        <FaTable />
+                      </span>
                       Table: {table},
                       <span className={classes.date}>
                         {" "}
@@ -233,7 +238,9 @@ const ExchangeRates = (props) => {
                 </div>
               ) : null}
               <div className={classes.exchange_wrapper__count__ex}>
-                <h2 className={classes.title}>Count currency</h2>
+                <h2 className={classes.title}>
+                  <span className={classes.wrapper_icon_change}><FaMoneyBillTransfer /></span>Count currency
+                </h2>
 
                 <div className={classes.card_wrapper}>
                   <Card>
