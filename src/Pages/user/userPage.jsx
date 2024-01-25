@@ -12,10 +12,7 @@ import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import Badge from "react-bootstrap/Badge";
 import AddExpenses from "../../components/AddExpenses/AddExpenses";
 import ShowSavedExpenses from "../../components/ShowSavedExpenses/ShowSavedExpenses";
-import Accordion from "react-bootstrap/Accordion";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FaSearch } from "react-icons/fa";
+
 import {
   AreaChart,
   Area,
