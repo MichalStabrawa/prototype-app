@@ -11,6 +11,7 @@ import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { FaCalendarPlus } from "react-icons/fa";
 import { FaCalendarTimes } from "react-icons/fa";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
 function ShowSavedExpenses({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
@@ -23,6 +24,7 @@ function ShowSavedExpenses({ title, filter }) {
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState(null);
+  const [searchDate, setSearchDate] = useState("");
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -40,13 +42,20 @@ function ShowSavedExpenses({ title, filter }) {
 
     return sum;
   };
+  console.log("SearchDate");
+  console.log(searchDate);
 
   const radioChecked = (event) => {
     setSelectedRadio(event.target.value);
   };
 
   const handleSearchInput = (e) => {
-    setSearch(e.target.value);
+    if (e.target.name === "search") {
+      setSearch(e.target.value);
+    }
+    if (e.target.name === "date") {
+      setSearchDate(e.target.value);
+    }
   };
 
   const handleSwitchToggle = () => {
@@ -62,6 +71,12 @@ function ShowSavedExpenses({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataSaved, searchDate, setData);
+    }
+  }, [searchDate]);
 
   useEffect(() => {
     sortSalaryExpenses(data, selectedRadio, setData);
@@ -86,7 +101,7 @@ function ShowSavedExpenses({ title, filter }) {
       </div>
       {status === "success" && (
         <>
-          {" "}
+          {searchDate}
           <div className={classes.filter}>
             <FilterShowSalary
               change={handleSearchInput}

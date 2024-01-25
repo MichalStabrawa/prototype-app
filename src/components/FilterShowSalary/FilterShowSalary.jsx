@@ -7,7 +7,15 @@ import { FaSearch, FaFilter } from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function FilterShowSalary({ change, filter, isChecked, handleCheckbox,radioChecked ,selectedRadio}) {
+function FilterShowSalary({
+  change,
+  filter,
+  isChecked,
+  handleCheckbox,
+  radioChecked,
+  selectedRadio,
+  changeDate
+}) {
   return (
     <>
       {" "}
@@ -33,6 +41,7 @@ function FilterShowSalary({ change, filter, isChecked, handleCheckbox,radioCheck
                         onChange={change}
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
+                        name="search"
                       />
                     </InputGroup>
                     <Form>
@@ -44,28 +53,32 @@ function FilterShowSalary({ change, filter, isChecked, handleCheckbox,radioCheck
                         onChange={handleCheckbox}
                       />
                     </Form>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Date</Form.Label>
+                      <Form.Control  onChange={change} type="date" name="date" placeholder="" />
+                    </Form.Group>
                   </Col>
                   <Col>
                     <p>SORT BY</p>
                     <Form>
-                    <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  label="A-Z"
-                  name="az"
-                  value="az"
-                  checked={selectedRadio === 'az'}
-                  onChange={radioChecked}
-                />
-                <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  label="Z-A"
-                  name="za"
-                  value="za"
-                  checked={selectedRadio === 'za'}
-                  onChange={radioChecked}
-                />
+                      <Form.Check
+                        type="radio"
+                        aria-label="radio 1"
+                        label="A-Z"
+                        name="az"
+                        value="az"
+                        checked={selectedRadio === "az"}
+                        onChange={radioChecked}
+                      />
+                      <Form.Check
+                        type="radio"
+                        aria-label="radio 1"
+                        label="Z-A"
+                        name="za"
+                        value="za"
+                        checked={selectedRadio === "za"}
+                        onChange={radioChecked}
+                      />
                     </Form>
                   </Col>
                 </Row>
