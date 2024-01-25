@@ -46,7 +46,7 @@ const [searchDate,setSearchDate] = useState('')
   const handleSearchInput = (e) => {
     if(e.target.name==="search") {
       setSearch(e.target.value);
-    }else {
+    }if(e.target.name==="date") {
       setSearchDate(e.target.value)
     }
    
@@ -75,7 +75,10 @@ const [searchDate,setSearchDate] = useState('')
   }, [selectedRadio]);
 
   useEffect(()=> {
-    filterSearchInputDate(dataSaved,searchDate,setData)
+    if(searchDate !=="") {
+      filterSearchInputDate(dataSaved,searchDate,setData)
+    }
+   
   },[searchDate])
 
   return (
