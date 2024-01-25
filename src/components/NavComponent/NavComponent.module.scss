@@ -18,8 +18,8 @@
   top:0;
 
   .active {
-    color: $brownlight;
-    border-bottom: 1px solid $brownlight;
+    color: $pastelRed;
+    border-bottom: 1px solid $pastelRed;
   }
 
   @include media-query-md {
