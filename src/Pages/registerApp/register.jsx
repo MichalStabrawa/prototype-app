@@ -8,7 +8,7 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import loginStyles from "../loginApp/login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
 import { authActions } from "../../store/auth";
 import Alert from "react-bootstrap/Alert";
@@ -21,14 +21,23 @@ const Register = (props) => {
   const [repeatPassword, setRepatPassword] = useState("");
   const [enabledSubmit, setEnabledSubmit] = useState(true);
   const [error, setErrorRegister] = useState();
+  const [verificationMessage, setVerificationMessage] = useState(null);
+
+  const history = useHistory();
 
   const user = auth.currentUser;
+  const currentUser = auth.currentUser;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
       await auth.createUserWithEmailAndPassword(email, password);
+
       const currentUser = auth.currentUser;
+
+      // Send email verification
+      await currentUser.sendEmailVerification();
+
       console.log(`USER Register TO: ${currentUser.email}`);
       if (currentUser) {
         const signInDate = new Date().toISOString();
@@ -39,19 +48,27 @@ const Register = (props) => {
 
         setErrorRegister(null);
       }
+
+      // Dispatch login action
       dispatch(authActions.login());
+
+      // Clear form fields
       setEmail("");
       setPassword("");
+      setRepatPassword("");
       setErrorRegister(null);
+
+      // Assuming you have a state to track the verification message
+      setVerificationMessage(
+        `A verification email has been sent to ${currentUser.email}. Please check your email and click the link to verify your account.`
+      );
     } catch (error) {
-      setErrorRegister(error);
-      console.error("Error signing up:", error.message);
       setErrorRegister(error.message);
+      console.error("Error signing up:", error.message);
     }
   };
 
   const addLogin = (e) => {
-    
     const loginValue = e.target.value;
 
     setEmail(loginValue);
@@ -72,23 +89,39 @@ const Register = (props) => {
     if (email !== "" && password !== "" && password === repeatPassword) {
       setEnabledSubmit(false);
     } else {
-  
       setEnabledSubmit(true);
     }
   };
-
- 
 
   useEffect(() => {
     enabledButton();
   }, [password, repeatPassword]);
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user && user.emailVerified) {
+        console.log("User's email is verified. Redirecting to login page...");
+        history.push("/login");
+      } else {
+        console.log("User's email is not yet verified.");
+      }
+    });
 
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, [history]);
 
   return (
     <div className={loginStyles.login}>
-      {authUser && user.email ? (
-        <LoginSuccess user={user} />
+      {verificationMessage ? (
+        <div className={loginStyles.login__wrapper}>
+          <Alert>
+            <p>{verificationMessage}</p>
+            {currentUser && currentUser.emailVerified && (
+              <p>User's email is verified.</p>
+            )}
+          </Alert>
+        </div>
       ) : (
         <Wrapper>
           <div className={loginStyles.login__wrapper}>
