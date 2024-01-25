@@ -9,7 +9,7 @@ import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
-import {filterSearchInputDate} from '../../utils/filterDateAcordion';
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 function ShowSavedSalary({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserSalary.data);
   const status = useSelector((state) => state.fetchUserSalary.status);
@@ -21,7 +21,7 @@ function ShowSavedSalary({ title, filter }) {
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState(null);
-const [searchDate,setSearchDate] = useState('')
+  const [searchDate, setSearchDate] = useState("");
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
@@ -44,17 +44,13 @@ const [searchDate,setSearchDate] = useState('')
   };
 
   const handleSearchInput = (e) => {
-    if(e.target.name==="search") {
+    if (e.target.name === "search") {
       setSearch(e.target.value);
-    }if(e.target.name==="date") {
-      setSearchDate(e.target.value)
     }
-   
+    if (e.target.name === "date") {
+      setSearchDate(e.target.value);
+    }
   };
-
-  const handleInputDate=(e)=> {
-    setSearchDate(e.target.value);
-  }
 
   const handleSwitchToggle = () => {
     setChecked(!isChecked);
@@ -74,12 +70,11 @@ const [searchDate,setSearchDate] = useState('')
     sortSalaryExpenses(data, selectedRadio, setData);
   }, [selectedRadio]);
 
-  useEffect(()=> {
-    if(searchDate !=="") {
-      filterSearchInputDate(dataSaved,searchDate,setData)
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataSaved, searchDate, setData);
     }
-   
-  },[searchDate])
+  }, [searchDate]);
 
   return (
     <div>
@@ -110,7 +105,6 @@ const [searchDate,setSearchDate] = useState('')
               handleCheckbox={handleSwitchToggle}
               radioChecked={radioChecked}
               selectedRadio={selectedRadio}
-              
             />
           </div>
           {search}

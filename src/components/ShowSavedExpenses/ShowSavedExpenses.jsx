@@ -11,7 +11,7 @@ import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { FaCalendarPlus } from "react-icons/fa";
 import { FaCalendarTimes } from "react-icons/fa";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
-import  {filterSearchInputDate}  from '../../utils/filterDateAcordion'
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
 function ShowSavedExpenses({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
@@ -50,15 +50,13 @@ function ShowSavedExpenses({ title, filter }) {
   };
 
   const handleSearchInput = (e) => {
-    
+    if (e.target.name === "search") {
       setSearch(e.target.value);
     }
-  
- 
-
-  const handleInputDate=(e)=> {
-    setSearchDate(e.target.value);
-  }
+    if (e.target.name === "date") {
+      setSearchDate(e.target.value);
+    }
+  };
 
   const handleSwitchToggle = () => {
     setChecked(!isChecked);
@@ -74,9 +72,11 @@ function ShowSavedExpenses({ title, filter }) {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
 
-  useEffect(()=> {
-    filterSearchInputDate(dataSaved,searchDate,setData)
-  },[searchDate])
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataSaved, searchDate, setData);
+    }
+  }, [searchDate]);
 
   useEffect(() => {
     sortSalaryExpenses(data, selectedRadio, setData);
@@ -110,7 +110,6 @@ function ShowSavedExpenses({ title, filter }) {
               handleCheckbox={handleSwitchToggle}
               radioChecked={radioChecked}
               selectedRadio={selectedRadio}
-              changeDate={handleInputDate}
             />
           </div>
           <div>
