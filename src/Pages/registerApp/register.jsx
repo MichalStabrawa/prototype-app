@@ -8,7 +8,7 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import loginStyles from "../loginApp/login.module.scss";
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
 import { authActions } from "../../store/auth";
 import Alert from "react-bootstrap/Alert";
@@ -22,14 +22,16 @@ const Register = (props) => {
   const [enabledSubmit, setEnabledSubmit] = useState(true);
   const [error, setErrorRegister] = useState();
   const [verificationMessage, setVerificationMessage] = useState(null);
+  const [isLoading,setIsLoading]= useState(false);
 
-  const history = useHistory();
+  const history = useLocation();
 
   const user = auth.currentUser;
   const currentUser = auth.currentUser;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await auth.createUserWithEmailAndPassword(email, password);
 
@@ -47,6 +49,7 @@ const Register = (props) => {
         console.log("User signed up at:", signInDate);
 
         setErrorRegister(null);
+        setIsLoading(false)
       }
 
       // Dispatch login action
@@ -64,6 +67,7 @@ const Register = (props) => {
       );
     } catch (error) {
       setErrorRegister(error.message);
+      setIsLoading(false);
       console.error("Error signing up:", error.message);
     }
   };
@@ -121,6 +125,7 @@ const Register = (props) => {
               <p>User's email is verified.</p>
             )}
           </Alert>
+          
         </div>
       ) : (
         <Wrapper>
@@ -163,6 +168,7 @@ const Register = (props) => {
                 color={buttonStyles.btn_transparent}
                 disabled={enabledSubmit}
                 click={handleSignUp}
+                isLoading={isLoading}
               />
               <Link to="..">back</Link>
             </form>
