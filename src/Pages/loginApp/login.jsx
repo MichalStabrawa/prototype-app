@@ -49,6 +49,11 @@ const LoginApp = () => {
         setIsLoading(false);
         setErrorLogin(null);
         dispatch(authActions.login());
+
+        console.log('current User ');
+        console.log(currentUser)
+        console.log(auth)
+
       }
     } catch (error) {
       console.error("Error signing in:", error.message);

@@ -6,16 +6,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { BsDatabase } from "react-icons/bs";
-import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
+import {
+  FaArrowTrendUp,
+  FaArrowTrendDown,
+  FaCircleInfo,
+} from "react-icons/fa6";
 import AddSalary from "../../components/AddSalary/AddSalary";
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import Badge from "react-bootstrap/Badge";
 import AddExpenses from "../../components/AddExpenses/AddExpenses";
 import ShowSavedExpenses from "../../components/ShowSavedExpenses/ShowSavedExpenses";
-import Accordion from "react-bootstrap/Accordion";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FaSearch } from "react-icons/fa";
+import ErrorPage from "../Error/ErrorPage";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import {
   AreaChart,
   Area,
@@ -41,9 +44,6 @@ function UserPage({ isAuthenticated }) {
   const [minSalary, setMinSalary] = useState(0);
   const [sumShowSalary, setSumShowSalary] = useState(0);
   const [sumShowExpenses, setShowExpenses] = useState(0);
-
-  console.log(`Error? ${error}`);
-  console.log(data.length);
 
   const sumSalary = () => {
     if (status === "success") {
@@ -100,15 +100,7 @@ function UserPage({ isAuthenticated }) {
 
   return (
     <main className={classes.user_main}>
-      {!isAuthenticated && (
-        <Container>
-          <Row>
-            <Col>
-              <div>Login</div>
-            </Col>
-          </Row>
-        </Container>
-      )}
+      {!isAuthenticated && <ErrorPage />}
 
       {isAuthenticated && (
         <>
@@ -125,7 +117,7 @@ function UserPage({ isAuthenticated }) {
           </header>
           <section className={classes.daschboard}>
             <Container fluid>
-              <Row>
+              <Row gap={3}>
                 <Col xs={12} md={4}>
                   {" "}
                   <Card className={classes.card_info} border="light">
@@ -136,7 +128,9 @@ function UserPage({ isAuthenticated }) {
                         </span>
                       </Card.Title>
                       <Card.Text>
-                        <h5>Saldo your budget</h5>
+                        <span className={classes.card_title}>
+                          Saldo your budget
+                        </span>
                       </Card.Text>
                       <Card.Text>
                         {" "}
@@ -161,7 +155,7 @@ function UserPage({ isAuthenticated }) {
                         </span>
                       </Card.Title>
                       <Card.Text>
-                        <h5>Revenue</h5>
+                        <span className={classes.card_title}>Revenue</span>
                       </Card.Text>
                       <Card.Text>
                         {" "}
@@ -184,7 +178,22 @@ function UserPage({ isAuthenticated }) {
                         </span>
                       </Card.Title>
                       <Card.Text>
-                        <h5>Expenses</h5>
+                        <span className={classes.card_wrapper}>
+                          {" "}
+                          <span className={classes.card_title}>
+                            Expenses
+                          </span>{" "}
+                          <Link to={`/user/expenses`}>
+                            {" "}
+                            <Button
+                              size="sm"
+                              variant="outline-info"
+                              className={classes.btn_custom}
+                            >
+                              <FaCircleInfo />
+                            </Button>{" "}
+                          </Link>
+                        </span>
                       </Card.Text>
                       <Card.Text>
                         {" "}
@@ -217,7 +226,7 @@ function UserPage({ isAuthenticated }) {
                   </Card>
                 </Col>
               </Row>
-              {data.length && status==="success"&& (
+              {data.length && status === "success" && (
                 <Row>
                   <Col lg={6}>
                     {" "}
@@ -238,7 +247,7 @@ function UserPage({ isAuthenticated }) {
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
-                            {status === "success" && (
+                            {status === "success" && data && (
                               <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart
                                   width={500}
