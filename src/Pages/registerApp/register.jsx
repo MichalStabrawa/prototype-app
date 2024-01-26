@@ -52,8 +52,7 @@ const Register = (props) => {
         setIsLoading(false);
       }
 
-      // Dispatch login action
-      dispatch(authActions.login());
+   
 
       // Clear form fields
       setEmail("");

@@ -104,15 +104,6 @@ const UserInfo = () => {
                 User:{" "}
                 {auth1 && status === "success" ? (
                   <div>
-                    <span>
-                      {" "}
-                      {user?.email}{" "}
-                      <ul>
-                        {data.map((el, index) => (
-                          <li key={index}>{el.name}</li>
-                        ))}
-                      </ul>{" "}
-                    </span>
                     <Link to="/" onClick={logOffHandler}>
                       LogOff{" "}
                     </Link>
