@@ -13,6 +13,7 @@ import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import LoginSuccess from "./LoginSuccess/LoginSuccess";
+import Spinner from 'react-bootstrap/Spinner';
 
 const LoginApp = () => {
   const authUser = useSelector((state) => state.auth.isAuthenticated);
@@ -20,9 +21,16 @@ const LoginApp = () => {
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const [errorLogin, setErrorLogin] = useState();
+  const [isLoading,setIsLoading] = useState(false)
 
   const user = auth.currentUser;
+if(user && user.emailVerified) {
+  console.log(user.emailVerified)
+}
+
+ 
   const handleSignIn = async (e) => {
+    setIsLoading(true)
     try {
       await auth.signInWithEmailAndPassword(email, password);
       const currentUser = auth.currentUser;
@@ -34,12 +42,14 @@ const LoginApp = () => {
           .push([{ date: signInDate, email: currentUser.email }]);
         console.log("User signed in at:", signInDate);
         setCurrentUser(currentUser);
+        setIsLoading(false)
         setErrorLogin(null);
       }
       dispatch(authActions.login());
     } catch (error) {
       console.error("Error signing in:", error.message);
       setErrorLogin(error);
+      setIsLoading(false)
     }
   };
 
@@ -118,6 +128,7 @@ const LoginApp = () => {
                 color={buttonStyles.btn_transparent}
                 type="submit"
                 disabled={password.length < 6}
+                isLoading={isLoading}
               />
               {errorLogin && (
                 <div className={classes.alert}>
