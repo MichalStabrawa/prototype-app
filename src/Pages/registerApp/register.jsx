@@ -26,16 +26,19 @@ const Register = (props) => {
 
   const history = useLocation();
 
-  const user = auth.currentUser;
+
   const currentUser = auth.currentUser;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
 
-      const currentUser = auth.currentUser;
+      const currentUser = userCredential.user;
+
+      console.log("CurrentUser inside");
+      console.log(currentUser)
 
       // Send email verification
       await currentUser.sendEmailVerification();
@@ -47,6 +50,7 @@ const Register = (props) => {
           .ref(`users/${currentUser.uid}/registerDate`)
           .push({ RegisterDate: signInDate, email: currentUser.email });
         console.log("User signed up at:", signInDate);
+        console.log(currentUser)
 
         setErrorRegister(null);
         setIsLoading(false);
@@ -102,17 +106,20 @@ const Register = (props) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
-        console.log("User's email is verified. Redirecting to login page...");
-        history.push("/login");
-      } else {
-        console.log("User's email is not yet verified.");
+      if (user) {
+        // Check if the user is verified
+        if (user.emailVerified) {
+          console.log("User's email is verified. Redirecting to login page...");
+          history.push("/login");
+        } else {
+          console.log("User's email is not yet verified.");
+        }
       }
     });
-
+  
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, [history, user]);
+  }, [history]);
 
   return (
     <div className={loginStyles.login}>

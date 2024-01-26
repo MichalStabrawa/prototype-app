@@ -8,8 +8,8 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
-import { FaCalendarPlus } from "react-icons/fa";
-import { FaCalendarTimes } from "react-icons/fa";
+import { FaCalendarPlus,FaCalendarTimes } from "react-icons/fa";
+import {  } from "react-icons/fa";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 

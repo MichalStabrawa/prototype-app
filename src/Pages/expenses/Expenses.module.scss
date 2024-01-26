@@ -1,0 +1,18 @@
+@import "../../styles/main";
+
+.expenses {
+  .icon_off,
+  .icon_on {
+    display: inline-block;
+    width: 100%;
+
+    text-align: center;
+  }
+  .icon_off {
+    color: $pastelRed;
+  }
+
+  .icon_on {
+    color: $pastelGreenRegular;
+  }
+}

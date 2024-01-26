@@ -2,7 +2,8 @@ import "./App.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  createHashRouter,Routes
+  createHashRouter,
+  Routes,
 } from "react-router-dom";
 import NavComponent from "./components/NavComponent/NavComponent";
 import Home from "./Pages/home/home";
@@ -28,15 +29,12 @@ import ExchangeDetails from "./Pages/exchange/ExchangeDetails/ExchangeDetails";
 import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
 import ErrorPage from "./Pages/Error/ErrorPage";
 import UserPage from "./Pages/user/userPage";
-
-
+import Expenses from "./Pages/expenses/Expenses";
 
 function App() {
   const dispatch = useDispatch();
   const tableKind = useSelector((state) => state.table.table);
 
-  const currency = useSelector((state) => state.currency.data);
-  const gold = useSelector((state) => state.goldFetch.data);
   const auth = useSelector((state) => state.auth.isAuthenticated);
   const [flag, setFlag] = useState(false);
 
@@ -76,10 +74,20 @@ function App() {
           element: <ExchangeDetails />,
         },
         { path: "/bidask", element: <BidAsk /> },
-        { path: "/bidask/:id", element: <BidAskDetails /> },
         {
-          path: 'user',
-          element: <UserPage  isAuthenticated={auth}/>,
+          path: "/bidask/:id",
+          element: <BidAskDetails />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "user",
+          element: <UserPage isAuthenticated={auth} />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/user/expenses",
+          element:<Expenses auth={auth}/> ,
+          errorElement: <ErrorPage />,
         },
       ],
     },

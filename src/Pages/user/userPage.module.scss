@@ -1,21 +1,24 @@
-
 @import "../../styles/main";
 
 .user_main {
-    color:$gray;
+  color: $gray;
   .header {
     padding: 40px 20px;
     background-color: $drywhite;
-    background-image: url('../../assets/money-4311572.svg');
+    background-image: url("../../assets/money-4311572.svg");
     background-position: right;
     background-repeat: no-repeat;
     background-size: contain;
   }
 
   .daschboard {
-    color:$gray;
+    color: $gray;
     padding: 40px 0;
-    background-color: #fffbf5;
+    background-color: #dbc4f0; //#fffbf5;
+
+    &.exspenses {
+      background-color: $pinkLight2;
+    }
     .icon_wrapper {
       display: inline-block;
       font-size: 2rem;
@@ -36,27 +39,55 @@
       &.exp {
         background-color: $pastelRed;
       }
+
+      &.deadline {
+        color:$pastelRed ;
+        background-color: $bluemid;
+      }
     }
   }
   .card {
     margin-bottom: 20px;
     height: 100%;
     color: $gray;
+
+    &_title {
+      font-size: 1.5rem;
+    }
+
+    &_wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   .card_info {
     margin-bottom: 20px;
-    color:$gray;
+    color: $gray;
+    position: relative;
   }
 
   .chart {
     height: 400px;
-    margin-top:20px;
+    margin-top: 20px;
   }
 
   .badge {
     font-size: 1.75rem;
-    display: block;;
+    display: block;
     text-align: right;
+
+
   }
+}
+
+.btn_custom {
+  color: rgb(13, 202, 240);
+  font-size: 1.25rem;
+  text-decoration: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
