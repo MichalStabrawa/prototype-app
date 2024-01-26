@@ -217,7 +217,7 @@ function UserPage({ isAuthenticated }) {
                   </Card>
                 </Col>
               </Row>
-              {data.length && (
+              {data.length && status==="success"&& (
                 <Row>
                   <Col lg={6}>
                     {" "}
