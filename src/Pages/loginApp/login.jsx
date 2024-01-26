@@ -13,7 +13,7 @@ import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import LoginSuccess from "./LoginSuccess/LoginSuccess";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
 const LoginApp = () => {
   const authUser = useSelector((state) => state.auth.isAuthenticated);
@@ -21,41 +21,43 @@ const LoginApp = () => {
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const [errorLogin, setErrorLogin] = useState();
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = auth.currentUser;
-if(user && user.emailVerified) {
-  console.log(user.emailVerified)
-}
+  if (user && user.emailVerified) {
+    console.log(user.emailVerified);
+  }
 
- 
   const handleSignIn = async (e) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       await auth.signInWithEmailAndPassword(email, password);
       const currentUser = auth.currentUser;
+      console.log("curent user emailVerif");
+      console.log(currentUser.emailVerified);
       console.log(`USER TO: ${currentUser.email}`);
-      if (currentUser) {
+      if (currentUser && !currentUser.emailVerified) {
+        setIsLoading(false);
+      }
+      if (currentUser && currentUser.emailVerified) {
         const signInDate = new Date().toISOString();
         await database
           .ref(`users/${currentUser.uid}/signInDates`)
           .push([{ date: signInDate, email: currentUser.email }]);
-        console.log("User signed in at:", signInDate);
+        console.log("User signed in at after confirm email:", signInDate);
         setCurrentUser(currentUser);
-        setIsLoading(false)
+        setIsLoading(false);
         setErrorLogin(null);
+        dispatch(authActions.login());
       }
-      dispatch(authActions.login());
     } catch (error) {
       console.error("Error signing in:", error.message);
       setErrorLogin(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const addLogin = (e) => {
     const loginValue = e.target.value;
@@ -76,7 +78,6 @@ if(user && user.emailVerified) {
       setPassword("");
       setLogin("");
     } else {
-     
       setPassword("");
       setLogin("");
     }

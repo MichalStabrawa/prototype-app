@@ -22,7 +22,7 @@ const Register = (props) => {
   const [enabledSubmit, setEnabledSubmit] = useState(true);
   const [error, setErrorRegister] = useState();
   const [verificationMessage, setVerificationMessage] = useState(null);
-  const [isLoading,setIsLoading]= useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useLocation();
 
@@ -49,7 +49,7 @@ const Register = (props) => {
         console.log("User signed up at:", signInDate);
 
         setErrorRegister(null);
-        setIsLoading(false)
+        setIsLoading(false);
       }
 
       // Dispatch login action
@@ -113,7 +113,7 @@ const Register = (props) => {
 
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, [history]);
+  }, [history, user]);
 
   return (
     <div className={loginStyles.login}>
@@ -125,7 +125,6 @@ const Register = (props) => {
               <p>User's email is verified.</p>
             )}
           </Alert>
-          
         </div>
       ) : (
         <Wrapper>
