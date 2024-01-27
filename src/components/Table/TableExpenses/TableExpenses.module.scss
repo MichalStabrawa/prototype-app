@@ -1,0 +1,41 @@
+@import "../../../styles/main";
+
+.table_wrapper {
+  .edit {
+    display: flex;
+
+    .button {
+      padding: 0;
+      position: relative;
+      z-index:100;
+    }
+  }
+  .icon_off,
+  .icon_on {
+    display: inline-block;
+    width: 100%;
+
+    text-align: center;
+  }
+  .icon_off {
+    color: $pastelRed;
+  }
+
+  .icon_on {
+    color: $pastelGreenRegular;
+  }
+}
+
+.button_pop {
+  color: #000;
+  text-decoration: none;
+}
+
+.popover {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.icon_more {
+    z-index: -1;
+}

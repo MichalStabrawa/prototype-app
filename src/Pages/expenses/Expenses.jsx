@@ -15,7 +15,7 @@ import {
   FaCalendarTimes,
   FaCalendarCheck,
 } from "react-icons/fa";
-import Table from "react-bootstrap/Table";
+import TableExpenses from "../../components/Table/TableExpenses/TableExpenses";
 
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
@@ -226,46 +226,13 @@ function Expenses({ auth }) {
                       </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <Table responsive="sm" striped hover>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th> Name</th>
-                            <th>Value</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th>Deadline</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {deadline &&
-                            deadline.map((el, index) => {
-                              return (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td>{el.name}</td>
-                                  <td>{el.expenses}</td>
-                                  <td>{el.category}</td>
-                                  <td>{el.fullDate}</td>
-                                  <td>
-                                    {el.deadline === "on" && (
-                                      <span className={classes.icon_off}>
-                                        {" "}
-                                        <FaCalendarTimes size={20} />
-                                      </span>
-                                    )}
-                                    {el.deadline === "off" && (
-                                      <span className={classes.icon_on}>
-                                        {" "}
-                                        <FaCalendarPlus size={20} />
-                                      </span>
-                                    )}{" "}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                        </tbody>
-                      </Table>
+                      <TableExpenses
+                        data={deadline}
+                        status={statusExpenses}
+                        responsive="sm"
+                        striped
+                        hover
+                      />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -275,52 +242,18 @@ function Expenses({ auth }) {
                       <Card.Title>
                         All Expenses{" "}
                         <Badge bg="light" text="dark">
-                        {sumShowExpenses}
+                          {sumShowExpenses}
                         </Badge>
                       </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <Table responsive="sm" striped hover>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th> Name</th>
-                            <th>Value</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th>Deadline</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {dataExpenses &&
-                            statusExpenses === "success" &&
-                            dataExpenses.map((el, index) => {
-                              return (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td>{el.name}</td>
-                                  <td>{el.expenses}</td>
-                                  <td>{el.category}</td>
-                                  <td>{el.fullDate}</td>
-                                  <td>
-                                    {el.deadline === "on" && (
-                                      <span className={classes.icon_off}>
-                                        {" "}
-                                        <FaCalendarTimes size={20} />
-                                      </span>
-                                    )}
-                                    {el.deadline === "off" && (
-                                      <span className={classes.icon_on}>
-                                        {" "}
-                                        <FaCalendarPlus size={20} />
-                                      </span>
-                                    )}{" "}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                        </tbody>
-                      </Table>
+                      <TableExpenses
+                        data={dataExpenses}
+                        status={statusExpenses}
+                        responsive="sm"
+                        striped
+                        hover
+                      ></TableExpenses>
                     </Card.Body>
                   </Card>
                 </Col>
