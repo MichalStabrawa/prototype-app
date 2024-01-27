@@ -41,7 +41,12 @@
       }
 
       &.deadline {
-        color:$pastelRed ;
+        color: $pastelRed;
+        background-color: $bluemid;
+      }
+
+      &.deadline_ok {
+        color: $pastelGreenRegular;
         background-color: $bluemid;
       }
     }
@@ -78,8 +83,10 @@
     font-size: 1.75rem;
     display: block;
     text-align: right;
-
-
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap:wrap;
   }
 }
 

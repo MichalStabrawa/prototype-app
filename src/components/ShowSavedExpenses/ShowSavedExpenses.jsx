@@ -8,8 +8,8 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
-import { FaCalendarPlus,FaCalendarTimes } from "react-icons/fa";
-import {  } from "react-icons/fa";
+import { FaCalendarPlus, FaCalendarTimes } from "react-icons/fa";
+
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
@@ -136,13 +136,13 @@ function ShowSavedExpenses({ title, filter }) {
                         <td>{el.category}</td>
                         <td>{el.fullDate}</td>
                         <td>
-                          {el.deadline === "off" && (
+                          {el.deadline === "on" && (
                             <FaCalendarTimes
                               size={20}
                               className={classes.icon_off}
                             />
                           )}
-                          {el.deadline === "on" && (
+                          {el.deadline === "off" && (
                             <FaCalendarPlus
                               size={20}
                               className={classes.icon_on}

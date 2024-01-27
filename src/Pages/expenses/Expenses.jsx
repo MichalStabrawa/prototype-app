@@ -10,7 +10,11 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { BsDatabase } from "react-icons/bs";
-import { FaCalendarPlus, FaCalendarTimes } from "react-icons/fa";
+import {
+  FaCalendarPlus,
+  FaCalendarTimes,
+  FaCalendarCheck,
+} from "react-icons/fa";
 import Table from "react-bootstrap/Table";
 
 function Expenses({ auth }) {
@@ -23,6 +27,7 @@ function Expenses({ auth }) {
   const [sumShowExpenses, setShowExpenses] = useState(0);
   const [deadline, setDeadline] = useState(null);
   const [valueDeadline, setValueDeadline] = useState(null);
+  const [deadlineOk, setDeadlineOk] = useState(null);
 
   const sumSalary = () => {
     if (status === "success") {
@@ -65,6 +70,14 @@ function Expenses({ auth }) {
       setValueDeadline(valueDeadline);
     }
   }, [deadline]);
+  useEffect(() => {
+    if (statusExpenses === "success") {
+      const filteredData = dataExpenses.filter(
+        (item) => item.deadline === "off"
+      );
+      setDeadlineOk(filteredData);
+    }
+  }, [dataExpenses, statusExpenses]);
 
   console.log(data);
   console.log(dataExpenses);
@@ -137,7 +150,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={6}>
+                <Col xs={12} md={3}>
                   {" "}
                   <Card className={userPageClasses.card_info} border="light">
                     <Card.Body>
@@ -160,7 +173,40 @@ function Expenses({ auth }) {
                             value:{valueDeadline && valueDeadline}{" "}
                           </Badge>
                           <Badge text="danger" bg="dark">
-                            quantity: {deadline && deadline.length} x !!!
+                            quantity: {deadline && deadline.length} x
+                          </Badge>
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col xs={12} md={3}>
+                  {" "}
+                  <Card className={userPageClasses.card_info} border="light">
+                    <Card.Body>
+                      <Card.Title>
+                        <span
+                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.deadline_ok}`}
+                        >
+                          <FaCalendarCheck />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <span className={userPageClasses.card_title}>
+                          The bills have already been paid
+                        </span>
+                      </Card.Text>
+                      <Card.Text>
+                        {" "}
+                        <span className={userPageClasses.badge}>
+                          <Badge bg="success">
+                            value:
+                            {valueDeadline &&
+                              sumShowExpenses &&
+                              sumShowExpenses - valueDeadline}{" "}
+                          </Badge>
+                          <Badge text="success" bg="dark">
+                            quantity: {deadlineOk && deadlineOk.length} x
                           </Badge>
                         </span>
                       </Card.Text>
@@ -194,13 +240,60 @@ function Expenses({ auth }) {
                                   <td>{el.category}</td>
                                   <td>{el.fullDate}</td>
                                   <td>
-                                    {el.deadline === "off" && (
+                                    {el.deadline === "on" && (
                                       <span className={classes.icon_off}>
                                         {" "}
                                         <FaCalendarTimes size={20} />
                                       </span>
                                     )}
+                                    {el.deadline === "off" && (
+                                      <span className={classes.icon_on}>
+                                        {" "}
+                                        <FaCalendarPlus size={20} />
+                                      </span>
+                                    )}{" "}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                        </tbody>
+                      </Table>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col md={6}>
+                  <Card border="light">
+                    <Card.Body>
+                      <Table responsive="sm" striped hover>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th> Name</th>
+                            <th>Value</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Deadline</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {dataExpenses &&
+                            statusExpenses === "success" &&
+                            dataExpenses.map((el, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{el.name}</td>
+                                  <td>{el.expenses}</td>
+                                  <td>{el.category}</td>
+                                  <td>{el.fullDate}</td>
+                                  <td>
                                     {el.deadline === "on" && (
+                                      <span className={classes.icon_off}>
+                                        {" "}
+                                        <FaCalendarTimes size={20} />
+                                      </span>
+                                    )}
+                                    {el.deadline === "off" && (
                                       <span className={classes.icon_on}>
                                         {" "}
                                         <FaCalendarPlus size={20} />
