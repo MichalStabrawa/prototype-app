@@ -217,6 +217,7 @@ function Expenses({ auth }) {
               <Row>
                 <Col md={6}>
                   <Card border="light">
+                    <Card.Header><Card.Title>Expenses with deadline</Card.Title></Card.Header>
                     <Card.Body>
                       <Table responsive="sm" striped hover>
                         <thead>
@@ -263,6 +264,7 @@ function Expenses({ auth }) {
                 </Col>
                 <Col md={6}>
                   <Card border="light">
+                    <Card.Header><Card.Title>All Expenses</Card.Title></Card.Header>
                     <Card.Body>
                       <Table responsive="sm" striped hover>
                         <thead>
