@@ -22,10 +22,10 @@ function TableExpenses({ data, status }) {
   const [show, setShow] = useState(false);
   const [newDeadlineDate, setNewDeadlineDate] = useState();
   const [flag, setFlag] = useState(false);
+  const [modal, setModal] = useState(null);
 
   const user = auth.currentUser;
 
-  console.log(`EditID 1: ${editId}`);
   const editHandle = (e) => {
     const id = e.target.id;
     console.log(id);
@@ -42,12 +42,19 @@ function TableExpenses({ data, status }) {
     setShow(false);
     setEditId(null);
     setFilterIdData(null);
+    setModal(null);
   };
 
   const handleShow = (e) => {
     if (e.target.name === "deadline") {
       setShow(true);
-    } else {
+      setModal("deadline");
+    }
+    if (e.target.name === "delete") {
+      setShow(true);
+      setModal("delete");
+    }
+    if (e.target.name === "edit") {
       alert("No edit");
     }
   };
@@ -57,14 +64,49 @@ function TableExpenses({ data, status }) {
     setNewDeadlineDate(deadline);
   };
 
-  console.log(auth.currentUser);
+  // Delete data function
+
+  const deleteData = async () => {
+    try {
+      const currentUser = auth.currentUser;
+
+      if (currentUser && filterIdData && filterIdData.length > 0) {
+        const path = `users/${currentUser.uid}/expenses`;
+        const expensesRef = database.ref(path);
+
+        // Fetch the entire object of expenses from the database
+        const snapshot = await expensesRef.once("value");
+        const expensesObject = snapshot.val();
+
+        if (expensesObject) {
+          // Iterate through each key and remove objects with the specified ID
+          Object.keys(expensesObject).forEach(async (key) => {
+            const updatedArray = expensesObject[key].filter(
+              (el) => el.id !== filterIdData[0].id
+            );
+
+            if (updatedArray.length !== expensesObject[key].length) {
+              // If the array was updated, set the new array
+              await expensesRef.child(key).set(updatedArray);
+            }
+          });
+
+          console.log("Data deleted successfully");
+          setFlag(true);
+        } else {
+          console.error("Data not found");
+        }
+      } else {
+        console.error("User not authenticated or filterIdData is not set");
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
+
   //update deadlineData
 
   const updateData = async () => {
-    console.log(`EditId inside update: ${editId}`);
-    console.log(`FilteredIdDate ${filterIdData[0].id}`);
-    console.log(newDeadlineDate);
-
     try {
       const currentUser = auth.currentUser;
 
@@ -82,6 +124,8 @@ function TableExpenses({ data, status }) {
 
           // Iterate through each key and update the corresponding array
           Object.keys(updatedObject).forEach((key) => {
+            console.log(updatedObject);
+            console.log(`key  ${key}`);
             updatedObject[key] = updatedObject[key].map((el) => {
               if (el.id === filterIdData[0].id) {
                 console.log("Found object to update:", el);
@@ -275,29 +319,44 @@ function TableExpenses({ data, status }) {
           <Modal.Body>
             category: {filterIdData[0].category} value:{" "}
             {filterIdData[0].expenses} date: {filterIdData[0].fullDate}
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Date deadline</Form.Label>
-              <Form.Control
-                onChange={handleDeadlineDate}
-                type="date"
-                name="date"
-                placeholder=""
-              />
-            </Form.Group>
+            {modal === "deadline" && (
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Date deadline</Form.Label>
+                <Form.Control
+                  onChange={handleDeadlineDate}
+                  type="date"
+                  name="date"
+                  placeholder=""
+                />
+              </Form.Group>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                handleClose();
-                updateData();
-              }}
-            >
-              Save Changes
-            </Button>
+            {modal === "deadline" && (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleClose();
+                  updateData();
+                }}
+              >
+                Save deadline
+              </Button>
+            )}{" "}
+            {modal === "delete" && (
+              <Button
+                variant="danger"
+                onClick={() => {
+                  handleClose();
+                  deleteData();
+                }}
+              >
+                Delete
+              </Button>
+            )}
           </Modal.Footer>
         </Modal>
       )}
