@@ -210,7 +210,7 @@ function TableExpenses({ data, status }) {
                           <FaCalendarTimes size={20} />
                         </span>{" "}
                         <OverlayTrigger
-                          trigger="click"
+                          trigger="focus"
                           placement="top"
                           overlay={popover}
                         >
