@@ -14,6 +14,8 @@ import { MdDeleteForever } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import { FaCheck } from "react-icons/fa";
 import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
+import { calculateDateDifference } from "../../../utils/countDifferencesInDays";
+import { MdOutlineUpdate } from "react-icons/md";
 
 function TableExpenses({ data, status }) {
   const dispatch = useDispatch();
@@ -57,6 +59,13 @@ function TableExpenses({ data, status }) {
     setEditId(null);
     setFilterIdData(null);
     setModal(null);
+    setFormData({
+      name: "",
+      expenses: 0,
+      category: "",
+
+      deadline: "off",
+    });
   };
 
   const handleShow = (e) => {
@@ -376,7 +385,7 @@ function TableExpenses({ data, status }) {
                           <FaCalendarPlus size={20} />
                         </span>{" "}
                         <OverlayTrigger
-                          trigger="click"
+                          trigger="focus"
                           placement="top"
                           overlay={popover}
                         >
@@ -398,7 +407,39 @@ function TableExpenses({ data, status }) {
                   </td>
                   <td>
                     {el.deadline === "on" ? (
-                      el.deadlineDate
+                      <span className={classes.icon_deadline_wrapper}>
+                        {el.deadlineDate}{" "}
+                        {/* {(calculateDateDifference(el.deadlineDate) < 3) &
+                        (el.deadlineDate !== "") ? (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_time}
+                          />
+                        ) : (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_long_time}
+                          />
+                        )} */}
+                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 3 && calculateDateDifference(el.deadlineDate)>0 )  && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_time}
+                          />
+                        )}
+                          {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) > 3)  && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_long_time}
+                          />
+                        )}
+                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 0)  && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_danger}
+                          />
+                        )}
+                      </span>
                     ) : (
                       <FaCheck className={classes.icon_check} />
                     )}
