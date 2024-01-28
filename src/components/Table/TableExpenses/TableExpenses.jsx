@@ -23,6 +23,20 @@ function TableExpenses({ data, status }) {
   const [newDeadlineDate, setNewDeadlineDate] = useState();
   const [flag, setFlag] = useState(false);
   const [modal, setModal] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    expenses: 0,
+    category: "",
+
+    deadline: "off",
+  });
+  const [dataInput, setData] = useState({
+    name: "",
+    expenses: 0,
+    category: "",
+
+    deadline: "off",
+  });
 
   const user = auth.currentUser;
 
@@ -55,13 +69,36 @@ function TableExpenses({ data, status }) {
       setModal("delete");
     }
     if (e.target.name === "edit") {
-      alert("No edit");
+      setShow(true);
+      setModal("edit");
     }
   };
 
   const handleDeadlineDate = (e) => {
     const deadline = e.target.value;
     setNewDeadlineDate(deadline);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      // Handle checkbox separately
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: checked ? "on" : "off", // Update checkbox value to 'on' or 'off'
+      }));
+    } else {
+      // Handle other input types
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value.toUpperCase(),
+      }));
+      setData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "expenses" ? +value : value,
+      }));
+    }
   };
 
   // Delete data function
@@ -167,6 +204,66 @@ function TableExpenses({ data, status }) {
     }
   };
 
+  const editUpdateData = async () => {
+    try {
+      const currentUser = auth.currentUser;
+
+      if (currentUser) {
+        const path = `users/${currentUser.uid}/expenses`;
+        const expensesRef = database.ref(path);
+
+        // Fetch the entire object of expenses from the database
+        const snapshot = await expensesRef.once("value");
+        const expensesObject = snapshot.val();
+
+        if (expensesObject) {
+          // Update the specific object in the array with the new data
+          const updatedObject = { ...expensesObject };
+
+          // Iterate through each key and update the corresponding array
+          Object.keys(updatedObject).forEach((key) => {
+            updatedObject[key] = updatedObject[key].map((el) => {
+              if (el.id === filterIdData[0].id) {
+                console.log("Found object to update:", el);
+                return {
+                  ...el,
+                  deadline: formData.deadline, // Use form data for deadline
+
+                  category: formData.category || el.category, // Update category if provided in form data
+                  expenses: formData.expenses || el.expenses, // Update expenses if provided in form data
+                  name: formData.name || el.name, // Update name if provided in form data
+                  // Fulldate and monthYear remain the same
+                };
+              } else {
+                return el;
+              }
+            });
+          });
+
+          // Check if the object was found and updated
+          const objectFound = Object.keys(updatedObject).some((key) =>
+            updatedObject[key].some((el) => el.id === filterIdData[0].id)
+          );
+
+          if (objectFound) {
+            // Update the entire 'expenses' node with the modified object
+            await expensesRef.set(updatedObject);
+            console.log("Data updated successfully");
+            setFlag(true);
+          } else {
+            console.error("Object not found in the array");
+            console.log("Original object:", expensesObject);
+          }
+        } else {
+          console.error("Data not found");
+        }
+      } else {
+        console.error("User not authenticated");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
   useEffect(() => {
     if (editId) {
       const editFilter = data.filter((el) => el.id === editId);
@@ -329,6 +426,80 @@ function TableExpenses({ data, status }) {
                   placeholder=""
                 />
               </Form.Group>
+            )}
+            {modal === "edit" && (
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Edit name expenses</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    name="name"
+                    size="lg"
+                  />
+                  <Form.Text className="text-muted">
+                    Edit your name expenses
+                  </Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Edit expenses value</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Expenses"
+                    name="expenses"
+                    value={formData.expenses}
+                    onChange={handleInputChange}
+                    size="lg"
+                    min="0"
+                  />
+                  <Form.Text className="text-muted">Edit value</Form.Text>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Edit category</Form.Label>
+                  <Form.Select
+                    onChange={handleInputChange}
+                    name="category"
+                    value={formData.category}
+                  >
+                    <option value="">Category</option>
+                    <option value="home">Home</option>
+                    <option value="credits">Credits</option>
+                    <option value="car">Car</option>
+                    <option value="education">Education</option>
+                    <option value="other">Other</option>
+                  </Form.Select>
+                  <Form.Text className={classes.formTextCustom}>
+                    Edit your category
+                  </Form.Text>
+                </Form.Group>
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label={
+                    formData.deadline === "on" ? "Deadline" : "Not deadline"
+                  }
+                  name="deadline"
+                  onChange={handleInputChange}
+                  checked={formData.deadline === "on"}
+                />
+                <Button
+                  onClick={() => {
+                    handleClose();
+                    editUpdateData();
+                  }}
+                  size="lg"
+                  variant="primary"
+                  disabled={
+                    formData.name === "" ||
+                    formData.expenses === 0 ||
+                    formData.category === ""
+                  }
+                >
+                  Save Changes
+                </Button>{" "}
+              </Form>
             )}
           </Modal.Body>
           <Modal.Footer>
