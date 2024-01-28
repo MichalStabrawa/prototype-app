@@ -24,6 +24,9 @@
   .icon_on {
     color: $pastelGreenRegular;
   }
+  .modal {
+    z-index: 1000;
+  }
 }
 
 .button_pop {

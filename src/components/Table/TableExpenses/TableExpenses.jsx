@@ -45,7 +45,7 @@ function TableExpenses({ data, status }) {
   };
 
   const handleShow = (e) => {
-    if (e.target.name === "edit") {
+    if (e.target.name === "deadline") {
       setShow(true);
     } else {
       alert("No edit");
@@ -268,7 +268,7 @@ function TableExpenses({ data, status }) {
         </tbody>
       </Table>
       {filterIdData && (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} className={classes.modal}>
           <Modal.Header closeButton>
             <Modal.Title>{filterIdData[0].name}</Modal.Title>
           </Modal.Header>
