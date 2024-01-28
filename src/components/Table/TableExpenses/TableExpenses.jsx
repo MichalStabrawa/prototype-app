@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { auth, database } from "../../../firebase/firebase";
 import classes from "./TableExpenses.module.scss";
+import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -9,12 +12,20 @@ import { IoMdMore } from "react-icons/io";
 import { LuCalendarClock } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
+import { FaCheck } from "react-icons/fa";
+import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 
 function TableExpenses({ data, status }) {
+  const dispatch = useDispatch();
   const [editId, setEditId] = useState();
   const [filterIdData, setFilterIdData] = useState();
   const [show, setShow] = useState(false);
+  const [newDeadlineDate, setNewDeadlineDate] = useState();
+  const [flag, setFlag] = useState(false);
 
+  const user = auth.currentUser;
+
+  console.log(`EditID 1: ${editId}`);
   const editHandle = (e) => {
     const id = e.target.id;
     console.log(id);
@@ -32,9 +43,83 @@ function TableExpenses({ data, status }) {
     setEditId(null);
     setFilterIdData(null);
   };
+
   const handleShow = (e) => {
     if (e.target.name === "edit") {
       setShow(true);
+    } else {
+      alert("No edit");
+    }
+  };
+
+  const handleDeadlineDate = (e) => {
+    const deadline = e.target.value;
+    setNewDeadlineDate(deadline);
+  };
+
+  console.log(auth.currentUser);
+  //update deadlineData
+
+  const updateData = async () => {
+    console.log(`EditId inside update: ${editId}`);
+    console.log(`FilteredIdDate ${filterIdData[0].id}`);
+    console.log(newDeadlineDate);
+
+    try {
+      const currentUser = auth.currentUser;
+
+      if (currentUser) {
+        const path = `users/${currentUser.uid}/expenses`;
+        const expensesRef = database.ref(path);
+
+        // Fetch the entire object of expenses from the database
+        const snapshot = await expensesRef.once("value");
+        const expensesObject = snapshot.val();
+
+        if (expensesObject) {
+          // Update the specific object in the array with the new data
+          const updatedObject = { ...expensesObject };
+
+          // Iterate through each key and update the corresponding array
+          Object.keys(updatedObject).forEach((key) => {
+            updatedObject[key] = updatedObject[key].map((el) => {
+              if (el.id === filterIdData[0].id) {
+                console.log("Found object to update:", el);
+                return {
+                  ...el,
+                  deadlineDate:
+                    newDeadlineDate !== undefined
+                      ? newDeadlineDate
+                      : el.deadlineDate,
+                };
+              } else {
+                return el;
+              }
+            });
+          });
+
+          // Check if the object was found and updated
+          const objectFound = Object.keys(updatedObject).some((key) =>
+            updatedObject[key].some((el) => el.id === filterIdData[0].id)
+          );
+
+          if (objectFound) {
+            // Update the entire 'expenses' node with the modified object
+            await expensesRef.set(updatedObject);
+            console.log("Data updated successfully");
+            setFlag(true);
+          } else {
+            console.error("Object not found in the array");
+            console.log("Original object:", expensesObject);
+          }
+        } else {
+          console.error("Data not found");
+        }
+      } else {
+        console.error("User not authenticated");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
     }
   };
 
@@ -44,6 +129,13 @@ function TableExpenses({ data, status }) {
       setFilterIdData(editFilter);
     }
   }, [show]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserExpenses({ auth: auth, database: database }));
+      setFlag(false);
+    }
+  }, [flag, dispatch, user]);
 
   const popover = (
     <Popover id="popover-basic">
@@ -95,6 +187,7 @@ function TableExpenses({ data, status }) {
             <th>Category</th>
             <th>Date</th>
             <th>Deadline</th>
+            <th>Deadline date</th>
           </tr>
         </thead>
         <tbody>
@@ -162,6 +255,13 @@ function TableExpenses({ data, status }) {
                       </span>
                     )}
                   </td>
+                  <td>
+                    {el.deadline === "on" ? (
+                      el.deadlineDate
+                    ) : (
+                      <FaCheck className={classes.icon_check} />
+                    )}
+                  </td>
                 </tr>
               );
             })}
@@ -175,12 +275,27 @@ function TableExpenses({ data, status }) {
           <Modal.Body>
             category: {filterIdData[0].category} value:{" "}
             {filterIdData[0].expenses} date: {filterIdData[0].fullDate}
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Date deadline</Form.Label>
+              <Form.Control
+                onChange={handleDeadlineDate}
+                type="date"
+                name="date"
+                placeholder=""
+              />
+            </Form.Group>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button
+              variant="primary"
+              onClick={() => {
+                handleClose();
+                updateData();
+              }}
+            >
               Save Changes
             </Button>
           </Modal.Footer>

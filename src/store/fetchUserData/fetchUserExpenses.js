@@ -30,7 +30,8 @@ export const fetchUserExpenses = createAsyncThunk(
               id: data[key][innerKey].id,
               fullDate: data[key][innerKey].fullDate,
               monthYear: data[key][innerKey].monthYear,
-              deadline: data[key][innerKey].deadline
+              deadline: data[key][innerKey].deadline,
+              deadlineDate:data[key][innerKey].deadlineDate
             });
           }
         }
