@@ -5,6 +5,7 @@
 
   .title {
     color: $graylight;
+    
   }
 
   .carousel {
@@ -48,12 +49,14 @@
   .equal {
     font-size: 20px;
     padding: 10px;
-    background: #334565;
+    background: $pastelBlue;
     max-width: 200px;
-    color: #fff;
+    color: $pastelRed;
     display: flex;
     align-items: center;
     height: 52px;
+    border-radius:8px;
+    font-weight: 700;
   }
 
   .count_pln {
@@ -134,6 +137,7 @@ header {
 }
 
 .title {
+  display:flex;
   margin-bottom: 40px;
 }
 
@@ -151,3 +155,28 @@ header {
     font-style: normal;
   }
 }
+
+.table_wrapper {
+  &_title {
+    display:flex;
+    align-items: center;
+  }
+}
+.wrapper_icon,.wrapper_icon_change {
+  height: 46px;
+  width: 46px;
+  background-color: $pastelBlue;
+  color:$pastelRed;
+  display:flex;
+  border-radius:8px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper_icon_change {
+  background-color:$pastelRed ;
+  color:$pastelGreenDark;
+}
+
+

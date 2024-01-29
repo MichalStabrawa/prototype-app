@@ -8,7 +8,7 @@ import InputComponent from "../../components/UI/Input/InputComponent";
 import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import loginStyles from "../loginApp/login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
 import { authActions } from "../../store/auth";
 import Alert from "react-bootstrap/Alert";
@@ -21,14 +21,28 @@ const Register = (props) => {
   const [repeatPassword, setRepatPassword] = useState("");
   const [enabledSubmit, setEnabledSubmit] = useState(true);
   const [error, setErrorRegister] = useState();
+  const [verificationMessage, setVerificationMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const user = auth.currentUser;
+  const history = useLocation();
+
+
+  const currentUser = auth.currentUser;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      const currentUser = auth.currentUser;
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+
+      const currentUser = userCredential.user;
+
+      console.log("CurrentUser inside");
+      console.log(currentUser)
+
+      // Send email verification
+      await currentUser.sendEmailVerification();
+
       console.log(`USER Register TO: ${currentUser.email}`);
       if (currentUser) {
         const signInDate = new Date().toISOString();
@@ -36,22 +50,32 @@ const Register = (props) => {
           .ref(`users/${currentUser.uid}/registerDate`)
           .push({ RegisterDate: signInDate, email: currentUser.email });
         console.log("User signed up at:", signInDate);
+        console.log(currentUser)
 
         setErrorRegister(null);
+        setIsLoading(false);
       }
-      dispatch(authActions.login());
+
+   
+
+      // Clear form fields
       setEmail("");
       setPassword("");
+      setRepatPassword("");
       setErrorRegister(null);
+
+      // Assuming you have a state to track the verification message
+      setVerificationMessage(
+        `A verification email has been sent to ${currentUser.email}. Please check your email and click the link to verify your account.`
+      );
     } catch (error) {
-      setErrorRegister(error);
-      console.error("Error signing up:", error.message);
       setErrorRegister(error.message);
+      setIsLoading(false);
+      console.error("Error signing up:", error.message);
     }
   };
 
   const addLogin = (e) => {
-    
     const loginValue = e.target.value;
 
     setEmail(loginValue);
@@ -72,23 +96,42 @@ const Register = (props) => {
     if (email !== "" && password !== "" && password === repeatPassword) {
       setEnabledSubmit(false);
     } else {
-  
       setEnabledSubmit(true);
     }
   };
-
- 
 
   useEffect(() => {
     enabledButton();
   }, [password, repeatPassword]);
 
-
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Check if the user is verified
+        if (user.emailVerified) {
+          console.log("User's email is verified. Redirecting to login page...");
+          history.push("/login");
+        } else {
+          console.log("User's email is not yet verified.");
+        }
+      }
+    });
+  
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, [history]);
 
   return (
     <div className={loginStyles.login}>
-      {authUser && user.email ? (
-        <LoginSuccess user={user} />
+      {verificationMessage ? (
+        <div className={loginStyles.login__wrapper}>
+          <Alert>
+            <p>{verificationMessage}</p>
+            {currentUser && currentUser.emailVerified && (
+              <p>User's email is verified.</p>
+            )}
+          </Alert>
+        </div>
       ) : (
         <Wrapper>
           <div className={loginStyles.login__wrapper}>
@@ -130,6 +173,7 @@ const Register = (props) => {
                 color={buttonStyles.btn_transparent}
                 disabled={enabledSubmit}
                 click={handleSignUp}
+                isLoading={isLoading}
               />
               <Link to="..">back</Link>
             </form>

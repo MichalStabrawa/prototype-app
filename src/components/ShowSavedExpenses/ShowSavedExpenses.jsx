@@ -8,8 +8,10 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
-import { FaCalendarPlus } from "react-icons/fa";
-import { FaCalendarTimes } from "react-icons/fa";
+import { FaCalendarPlus, FaCalendarTimes } from "react-icons/fa";
+
+import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
 function ShowSavedExpenses({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
@@ -21,6 +23,8 @@ function ShowSavedExpenses({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState(null);
+  const [searchDate, setSearchDate] = useState("");
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -38,9 +42,20 @@ function ShowSavedExpenses({ title, filter }) {
 
     return sum;
   };
+  console.log("SearchDate");
+  console.log(searchDate);
+
+  const radioChecked = (event) => {
+    setSelectedRadio(event.target.value);
+  };
 
   const handleSearchInput = (e) => {
-    setSearch(e.target.value);
+    if (e.target.name === "search") {
+      setSearch(e.target.value);
+    }
+    if (e.target.name === "date") {
+      setSearchDate(e.target.value);
+    }
   };
 
   const handleSwitchToggle = () => {
@@ -56,6 +71,16 @@ function ShowSavedExpenses({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataSaved, searchDate, setData);
+    }
+  }, [searchDate]);
+
+  useEffect(() => {
+    sortSalaryExpenses(data, selectedRadio, setData);
+  }, [selectedRadio]);
 
   return (
     <div>
@@ -76,13 +101,15 @@ function ShowSavedExpenses({ title, filter }) {
       </div>
       {status === "success" && (
         <>
-          {" "}
+          {searchDate}
           <div className={classes.filter}>
             <FilterShowSalary
               change={handleSearchInput}
               filter={filter}
               isChecked={isChecked}
               handleCheckbox={handleSwitchToggle}
+              radioChecked={radioChecked}
+              selectedRadio={selectedRadio}
             />
           </div>
           <div>
@@ -109,13 +136,13 @@ function ShowSavedExpenses({ title, filter }) {
                         <td>{el.category}</td>
                         <td>{el.fullDate}</td>
                         <td>
-                          {el.deadline === "off" && (
+                          {el.deadline === "on" && (
                             <FaCalendarTimes
                               size={20}
                               className={classes.icon_off}
                             />
                           )}
-                          {el.deadline === "on" && (
+                          {el.deadline === "off" && (
                             <FaCalendarPlus
                               size={20}
                               className={classes.icon_on}

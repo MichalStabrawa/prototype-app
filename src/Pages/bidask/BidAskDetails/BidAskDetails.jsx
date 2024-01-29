@@ -102,7 +102,7 @@ const BidAskDetails = () => {
       setMaxBidAsk
     );
   }, [statusLastTop]);
-
+ 
   return (
     <main className={classes.bid_ask}>
       <Wrapper css="dark_blue">

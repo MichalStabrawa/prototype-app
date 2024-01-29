@@ -28,6 +28,7 @@ const AddExpenses = ({ sectionRef }) => {
     fullDate: "",
     monthYear: "",
     deadline: "off",
+    deadlineDate: "",
   });
   const [formData, setFormData] = useState({
     name: "",
@@ -37,6 +38,7 @@ const AddExpenses = ({ sectionRef }) => {
     fullDate: "",
     monthYear: "",
     deadline: "off",
+    deadlineDate: "",
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
@@ -59,6 +61,7 @@ const AddExpenses = ({ sectionRef }) => {
         id: uniqueId,
         fullDate: getCurrentDate(),
         monthYear: getMonthYear(),
+        deadlineDate: "",
       }));
       setData((prevFormData) => ({
         ...prevFormData,
@@ -66,6 +69,7 @@ const AddExpenses = ({ sectionRef }) => {
         id: uniqueId,
         fullDate: getCurrentDate(),
         monthYear: getMonthYear(),
+        deadlineDate: "",
       }));
     }
 
@@ -84,6 +88,7 @@ const AddExpenses = ({ sectionRef }) => {
       fullDate: "",
       monthYear: "",
       deadline: "off",
+      deadlineDate: "",
     });
   };
 
@@ -149,6 +154,7 @@ const AddExpenses = ({ sectionRef }) => {
         fullDate: "",
         monthYear: "",
         deadline: "off",
+        deadlineDate: "",
       });
       setTableData([]);
       setOpenAlert(true);
@@ -160,7 +166,7 @@ const AddExpenses = ({ sectionRef }) => {
     setOpenAlert(false);
   };
 
-  console.log(formData)
+  console.log(formData);
 
   return (
     <div className={classes.expenses}>
@@ -195,7 +201,7 @@ const AddExpenses = ({ sectionRef }) => {
           <Form.Group>
             <Form.Label>Add category</Form.Label>
             <Form.Select onChange={handleInputChange} name="category">
-              <option value=''>Category</option>
+              <option value="">Category</option>
               <option value="home">Home</option>
               <option value="credits">Credits</option>
               <option value="car">Car</option>
@@ -218,9 +224,9 @@ const AddExpenses = ({ sectionRef }) => {
             variant="primary"
             type="submit"
             disabled={
-             ( formData.name === "" ||
+              formData.name === "" ||
               formData.expenses === 0 ||
-              formData.category === "")
+              formData.category === ""
             }
           >
             Add +

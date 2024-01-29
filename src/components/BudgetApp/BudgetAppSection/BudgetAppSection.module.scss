@@ -1,22 +1,58 @@
-@import '../../../styles/main';
+@import "../../../styles/main";
 
 .ba_section {
-    padding: 20px 20px 20px 20px;
-    background-color: $white;
-    box-shadow: $boxshadow2;
-    border-radius: 8px;
-    
+  padding: 20px 20px 20px 20px;
+  background-color: $white;
+  box-shadow: $boxshadow2;
+  border-radius: 8px;
+  color: #334565;
 }
 
 .ba_section-full {
-    grid-column: 1/3;
-    min-height: 206px;
+  grid-column: 1/3;
+  min-height: 206px;
 }
 
 .ba_section_full_mobile {
-    grid-column: 1/3;
+  grid-column: 1/3;
 
-    @media(min-width:768px) {
-        grid-column: auto;
-    }
+  @media (min-width: 768px) {
+    grid-column: auto;
+  }
+}
+.icon_exchange,
+.icon_gold,.icon_salary,.icon_salary_tab {
+  height: 48px;
+  width: 48px;
+  display: flex;
+  border-radius: 8px;
+  justify-content: center;
+  margin-right: 10px;
+  align-items: center;
+}
+.icon_gold {
+  background: $goldBack2;
+  color: #eec759;
+}
+
+.icon_exchange {
+  background: #f8edff;
+  color: #bfcfe7;
+}
+
+.icon_salary {
+    background-color: $pastelGreenRegular;
+    color:$goldBackground;
+}
+
+.icon_salary_tab {
+    background-color: $pastelGreenRegular;
+    color: $pinkMedium;
+   
+    
+}
+
+.title {
+  display: flex;
+  margin-bottom: 40px;
 }

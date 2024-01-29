@@ -1,14 +1,21 @@
 @import "../../../styles/main";
 
 .ba_main {
-  margin-top:20px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 1fr;
 
   @include media-query-md {
     grid-template-columns: 1fr 1fr;
-    gap:20px;
+    gap: 20px;
   }
+}
+
+.title_icon {
+  display: flex;
+  width:40px;
+  height: 40px;
+  background: #eec759;
 }
 
 .ba_gold {
@@ -26,14 +33,14 @@
   }
   .input {
     display: block;
-    border-top:1px solid $graylight;
+    border-top: 1px solid $graylight;
   }
 }
 
 .gold_chart_compare {
   height: 300px;
   margin-top: 40px;
-  width:100%
+  width: 100%;
 }
 
 .chart {
@@ -43,13 +50,12 @@
 .equal {
   font-size: 20px;
   padding: 10px;
-  background: goldenrod;
-  border: 1px solid $darkbluelight;
+  background: #eec759;
   max-width: 200px;
-  color: #fff;
   display: flex;
   align-items: center;
   height: 52px;
+  border-radius: 8px;
 }
 
 .chart_wrapper {
@@ -59,13 +65,13 @@
 }
 
 .btn_section {
-  margin-top:40px;
+  margin-top: 40px;
   text-align: center;
   padding-bottom: 20px;
 }
 
 .chart_wrapper {
   &_title {
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
   }
 }

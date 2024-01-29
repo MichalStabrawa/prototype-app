@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import {
   fetchNbpGold,
@@ -21,8 +21,12 @@ import { VscLaw } from "react-icons/vsc";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
+<<<<<<< HEAD:src/components/BudgetApp/BudgetAppGoldComponent/BudgetAppGold.js
 
  function BudgetAppGold({ props }) {
+=======
+export default function BudgetAppGold({ props }) {
+>>>>>>> origin/main:src/components/BudgetApp/BudgetAppGoldComponent/BudgetAppGold.jsx
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -77,7 +81,7 @@ import Button from "react-bootstrap/Button";
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <Card>
+          <Card border='light'>
             <Card.Header>
               <h4>Current gold price</h4>
             </Card.Header>
@@ -162,12 +166,10 @@ import Button from "react-bootstrap/Button";
         </div>
       </div>
       <div className={classes.btn_section}>
-      <NavLink to="gold">
-            {" "}
-            <Button  variant="outline-secondary">
-             More...
-            </Button>
-          </NavLink>
+        <NavLink to="gold">
+          {" "}
+          <Button variant="outline-secondary">More...</Button>
+        </NavLink>
       </div>
     </Wrapper>
   );

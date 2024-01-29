@@ -7,7 +7,9 @@ import authSlice from "../../store/auth";
 import { FaUser, FaRegUser } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
-import {fetchUserExpenses} from '../../store/fetchUserData/fetchUserExpenses';
+import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
+import { authActions } from "../../store/auth";
+import Button from "react-bootstrap/Button";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -66,11 +68,23 @@ const UserInfo = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchUserSalary({ auth: auth, database: database }));
-      dispatch(fetchUserExpenses({ auth: auth, database: database }))
+      dispatch(fetchUserExpenses({ auth: auth, database: database }));
     }
   }, [dispatch, user]);
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      console.log("Log off");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
 
+  const logOffHandler = () => {
+    handleSignOut();
+    dispatch(authActions.logoff());
+  };
 
   return (
     <>
@@ -90,15 +104,9 @@ const UserInfo = () => {
                 User:{" "}
                 {auth1 && status === "success" ? (
                   <div>
-                    <span>
-                      {" "}
-                      {user?.email}{" "}
-                      <ul>
-                        {data.map((el, index) => (
-                          <li key={index}>{el.name}</li>
-                        ))}
-                      </ul>{" "}
-                    </span>
+                    <Link to="/" onClick={logOffHandler}>
+                      LogOff{" "}
+                    </Link>
                   </div>
                 ) : (
                   <Link to="/login">sign in</Link>

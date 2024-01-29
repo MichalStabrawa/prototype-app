@@ -8,7 +8,8 @@ import { FaUser } from "react-icons/fa";
 import Badge from "react-bootstrap/Badge";
 import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
-
+import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 function ShowSavedSalary({ title, filter }) {
   const dataSaved = useSelector((state) => state.fetchUserSalary.data);
   const status = useSelector((state) => state.fetchUserSalary.status);
@@ -19,7 +20,8 @@ function ShowSavedSalary({ title, filter }) {
   const [recordsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isChecked, setChecked] = useState(false);
-
+  const [selectedRadio, setSelectedRadio] = useState(null);
+  const [searchDate, setSearchDate] = useState("");
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
@@ -37,8 +39,17 @@ function ShowSavedSalary({ title, filter }) {
     return sum;
   };
 
+  const radioChecked = (event) => {
+    setSelectedRadio(event.target.value);
+  };
+
   const handleSearchInput = (e) => {
-    setSearch(e.target.value);
+    if (e.target.name === "search") {
+      setSearch(e.target.value);
+    }
+    if (e.target.name === "date") {
+      setSearchDate(e.target.value);
+    }
   };
 
   const handleSwitchToggle = () => {
@@ -54,6 +65,16 @@ function ShowSavedSalary({ title, filter }) {
   useEffect(() => {
     filterSearchData(isChecked, dataSaved, search, setData);
   }, [search]);
+
+  useEffect(() => {
+    sortSalaryExpenses(data, selectedRadio, setData);
+  }, [selectedRadio]);
+
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataSaved, searchDate, setData);
+    }
+  }, [searchDate]);
 
   return (
     <div>
@@ -76,17 +97,20 @@ function ShowSavedSalary({ title, filter }) {
       {status === "success" && (
         <>
           <div className={classes.filter}>
+            {searchDate}
             <FilterShowSalary
               filter={filter}
               change={handleSearchInput}
               isChecked={isChecked}
               handleCheckbox={handleSwitchToggle}
+              radioChecked={radioChecked}
+              selectedRadio={selectedRadio}
             />
           </div>
           {search}
           <div>
             {" "}
-            <Table responsive="sm" striped  hover >
+            <Table responsive="sm" striped hover>
               <thead>
                 <tr>
                   <th>#</th>

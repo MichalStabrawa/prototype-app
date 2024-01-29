@@ -13,8 +13,6 @@
   @include media-query-lg {
     grid-template-columns: 1fr;
   }
-
-  
 }
 
 .grid {
@@ -26,6 +24,5 @@
 }
 
 .dark_blue {
-  background-color: $darkblue;
-  margin-top:20px;
+  background-color: $pastelBlueEx;
 }

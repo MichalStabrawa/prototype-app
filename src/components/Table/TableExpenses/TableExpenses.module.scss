@@ -1,0 +1,76 @@
+@import "../../../styles/main";
+
+.table_wrapper {
+  .edit {
+    display: flex;
+
+    .button {
+      padding: 0;
+      position: relative;
+      z-index: 100;
+    }
+  }
+  .icon_off,
+  .icon_on {
+    display: inline-block;
+    width: 100%;
+
+    text-align: center;
+  }
+  .icon_off {
+    color: $pastelRed;
+  }
+
+  .icon_on {
+    color: $pastelGreenRegular;
+  }
+  .modal {
+    z-index: 1000;
+  }
+}
+
+.button_pop {
+  color: #000;
+  text-decoration: none;
+}
+
+.popover {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.icon_more {
+  z-index: -1;
+}
+
+.icon_check {
+  color: green;
+}
+
+.icon_time {
+  color: orange;
+}
+
+.icon_deadline_wrapper {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.icon_danger {
+  color: red;
+}
+
+.modal_description {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.modal_check_bill {
+  margin-top: 20px;
+
+  .icon_check {
+    margin-left: 10px;
+  }
+}

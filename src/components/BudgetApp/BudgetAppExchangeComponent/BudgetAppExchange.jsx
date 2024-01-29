@@ -23,7 +23,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import Reducer from "./../../../store/store";
+import Reducer from "../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 
 import ExchangeMainTable from "../../ExchangeComponents/ExchangeMainTable/ExchangeMainTable";
@@ -90,7 +90,7 @@ const BudgetAppExchange = (props) => {
       <div className={classes.exchange_item}>
         <div className={classes.exchange_item_current}></div>
         <div>
-          <Card className="mb-2">
+          <Card className="mb-2" border='light'>
             <Card.Header>
               <span className={classes.card_header}>
                 <span>Table: {table}</span>
@@ -168,7 +168,7 @@ const BudgetAppExchange = (props) => {
             <YAxis domain={"dataMin"} />
             <Tooltip dataKey="name" />
             <Legend />
-            <Bar dataKey="value" barSize={15} fill="#413ea0" />
+            <Bar dataKey="value" barSize={25} fill="#756AB6" />
             <Line type="monotone" dataKey="value" stroke="#ff7300" />
           </ComposedChart>
         </ResponsiveContainer>

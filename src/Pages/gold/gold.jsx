@@ -14,6 +14,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 
 import { GiGoldBar } from "react-icons/gi";
+import { AiFillGold } from "react-icons/ai";
 import IconArrow from "../../components/UI/iconArrow/iconArrow";
 import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
 import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
@@ -82,7 +83,7 @@ const Gold = () => {
             <Container fluid>
               <Row>
                 <Col xs={12} md={3}>
-                  <h2 className={classes.title}>Actual Gold prices </h2>
+                  <h2 className={classes.title}><span className={classes.gold_icon}><AiFillGold /></span>Actual Gold prices </h2>
                   {status === "success" && (
                     <div className={classes.card_wrapper}>
                       {" "}
