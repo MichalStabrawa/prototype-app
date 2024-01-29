@@ -99,10 +99,13 @@ function Expenses({ auth }) {
             className={`${userPageClasses.daschboard} ${userPageClasses.exspenses}`}
           >
             <Container fluid>
-              <Row>
-                <Col xs={12} md={3}>
-                  <Card className={userPageClasses.card_info} border="light">
-                    <Card.Body>
+              <Row className="h-100">
+                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                  <Card
+                    className={`${userPageClasses.card_info} h-100`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
@@ -115,9 +118,7 @@ function Expenses({ auth }) {
                           Expenses
                         </span>
                       </Card.Text>
-
                       <Card.Text>
-                        {" "}
                         <span className={userPageClasses.badge}>
                           <Badge bg="danger"> {sumShowExpenses} PLN</Badge>
                         </span>
@@ -125,10 +126,12 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={3}>
-                  {" "}
-                  <Card className={userPageClasses.card_info} border="light">
-                    <Card.Body>
+                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                  <Card
+                    className={`${userPageClasses.card_info} h-100`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span className={userPageClasses.icon_wrapper}>
                           <BsDatabase />
@@ -140,7 +143,6 @@ function Expenses({ auth }) {
                         </span>
                       </Card.Text>
                       <Card.Text>
-                        {" "}
                         <span className={userPageClasses.badge}>
                           <Badge bg="secondary">
                             {sumShowSalary - sumShowExpenses}PLN
@@ -150,10 +152,12 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={3}>
-                  {" "}
-                  <Card className={userPageClasses.card_info} border="light">
-                    <Card.Body>
+                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                  <Card
+                    className={`${userPageClasses.card_info} h-100`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${userPageClasses.icon_wrapper} ${userPageClasses.deadline}`}
@@ -163,14 +167,13 @@ function Expenses({ auth }) {
                       </Card.Title>
                       <Card.Text>
                         <span className={userPageClasses.card_title}>
-                          Deadline,Invoices with due date{" "}
+                          Deadline, Invoices with due date
                         </span>
                       </Card.Text>
                       <Card.Text>
-                        {" "}
                         <span className={userPageClasses.badge}>
                           <Badge bg="warning">
-                            value:{valueDeadline && valueDeadline}{" "}
+                            value: {valueDeadline && valueDeadline}
                           </Badge>
                           <Badge text="danger" bg="dark">
                             quantity: {deadline && deadline.length} x
@@ -180,10 +183,12 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={3}>
-                  {" "}
-                  <Card className={userPageClasses.card_info} border="light">
-                    <Card.Body>
+                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                  <Card
+                    className={`${userPageClasses.card_info} h-100`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${userPageClasses.icon_wrapper} ${userPageClasses.deadline_ok}`}
@@ -197,10 +202,9 @@ function Expenses({ auth }) {
                         </span>
                       </Card.Text>
                       <Card.Text>
-                        {" "}
                         <span className={userPageClasses.badge}>
                           <Badge bg="success">
-                            value:
+                            value:{" "}
                             {valueDeadline &&
                               sumShowExpenses &&
                               sumShowExpenses - valueDeadline}{" "}
@@ -214,9 +218,9 @@ function Expenses({ auth }) {
                   </Card>
                 </Col>
               </Row>
-              <Row>
-                <Col md={6}>
-                  <Card border="light">
+              <Row className="h-100 g-4">
+                <Col md={6} className="d-flex flex-column flex-fill">
+                  <Card border="light" className="h-100">
                     <Card.Header>
                       <Card.Title>
                         Expenses with deadline{" "}
@@ -225,7 +229,7 @@ function Expenses({ auth }) {
                         </Badge>
                       </Card.Title>
                     </Card.Header>
-                    <Card.Body>
+                    <Card.Body className="d-flex flex-column">
                       <TableExpenses
                         data={deadline}
                         status={statusExpenses}
@@ -236,8 +240,8 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col md={6}>
-                  <Card border="light">
+                <Col md={6} className="d-flex flex-column flex-fill">
+                  <Card border="light" className="h-100">
                     <Card.Header>
                       <Card.Title>
                         All Expenses{" "}
@@ -246,7 +250,7 @@ function Expenses({ auth }) {
                         </Badge>
                       </Card.Title>
                     </Card.Header>
-                    <Card.Body>
+                    <Card.Body className="d-flex flex-column">
                       <TableExpenses
                         data={dataExpenses}
                         status={statusExpenses}
