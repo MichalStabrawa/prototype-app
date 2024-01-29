@@ -21,12 +21,7 @@ import { VscLaw } from "react-icons/vsc";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-<<<<<<< HEAD:src/components/BudgetApp/BudgetAppGoldComponent/BudgetAppGold.js
-
- function BudgetAppGold({ props }) {
-=======
 export default function BudgetAppGold({ props }) {
->>>>>>> origin/main:src/components/BudgetApp/BudgetAppGoldComponent/BudgetAppGold.jsx
   const [gold, setGold] = useState([]);
   const [data, setData] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -175,4 +170,3 @@ export default function BudgetAppGold({ props }) {
   );
 }
 
-export default BudgetAppGold

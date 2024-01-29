@@ -15,7 +15,6 @@ function SimpleLineChart(props) {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-<<<<<<< HEAD
       <LineChart
         width={500}
         height={300}
@@ -35,7 +34,7 @@ function SimpleLineChart(props) {
         <Line
           type="monotone"
           dataKey="cena"
-          stroke="#8884d8"
+          stroke="#F2921D"
           activeDot={{ r: 8 }}
         />
         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
@@ -43,29 +42,4 @@ function SimpleLineChart(props) {
     </ResponsiveContainer>
   );
 }
-
-export default SimpleLineChart;
-=======
-    <LineChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="data" />
-      <YAxis  domain={[ 'dataMax']}/>
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="cena" stroke="#F2921D" activeDot={{ r: 8 }} />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    </LineChart>
-  </ResponsiveContainer>
-)
-}
->>>>>>> origin/main
+export default SimpleLineChart
