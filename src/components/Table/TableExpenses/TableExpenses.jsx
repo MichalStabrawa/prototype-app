@@ -384,7 +384,7 @@ function TableExpenses({
 
   return (
     <div className={classes.table_wrapper}>
-      <FilterShowSalary filter="false" />
+      <FilterShowSalary />
       <Table responsive="lg" striped hover>
         <thead>
           <tr>
