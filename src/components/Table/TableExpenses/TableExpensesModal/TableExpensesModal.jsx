@@ -246,12 +246,10 @@ function TableExpensesModal({
                 />
               </Form.Group>
             ) : (
-              <Badge bg="info">
-                <h3>
-                  Great, looks like this bill has already been paid
-                  <RiEmotionHappyLine size="" color="yellow" />
-                </h3>{" "}
-              </Badge>
+              <h3>
+                Great, looks like this bill has already been paid
+                <RiEmotionHappyLine size="" color="yellow" />
+              </h3>
             )}
           </>
         )}
@@ -261,32 +259,17 @@ function TableExpensesModal({
           Close
         </Button>
         {modal === "deadline" && (
-          <Button
-            variant="primary"
-            onClick={()=>
-              updateData()
-            }
-          >
+          <Button variant="primary" onClick={() => updateData()}>
             Save deadline
           </Button>
         )}{" "}
         {modal === "select-paid" && (
-          <Button
-            variant="primary"
-            onClick={()=>
-              editUpdateData()
-            }
-          >
+          <Button variant="primary" onClick={() => editUpdateData()}>
             Save
           </Button>
         )}
         {modal === "delete" && (
-          <Button
-            variant="danger"
-            onClick={
-             ()=> deleteData()
-            }
-          >
+          <Button variant="danger" onClick={() => deleteData()}>
             Delete
           </Button>
         )}
