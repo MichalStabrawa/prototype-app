@@ -7,7 +7,7 @@
     .button {
       padding: 0;
       position: relative;
-      z-index:100;
+      z-index: 100;
     }
   }
   .icon_off,
@@ -40,25 +40,37 @@
 }
 
 .icon_more {
-    z-index: -1;
+  z-index: -1;
 }
 
 .icon_check {
-  color:green;
+  color: green;
 }
 
 .icon_time {
-  color:orange;
-  
+  color: orange;
 }
 
 .icon_deadline_wrapper {
   text-align: center;
-  display:flex;
+  display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
 .icon_danger {
-  color:red;
+  color: red;
+}
+
+.modal_description {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.modal_check_bill {
+  margin-top: 20px;
+
+  .icon_check {
+    margin-left: 10px;
+  }
 }

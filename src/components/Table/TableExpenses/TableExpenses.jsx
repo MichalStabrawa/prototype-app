@@ -16,6 +16,11 @@ import { FaCheck } from "react-icons/fa";
 import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 import { calculateDateDifference } from "../../../utils/countDifferencesInDays";
 import { MdOutlineUpdate } from "react-icons/md";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Badge from "react-bootstrap/Badge";
+import { GrCheckboxSelected } from "react-icons/gr";
+import { RiEmotionHappyLine } from "react-icons/ri";
 
 function TableExpenses({ data, status }) {
   const dispatch = useDispatch();
@@ -32,6 +37,10 @@ function TableExpenses({ data, status }) {
 
     deadline: "off",
   });
+  const [isChecked, setIsChecked] = useState(false);
+
+  console.log("FORMDATA");
+  console.log(formData);
   const [dataInput, setData] = useState({
     name: "",
     expenses: 0,
@@ -39,6 +48,8 @@ function TableExpenses({ data, status }) {
 
     deadline: "off",
   });
+
+  console.log(isChecked);
 
   const user = auth.currentUser;
 
@@ -66,6 +77,7 @@ function TableExpenses({ data, status }) {
 
       deadline: "off",
     });
+    setIsChecked(false);
   };
 
   const handleShow = (e) => {
@@ -81,11 +93,29 @@ function TableExpenses({ data, status }) {
       setShow(true);
       setModal("edit");
     }
+    if (e.target.name === "select-paid") {
+      setShow(true);
+      setModal("select-paid");
+    }
   };
 
   const handleDeadlineDate = (e) => {
     const deadline = e.target.value;
     setNewDeadlineDate(deadline);
+  };
+
+  const handleInputChecboxPaid = (e) => {
+    const { name, checked } = e.target;
+    const data = {
+      name: filterIdData[0].name,
+      expenses: filterIdData[0].expenses,
+      category: filterIdData[0].category,
+    };
+    setFormData({
+      ...data,
+      [name]: checked ? "off" : "on",
+    });
+    setIsChecked(!isChecked);
   };
 
   const handleInputChange = (e) => {
@@ -148,6 +178,7 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error deleting data:", error);
     }
+    handleClose();
   };
 
   //update deadlineData
@@ -211,6 +242,7 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error updating data:", error);
     }
+    handleClose();
   };
 
   const editUpdateData = async () => {
@@ -272,7 +304,9 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error updating data:", error);
     }
+    handleClose();
   };
+
   useEffect(() => {
     if (editId) {
       const editFilter = data.filter((el) => el.id === editId);
@@ -322,13 +356,23 @@ function TableExpenses({ data, status }) {
             <MdDeleteForever color="#f30e25" fontSize="1.5em" /> Delete
           </Button>
         </span>
+        <span className={classes.popover}>
+          <Button
+            onClick={handleShow}
+            className={classes.button_pop}
+            variant="link"
+            name="select-paid"
+          >
+            <GrCheckboxSelected fontSize="1.5em" color="green" /> Select paid
+          </Button>
+        </span>
       </Popover.Body>
     </Popover>
   );
 
   return (
     <div className={classes.table_wrapper}>
-      <Table responsive="sm" striped hover>
+      <Table responsive="lg" striped hover>
         <thead>
           <tr>
             <th>#</th>
@@ -409,36 +453,28 @@ function TableExpenses({ data, status }) {
                     {el.deadline === "on" ? (
                       <span className={classes.icon_deadline_wrapper}>
                         {el.deadlineDate}{" "}
-                        {/* {(calculateDateDifference(el.deadlineDate) < 3) &
-                        (el.deadlineDate !== "") ? (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_time}
-                          />
-                        ) : (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_long_time}
-                          />
-                        )} */}
-                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 3 && calculateDateDifference(el.deadlineDate)>0 )  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_time}
-                          />
-                        )}
-                          {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) > 3)  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_long_time}
-                          />
-                        )}
-                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 0)  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_danger}
-                          />
-                        )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) <= 3 &&
+                          calculateDateDifference(el.deadlineDate) > 0 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_time}
+                            />
+                          )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) > 3 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_long_time}
+                            />
+                          )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) <= 0 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_danger}
+                            />
+                          )}
                       </span>
                     ) : (
                       <FaCheck className={classes.icon_check} />
@@ -450,13 +486,122 @@ function TableExpenses({ data, status }) {
         </tbody>
       </Table>
       {filterIdData && (
-        <Modal show={show} onHide={handleClose} className={classes.modal}>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          className={classes.modal}
+          size="lg"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>{filterIdData[0].name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            category: {filterIdData[0].category} value:{" "}
-            {filterIdData[0].expenses} date: {filterIdData[0].fullDate}
+            <Row>
+              <Col xs={12} md={6}>
+                <p>
+                  <span className={classes.modal_description}>category:</span>
+                  {filterIdData[0].category}
+                </p>
+              </Col>
+              <Col xs={12} md={6}>
+                <p>
+                  {" "}
+                  <span className={classes.modal_description}>value:</span>
+                  {filterIdData[0].expenses}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={6}>
+                {" "}
+                <p>
+                  <span className={classes.modal_description}>date:</span>
+                  {filterIdData[0].fullDate}
+                </p>
+              </Col>
+              <Col xs={12} md={6}>
+                {" "}
+                <p>
+                  <span className={classes.modal_description}>deadline:</span>
+                  {filterIdData[0].deadline === "on" ? "yes" : "no"}
+                </p>
+              </Col>
+            </Row>{" "}
+            {}
+            {filterIdData[0].deadline === "on" && (
+              <Row>
+                <Col xs={12}>
+                  {" "}
+                  <p>
+                    <span className={classes.modal_description}>
+                      deadline date:
+                    </span>
+                    {filterIdData[0].deadlineDate}
+                    <span className={classes.modal_icon}>
+                      {" "}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) <=
+                          3 &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) >
+                          0 && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_time}
+                          />
+                        )}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) >
+                          3 && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_long_time}
+                          />
+                        )}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) <=
+                          0 && (
+                          <>
+                            <Badge bg="dark" text="danger">
+                              {" "}
+                              <MdOutlineUpdate
+                                size={20}
+                                className={classes.icon_danger}
+                              />
+                              {calculateDateDifference(
+                                filterIdData[0].deadlineDate
+                              ) === 0 && (
+                                <span>the payment deadline expires !!!</span>
+                              )}{" "}
+                              {calculateDateDifference(
+                                filterIdData[0].deadlineDate
+                              ) < 0 && (
+                                <span>
+                                  {calculateDateDifference(
+                                    filterIdData[0].deadlineDate
+                                  )}{" "}
+                                  days after the payment due date
+                                </span>
+                              )}
+                            </Badge>
+                          </>
+                        )}
+                      {calculateDateDifference(filterIdData[0].deadlineDate) >
+                        0 && (
+                        <Badge bg="warning">
+                          <span>
+                            {calculateDateDifference(
+                              filterIdData[0].deadlineDate
+                            )}{" "}
+                            days before the payment due date
+                          </span>
+                        </Badge>
+                      )}
+                    </span>
+                  </p>
+                </Col>
+              </Row>
+            )}
             {modal === "deadline" && (
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Date deadline</Form.Label>
@@ -527,7 +672,6 @@ function TableExpenses({ data, status }) {
                 />
                 <Button
                   onClick={() => {
-                    handleClose();
                     editUpdateData();
                   }}
                   size="lg"
@@ -542,6 +686,40 @@ function TableExpenses({ data, status }) {
                 </Button>{" "}
               </Form>
             )}
+            {modal === "select-paid" && (
+              <>
+                {filterIdData[0].deadline === "on" ? (
+                  <Form.Group className={classes.modal_check_bill}>
+                    {" "}
+                    <Form.Label>Check if the bill has been paid</Form.Label>
+                    <Form.Check
+                      type="switch"
+                      id="custom-switch"
+                      //checked? label={"on"}:label={"off"}
+                      checked={isChecked}
+                      label={
+                        isChecked ? (
+                          <span>
+                            Bill paid <FaCheck className={classes.icon_check} />
+                          </span>
+                        ) : (
+                          "Bill not paid"
+                        )
+                      }
+                      name="deadline"
+                      onChange={handleInputChecboxPaid}
+                    />
+                  </Form.Group>
+                ) : (
+                  <Badge bg="info">
+                    <h3>
+                      Great, looks like this bill has already been paid
+                      <RiEmotionHappyLine size="" color="yellow" />
+                    </h3>{" "}
+                  </Badge>
+                )}
+              </>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -551,18 +729,26 @@ function TableExpenses({ data, status }) {
               <Button
                 variant="primary"
                 onClick={() => {
-                  handleClose();
                   updateData();
                 }}
               >
                 Save deadline
               </Button>
             )}{" "}
+            {modal === "select-paid" && (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  editUpdateData();
+                }}
+              >
+                Save
+              </Button>
+            )}
             {modal === "delete" && (
               <Button
                 variant="danger"
                 onClick={() => {
-                  handleClose();
                   deleteData();
                 }}
               >
