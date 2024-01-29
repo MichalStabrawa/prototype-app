@@ -263,7 +263,7 @@ function TableExpensesModal({
         {modal === "deadline" && (
           <Button
             variant="primary"
-            onClick={
+            onClick={()=>
               updateData()
             }
           >
@@ -273,7 +273,7 @@ function TableExpensesModal({
         {modal === "select-paid" && (
           <Button
             variant="primary"
-            onClick={
+            onClick={()=>
               editUpdateData()
             }
           >
@@ -284,7 +284,7 @@ function TableExpensesModal({
           <Button
             variant="danger"
             onClick={
-              deleteData()
+             ()=> deleteData()
             }
           >
             Delete
