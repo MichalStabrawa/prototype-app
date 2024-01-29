@@ -16,6 +16,7 @@ import {
   FaCalendarCheck,
 } from "react-icons/fa";
 import TableExpenses from "../../components/Table/TableExpenses/TableExpenses";
+import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
 
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
@@ -220,28 +221,15 @@ function Expenses({ auth }) {
               </Row>
               <Row className="h-100 g-4">
                 <Col md={6} className="d-flex flex-column flex-fill">
-                  <Card border="light" className="h-100">
-                    <Card.Header>
-                      <Card.Title>
-                        Expenses with deadline{" "}
-                        <Badge bg="danger">
-                          {valueDeadline && valueDeadline}
-                        </Badge>
-                      </Card.Title>
-                    </Card.Header>
-                    <Card.Body className="d-flex flex-column">
-                      <TableExpenses
-                        data={deadline}
-                        status={statusExpenses}
-                        responsive="sm"
-                        striped
-                        hover
-                      />
-                    </Card.Body>
-                  </Card>
+                  <ExpensesCardWithTable
+                    badgeData={valueDeadline}
+                    data={deadline}
+                    statusExpenses={statusExpenses}
+                    title="Expenses with deadline !!"
+                  />
                 </Col>
                 <Col md={6} className="d-flex flex-column flex-fill">
-                  <Card border="light" className="h-100">
+                  {/* <Card border="light" className="h-100">
                     <Card.Header>
                       <Card.Title>
                         All Expenses{" "}
@@ -259,7 +247,13 @@ function Expenses({ auth }) {
                         hover
                       ></TableExpenses>
                     </Card.Body>
-                  </Card>
+                  </Card> */}
+                    <ExpensesCardWithTable
+                    badgeData={sumShowExpenses}
+                    data={dataExpenses}
+                    statusExpenses={statusExpenses}
+                    title="All expenses"
+                  />
                 </Col>
               </Row>
             </Container>

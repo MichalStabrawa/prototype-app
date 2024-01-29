@@ -202,8 +202,9 @@ function TableExpensesModal({
               id="custom-switch"
               label={formData.deadline === "on" ? "Deadline" : "Not deadline"}
               name="deadline"
-              onChange={handleInputChange}
               checked={formData.deadline === "on"}
+              onChange={handleInputChange}
+              
             />
             <Button
               onClick={() => {
@@ -242,7 +243,7 @@ function TableExpensesModal({
                     )
                   }
                   name="deadline"
-                  onChange={handleInputChecboxPaid}
+              
                 />
               </Form.Group>
             ) : (
