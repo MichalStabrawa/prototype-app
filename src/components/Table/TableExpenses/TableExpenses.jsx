@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth, database } from "../../../firebase/firebase";
 import classes from "./TableExpenses.module.scss";
-import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -11,16 +10,11 @@ import { FaCalendarPlus, FaCalendarTimes, FaEdit } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
 import { LuCalendarClock } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
-import Modal from "react-bootstrap/Modal";
 import { FaCheck } from "react-icons/fa";
 import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 import { calculateDateDifference } from "../../../utils/countDifferencesInDays";
 import { MdOutlineUpdate } from "react-icons/md";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
 import { GrCheckboxSelected } from "react-icons/gr";
-import { RiEmotionHappyLine } from "react-icons/ri";
 import TableExpensesModal from "./TableExpensesModal/TableExpensesModal";
 import FilterShowSalary from "../../FilterShowSalary/FilterShowSalary";
 import Pagination from "../../Paggination/Pagination";
@@ -32,6 +26,12 @@ function TableExpenses({
   setCurrentPage,
   currentPage,
   currentRecords,
+  radioChecked,
+  selectedRadio,
+
+  handleSwitchToggle,
+  isCheckedFiltr,
+  handleSearchInput,
 }) {
   const dispatch = useDispatch();
   const [editId, setEditId] = useState();
@@ -56,12 +56,12 @@ function TableExpenses({
 
     deadline: "off",
   });
-  console.log("NPAGES in Table" + nPages);
-  console.log("CurrentRecords Table");
-  console.log(currentRecords);
 
   const user = auth.currentUser;
-
+  if (currentRecords) {
+    console.log("Current Records IF");
+    console.log(currentRecords);
+  }
   const editHandle = (e) => {
     const id = e.target.id;
     console.log(id);
@@ -381,7 +381,14 @@ function TableExpenses({
 
   return (
     <div className={classes.table_wrapper}>
-      <FilterShowSalary />
+      <FilterShowSalary
+        filter="true"
+        change={handleSearchInput}
+        isChecked={isCheckedFiltr}
+        handleCheckbox={handleSwitchToggle}
+        radioChecked={radioChecked}
+        selectedRadio={selectedRadio}
+      />
       <Table responsive="lg" striped hover>
         <thead>
           <tr>
