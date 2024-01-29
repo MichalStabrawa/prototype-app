@@ -229,26 +229,7 @@ function Expenses({ auth }) {
                   />
                 </Col>
                 <Col md={6} className="d-flex flex-column flex-fill">
-                  {/* <Card border="light" className="h-100">
-                    <Card.Header>
-                      <Card.Title>
-                        All Expenses{" "}
-                        <Badge bg="light" text="dark">
-                          {sumShowExpenses}
-                        </Badge>
-                      </Card.Title>
-                    </Card.Header>
-                    <Card.Body className="d-flex flex-column">
-                      <TableExpenses
-                        data={dataExpenses}
-                        status={statusExpenses}
-                        responsive="sm"
-                        striped
-                        hover
-                      ></TableExpenses>
-                    </Card.Body>
-                  </Card> */}
-                    <ExpensesCardWithTable
+                  <ExpensesCardWithTable
                     badgeData={sumShowExpenses}
                     data={dataExpenses}
                     statusExpenses={statusExpenses}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import classes from "./ExpnesesCardWithTable.module.scss";
 import Card from "react-bootstrap/Card";
 import TableExpenses from "../../Table/TableExpenses/TableExpenses";
@@ -6,8 +7,11 @@ import Badge from "react-bootstrap/Badge";
 import { filterSearchData } from "../../../utils/filterInsideAccordion";
 import { sortSalaryExpenses } from "../../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../../utils/filterDateAcordion";
+import { auth, database } from "../../../firebase/firebase";
+import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 
 function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
+  const dispatch = useDispatch();
   const [dataFilter, setDataFilter] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedRadio, setSelectedRadio] = useState(null);
@@ -15,6 +19,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
   const [isCheckedFilter, setCheckedFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
+  const [flag, setFlag] = useState(false);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -27,12 +32,11 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
       ? Math.ceil(data.length / recordsPerPage)
       : 0;
 
-  console.log("DATA CurrentRecords");
-  console.log(currentRecords);
+  const user = auth.currentUser;
 
-  console.log("NpAgeswitTable:" + nPages);
-  console.log("DataFilter ExcpensesTab");
-  console.log(dataFilter);
+  const executeSetFlag = (flag) => {
+    setFlag(flag);
+  };
   //filter data
   const radioChecked = (event) => {
     setSelectedRadio(event.target.value);
@@ -52,11 +56,9 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
   };
   useEffect(() => {
     if (statusExpenses === "success" && data) {
-      console.log("DataUSE");
-      console.log(data);
       setDataFilter(data);
     }
-  }, [statusExpenses]);
+  }, [statusExpenses, badgeData, data]);
 
   useEffect(() => {
     if (data) {
@@ -77,6 +79,14 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
       }
     }
   }, [searchDate]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserExpenses({ auth: auth, database: database }));
+
+      setFlag(false);
+    }
+  }, [flag, dispatch, user]);
   return (
     <Card border="light" className="h-100">
       <Card.Header>
@@ -101,6 +111,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
             handleSearchInput={handleSearchInput}
             handleSwitchToggle={handleSwitchToggle}
             isCheckedFiltr={isCheckedFilter}
+            flagExpenses={executeSetFlag}
           />
         )}
       </Card.Body>
