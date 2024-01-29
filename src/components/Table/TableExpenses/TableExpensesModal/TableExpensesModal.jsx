@@ -243,7 +243,7 @@ function TableExpensesModal({
                     )
                   }
                   name="deadline"
-              
+              onChange={handleInputChecboxPaid}
                 />
               </Form.Group>
             ) : (
