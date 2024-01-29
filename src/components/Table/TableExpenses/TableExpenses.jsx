@@ -22,8 +22,17 @@ import Badge from "react-bootstrap/Badge";
 import { GrCheckboxSelected } from "react-icons/gr";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import TableExpensesModal from "./TableExpensesModal/TableExpensesModal";
+import FilterShowSalary from "../../FilterShowSalary/FilterShowSalary";
+import Pagination from "../../Paggination/Pagination";
 
-function TableExpenses({ data, status }) {
+function TableExpenses({
+  data,
+  status,
+  nPages,
+  setCurrentPage,
+  currentPage,
+  currentRecords,
+}) {
   const dispatch = useDispatch();
   const [editId, setEditId] = useState();
   const [filterIdData, setFilterIdData] = useState();
@@ -40,8 +49,6 @@ function TableExpenses({ data, status }) {
   });
   const [isChecked, setIsChecked] = useState(false);
 
-  console.log("FORMDATA");
-  console.log(formData);
   const [dataInput, setData] = useState({
     name: "",
     expenses: 0,
@@ -49,8 +56,9 @@ function TableExpenses({ data, status }) {
 
     deadline: "off",
   });
-
-  console.log(isChecked);
+  console.log("NPAGES in Table" + nPages);
+  console.log("CurrentRecords Table");
+  console.log(currentRecords);
 
   const user = auth.currentUser;
 
@@ -373,6 +381,7 @@ function TableExpenses({ data, status }) {
 
   return (
     <div className={classes.table_wrapper}>
+      <FilterShowSalary filter="false" />
       <Table responsive="lg" striped hover>
         <thead>
           <tr>
@@ -387,8 +396,9 @@ function TableExpenses({ data, status }) {
         </thead>
         <tbody>
           {data &&
+            currentRecords &&
             status === "success" &&
-            data.map((el, index) => {
+            currentRecords.map((el, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
@@ -486,6 +496,14 @@ function TableExpenses({ data, status }) {
             })}
         </tbody>
       </Table>
+      {nPages > 0 && currentPage && data.length > 10 && (
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+
       {filterIdData && (
         <TableExpensesModal
           show={show}
