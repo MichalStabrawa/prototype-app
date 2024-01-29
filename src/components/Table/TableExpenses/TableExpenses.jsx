@@ -151,6 +151,7 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error deleting data:", error);
     }
+    handleClose();
   };
 
   //update deadlineData
@@ -214,6 +215,7 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error updating data:", error);
     }
+    handleClose();
   };
 
   const editUpdateData = async () => {
@@ -275,7 +277,9 @@ function TableExpenses({ data, status }) {
     } catch (error) {
       console.error("Error updating data:", error);
     }
+    handleClose();
   };
+
   useEffect(() => {
     if (editId) {
       const editFilter = data.filter((el) => el.id === editId);
@@ -643,7 +647,6 @@ function TableExpenses({ data, status }) {
                 />
                 <Button
                   onClick={() => {
-                    handleClose();
                     editUpdateData();
                   }}
                   size="lg"
@@ -667,7 +670,6 @@ function TableExpenses({ data, status }) {
               <Button
                 variant="primary"
                 onClick={() => {
-                  handleClose();
                   updateData();
                 }}
               >
@@ -678,7 +680,6 @@ function TableExpenses({ data, status }) {
               <Button
                 variant="danger"
                 onClick={() => {
-                  handleClose();
                   deleteData();
                 }}
               >
