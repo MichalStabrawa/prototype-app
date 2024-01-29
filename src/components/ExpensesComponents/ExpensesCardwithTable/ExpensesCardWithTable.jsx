@@ -32,7 +32,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
 
   console.log("NpAgeswitTable:" + nPages);
   console.log("DataFilter ExcpensesTab");
-  console.log(dataFilter)
+  console.log(dataFilter);
   //filter data
   const radioChecked = (event) => {
     setSelectedRadio(event.target.value);
@@ -51,10 +51,9 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
     setCheckedFilter(!isCheckedFilter);
   };
   useEffect(() => {
-  
     if (statusExpenses === "success" && data) {
-        console.log("DataUSE")
-        console.log(data)
+      console.log("DataUSE");
+      console.log(data);
       setDataFilter(data);
     }
   }, [statusExpenses]);
@@ -87,7 +86,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
         </Card.Title>
       </Card.Header>
       <Card.Body className="d-flex flex-column">
-        {dataFilter.length>0  && currentRecords.length>0&&(
+        {data && currentRecords && (
           <TableExpenses
             setCurrentPage={setCurrentPage}
             nPages={nPages}
