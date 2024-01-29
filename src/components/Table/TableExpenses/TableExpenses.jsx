@@ -24,6 +24,9 @@ import { RiEmotionHappyLine } from "react-icons/ri";
 import TableExpensesModal from "./TableExpensesModal/TableExpensesModal";
 import FilterShowSalary from "../../FilterShowSalary/FilterShowSalary";
 import Pagination from "../../Paggination/Pagination";
+import { filterSearchData } from "../../../utils/filterInsideAccordion";
+import { sortSalaryExpenses } from "../../../utils/sortSalaryExpenses";
+import { filterSearchData } from "../../../utils/filterInsideAccordion";
 
 function TableExpenses({
   data,
