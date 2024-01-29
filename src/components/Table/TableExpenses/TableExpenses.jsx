@@ -16,6 +16,9 @@ import { FaCheck } from "react-icons/fa";
 import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 import { calculateDateDifference } from "../../../utils/countDifferencesInDays";
 import { MdOutlineUpdate } from "react-icons/md";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Badge from "react-bootstrap/Badge";
 
 function TableExpenses({ data, status }) {
   const dispatch = useDispatch();
@@ -421,24 +424,28 @@ function TableExpenses({ data, status }) {
                             className={classes.icon_long_time}
                           />
                         )} */}
-                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 3 && calculateDateDifference(el.deadlineDate)>0 )  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_time}
-                          />
-                        )}
-                          {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) > 3)  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_long_time}
-                          />
-                        )}
-                        {el.deadlineDate !== "" && (calculateDateDifference(el.deadlineDate) <= 0)  && (
-                          <MdOutlineUpdate
-                            size={20}
-                            className={classes.icon_danger}
-                          />
-                        )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) <= 3 &&
+                          calculateDateDifference(el.deadlineDate) > 0 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_time}
+                            />
+                          )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) > 3 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_long_time}
+                            />
+                          )}
+                        {el.deadlineDate !== "" &&
+                          calculateDateDifference(el.deadlineDate) <= 0 && (
+                            <MdOutlineUpdate
+                              size={20}
+                              className={classes.icon_danger}
+                            />
+                          )}
                       </span>
                     ) : (
                       <FaCheck className={classes.icon_check} />
@@ -450,13 +457,122 @@ function TableExpenses({ data, status }) {
         </tbody>
       </Table>
       {filterIdData && (
-        <Modal show={show} onHide={handleClose} className={classes.modal}>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          className={classes.modal}
+          size="lg"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>{filterIdData[0].name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            category: {filterIdData[0].category} value:{" "}
-            {filterIdData[0].expenses} date: {filterIdData[0].fullDate}
+            <Row>
+              <Col xs={12} md={6}>
+                <p>
+                  <span className={classes.modal_description}>category:</span>
+                  {filterIdData[0].category}
+                </p>
+              </Col>
+              <Col xs={12} md={6}>
+                <p>
+                  {" "}
+                  <span className={classes.modal_description}>value:</span>
+                  {filterIdData[0].expenses}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={6}>
+                {" "}
+                <p>
+                  <span className={classes.modal_description}>date:</span>
+                  {filterIdData[0].fullDate}
+                </p>
+              </Col>
+              <Col xs={12} md={6}>
+                {" "}
+                <p>
+                  <span className={classes.modal_description}>deadline:</span>
+                  {filterIdData[0].deadline === "on" ? "yes" : "no"}
+                </p>
+              </Col>
+            </Row>{" "}
+            {}
+            {filterIdData[0].deadline === "on" && (
+              <Row>
+                <Col xs={12}>
+                  {" "}
+                  <p>
+                    <span className={classes.modal_description}>
+                      deadline date:
+                    </span>
+                    {filterIdData[0].deadlineDate}
+                    <span className={classes.modal_icon}>
+                      {" "}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) <=
+                          3 &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) >
+                          0 && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_time}
+                          />
+                        )}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) >
+                          3 && (
+                          <MdOutlineUpdate
+                            size={20}
+                            className={classes.icon_long_time}
+                          />
+                        )}
+                      {filterIdData[0].deadlineDate !== "" &&
+                        calculateDateDifference(filterIdData[0].deadlineDate) <=
+                          0 && (
+                          <>
+                            <Badge bg="dark" text="danger">
+                              {" "}
+                              <MdOutlineUpdate
+                                size={20}
+                                className={classes.icon_danger}
+                              />
+                              {calculateDateDifference(
+                                filterIdData[0].deadlineDate
+                              ) === 0 && (
+                                <span>the payment deadline expires !!!</span>
+                              )}{" "}
+                              {calculateDateDifference(
+                                filterIdData[0].deadlineDate
+                              ) < 0 && (
+                                <span>
+                                  {calculateDateDifference(
+                                    filterIdData[0].deadlineDate
+                                  )}{" "}
+                                  days after the payment due date
+                                </span>
+                              )}
+                            </Badge>
+                          </>
+                        )}
+                      {calculateDateDifference(filterIdData[0].deadlineDate) >
+                        0 && (
+                        <Badge bg="warning">
+                          <span>
+                            {calculateDateDifference(
+                              filterIdData[0].deadlineDate
+                            )}{" "}
+                            days before the payment due date
+                          </span>
+                        </Badge>
+                      )}
+                    </span>
+                  </p>
+                </Col>
+              </Row>
+            )}
             {modal === "deadline" && (
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Date deadline</Form.Label>
