@@ -28,7 +28,7 @@ function TableExpenses({
   currentRecords,
   radioChecked,
   selectedRadio,
-
+  flagExpenses,
   handleSwitchToggle,
   isCheckedFiltr,
   handleSearchInput,
@@ -93,6 +93,7 @@ function TableExpenses({
     if (e.target.name === "deadline") {
       setShow(true);
       setModal("deadline");
+      alert("Deadline");
     }
     if (e.target.name === "delete") {
       setShow(true);
@@ -178,6 +179,7 @@ function TableExpenses({
 
           console.log("Data deleted successfully");
           setFlag(true);
+          flagExpenses(true);
         } else {
           console.error("Data not found");
         }
@@ -238,6 +240,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
+            flagExpenses(true)
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);
@@ -300,6 +303,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
+            flagExpenses(true)
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);
