@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import TableExpenses from "../../components/Table/TableExpenses/TableExpenses";
 import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
+import ExpensesChart from "../../components/ExpensesComponents/ExpensesChart/ExpensesChart";
 
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
@@ -235,6 +236,27 @@ function Expenses({ auth }) {
                     statusExpenses={statusExpenses}
                     title="All expenses"
                   />
+                </Col>
+              </Row>
+              <Row className="h-100">
+                <Col xs={12} md={6}>
+                  {deadline && (
+                    <ExpensesChart
+                      color="red"
+                      data={deadline}
+                      title="Deadline chart"
+                      badgeData={valueDeadline}
+                    />
+                  )}
+                </Col>
+                <Col xs={12} md={6} className="d-flex flex-column flex-fill">
+                  {dataExpenses && (
+                    <ExpensesChart
+                      data={dataExpenses}
+                      title="All expenses chart"
+                      badgeData={sumShowExpenses}
+                    />
+                  )}
                 </Col>
               </Row>
             </Container>
