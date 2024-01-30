@@ -16,6 +16,7 @@ function ExpensesCardWithTable({
   statusExpenses,
   title,
   countPercent,
+  percent,
 }) {
   const dispatch = useDispatch();
   const [dataFilter, setDataFilter] = useState([]);
@@ -121,11 +122,16 @@ function ExpensesCardWithTable({
           />
         )}
 
-        <Card.Text className={classes.card_text}>
-          <Badge size="md" bg="warning">
-            {countPercent}% 
-          </Badge> <span>bills for all expenses are due on the due date !!!</span>
-        </Card.Text>
+        {percent && (
+          <Card.Text className={classes.card_text}>
+            <Badge size="md" bg="warning">
+              {typeof countPercent === "number" && !isNaN(countPercent)
+                ? `${countPercent}%`
+                : "N/A"}
+            </Badge>{" "}
+            <span>bills for all expenses are due on the due date !!!</span>
+          </Card.Text>
+        )}
       </Card.Body>
     </Card>
   );

@@ -72,7 +72,7 @@ function Expenses({ auth }) {
   }, [deadline]);
 
   useEffect(() => {
-   
+    if (sumShowExpenses) {
       const countPercent = +countPercentCurrLastValue(
         valueDeadline,
         sumShowExpenses
@@ -85,7 +85,7 @@ function Expenses({ auth }) {
       console.log(count + typeof count);
 
       setCountDealinePercent(count);
-
+    }
   }, [valueDeadline]);
 
   useEffect(() => {
@@ -96,7 +96,6 @@ function Expenses({ auth }) {
       setDeadlineOk(filteredData);
     }
   }, [dataExpenses, statusExpenses]);
-
 
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
@@ -243,6 +242,7 @@ function Expenses({ auth }) {
                     statusExpenses={statusExpenses}
                     title="Expenses with deadline !!"
                     countPercent={countDeadlinePercent}
+                    percent={true}
                   />
                 </Col>
                 <Col md={6} className="d-flex flex-column flex-fill">
