@@ -17,6 +17,7 @@ function ExpensesCardWithTable({
   title,
   countPercent,
   percent,
+  counter
 }) {
   const dispatch = useDispatch();
   const [dataFilter, setDataFilter] = useState([]);
@@ -119,6 +120,7 @@ function ExpensesCardWithTable({
             handleSwitchToggle={handleSwitchToggle}
             isCheckedFiltr={isCheckedFilter}
             flagExpenses={executeSetFlag}
+            counter={counter}
           />
         )}
 

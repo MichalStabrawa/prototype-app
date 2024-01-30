@@ -33,6 +33,7 @@ function TableExpenses({
   handleSwitchToggle,
   isCheckedFiltr,
   handleSearchInput,
+  counter
 }) {
   const dispatch = useDispatch();
   const [editId, setEditId] = useState();
@@ -528,7 +529,7 @@ function TableExpenses({
           setCurrentPage={setCurrentPage}
         />
       )}
-      {countExpencesAfterDate() > 0 && (
+      {countExpencesAfterDate() > 0 && counter&&(
         <h5>
           <Alert><MdOutlineUpdate size={25} className={classes.icon_danger} />
           {countExpencesAfterDate()} bills with a past due date!!!</Alert>

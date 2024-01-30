@@ -243,6 +243,7 @@ function Expenses({ auth }) {
                     title="Expenses with deadline !!"
                     countPercent={countDeadlinePercent}
                     percent={true}
+                    counter={true}
                   />
                 </Col>
                 <Col md={6} className="d-flex flex-column flex-fill">
