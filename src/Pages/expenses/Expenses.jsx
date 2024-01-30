@@ -169,7 +169,7 @@ function Expenses({ auth }) {
                       </Card.Title>
                       <Card.Text>
                         <span className={userPageClasses.card_title}>
-                          Deadline, Invoices with due date
+                        Bills due for payment
                         </span>
                       </Card.Text>
                       <Card.Text>
