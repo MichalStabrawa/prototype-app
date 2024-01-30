@@ -18,6 +18,7 @@ import { GrCheckboxSelected } from "react-icons/gr";
 import TableExpensesModal from "./TableExpensesModal/TableExpensesModal";
 import FilterShowSalary from "../../FilterShowSalary/FilterShowSalary";
 import Pagination from "../../Paggination/Pagination";
+import Alert from 'react-bootstrap/Alert'
 
 function TableExpenses({
   data,
@@ -57,11 +58,23 @@ function TableExpenses({
     deadline: "off",
   });
 
+  const countExpencesAfterDate = () => {
+    let tab = [];
+    if (currentRecords) {
+      currentRecords.map((el, index) => {
+        if (
+          el.deadlineDate !== "" &&
+          calculateDateDifference(el.deadlineDate) <= 0
+        ) {
+          tab = [...tab, el.deadlineDate];
+        }
+      });
+    }
+    return tab.length;
+  };
+
   const user = auth.currentUser;
-  if (currentRecords) {
-    console.log("Current Records IF");
-    console.log(currentRecords);
-  }
+
   const editHandle = (e) => {
     const id = e.target.id;
     console.log(id);
@@ -507,6 +520,7 @@ function TableExpenses({
             })}
         </tbody>
       </Table>
+
       {nPages > 0 && currentPage && data.length > 10 && (
         <Pagination
           nPages={nPages}
@@ -514,6 +528,15 @@ function TableExpenses({
           setCurrentPage={setCurrentPage}
         />
       )}
+      {countExpencesAfterDate() > 0 && (
+        <h5>
+          <Alert><MdOutlineUpdate size={25} className={classes.icon_danger} />
+          {countExpencesAfterDate()} bills with a past due date!!!</Alert>
+          
+        </h5>
+      )}
+
+     
 
       {filterIdData && (
         <TableExpensesModal
