@@ -117,11 +117,14 @@ function UserPage({ isAuthenticated }) {
           </header>
           <section className={classes.daschboard}>
             <Container fluid>
-              <Row gap={3}>
-                <Col xs={12} md={4}>
+              <Row className="h-100 g-4">
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span className={classes.icon_wrapper}>
                           <BsDatabase />
@@ -143,10 +146,13 @@ function UserPage({ isAuthenticated }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={4}>
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info}  h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${classes.icon_wrapper} ${classes.rev}`}
@@ -166,10 +172,13 @@ function UserPage({ isAuthenticated }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={4}>
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100  shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${classes.icon_wrapper} ${classes.exp}`}
@@ -206,20 +215,26 @@ function UserPage({ isAuthenticated }) {
                 </Col>
               </Row>
 
-              <Row>
-                <Col md={4}>
+              <Row className="h-100">
+                <Col md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <AddSalary />
                       <AddExpenses />
                     </Card.Body>
                   </Card>{" "}
                 </Col>
-                <Col md={8}>
+                <Col md={8} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <ShowSavedSalary filter={true} title="Your revenue" />
                       <ShowSavedExpenses filter={true} title="Your expenses" />
                     </Card.Body>
@@ -227,13 +242,13 @@ function UserPage({ isAuthenticated }) {
                 </Col>
               </Row>
               {data.length && status === "success" && (
-                <Row>
-                  <Col lg={6}>
+                <Row className="h-100">
+                  <Col lg={6} className="d-flex flex-column flex-fill">
                     {" "}
                     <div className={classes.chart}>
-                      <Card border="light">
+                      <Card className="h-100 shadow" border="light">
                         {" "}
-                        <Card.Body>
+                        <Card.Body className="d-flex flex-column">
                           <Card.Subtitle>
                             Revenue{" "}
                             <Badge bg="secondary">
@@ -278,11 +293,11 @@ function UserPage({ isAuthenticated }) {
                       </Card>
                     </div>
                   </Col>
-                  <Col xs={12} lg={6}>
+                  <Col xs={12} lg={6} className="d-flex flex-column flex-fill">
                     <div className={classes.chart}>
-                      <Card border="light">
+                      <Card className="h-100 shadow" border="light">
                         {" "}
-                        <Card.Body>
+                        <Card.Body className="d-flex flex-column">
                           <Card.Subtitle>
                             Revenue{" "}
                             <Badge bg="warning">
