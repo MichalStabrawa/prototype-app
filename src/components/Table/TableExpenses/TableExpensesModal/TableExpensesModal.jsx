@@ -204,7 +204,6 @@ function TableExpensesModal({
               name="deadline"
               checked={formData.deadline === "on"}
               onChange={handleInputChange}
-              
             />
             <Button
               onClick={() => {
@@ -243,7 +242,7 @@ function TableExpensesModal({
                     )
                   }
                   name="deadline"
-              onChange={handleInputChecboxPaid}
+                  onChange={handleInputChecboxPaid}
                 />
               </Form.Group>
             ) : (

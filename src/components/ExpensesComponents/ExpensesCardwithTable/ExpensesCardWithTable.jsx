@@ -88,7 +88,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
     }
   }, [flag, dispatch, user]);
   return (
-    <Card border="light" className="h-100">
+    <Card border="light" className="h-100 shadow">
       <Card.Header>
         <Card.Title>
           {title}

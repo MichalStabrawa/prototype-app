@@ -240,7 +240,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
-            flagExpenses(true)
+            flagExpenses(true);
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);
@@ -303,7 +303,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
-            flagExpenses(true)
+            flagExpenses(true);
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);

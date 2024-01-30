@@ -103,7 +103,7 @@ function Expenses({ auth }) {
               <Row className="h-100">
                 <Col xs={12} md={3} className="d-flex flex-column flex-fill">
                   <Card
-                    className={`${userPageClasses.card_info} h-100`}
+                    className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
@@ -129,7 +129,7 @@ function Expenses({ auth }) {
                 </Col>
                 <Col xs={12} md={3} className="d-flex flex-column flex-fill">
                   <Card
-                    className={`${userPageClasses.card_info} h-100`}
+                    className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
@@ -155,7 +155,7 @@ function Expenses({ auth }) {
                 </Col>
                 <Col xs={12} md={3} className="d-flex flex-column flex-fill">
                   <Card
-                    className={`${userPageClasses.card_info} h-100`}
+                    className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
@@ -186,7 +186,7 @@ function Expenses({ auth }) {
                 </Col>
                 <Col xs={12} md={3} className="d-flex flex-column flex-fill">
                   <Card
-                    className={`${userPageClasses.card_info} h-100`}
+                    className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
