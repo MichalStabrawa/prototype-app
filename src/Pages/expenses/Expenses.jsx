@@ -72,7 +72,7 @@ function Expenses({ auth }) {
   }, [deadline]);
 
   useEffect(() => {
-    if (sumShowExpenses) {
+    if (valueDeadline !== null && sumShowExpenses !== null)  {
       const countPercent = +countPercentCurrLastValue(
         valueDeadline,
         sumShowExpenses
@@ -86,7 +86,7 @@ function Expenses({ auth }) {
 
       setCountDealinePercent(count);
     }
-  }, [valueDeadline]);
+  }, [valueDeadline,sumShowExpenses]);
 
   useEffect(() => {
     if (statusExpenses === "success") {

@@ -125,7 +125,7 @@ function ExpensesCardWithTable({
         {percent && (
           <Card.Text className={classes.card_text}>
             <Badge size="md" bg="warning">
-              {typeof countPercent === "number" && !isNaN(countPercent)
+              {countPercent !== null && countPercent !== undefined
                 ? `${countPercent}%`
                 : "N/A"}
             </Badge>{" "}
