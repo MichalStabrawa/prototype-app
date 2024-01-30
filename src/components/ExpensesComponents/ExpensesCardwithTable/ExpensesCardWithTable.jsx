@@ -10,7 +10,13 @@ import { filterSearchInputDate } from "../../../utils/filterDateAcordion";
 import { auth, database } from "../../../firebase/firebase";
 import { fetchUserExpenses } from "../../../store/fetchUserData/fetchUserExpenses";
 
-function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
+function ExpensesCardWithTable({
+  badgeData,
+  data,
+  statusExpenses,
+  title,
+  countPercent,
+}) {
   const dispatch = useDispatch();
   const [dataFilter, setDataFilter] = useState([]);
   const [search, setSearch] = useState("");
@@ -33,7 +39,7 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
       : 0;
 
   const user = auth.currentUser;
-
+  console.log(`Count percent ${typeof countPercent}`);
   const executeSetFlag = (flag) => {
     setFlag(flag);
   };
@@ -114,6 +120,12 @@ function ExpensesCardWithTable({ badgeData, data, statusExpenses, title }) {
             flagExpenses={executeSetFlag}
           />
         )}
+
+        <Card.Text className={classes.card_text}>
+          <Badge size="md" bg="warning">
+            {countPercent}% 
+          </Badge> <span>bills for all expenses are due on the due date !!!</span>
+        </Card.Text>
       </Card.Body>
     </Card>
   );

@@ -1,2 +1,10 @@
-@import '../../../styles/main';
+@import "../../../styles/main";
 
+.card_text {
+  font-size: 2rem;
+
+  span {
+    margin-right: 5px;
+    font-size: 1.25rem;
+  }
+}

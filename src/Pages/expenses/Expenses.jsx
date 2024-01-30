@@ -10,14 +10,11 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { BsDatabase } from "react-icons/bs";
-import {
-  FaCalendarPlus,
-  FaCalendarTimes,
-  FaCalendarCheck,
-} from "react-icons/fa";
-import TableExpenses from "../../components/Table/TableExpenses/TableExpenses";
+import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
+
 import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
 import ExpensesChart from "../../components/ExpensesComponents/ExpensesChart/ExpensesChart";
+import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
 
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
@@ -28,8 +25,9 @@ function Expenses({ auth }) {
   const [sumShowSalary, setSumShowSalary] = useState(0);
   const [sumShowExpenses, setShowExpenses] = useState(0);
   const [deadline, setDeadline] = useState(null);
-  const [valueDeadline, setValueDeadline] = useState(null);
+  const [valueDeadline, setValueDeadline] = useState(0);
   const [deadlineOk, setDeadlineOk] = useState(null);
+  const [countDeadlinePercent, setCountDealinePercent] = useState(0);
 
   const sumSalary = () => {
     if (status === "success") {
@@ -72,6 +70,24 @@ function Expenses({ auth }) {
       setValueDeadline(valueDeadline);
     }
   }, [deadline]);
+
+  useEffect(() => {
+   
+      const countPercent = +countPercentCurrLastValue(
+        valueDeadline,
+        sumShowExpenses
+      );
+      console.log(`CountPercentAlert!!! ${typeof countPercent}`);
+      console.log(countPercent);
+
+      const count = +(100 + countPercent).toFixed(1);
+      console.log("Count");
+      console.log(count + typeof count);
+
+      setCountDealinePercent(count);
+
+  }, [valueDeadline]);
+
   useEffect(() => {
     if (statusExpenses === "success") {
       const filteredData = dataExpenses.filter(
@@ -81,8 +97,7 @@ function Expenses({ auth }) {
     }
   }, [dataExpenses, statusExpenses]);
 
-  console.log(data);
-  console.log(dataExpenses);
+
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
       {auth ? (
@@ -169,7 +184,7 @@ function Expenses({ auth }) {
                       </Card.Title>
                       <Card.Text>
                         <span className={userPageClasses.card_title}>
-                        Bills due for payment
+                          Bills due for payment
                         </span>
                       </Card.Text>
                       <Card.Text>
@@ -227,6 +242,7 @@ function Expenses({ auth }) {
                     data={deadline}
                     statusExpenses={statusExpenses}
                     title="Expenses with deadline !!"
+                    countPercent={countDeadlinePercent}
                   />
                 </Col>
                 <Col md={6} className="d-flex flex-column flex-fill">
