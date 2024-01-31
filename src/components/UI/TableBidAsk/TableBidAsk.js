@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { MdReadMore } from "react-icons/md";
 
+import Table from "react-bootstrap/Table";
+
 const TableBidAsk = ({ data }) => {
   const [tabData, setTabData] = useState([]);
   const [effectiveDate, setEffectiveDate] = useState("");
@@ -38,7 +40,7 @@ const TableBidAsk = ({ data }) => {
             {data[0].tradingDate}
           </span>
         </h3>
-        <table className={classes.table}>
+        <Table responsive="lg" striped hover>
           <thead>
             <tr>
               <th>code</th>
@@ -71,7 +73,7 @@ const TableBidAsk = ({ data }) => {
                 );
               })}
           </tbody>
-        </table>
+        </Table>
         {nPages > 0 && (
           <Pagination
             nPages={nPages}
