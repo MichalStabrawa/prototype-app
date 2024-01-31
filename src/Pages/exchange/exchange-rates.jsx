@@ -233,21 +233,20 @@ const ExchangeRates = (props) => {
                               {" "}
                               effectiveDate: {currency[1].effectiveDate}
                             </span>
-                         
-                          </h3>   <span>
-                          {" "}
-                          <Button
-                            variant="outline-secondary"
-                            onClick={changeKindOfTableHandler}
-                            color={ButtonStyles.btn_transparent}
-                          >
-                            {table === "A"
-                              ? "Checkout to Table B"
-                              : "Checkout to Table A"}{" "}
-                          </Button>
-                        </span>
+                          </h3>{" "}
+                          <span>
+                            {" "}
+                            <Button
+                              variant="outline-secondary"
+                              onClick={changeKindOfTableHandler}
+                              color={ButtonStyles.btn_transparent}
+                            >
+                              {table === "A"
+                                ? "Checkout to Table B"
+                                : "Checkout to Table A"}{" "}
+                            </Button>
+                          </span>
                         </div>
-                     
                       </Card.Body>
                     </Card>
                     <Card
@@ -437,60 +436,141 @@ const ExchangeRates = (props) => {
               </Row>
 
               {data.length && (
-                <div className={classes.chart}>
-                  <h3>
-                    TABLE {table} compare currency{" "}
-                    <span className={classes.date_chart}>
-                      {currency[1].effectiveDate}
-                    </span>{" "}
-                    and last value rates{" "}
-                    <span className={classes.date_chart}>
-                      {currency[0].effectiveDate}
-                    </span>
-                  </h3>
-                  <ResponsiveContainer width="100%" height="90%">
-                    <BarChart
-                      width={500}
-                      height={300}
-                      data={data}
-                      margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                      }}
+                <Row>
+                  <Col>
+                    <Card
+                      className={`${classes.card_custom} shadow`}
+                      border="light"
                     >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="code" />
-                      <YAxis domain={["dataMax"]} />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        dataKey="mid"
-                        fill="#FF7171"
-                        activeBar={<Rectangle fill="pink" stroke="blue" />}
-                      />
-                      <Bar
-                        dataKey="lastValue"
-                        fill="#BFCFE7"
-                        activeBar={<Rectangle fill="gold" stroke="purple" />}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                      <Card.Body>
+                        {" "}
+                        <div className={classes.chart}>
+                          <h3>
+                            TABLE {table} compare currency{" "}
+                            <span className={classes.date_chart}>
+                              {currency[1].effectiveDate}
+                            </span>{" "}
+                            and last value rates{" "}
+                            <span className={classes.date_chart}>
+                              {currency[0].effectiveDate}
+                            </span>
+                          </h3>
+                          <ResponsiveContainer width="100%" height="90%">
+                            <BarChart
+                              width={500}
+                              height={300}
+                              data={data}
+                              margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                              }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="code" />
+                              <YAxis domain={["dataMax"]} />
+                              <Tooltip />
+                              <Legend />
+                              <Bar
+                                dataKey="mid"
+                                fill="#FF7171"
+                                activeBar={
+                                  <Rectangle fill="pink" stroke="blue" />
+                                }
+                              />
+                              <Bar
+                                dataKey="lastValue"
+                                fill="#BFCFE7"
+                                activeBar={
+                                  <Rectangle fill="gold" stroke="purple" />
+                                }
+                              />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
               )}
               {status === "error" && <p>Error</p>}
               {table === "A" && (
-                <div className={classes.chart_top}>
-                  <ExchangeTopLastChart index="0" />{" "}
-                  <ExchangeTopLastChart index="1" />
-                  <ExchangeTopLastChart index="2" />
-                  <ExchangeTopLastChart index="3" />
-                  <ExchangeTopLastChart index="4" />
-                </div>
+                <>
+                  {" "}
+                  <Row>
+                    <Col>
+                      <Card
+                        className={`${classes.card_custom}  shadow`}
+                        border="light"
+                      >
+                        <Card.Body>
+                          {" "}
+                          <ExchangeTopLastChart index="0" />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                    <Col>
+                      <Card
+                        className={`${classes.card_custom}  shadow`}
+                        border="light"
+                      >
+                        <Card.Body>
+                          <ExchangeTopLastChart index="1" />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Card
+                        className={`${classes.card_custom} shadow`}
+                        border="light"
+                      >
+                        <Card.Body>
+                          {" "}
+                          <ExchangeTopLastChart index="2" />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                    <Col>
+                      <Card
+                        className={`${classes.card_custom} shadow`}
+                        border="light"
+                      >
+                        <Card.Body>
+                          <ExchangeTopLastChart index="3" />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Card
+                        className={`${classes.card_custom} shadow`}
+                        border="light"
+                      >
+                        <Card.Body>
+                          {" "}
+                          <ExchangeTopLastChart index="4" />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                </>
               )}
             </div>
-            <ExchangeFromToDate data={data} />
+            <Row>
+              <Col>
+                <Card className={`${classes.card_custom} shadow`}
+                        border="light">
+                  <Card.Body>
+                    {" "}
+                    <ExchangeFromToDate data={data} />
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
           </div>
         </Container>
       </section>
