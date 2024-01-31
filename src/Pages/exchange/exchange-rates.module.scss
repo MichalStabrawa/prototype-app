@@ -5,7 +5,6 @@
 
   .title {
     color: $graylight;
-    
   }
 
   .carousel {
@@ -13,11 +12,12 @@
   }
 }
 
-.exchange_wrapper {
-  display: grid;
-  background: $graylight;
-  margin: 20px;
+.main {
+  background: $pastelGreenGrey;
+  padding: 40px 0;
+}
 
+.exchange_wrapper {
   th,
   td {
     text-align: left;
@@ -32,17 +32,8 @@
   }
 
   &__count {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-
-    @include media-query-lg {
-      grid-template-columns: 1fr 1fr;
-    }
-
     &__ex {
       padding: 0 20px 20px 20px;
-     
     }
   }
 
@@ -55,7 +46,7 @@
     display: flex;
     align-items: center;
     height: 52px;
-    border-radius:8px;
+    border-radius: 8px;
     font-weight: 700;
   }
 
@@ -137,8 +128,7 @@ header {
 }
 
 .title {
-  display:flex;
-  margin-bottom: 40px;
+  display: flex;
 }
 
 .btn_wrapper {
@@ -158,25 +148,28 @@ header {
 
 .table_wrapper {
   &_title {
-    display:flex;
+    display: flex;
     align-items: center;
   }
 }
-.wrapper_icon,.wrapper_icon_change {
+.wrapper_icon,
+.wrapper_icon_change {
   height: 46px;
   width: 46px;
   background-color: $pastelBlue;
-  color:$pastelRed;
-  display:flex;
-  border-radius:8px;
+  color: $pastelRed;
+  display: flex;
+  border-radius: 8px;
   margin-right: 10px;
   justify-content: center;
   align-items: center;
 }
 
 .wrapper_icon_change {
-  background-color:$pastelRed ;
-  color:$pastelGreenDark;
+  background-color: $pastelRed;
+  color: $pastelGreenDark;
 }
 
-
+.card_custom {
+  margin-bottom: 20px;
+}
