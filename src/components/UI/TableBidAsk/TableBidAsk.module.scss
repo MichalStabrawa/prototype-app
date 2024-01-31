@@ -2,17 +2,11 @@
 
 .table_rates {
   .table {
-    overflow-x: auto;
-    border-collapse: collapse;
-    width: 100%;
-    border-radius: 5px; /* Adjust the value as needed */
-    overflow: hidden; /* Ensure the border-radius is applied */
   }
 
   th {
-    border: 1px solid rgba(0, 0, 0, 0.175);
-    padding: 8px;
-    background-color: #f2f2f2;
+    background-color:#BFCFE7 ;
+    color:#fff;
   }
 
   th,
@@ -29,15 +23,6 @@
     font-size: 0.85rem;
   }
 
-  .currency,
-  .rate {
-    display: none;
-
-    @include media-query-sm {
-      display: table-cell;
-    }
-  }
-
   .rate {
     font-size: 0.85rem;
     font-style: italic;
@@ -50,9 +35,7 @@
     }
   }
   .code {
-    background-color: $darkbluelight;
-    color: #fff;
-    border-bottom: 1px solid;
+    font-weight: 700;
   }
 
   .bid {
