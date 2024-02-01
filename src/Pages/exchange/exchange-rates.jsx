@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./exchange-rates.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import BudgetAppSection from "../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
+
 import {
   BarChart,
   Bar,

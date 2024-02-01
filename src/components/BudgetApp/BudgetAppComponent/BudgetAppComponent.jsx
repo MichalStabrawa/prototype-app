@@ -14,7 +14,7 @@ import getCurrentDate from "../../../utils/dateFunction";
 import fetchGetBudgetApp from "../../../store/fetchGetBudgetApp";
 import fetchBudgetAppExpenses from "../../../store/fetchBudgetAppExpenses";
 import fetchGetBudgetAppExspenses from "../../../store/fetchGetBudgetAppExspenses";
-
+import { getMonthYear } from "../../../utils/dateFunction";
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
 import AddSalary from "../../AddSalary/AddSalary";
 import ButtonBtn from "react-bootstrap/Button";
@@ -76,6 +76,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
 
   const currentDate = getCurrentDate();
   const maxVal = maxValue(stateUploadLocal);
+  const monthYear = getMonthYear();
 
   useEffect(() => {
     changeSummary(stateSalarySummary);
@@ -298,9 +299,9 @@ const BudgetAppComponent = ({ sectionRef }) => {
               css="ba_section_full_mobile"
               icon="salaryTab"
             >
-              <ShowSavedSalary filter={false} />
+              <ShowSavedSalary filter={false} monthYear={monthYear} />
               <div>
-                <ShowSavedExpenses title="expenses" />
+                <ShowSavedExpenses title="expenses" monthYear={monthYear} />
               </div>
             </BudgetAppSection>
             <BudgetAppSection css="ba_section-full">

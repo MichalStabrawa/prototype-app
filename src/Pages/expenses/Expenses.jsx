@@ -11,10 +11,13 @@ import Badge from "react-bootstrap/Badge";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { BsDatabase } from "react-icons/bs";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
+import Form from "react-bootstrap/Form";
 
 import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
 import ExpensesChart from "../../components/ExpensesComponents/ExpensesChart/ExpensesChart";
 import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
+import { getMonthYear } from "../../utils/dateFunction";
+import { filterMonthData } from "../../utils/filterMonth";
 
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
@@ -29,9 +32,17 @@ function Expenses({ auth }) {
   const [deadlineOk, setDeadlineOk] = useState(null);
   const [countDeadlinePercent, setCountDealinePercent] = useState(0);
 
+  const [monthYear, setMonthYear] = useState(getMonthYear());
+  const [dataMonth, setDataMonth] = useState([]);
+  const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
+
+  const handleInputMonth = (e) => {
+    setMonthYear(e.target.value);
+  };
+
   const sumSalary = () => {
-    if (status === "success") {
-      const sum = [...data].reduce((prev, curr) => {
+    if (status === "success" && dataMonth && monthYear) {
+      const sum = [...dataMonth].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -40,7 +51,7 @@ function Expenses({ auth }) {
 
   const sumExpenses = () => {
     if (statusExpenses === "success") {
-      const sum = [...dataExpenses].reduce((prev, curr) => {
+      const sum = [...dataMonthExpenses].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -50,16 +61,25 @@ function Expenses({ auth }) {
   useEffect(() => {
     setSumShowSalary(sumSalary());
     setShowExpenses(sumExpenses());
-  }, [status, isLoading, sumShowSalary, sumShowExpenses, statusExpenses]);
+  }, [
+    status,
+    isLoading,
+    sumShowSalary,
+    sumShowExpenses,
+    statusExpenses,
+    monthYear,
+    dataMonthExpenses,
+    dataMonth,
+  ]);
 
   useEffect(() => {
     if (statusExpenses === "success") {
-      const filteredData = dataExpenses.filter(
+      const filteredData = dataMonthExpenses.filter(
         (item) => item.deadline === "on"
       );
       setDeadline(filteredData);
     }
-  }, [dataExpenses, statusExpenses]);
+  }, [dataExpenses, statusExpenses, dataMonthExpenses, monthYear]);
 
   useEffect(() => {
     if (deadline) {
@@ -69,10 +89,10 @@ function Expenses({ auth }) {
       );
       setValueDeadline(valueDeadline);
     }
-  }, [deadline]);
+  }, [deadline, monthYear]);
 
   useEffect(() => {
-    if (valueDeadline !== null && sumShowExpenses !== null)  {
+    if (valueDeadline !== null && sumShowExpenses !== null) {
       const countPercent = +countPercentCurrLastValue(
         valueDeadline,
         sumShowExpenses
@@ -86,16 +106,30 @@ function Expenses({ auth }) {
 
       setCountDealinePercent(count);
     }
-  }, [valueDeadline,sumShowExpenses]);
+  }, [valueDeadline, sumShowExpenses, monthYear]);
 
   useEffect(() => {
     if (statusExpenses === "success") {
-      const filteredData = dataExpenses.filter(
+      const filteredData = dataMonthExpenses.filter(
         (item) => item.deadline === "off"
       );
       setDeadlineOk(filteredData);
     }
-  }, [dataExpenses, statusExpenses]);
+  }, [dataMonthExpenses, statusExpenses, monthYear]);
+
+  useEffect(() => {
+    filterMonthData(data, status, monthYear, setDataMonth);
+    filterMonthData(
+      dataExpenses,
+      statusExpenses,
+      monthYear,
+      setDataMonthExpenses
+    );
+  }, [monthYear, data, dataExpenses]);
+
+  console.log("Expesnes Page");
+  console.log(dataMonth);
+  console.log(dataMonthExpenses);
 
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
@@ -106,7 +140,15 @@ function Expenses({ auth }) {
             <Container fluid>
               <Row>
                 <Col>
-                  <h2>Your budget expenses</h2>
+                  <h2>Your budget expenses {monthYear}</h2>
+                  <div className={classes.month}>
+                    <Form.Control
+                      onChange={handleInputMonth}
+                      value={monthYear}
+                      type="month"
+                      placeholder="name@example.com"
+                    />
+                  </div>
                 </Col>
               </Row>
             </Container>
@@ -249,7 +291,7 @@ function Expenses({ auth }) {
                 <Col md={6} className="d-flex flex-column flex-fill">
                   <ExpensesCardWithTable
                     badgeData={sumShowExpenses}
-                    data={dataExpenses}
+                    data={dataMonthExpenses}
                     statusExpenses={statusExpenses}
                     title="All expenses"
                   />
@@ -269,7 +311,7 @@ function Expenses({ auth }) {
                 <Col xs={12} md={6} className="d-flex flex-column flex-fill">
                   {dataExpenses && (
                     <ExpensesChart
-                      data={dataExpenses}
+                      data={dataMonthExpenses}
                       title="All expenses chart"
                       badgeData={sumShowExpenses}
                     />

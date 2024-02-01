@@ -12,8 +12,9 @@ import { FaCalendarPlus, FaCalendarTimes } from "react-icons/fa";
 
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
+import { filterMonthData } from "../../utils/filterMonth";
 
-function ShowSavedExpenses({ title, filter }) {
+function ShowSavedExpenses({ title, filter, monthYear }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
   const status = useSelector((state) => state.fetchUserExpenses.status);
   const isLoading = useSelector((state) => state.fetchUserExpenses.isLoading);
@@ -25,25 +26,31 @@ function ShowSavedExpenses({ title, filter }) {
   const [isChecked, setChecked] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState(null);
   const [searchDate, setSearchDate] = useState("");
+  const [dataMonth, setDataMonth] = useState([]);
+
+  console.log("DATAMONTH EXPESES");
+  console.log(dataMonth);
+  console.log(data);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
 
+  console.log("CurrentRecExpense");
+  console.log(currentRecords);
+
   const nPages = Math.ceil(data.length / recordsPerPage);
 
   const logInUser = auth.currentUser;
 
   const countSumOfSalary = () => {
-    const sum = [...data].reduce((prev, curr) => {
+    const sum = [...dataMonth].reduce((prev, curr) => {
       return prev + +curr.expenses;
     }, 0);
 
     return sum;
   };
-  console.log("SearchDate");
-  console.log(searchDate);
 
   const radioChecked = (event) => {
     setSelectedRadio(event.target.value);
@@ -63,24 +70,28 @@ function ShowSavedExpenses({ title, filter }) {
   };
 
   useEffect(() => {
-    if (status === "success") {
-      setData(dataSaved);
-    }
-  }, [status]);
-
-  useEffect(() => {
-    filterSearchData(isChecked, dataSaved, search, setData);
+    filterSearchData(isChecked, dataMonth, search, setData);
   }, [search]);
-
-  useEffect(() => {
-    if (searchDate !== "") {
-      filterSearchInputDate(dataSaved, searchDate, setData);
-    }
-  }, [searchDate]);
 
   useEffect(() => {
     sortSalaryExpenses(data, selectedRadio, setData);
   }, [selectedRadio]);
+
+  useEffect(() => {
+    if (searchDate !== "") {
+      filterSearchInputDate(dataMonth, searchDate, setData);
+    }
+  }, [searchDate]);
+
+  useEffect(() => {
+    filterMonthData(dataSaved, status, monthYear, setDataMonth);
+  }, [monthYear, dataSaved, status]);
+
+  useEffect(() => {
+    if (status === "success" && monthYear) {
+      setData(dataMonth);
+    }
+  }, [status, monthYear, dataMonth,data]);
 
   return (
     <div>
