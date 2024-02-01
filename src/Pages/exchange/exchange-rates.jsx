@@ -218,7 +218,7 @@ const ExchangeRates = (props) => {
                 {currency.length > 0 ? (
                   <Col xs={12} lg={6} className="d-flex flex-column flex-fill">
                     <Card
-                      className={`${classes.card_custom} shadow `}
+                      className={`${classes.custom_card} shadow `}
                       border="light"
                     >
                       <Card.Body className="d-flex flex-column">
@@ -250,7 +250,7 @@ const ExchangeRates = (props) => {
                       </Card.Body>
                     </Card>
                     <Card
-                      className={`${classes.card_custom} shadow h-100`}
+                      className={`${classes.card_custom} ${classes.card_custom_first} h-100 shadow`}
                       border="light"
                     >
                       <Card.Body className="d-flex flex-column">
@@ -262,7 +262,7 @@ const ExchangeRates = (props) => {
                 ) : null}
                 <Col xs={12} lg={6} className="d-flex flex-column flex-fill">
                   <Card
-                    className={`${classes.card_custom}  shadow`}
+                    className={`${classes.custom_card}  shadow`}
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
@@ -277,7 +277,7 @@ const ExchangeRates = (props) => {
                   </Card>
 
                   <Card
-                    className={`${classes.card_custom} h-100 shadow`}
+                    className={`${classes.card_custom} ${classes.card_custom_first} h-100 shadow`}
                     border="light"
                   >
                     <Card.Header>Exchange currency to PLN</Card.Header>
@@ -562,8 +562,10 @@ const ExchangeRates = (props) => {
             </div>
             <Row>
               <Col>
-                <Card className={`${classes.card_custom} shadow`}
-                        border="light">
+                <Card
+                  className={`${classes.card_custom} shadow`}
+                  border="light"
+                >
                   <Card.Body>
                     {" "}
                     <ExchangeFromToDate data={data} />
