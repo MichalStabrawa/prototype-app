@@ -31,7 +31,9 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import {} from "recharts";
+import { getMonthYear } from "../../utils/dateFunction";
+import { filterMonthData } from "../../utils/filterMonth";
+import Form from "react-bootstrap/Form";
 
 function UserPage({ isAuthenticated }) {
   const { data, status, isLoading, error } = useSelector(
@@ -44,10 +46,20 @@ function UserPage({ isAuthenticated }) {
   const [minSalary, setMinSalary] = useState(0);
   const [sumShowSalary, setSumShowSalary] = useState(0);
   const [sumShowExpenses, setShowExpenses] = useState(0);
+  const [monthYear, setMonthYear] = useState(getMonthYear());
+  const [dataMonth, setDataMonth] = useState([]);
+  const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
+
+  console.log(`DataMonth state`);
+  console.log(dataMonth);
+
+  const handleInputMonth = (e) => {
+    setMonthYear(e.target.value);
+  };
 
   const sumSalary = () => {
     if (status === "success") {
-      const sum = [...data].reduce((prev, curr) => {
+      const sum = [...dataMonth].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -56,7 +68,7 @@ function UserPage({ isAuthenticated }) {
 
   const sumExpenses = () => {
     if (statusExpenses === "success") {
-      const sum = [...dataExpenses].reduce((prev, curr) => {
+      const sum = [...dataMonthExpenses].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -65,7 +77,7 @@ function UserPage({ isAuthenticated }) {
 
   useEffect(() => {
     if (status === "success") {
-      const max = [...data].reduce(
+      const max = [...dataMonth].reduce(
         (prev, next) => (+prev.expenses > +next.expenses ? prev : next),
         data[0]
       );
@@ -76,7 +88,9 @@ function UserPage({ isAuthenticated }) {
       //   data[0]
       // );
 
-      const filteredData = data.filter((entry) => entry.expenses !== "");
+      const filteredData = dataMonth.filter((entry) => entry.expenses !== "");
+      console.log("filteredData")
+      console.log(filteredData)
 
       const expensesValues = filteredData.map((entry) =>
         parseInt(entry.expenses)
@@ -91,13 +105,30 @@ function UserPage({ isAuthenticated }) {
       setMaxSalary(max);
       setMinSalary(minExpenses);
     }
-  }, [status, isLoading]);
+  }, [status, isLoading, monthYear, dataMonth]);
 
   useEffect(() => {
     setSumShowSalary(sumSalary());
     setShowExpenses(sumExpenses());
-  }, [status, isLoading, sumShowSalary, sumShowExpenses, statusExpenses]);
+  }, [
+    status,
+    isLoading,
+    sumShowSalary,
+    sumShowExpenses,
+    statusExpenses,
+    monthYear,
+    dataMonth,
+  ]);
 
+  useEffect(() => {
+    filterMonthData(data, status, monthYear, setDataMonth);
+    filterMonthData(
+      dataExpenses,
+      statusExpenses,
+      monthYear,
+      setDataMonthExpenses
+    );
+  }, [monthYear, data, dataExpenses]);
   return (
     <main className={classes.user_main}>
       {!isAuthenticated && <ErrorPage />}
@@ -110,7 +141,16 @@ function UserPage({ isAuthenticated }) {
             <Container fluid>
               <Row>
                 <Col>
-                  <h2>Your budget dashboard</h2>
+                  <h2>Your budget dashboard {monthYear}</h2>
+
+                  <div className={classes.month}>
+                    <Form.Control
+                      onChange={handleInputMonth}
+                      value={monthYear}
+                      type="month"
+                      placeholder="name@example.com"
+                    />
+                  </div>
                 </Col>
               </Row>
             </Container>
@@ -262,12 +302,12 @@ function UserPage({ isAuthenticated }) {
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
-                            {status === "success" && data && (
+                            {status === "success" && dataMonth && (
                               <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart
                                   width={500}
                                   height={400}
-                                  data={data}
+                                  data={dataMonth}
                                   margin={{
                                     top: 10,
                                     right: 30,
@@ -308,12 +348,12 @@ function UserPage({ isAuthenticated }) {
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
-                            {status === "success" && data && maxSalary && (
+                            {status === "success" && dataMonth && maxSalary && (
                               <ResponsiveContainer width="100%" height="100%">
                                 <BarChart
                                   width={500}
                                   height={300}
-                                  data={data}
+                                  data={dataMonth}
                                   margin={{
                                     top: 20,
                                     right: 30,
