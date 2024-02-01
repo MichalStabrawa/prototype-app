@@ -76,31 +76,23 @@ function UserPage({ isAuthenticated }) {
   };
 
   useEffect(() => {
-    if (status === "success") {
-      const max = [...dataMonth].reduce(
-        (prev, next) => (+prev.expenses > +next.expenses ? prev : next),
-        data[0]
-      );
-
-      // console.log(data);
-      // const min = [...data].reduce(
-      //   (prev, next) => (+prev.expenses < +next.expenses ? prev : next),
-      //   data[0]
-      // );
-
+    if (status === "success" && dataMonth.length > 0) {
       const filteredData = dataMonth.filter((entry) => entry.expenses !== "");
-      console.log("filteredData")
-      console.log(filteredData)
 
       const expensesValues = filteredData.map((entry) =>
         parseInt(entry.expenses)
       );
+      const max = [...dataMonth].reduce(
+        (prev, next) => (prev.expenses > next.expenses ? prev : next),
+        dataMonth[0]
+      );
 
-      // Use reduce to find the minimum value
       const minExpenses = expensesValues.reduce(
         (min, value) => Math.min(min, value),
         Infinity
       );
+
+      console.log("MaxExpenses!!!!!" + typeof max.expenses);
 
       setMaxSalary(max);
       setMinSalary(minExpenses);
@@ -275,8 +267,16 @@ function UserPage({ isAuthenticated }) {
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
-                      <ShowSavedSalary filter={true} monthYear={monthYear} title="Your revenue" />
-                      <ShowSavedExpenses filter={true} title="Your expenses" />
+                      <ShowSavedSalary
+                        filter={true}
+                        monthYear={monthYear}
+                        title="Your revenue"
+                      />
+                      <ShowSavedExpenses
+                        filter={true}
+                        monthYear={monthYear}
+                        title="Your expenses"
+                      />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -293,12 +293,10 @@ function UserPage({ isAuthenticated }) {
                             Revenue{" "}
                             <Badge bg="secondary">
                               {" "}
-                              <span className={classes.badge}>
-                                max value:{" "}
-                                {status === "success" &&
-                                  maxSalary &&
-                                  maxSalary.expenses}
-                              </span>
+                              max value:{" "}
+                              {status === "success" &&
+                                maxSalary &&
+                                maxSalary.expenses}
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
@@ -342,9 +340,7 @@ function UserPage({ isAuthenticated }) {
                             Revenue{" "}
                             <Badge bg="warning">
                               {" "}
-                              <h5>
-                                min value: {status === "success" && minSalary}
-                              </h5>
+                              min value: {status === "success" && minSalary}
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
