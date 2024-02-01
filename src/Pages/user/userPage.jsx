@@ -50,8 +50,6 @@ function UserPage({ isAuthenticated }) {
   const [dataMonth, setDataMonth] = useState([]);
   const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
 
-  console.log(`DataMonth state`);
-  console.log(dataMonth);
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
