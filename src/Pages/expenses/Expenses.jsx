@@ -26,6 +26,7 @@ const chartInit = {
   options: {
     chart: {
       width: 450,
+
       type: "pie",
     },
     labels: [],
@@ -42,6 +43,42 @@ const chartInit = {
         },
       },
     ],
+  },
+};
+const chartLineInit = {
+  series: [
+    {
+      name: "Desktops",
+      data: [],
+    },
+  ],
+  options: {
+    chart: {
+      height: 350,
+      type: "line",
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    title: {
+      text: "",
+      align: "left",
+    },
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: [],
+    },
   },
 };
 
@@ -63,6 +100,8 @@ function Expenses({ auth }) {
   const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
   const [chart, setChart] = useState(chartInit);
   const [chartDadline, setChartDeadline] = useState(chartInit);
+  const [chartLine, setChartLine] = useState(chartLineInit);
+  const [chartLineDeadline, setChartLineDeadline] = useState(chartLineInit);
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
@@ -166,6 +205,18 @@ function Expenses({ auth }) {
         },
       };
     });
+
+    setChartLine((prevLine) => {
+      return {
+        ...prevLine,
+        series: [
+          {
+            name: "",
+            data: dataMonthExpenses.map((item) => item.expenses),
+          },
+        ],
+      };
+    });
   }, [monthYear, dataMonthExpenses]);
 
   useEffect(() => {
@@ -180,11 +231,25 @@ function Expenses({ auth }) {
           },
         };
       });
+
+      setChartLineDeadline((prevLineD) => {
+        return {
+          ...prevLineD,
+          series: [
+            {
+              name: "",
+              data: deadline.map((item) => item.expenses),
+            },
+          ],
+        };
+      });
     }
   }, [deadline, monthYear]);
 
   console.log(deadline);
   console.log(chartDadline);
+  console.log("chart");
+  console.log(chartLine);
 
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
@@ -213,7 +278,7 @@ function Expenses({ auth }) {
           >
             <Container fluid>
               <Row className="h-100">
-                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                <Col xs={12} md={4}  className="d-flex flex-column flex-fill">
                   <Card
                     className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
@@ -230,6 +295,17 @@ function Expenses({ auth }) {
                         <span className={userPageClasses.card_title}>
                           Expenses
                         </span>
+                        <div>
+                          <div id="chart">
+                            <ReactApexChart
+                              options={chartLine.options}
+                              series={chartLine.series}
+                              type="line"
+                              height={250}
+                            />
+                          </div>
+                          <div id="html-dist"></div>
+                        </div>
                       </Card.Text>
                       <Card.Text>
                         <span className={userPageClasses.badge}>
@@ -239,7 +315,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                <Col xs={12} md={4}  className="d-flex flex-column flex-fill">
                   <Card
                     className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
@@ -265,7 +341,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={3} className="d-flex flex-column flex-fill">
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   <Card
                     className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
@@ -282,6 +358,17 @@ function Expenses({ auth }) {
                         <span className={userPageClasses.card_title}>
                           Bills due for payment
                         </span>
+                        <div>
+                          <div id="chart">
+                            <ReactApexChart
+                              options={chartLineDeadline.options}
+                              series={chartLineDeadline.series}
+                              type="line"
+                              height={250}
+                            />
+                          </div>
+                          <div id="html-dist"></div>
+                        </div>
                       </Card.Text>
                       <Card.Text>
                         <span className={userPageClasses.badge}>
@@ -433,6 +520,13 @@ function Expenses({ auth }) {
                         />
                       </div>
                     </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Card>
+                    <Card.Body></Card.Body>
                   </Card>
                 </Col>
               </Row>
