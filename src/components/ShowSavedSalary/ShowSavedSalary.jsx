@@ -10,8 +10,10 @@ import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
+import { getMonthYear } from "../../utils/dateFunction";
+import { filterMonthData } from "../../utils/filterMonth";
 
-function ShowSavedSalary({ title, filter }) {
+function ShowSavedSalary({ title, filter, monthYear }) {
   const dataSaved = useSelector((state) => state.fetchUserSalary.data);
   const status = useSelector((state) => state.fetchUserSalary.status);
   const isLoading = useSelector((state) => state.fetchUserSalary.isLoading);
@@ -23,6 +25,9 @@ function ShowSavedSalary({ title, filter }) {
   const [isChecked, setChecked] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState(null);
   const [searchDate, setSearchDate] = useState("");
+
+  const [dataMonth, setDataMonth] = useState([]);
+
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
@@ -33,7 +38,7 @@ function ShowSavedSalary({ title, filter }) {
   const logInUser = auth.currentUser;
 
   const countSumOfSalary = () => {
-    const sum = [...dataSaved].reduce((prev, curr) => {
+    const sum = [...dataMonth].reduce((prev, curr) => {
       return prev + curr.expenses;
     }, 0);
 
@@ -58,13 +63,7 @@ function ShowSavedSalary({ title, filter }) {
   };
 
   useEffect(() => {
-    if (status === "success") {
-      setData(dataSaved);
-    }
-  }, [status]);
-
-  useEffect(() => {
-    filterSearchData(isChecked, dataSaved, search, setData);
+    filterSearchData(isChecked, dataMonth, search, setData);
   }, [search]);
 
   useEffect(() => {
@@ -73,9 +72,19 @@ function ShowSavedSalary({ title, filter }) {
 
   useEffect(() => {
     if (searchDate !== "") {
-      filterSearchInputDate(dataSaved, searchDate, setData);
+      filterSearchInputDate(dataMonth, searchDate, setData);
     }
   }, [searchDate]);
+
+  useEffect(() => {
+    filterMonthData(dataSaved, status, monthYear, setDataMonth);
+  }, [monthYear, dataSaved, status]);
+  
+  useEffect(() => {
+    if (status === "success" && monthYear) {
+      setData(dataMonth);
+    }
+  }, [status, monthYear, dataMonth]);
 
   return (
     <div>

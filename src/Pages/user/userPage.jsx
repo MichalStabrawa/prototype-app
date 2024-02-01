@@ -275,7 +275,7 @@ function UserPage({ isAuthenticated }) {
                     border="light"
                   >
                     <Card.Body className="d-flex flex-column">
-                      <ShowSavedSalary filter={true} title="Your revenue" />
+                      <ShowSavedSalary filter={true} monthYear={monthYear} title="Your revenue" />
                       <ShowSavedExpenses filter={true} title="Your expenses" />
                     </Card.Body>
                   </Card>
