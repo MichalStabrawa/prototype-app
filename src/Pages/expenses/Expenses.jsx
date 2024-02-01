@@ -19,6 +19,32 @@ import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastVa
 import { getMonthYear } from "../../utils/dateFunction";
 import { filterMonthData } from "../../utils/filterMonth";
 
+import ReactApexChart from "react-apexcharts";
+
+const chartInit = {
+  series: [],
+  options: {
+    chart: {
+      width: 450,
+      type: "pie",
+    },
+    labels: [],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  },
+};
+
 function Expenses({ auth }) {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
@@ -35,6 +61,8 @@ function Expenses({ auth }) {
   const [monthYear, setMonthYear] = useState(getMonthYear());
   const [dataMonth, setDataMonth] = useState([]);
   const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
+  const [chart, setChart] = useState(chartInit);
+  const [chartDadline, setChartDeadline] = useState(chartInit);
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
@@ -127,9 +155,36 @@ function Expenses({ auth }) {
     );
   }, [monthYear, data, dataExpenses]);
 
-  console.log("Expesnes Page");
-  console.log(dataMonth);
-  console.log(dataMonthExpenses);
+  useEffect(() => {
+    setChart((prevChart) => {
+      return {
+        ...prevChart,
+        series: dataMonthExpenses.map((item) => item.expenses),
+        options: {
+          ...prevChart,
+          labels: dataMonthExpenses.map((item) => item.name),
+        },
+      };
+    });
+  }, [monthYear, dataMonthExpenses]);
+
+  useEffect(() => {
+    if (deadline) {
+      setChartDeadline((prevDeadline) => {
+        return {
+          ...prevDeadline,
+          series: deadline.map((item) => item.expenses),
+          options: {
+            ...prevDeadline,
+            labels: deadline.map((item) => item.name),
+          },
+        };
+      });
+    }
+  }, [deadline, monthYear]);
+
+  console.log(deadline);
+  console.log(chartDadline);
 
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
@@ -316,6 +371,69 @@ function Expenses({ auth }) {
                       badgeData={sumShowExpenses}
                     />
                   )}
+                </Col>
+              </Row>
+              <Row className="h-100">
+                <Col
+                  xs={12}
+                  lg={6}
+                  className={`${classes.achart_wrapper} "d-flex flex-column flex-fill"`}
+                >
+                  {" "}
+                  <Card className="h-100 shadow">
+                    <Card.Header>Deadline chart</Card.Header>
+                    <Card.Body className="d-flex flex-column">
+                      <div className="h-100">
+                        <div id="chart" className="h-100">
+                          <ReactApexChart
+                            options={chartDadline.options}
+                            series={chartDadline.series}
+                            type="pie"
+                            width={450}
+                          />
+                        </div>
+                        <div id="html-dist"></div>
+                      </div>
+                      <div className={classes.month}>
+                        <Form.Control
+                          onChange={handleInputMonth}
+                          value={monthYear}
+                          type="month"
+                          placeholder="name@example.com"
+                        />
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col
+                  xs={12}
+                  lg={6}
+                  className={`${classes.achart_wrapper} "d-flex flex-column flex-fill"`}
+                >
+                  <Card className="h-100 shadow">
+                    <Card.Header>All expenses chart</Card.Header>
+                    <Card.Body className="d-flex flex-column">
+                      <div className="h-100">
+                        <div className="h-100" id="chart">
+                          <ReactApexChart
+                            options={chart.options}
+                            series={chart.series}
+                            type="pie"
+                            width={450}
+                          />
+                        </div>
+                        <div id="html-dist"></div>
+                      </div>
+                      <div className={classes.month}>
+                        <Form.Control
+                          onChange={handleInputMonth}
+                          value={monthYear}
+                          type="month"
+                          placeholder="name@example.com"
+                        />
+                      </div>
+                    </Card.Body>
+                  </Card>
                 </Col>
               </Row>
             </Container>
