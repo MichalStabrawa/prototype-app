@@ -20,6 +20,34 @@ import { FaInfoCircle } from "react-icons/fa";
 import { VscLaw } from "react-icons/vsc";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import ReactApexChart from "react-apexcharts";
+
+const options = {
+  chart: {
+    type: "area",
+    height: 350,
+  },
+  dataLabels: {
+    enabled: false,
+    style: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      display: "none",
+    },
+  },
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    title: {
+      text: "Gold Price (PLN/g)",
+    },
+  },
+  stroke: {
+    curve: "straight",
+  },
+  colors: ["#FFBB5C"],
+};
 
 export default function BudgetAppGold({ props }) {
   const [gold, setGold] = useState([]);
@@ -36,6 +64,14 @@ export default function BudgetAppGold({ props }) {
   const [goldTopCount, setGoldTopCount] = useState([]);
   const [count, setCount] = useState(0);
   const [inputCount, setInputCount] = useState("");
+  const [goldNewChart, setGoldNewChart] = useState({
+    options: options,
+    series: [],
+  });
+
+  console.log(goldTopCount);
+  console.log("goldNeChart");
+  console.log(goldNewChart);
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -71,12 +107,31 @@ export default function BudgetAppGold({ props }) {
   useEffect(() => {
     fetchNbpGoldLast(setGoldLastPrice);
   }, []);
+  useEffect(() => {
+    if (goldTopCount.length > 0) {
+      const transformedChartData = goldTopCount.map((item) => ({
+        x: new Date(item.data).getTime(),
+        y: item.cena,
+      }));
+
+      // Update only the series data
+      setGoldNewChart({
+        ...goldNewChart,
+        series: [
+          {
+            name: "Gold Price",
+            data: transformedChartData,
+          },
+        ],
+      });
+    }
+  }, [goldTopCount]);
 
   return (
     <Wrapper>
       <div className={classes.ba_main}>
         <div className={classes.ba_gold}>
-          <Card border='light'>
+          <Card border="light">
             <Card.Header>
               <h4>Current gold price</h4>
             </Card.Header>
@@ -156,9 +211,14 @@ export default function BudgetAppGold({ props }) {
       </div>
       <div className={classes.chart_wrapper}>
         <h3 className={classes.chart_wrapper_title}>Last 30 top count gold </h3>
-        <div className={classes.chart}>
-          <SimpleLineChart data={goldTopCount} />
-        </div>
+        {goldNewChart.options && goldNewChart.series && (
+          <ReactApexChart
+            options={goldNewChart.options}
+            series={goldNewChart.series}
+            type="area"
+            height={350}
+          />
+        )}
       </div>
       <div className={classes.btn_section}>
         <NavLink to="gold">
