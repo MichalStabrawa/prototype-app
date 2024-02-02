@@ -3,17 +3,6 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./exchange-rates.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  BarChart,
-  Bar,
-  Rectangle,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import getCompareLastActualValue from "../../utils/getCurrentLastValue";
 import TableRates from "../../components/UI/TableRates/TableRates";
 import InputComponent from "../../components/UI/Input/InputComponent";
@@ -40,9 +29,11 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { bartChartDouble } from "../../helpers/chartVariables/chart-variables";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ReactApexChart from "react-apexcharts";
 
 const ExchangeRates = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +59,10 @@ const ExchangeRates = (props) => {
   const [single, setSingle] = useState([]);
   const error = useSelector((state) => state.content.error);
   const [param, setParam] = useState("");
+  const [bartChart, setBartChart] = useState({
+    options: bartChartDouble.options,
+    series: [],
+  });
 
   const params = useParams();
 
@@ -185,9 +180,36 @@ const ExchangeRates = (props) => {
     setSingle(singleCurrencyData);
   }, [singleCurrencyData, flag]);
 
+  useEffect(() => {
+    if (data.length > 0) {
+      console.log("Data in useEffect:", data);
+      setBartChart((prevBart) => ({
+        ...prevBart,
+        series: [
+          {
+            name: "Rates",
+            data: data.map((el) => el.mid),
+          },
+          {
+            name: "Rates last",
+            data: data.map((el) => el.lastValue),
+          },
+        ],
+        options: {
+          xaxis: {
+            categories: data.map((el) => el.code),
+          },
+        },
+      }));
+    }
+  }, [data]);
+
   if (isLoading) {
     return "LOADING......";
   }
+
+  console.log("BARTCHARTUSE");
+  console.log(bartChart);
 
   return (
     <>
@@ -455,7 +477,7 @@ const ExchangeRates = (props) => {
                               {currency[0].effectiveDate}
                             </span>
                           </h3>
-                          <ResponsiveContainer width="100%" height="90%">
+                          {/* <ResponsiveContainer width="100%" height="90%">
                             <BarChart
                               width={500}
                               height={300}
@@ -487,7 +509,15 @@ const ExchangeRates = (props) => {
                                 }
                               />
                             </BarChart>
-                          </ResponsiveContainer>
+                          </ResponsiveContainer> */}
+                          {bartChart.series && bartChart.options && (
+                            <ReactApexChart
+                              options={bartChart.options}
+                              series={bartChart.series}
+                              type="bar"
+                              height={430}
+                            />
+                          )}
                         </div>
                       </Card.Body>
                     </Card>
@@ -560,19 +590,7 @@ const ExchangeRates = (props) => {
                 </>
               )}
             </div>
-            <Row>
-              <Col>
-                <Card
-                  className={`${classes.card_custom} shadow`}
-                  border="light"
-                >
-                  <Card.Body>
-                    {" "}
-                    <ExchangeFromToDate data={data} />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+        
           </div>
         </Container>
       </section>
