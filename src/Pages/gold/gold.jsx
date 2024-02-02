@@ -283,7 +283,7 @@ const Gold = () => {
                         minPrice && (
                           <div className={classes.table_min_max}>
                             {" "}
-                            <Table striped bordered hover>
+                            <Table responsive striped hover>
                               <thead>
                                 <tr>
                                   <th>min value</th>
