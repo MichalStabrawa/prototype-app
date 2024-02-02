@@ -102,6 +102,7 @@ function Expenses({ auth }) {
   const [chartDadline, setChartDeadline] = useState(chartInit);
   const [chartLine, setChartLine] = useState(chartLineInit);
   const [chartLineDeadline, setChartLineDeadline] = useState(chartLineInit);
+  const [saldo, setSaldo] = useState([]);
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
@@ -246,10 +247,62 @@ function Expenses({ auth }) {
     }
   }, [deadline, monthYear]);
 
-  console.log(deadline);
-  console.log(chartDadline);
-  console.log("chart");
-  console.log(chartLine);
+  useEffect(() => {
+    if (sumShowSalary && sumShowExpenses) {
+      setSaldo({
+        series: [
+          {
+            name: "Revenue",
+            data: [sumShowSalary],
+          },
+          {
+            name: "Expenses",
+            data: [sumShowExpenses],
+          },
+        ],
+        options: {
+          chart: {
+            type: "bar",
+            height: 350,
+          },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: "20%",
+              endingShape: "rounded",
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            show: true,
+            width: 2,
+            colors: ["transparent"],
+          },
+          xaxis: {
+            categories: ["Compare"],
+          },
+          yaxis: {
+            title: {
+              text: "PLN",
+            },
+          },
+          fill: {
+            opacity: 1,
+          },
+          tooltip: {
+            y: {
+              formatter: function (val) {
+                return "PLN " + val + " thousands";
+              },
+            },
+          },
+          colors: ["#D5F0C1", "#FF7171"],
+        },
+      });
+    }
+  }, [monthYear, sumShowSalary, sumShowExpenses]);
 
   return (
     <main main className={`${userPageClasses.user_main} ${classes.expenses}`}>
@@ -278,7 +331,7 @@ function Expenses({ auth }) {
           >
             <Container fluid>
               <Row className="h-100">
-                <Col xs={12} md={4}  className="d-flex flex-column flex-fill">
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   <Card
                     className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
@@ -295,17 +348,19 @@ function Expenses({ auth }) {
                         <span className={userPageClasses.card_title}>
                           Expenses
                         </span>
-                        <div>
-                          <div id="chart">
-                            <ReactApexChart
-                              options={chartLine.options}
-                              series={chartLine.series}
-                              type="line"
-                              height={250}
-                            />
+                        {chartLine.options && chartLine.series && (
+                          <div>
+                            <div id="chart">
+                              <ReactApexChart
+                                options={chartLine.options}
+                                series={chartLine.series}
+                                type="line"
+                                height={200}
+                              />
+                            </div>
+                            <div id="html-dist"></div>
                           </div>
-                          <div id="html-dist"></div>
-                        </div>
+                        )}
                       </Card.Text>
                       <Card.Text>
                         <span className={userPageClasses.badge}>
@@ -315,7 +370,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={4}  className="d-flex flex-column flex-fill">
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   <Card
                     className={`${userPageClasses.card_info} h-100 shadow`}
                     border="light"
@@ -330,6 +385,19 @@ function Expenses({ auth }) {
                         <span className={userPageClasses.card_title}>
                           Saldo your budget
                         </span>
+                        {saldo.options && saldo.series && (
+                          <div>
+                            <div id="chart">
+                              <ReactApexChart
+                                options={saldo.options}
+                                series={saldo.series}
+                                type="bar"
+                                height={200}
+                              />
+                            </div>
+                            <div id="html-dist"></div>
+                          </div>
+                        )}
                       </Card.Text>
                       <Card.Text>
                         <span className={userPageClasses.badge}>
@@ -358,17 +426,20 @@ function Expenses({ auth }) {
                         <span className={userPageClasses.card_title}>
                           Bills due for payment
                         </span>
-                        <div>
-                          <div id="chart">
-                            <ReactApexChart
-                              options={chartLineDeadline.options}
-                              series={chartLineDeadline.series}
-                              type="line"
-                              height={250}
-                            />
-                          </div>
-                          <div id="html-dist"></div>
-                        </div>
+                        {chartLineDeadline.options &&
+                          chartLineDeadline.series && (
+                            <div>
+                              <div id="chart">
+                                <ReactApexChart
+                                  options={chartLineDeadline.options}
+                                  series={chartLineDeadline.series}
+                                  type="line"
+                                  height={200}
+                                />
+                              </div>
+                              <div id="html-dist"></div>
+                            </div>
+                          )}
                       </Card.Text>
                       <Card.Text>
                         <span className={userPageClasses.badge}>
@@ -470,17 +541,20 @@ function Expenses({ auth }) {
                   <Card className="h-100 shadow">
                     <Card.Header>Deadline chart</Card.Header>
                     <Card.Body className="d-flex flex-column">
-                      <div className="h-100">
-                        <div id="chart" className="h-100">
-                          <ReactApexChart
-                            options={chartDadline.options}
-                            series={chartDadline.series}
-                            type="pie"
-                            width={450}
-                          />
+                      {chartDadline.options && chartDadline.series && (
+                        <div className="h-100">
+                          <div id="chart" className="h-100">
+                            <ReactApexChart
+                              options={chartDadline.options}
+                              series={chartDadline.series}
+                              type="pie"
+                              width={450}
+                            />
+                          </div>
+                          <div id="html-dist"></div>
                         </div>
-                        <div id="html-dist"></div>
-                      </div>
+                      )}
+
                       <div className={classes.month}>
                         <Form.Control
                           onChange={handleInputMonth}
@@ -500,17 +574,20 @@ function Expenses({ auth }) {
                   <Card className="h-100 shadow">
                     <Card.Header>All expenses chart</Card.Header>
                     <Card.Body className="d-flex flex-column">
-                      <div className="h-100">
-                        <div className="h-100" id="chart">
-                          <ReactApexChart
-                            options={chart.options}
-                            series={chart.series}
-                            type="pie"
-                            width={450}
-                          />
+                      {chart.options && chart.series && (
+                        <div className="h-100">
+                          <div className="h-100" id="chart">
+                            <ReactApexChart
+                              options={chart.options}
+                              series={chart.series}
+                              type="pie"
+                              width={450}
+                            />
+                          </div>
+                          <div id="html-dist"></div>
                         </div>
-                        <div id="html-dist"></div>
-                      </div>
+                      )}
+
                       <div className={classes.month}>
                         <Form.Control
                           onChange={handleInputMonth}
@@ -520,13 +597,6 @@ function Expenses({ auth }) {
                         />
                       </div>
                     </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Card>
-                    <Card.Body></Card.Body>
                   </Card>
                 </Col>
               </Row>
