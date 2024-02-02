@@ -27,6 +27,14 @@ const options = {
     type: "area",
     height: 350,
   },
+  dataLabels: {
+    enabled: false,
+    style: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      display: "none",
+    },
+  },
   xaxis: {
     type: "datetime",
   },
@@ -62,8 +70,8 @@ export default function BudgetAppGold({ props }) {
   });
 
   console.log(goldTopCount);
-  console.log("goldNeChart")
-  console.log(goldNewChart)
+  console.log("goldNeChart");
+  console.log(goldNewChart);
 
   useEffect(() => {
     fetchNbpGold(setGold);
@@ -105,7 +113,7 @@ export default function BudgetAppGold({ props }) {
         x: new Date(item.data).getTime(),
         y: item.cena,
       }));
-  
+
       // Update only the series data
       setGoldNewChart({
         ...goldNewChart,

@@ -90,7 +90,7 @@ const BudgetAppExchange = (props) => {
   useEffect(() => {
     if (nbpTopCountData && Array.isArray(nbpTopCountData.data)) {
       const { data } = nbpTopCountData;
-    
+
       setChartNbpTop({
         series: [
           {
@@ -132,7 +132,7 @@ const BudgetAppExchange = (props) => {
           tooltip: {
             y: {
               formatter: function (val) {
-                return "PLN " + val ;
+                return "PLN " + val;
               },
             },
           },
