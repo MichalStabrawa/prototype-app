@@ -11,17 +11,6 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
-import {
-  ComposedChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 import Reducer from "../../../store/store";
 import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
@@ -90,7 +79,7 @@ const BudgetAppExchange = (props) => {
   useEffect(() => {
     if (nbpTopCountData && Array.isArray(nbpTopCountData.data)) {
       const { data } = nbpTopCountData;
-
+  
       setChartNbpTop({
         series: [
           {
@@ -106,7 +95,7 @@ const BudgetAppExchange = (props) => {
           plotOptions: {
             bar: {
               horizontal: false,
-              columnWidth: "60%",
+              columnWidth: "80%",
               endingShape: "rounded",
             },
           },
@@ -138,6 +127,27 @@ const BudgetAppExchange = (props) => {
           },
           colors: ["#7286D3"],
         },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    colors: ["#C499F3"],
+                  },
+                },
+              },
+              plotOptions: {
+                bar: {
+                  horizontal: true,
+                  columnWidth: "100%",
+                  endingShape: "rounded",
+                },
+              },
+            },
+          },
+        ],
       });
     }
   }, [nbpTopCountData]);
@@ -240,6 +250,7 @@ const BudgetAppExchange = (props) => {
             <label>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</label>
           )}{" "}
           <div>
+            Test
             <div id="chart">
               <ReactApexChart
                 options={chartNbpTop.options}

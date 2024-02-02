@@ -7,16 +7,6 @@ import getCurrentPrevDifferences from "../../utils/getCurrentPrevDifferences";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Table from "react-bootstrap/Table";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 const CompareGoldPricesByDate = () => {
   const dispatch = useDispatch();
