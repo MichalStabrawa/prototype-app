@@ -18,6 +18,8 @@ import classes from "./ExchangeTopLastChart.module.scss";
 import minMaxBidAsk from "../../../utils/minMaxBidAsk";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import { splineArea } from "../../../helpers/chartVariables/splineArea";
+import ReactApexChart from "react-apexcharts";
 
 const ExchangeTopLastChart = ({ index }) => {
   const data = useSelector((state) => state.multiple.data);
@@ -25,14 +27,46 @@ const ExchangeTopLastChart = ({ index }) => {
   const [flag, setFlag] = useState(false);
   const [minBidAsk, setMinBidAsk] = useState();
   const [maxBidAsk, setMaxBidAsk] = useState();
+  const [splineChart, setSplineChart] = useState({
+    options: splineArea.options,
+    series: [],
+  });
 
   const changeChartHandler = () => {
     setFlag(!flag);
   };
 
+  console.log("splineChart" + splineChart.options);
+
   useEffect(() => {
     minMaxBidAsk(data[index], status, setMinBidAsk, setMaxBidAsk);
   }, [status]);
+
+  useEffect(() => {
+    
+    if (data.length > 0 && data[index] && data[index].rates) {
+      const { rates } = data[index];
+      console.log("Ratesin useEffect:", rates);
+      setSplineChart((prevSplinea) => ({
+        ...prevSplinea,
+        series: [
+          {
+            name: "Rates",
+            data: rates.map((el) => el.ask),
+          },
+          {
+            name: "Rates last",
+            data: rates.map((el) => el.bid),
+          },
+        ],
+        options: {
+          xaxis: {
+            categories: rates.map((el) => el.effectiveDate),
+          },
+        },
+      }));
+    }
+  }, [data,index]);
 
   return (
     <>
@@ -52,7 +86,7 @@ const ExchangeTopLastChart = ({ index }) => {
                     [{data[index].currency}]
                   </span>
                 </h3>
-                <ResponsiveContainer width="100%" height="90%">
+                {/* <ResponsiveContainer width="100%" height="90%">
                   <LineChart
                     width={500}
                     height={300}
@@ -77,7 +111,20 @@ const ExchangeTopLastChart = ({ index }) => {
                     />
                     <Line type="monotone" dataKey="ask" stroke="#7FC7D9" />
                   </LineChart>
-                </ResponsiveContainer>
+                </ResponsiveContainer> */}
+                {splineChart.options && splineChart.series &&  (
+                  <div>
+                    <div id="chart">
+                      <ReactApexChart
+                        options={splineChart.options}
+                        series={splineChart.series}
+                        type="area"
+                        height={350}
+                      />
+                    </div>
+                    <div id="html-dist"></div>
+                  </div>
+                )}
                 {minBidAsk && maxBidAsk && (
                   <div className={classes.table_min_max}>
                     <Table striped bordered hover>
