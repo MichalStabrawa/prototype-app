@@ -164,34 +164,6 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
             <div className={classes.chart}>
               {error && <Alert variant="danger">{error}</Alert>}
 
-              {status === "success" && dataFetch.code === params.id && (
-                <></>
-                // <ResponsiveContainer width="100%" height="100%">
-                //   <LineChart
-                //     width={500}
-                //     height={300}
-                //     data={dataFetch.rates}
-                //     margin={{
-                //       top: 5,
-                //       right: 30,
-                //       left: 20,
-                //       bottom: 5,
-                //     }}
-                //   >
-                //     <CartesianGrid strokeDasharray="3 3" />
-                //     <XAxis dataKey="effectiveDate" />
-                //     <YAxis domain={"maxValue"} />
-                //     <Tooltip />
-                //     <Legend />
-                //     <Line
-                //       type="line"
-                //       dataKey="mid"
-                //       stroke="#365486"
-                //       activeDot={{ r: 8 }}
-                //     />
-                //   </LineChart>
-                // </ResponsiveContainer>
-              )}
               {chartTopCount.options && chartTopCount.series && (
                 <div>
                   <div id="chart">
