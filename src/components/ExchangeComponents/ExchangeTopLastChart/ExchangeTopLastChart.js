@@ -43,7 +43,6 @@ const ExchangeTopLastChart = ({ index }) => {
   }, [status]);
 
   useEffect(() => {
-    
     if (data.length > 0 && data[index] && data[index].rates) {
       const { rates } = data[index];
       console.log("Ratesin useEffect:", rates);
@@ -66,7 +65,7 @@ const ExchangeTopLastChart = ({ index }) => {
         },
       }));
     }
-  }, [data,index]);
+  }, [data, index]);
 
   return (
     <>
@@ -86,33 +85,8 @@ const ExchangeTopLastChart = ({ index }) => {
                     [{data[index].currency}]
                   </span>
                 </h3>
-                {/* <ResponsiveContainer width="100%" height="90%">
-                  <LineChart
-                    width={500}
-                    height={300}
-                    data={data[index].rates}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={"dataMax"} />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="bid"
-                      stroke="#365486"
-                      activeDot={{ r: 8 }}
-                    />
-                    <Line type="monotone" dataKey="ask" stroke="#7FC7D9" />
-                  </LineChart>
-                </ResponsiveContainer> */}
-                {splineChart.options && splineChart.series &&  (
+
+                {splineChart.options && splineChart.series && (
                   <div>
                     <div id="chart">
                       <ReactApexChart
@@ -127,7 +101,7 @@ const ExchangeTopLastChart = ({ index }) => {
                 )}
                 {minBidAsk && maxBidAsk && (
                   <div className={classes.table_min_max}>
-                    <Table striped bordered hover>
+                    <Table responsive striped hover>
                       <thead>
                         <tr>
                           <th>min Bid</th>
