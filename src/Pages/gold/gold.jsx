@@ -136,9 +136,6 @@ const Gold = () => {
     }
   }, [goldLastTopCount, dispatch]);
 
-  console.log("Cahrt last top");
-  console.log(chartLastTop);
-
   return (
     <>
       <header className={classes.header}>

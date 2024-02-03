@@ -24,16 +24,6 @@ import ExchangeDetSearchDate from "../../../components/ExchangeDetailsComponents
 import ExchangeDetaSelectTwoDate from "../../../components/ExchangeDetailsComponents/ExchangeDetSelectTwoDate/ExchangeDetSelectTwoDate";
 import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 import classes from "./ExchangeDetails.module.scss";
 import { countPercentCurrLastValue } from "../../../utils/countPercentCurrentLastValue";
@@ -42,6 +32,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { BsCurrencyExchange } from "react-icons/bs";
+import ReactApexChart from "react-apexcharts";
+import { options } from "../../../helpers/chartVariables/chart-variables";
 
 function ExchangeDetails() {
   const dispatch = useDispatch();
@@ -68,6 +60,10 @@ function ExchangeDetails() {
   const [minMid, setMinMid] = useState(null);
   const [maxMid, setMaxMid] = useState(null);
   const [dataCarousel, setDataCarousel] = useState();
+  const [chartTopCount, setChartTopCount] = useState({
+    options: options,
+    series: [],
+  });
 
   //ask bid data
 
@@ -120,6 +116,48 @@ function ExchangeDetails() {
       setDataCarousel(tab);
     }
   }, [currency]);
+
+  useEffect(() => {
+    if (currencyLastTopCount) {
+      const { rates, code, currency } = currencyLastTopCount;
+
+      const transformedChartData =
+        rates?.map((item) => ({
+          x: new Date(item?.effectiveDate).getTime(),
+          y: item?.mid,
+        })) || [];
+
+      setChartTopCount({
+        ...chartTopCount,
+        options: {
+          ...chartTopCount.options,
+          xaxis: {
+            type: "datetime",
+            labels: {
+              show: true,
+              format: "dd MMM yyyy", // Adjust the date format as needed
+            },
+          },
+          yaxis: {
+            title: {
+              text: currency,
+            },
+          },
+          title: {
+            text: `${code} Price Movements`,
+            align: "left",
+          },
+          colors: ["#7360DF"],
+        },
+        series: [
+          {
+            name: code,
+            data: transformedChartData,
+          },
+        ],
+      });
+    }
+  }, [currencyLastTopCount, statusLastTop]);
 
   if (isLoading) {
     return (
@@ -178,7 +216,7 @@ function ExchangeDetails() {
               </Card>
             </Col>
           </Row>
-          <Row  className="h-100">
+          <Row className="h-100">
             <Col xs={12} md={3} className="d-flex flex-column flex-fill">
               <Card className={` h-100 shadow`} border="light">
                 <Card.Body className="d-flex flex-column">
@@ -292,31 +330,19 @@ function ExchangeDetails() {
                       )}
                       {statusLastTop === "success" && (
                         <div className={classes.tab_content}>
-                          <ResponsiveContainer width="100%" height="100%">
-                            <LineChart
-                              width={500}
-                              height={300}
-                              data={currencyLastTopCount.rates}
-                              margin={{
-                                top: 15,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                              }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="effectiveDate" />
-                              <YAxis domain={["dataMin,dataMax"]} />
-                              <Tooltip />
-                              <Legend />
-                              <Line
-                                type="linear"
-                                dataKey="mid"
-                                stroke="#365486"
-                                activeDot={{ r: 8 }}
-                              />
-                            </LineChart>
-                          </ResponsiveContainer>
+                          {chartTopCount.options && chartTopCount.series && (
+                            <div>
+                              <div id="chart">
+                                <ReactApexChart
+                                  options={chartTopCount.options}
+                                  series={chartTopCount.series}
+                                  type="area"
+                                  height={350}
+                                />
+                              </div>
+                              <div id="html-dist"></div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </Col>
@@ -324,7 +350,7 @@ function ExchangeDetails() {
                       {statusLastTop === "success" && minMid && maxMid && (
                         <div className={classes.table_min_max}>
                           {" "}
-                          <Table striped bordered hover>
+                          <Table responsive striped hover>
                             <thead>
                               <tr>
                                 <th>min value</th>
