@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import classes from "./TableMidMinMax.module.scss";
 
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import Alert from "react-bootstrap/Alert";
 
-function TableMidMinMax({ data, status,dateStart,dateEnd }) {
+function TableMidMinMax({ data, status, dateStart, dateEnd }) {
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
 
@@ -60,7 +57,10 @@ function TableMidMinMax({ data, status,dateStart,dateEnd }) {
             B),*Table – table type,*Currency – currency name,*Code – currency
             code
           </p>
-          <p className={classes.text}>Code: {data.code}, Currency: {data.currency}, Table: {data.table}, date start: {dateStart}, date end: {dateEnd}</p>
+          <p className={classes.text}>
+            Code: {data.code}, Currency: {data.currency}, Table: {data.table},
+            date start: {dateStart}, date end: {dateEnd}
+          </p>
         </div>
       )}
     </Col>
