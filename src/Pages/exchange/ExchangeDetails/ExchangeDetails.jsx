@@ -24,16 +24,6 @@ import ExchangeDetSearchDate from "../../../components/ExchangeDetailsComponents
 import ExchangeDetaSelectTwoDate from "../../../components/ExchangeDetailsComponents/ExchangeDetSelectTwoDate/ExchangeDetSelectTwoDate";
 import { singleCurrBidLastTopCountFetch } from "../../../store/currencyApiNbp/singleCurrencyBidLastTopCountSlice";
 import { TiArrowBackOutline } from "react-icons/ti";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 import classes from "./ExchangeDetails.module.scss";
 import { countPercentCurrLastValue } from "../../../utils/countPercentCurrentLastValue";
@@ -74,7 +64,6 @@ function ExchangeDetails() {
     options: options,
     series: [],
   });
- 
 
   //ask bid data
 
@@ -127,19 +116,17 @@ function ExchangeDetails() {
       setDataCarousel(tab);
     }
   }, [currency]);
+
   useEffect(() => {
     if (currencyLastTopCount) {
-      const { rates, code } = currencyLastTopCount;
-  
+      const { rates, code, currency } = currencyLastTopCount;
+
       const transformedChartData =
         rates?.map((item) => ({
           x: new Date(item?.effectiveDate).getTime(),
           y: item?.mid,
         })) || [];
-  
-      const xLabels =
-        rates?.map((item) => new Date(item?.effectiveDate).getTime()) || [];
-  
+
       setChartTopCount({
         ...chartTopCount,
         options: {
@@ -151,6 +138,16 @@ function ExchangeDetails() {
               format: "dd MMM yyyy", // Adjust the date format as needed
             },
           },
+          yaxis: {
+            title: {
+              text: currency,
+            },
+          },
+          title: {
+            text: `${code} Price Movements`,
+            align: "left",
+          },
+          colors: ["#7360DF"],
         },
         series: [
           {
@@ -161,9 +158,6 @@ function ExchangeDetails() {
       });
     }
   }, [currencyLastTopCount, statusLastTop]);
-  
-
-  console.log("Alert");
 
   if (isLoading) {
     return (
@@ -336,31 +330,6 @@ function ExchangeDetails() {
                       )}
                       {statusLastTop === "success" && (
                         <div className={classes.tab_content}>
-                          {/* <ResponsiveContainer width="100%" height="100%">
-                            <LineChart
-                              width={500}
-                              height={300}
-                              data={currencyLastTopCount.rates}
-                              margin={{
-                                top: 15,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                              }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="effectiveDate" />
-                              <YAxis domain={["dataMin,dataMax"]} />
-                              <Tooltip />
-                              <Legend />
-                              <Line
-                                type="linear"
-                                dataKey="mid"
-                                stroke="#365486"
-                                activeDot={{ r: 8 }}
-                              />
-                            </LineChart>
-                          </ResponsiveContainer> */}
                           {chartTopCount.options && chartTopCount.series && (
                             <div>
                               <div id="chart">

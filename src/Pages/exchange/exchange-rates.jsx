@@ -182,7 +182,6 @@ const ExchangeRates = (props) => {
 
   useEffect(() => {
     if (data.length > 0) {
-      console.log("Data in useEffect:", data);
       setBartChart((prevBart) => ({
         ...prevBart,
         series: [
@@ -207,9 +206,6 @@ const ExchangeRates = (props) => {
   if (isLoading) {
     return "LOADING......";
   }
-
-  console.log("BARTCHARTUSE");
-  console.log(bartChart);
 
   return (
     <>
@@ -477,39 +473,7 @@ const ExchangeRates = (props) => {
                               {currency[0].effectiveDate}
                             </span>
                           </h3>
-                          {/* <ResponsiveContainer width="100%" height="90%">
-                            <BarChart
-                              width={500}
-                              height={300}
-                              data={data}
-                              margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                              }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="code" />
-                              <YAxis domain={["dataMax"]} />
-                              <Tooltip />
-                              <Legend />
-                              <Bar
-                                dataKey="mid"
-                                fill="#FF7171"
-                                activeBar={
-                                  <Rectangle fill="pink" stroke="blue" />
-                                }
-                              />
-                              <Bar
-                                dataKey="lastValue"
-                                fill="#BFCFE7"
-                                activeBar={
-                                  <Rectangle fill="gold" stroke="purple" />
-                                }
-                              />
-                            </BarChart>
-                          </ResponsiveContainer> */}
+
                           {bartChart.series && bartChart.options && (
                             <ReactApexChart
                               options={bartChart.options}
@@ -590,7 +554,6 @@ const ExchangeRates = (props) => {
                 </>
               )}
             </div>
-        
           </div>
         </Container>
       </section>
