@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 import {
   LineChart,
   Line,
@@ -19,6 +19,51 @@ import {
 } from "recharts";
 
 import { goldFetchFromToDate } from "../../store/goldApiNbp/goldFetchFromToDateSlice";
+import ReactApexChart from "react-apexcharts";
+
+const options = {
+  chart: {
+    type: "area",
+    height: 350,
+    zoom: {
+      enabled: true,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+    style: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      display: "none",
+    },
+  },
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    title: {
+      text: "Gold Price (PLN/g)",
+    },
+  },
+  stroke: {
+    curve: "straight",
+  },
+  colors: ["#FFBB5C"],
+  title: {
+    text: "Gold Price Movements",
+    align: "left",
+  },
+  subtitle: {
+    text: "Price Movements",
+    align: "left",
+  },
+  labels: [], // Empty labels initially
+  legend: {
+    horizontalAlign: "left",
+    enabled: true,
+    show: false,
+  },
+};
 
 const CompareGoldFromDateToDate = () => {
   const dispatch = useDispatch();
@@ -30,6 +75,10 @@ const CompareGoldFromDateToDate = () => {
   const [fetch, setFetch] = useState(false);
   const [maxPrice, setMax] = useState();
   const [minPrice, setMin] = useState();
+  const [chartLastTop, setChartLastTop] = useState({
+    options: options,
+    series: [],
+  });
 
   const handleInput = (event) => {
     event.preventDefault();
@@ -67,6 +116,34 @@ const CompareGoldFromDateToDate = () => {
       setMin(min);
     }
   }, [dispatch, status]);
+
+  useEffect(() => {
+    if (goldFromToDate.length > 0) {
+      const transformedChartData = goldFromToDate.map((item) => ({
+        x: new Date(item.data).getTime(),
+        y: item.cena,
+      }));
+
+      const xLabels = goldFromToDate.map((item) =>
+        new Date(item.data).getTime()
+      );
+
+      // Update only the series data and x-axis labels
+      setChartLastTop({
+        ...chartLastTop,
+        options: {
+          ...chartLastTop.options,
+          labels: xLabels,
+        },
+        series: [
+          {
+            name: "Gold Price",
+            data: transformedChartData,
+          },
+        ],
+      });
+    }
+  }, [goldFromToDate, dispatch]);
 
   return (
     <div className={classes.wrapper}>
@@ -109,36 +186,16 @@ const CompareGoldFromDateToDate = () => {
           </div>
         </Col>
         <Col xs={12}>
-          {status === "success" && isLoading === false && (
-            <div className={classes.chart}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={goldFromToDate}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="data" />
-                  <YAxis domain={"maxValue"} />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="cena"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          )}
+          {status === "success" &&
+            chartLastTop.options &&
+            chartLastTop.series && (
+              <ReactApexChart
+                options={chartLastTop.options}
+                series={chartLastTop.series}
+                type="area"
+                height={350}
+              />
+            )}
         </Col>
       </Row>
       <Row>
@@ -148,8 +205,8 @@ const CompareGoldFromDateToDate = () => {
           )}
           {status === "success" && maxPrice && minPrice && (
             <div className={classes.table_min_max}>
-              {" "}
-              <Table striped bordered hover>
+           
+              <Table responsive striped hover>
                 <thead>
                   <tr>
                     <th>min value</th>

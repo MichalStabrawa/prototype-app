@@ -18,6 +18,7 @@ import { GrCheckboxSelected } from "react-icons/gr";
 import TableExpensesModal from "./TableExpensesModal/TableExpensesModal";
 import FilterShowSalary from "../../FilterShowSalary/FilterShowSalary";
 import Pagination from "../../Paggination/Pagination";
+import Alert from "react-bootstrap/Alert";
 
 function TableExpenses({
   data,
@@ -28,10 +29,11 @@ function TableExpenses({
   currentRecords,
   radioChecked,
   selectedRadio,
-
+  flagExpenses,
   handleSwitchToggle,
   isCheckedFiltr,
   handleSearchInput,
+  counter,
 }) {
   const dispatch = useDispatch();
   const [editId, setEditId] = useState();
@@ -57,11 +59,24 @@ function TableExpenses({
     deadline: "off",
   });
 
+  const countExpencesAfterDate = () => {
+    let tab = [];
+    if (currentRecords) {
+      currentRecords.map((el, index) => {
+        if (
+          el.deadline === "on" &&
+          el.deadlineDate !== "" &&
+          calculateDateDifference(el.deadlineDate) <= 0
+        ) {
+          tab = [...tab, el.deadlineDate];
+        }
+      });
+    }
+    return tab.length;
+  };
+
   const user = auth.currentUser;
-  if (currentRecords) {
-    console.log("Current Records IF");
-    console.log(currentRecords);
-  }
+
   const editHandle = (e) => {
     const id = e.target.id;
     console.log(id);
@@ -93,6 +108,7 @@ function TableExpenses({
     if (e.target.name === "deadline") {
       setShow(true);
       setModal("deadline");
+      alert("Deadline");
     }
     if (e.target.name === "delete") {
       setShow(true);
@@ -178,6 +194,7 @@ function TableExpenses({
 
           console.log("Data deleted successfully");
           setFlag(true);
+          flagExpenses(true);
         } else {
           console.error("Data not found");
         }
@@ -238,6 +255,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
+            flagExpenses(true);
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);
@@ -300,6 +318,7 @@ function TableExpenses({
             await expensesRef.set(updatedObject);
             console.log("Data updated successfully");
             setFlag(true);
+            flagExpenses(true);
           } else {
             console.error("Object not found in the array");
             console.log("Original object:", expensesObject);
@@ -503,12 +522,21 @@ function TableExpenses({
             })}
         </tbody>
       </Table>
+
       {nPages > 0 && currentPage && data.length > 10 && (
         <Pagination
           nPages={nPages}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
+      )}
+      {countExpencesAfterDate() > 0 && counter && (
+        <h5>
+          <Alert>
+            <MdOutlineUpdate size={25} className={classes.icon_danger} />
+            {countExpencesAfterDate()} bills with a past due date!!!
+          </Alert>
+        </h5>
       )}
 
       {filterIdData && (

@@ -9,21 +9,12 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 import { exchangeFetchMidForToDate } from "../../../store/currencyApiNbp/exchangeFetchMidForToDateSlice";
 import TableMidMinMax from "../../../components/UI/TableMidMinMax/TableMidMinMax";
+import ReactApexChart from "react-apexcharts";
+import { options } from "../../../helpers/chartVariables/chart-variables";
 
 function ExchangeDetaSelectTwoDate({ code, currency }) {
   const dispatch = useDispatch();
@@ -45,6 +36,10 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [fetch, setFetch] = useState(false);
+  const [chartTopCount, setChartTopCount] = useState({
+    options: options,
+    series: [],
+  });
 
   const handleFetch = () => {
     setFetch(true);
@@ -75,6 +70,48 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
       setFetch(false);
     }
   }, [dispatch, fetch, fromDate, toDate, table, params.id]);
+
+  useEffect(() => {
+    if (dataFetch) {
+      const { rates, code, currency } = dataFetch;
+
+      const transformedChartData =
+        rates?.map((item) => ({
+          x: new Date(item?.effectiveDate).getTime(),
+          y: item?.mid,
+        })) || [];
+
+      setChartTopCount({
+        ...chartTopCount,
+        options: {
+          ...chartTopCount.options,
+          xaxis: {
+            type: "datetime",
+            labels: {
+              show: true,
+              format: "dd MMM yyyy", // Adjust the date format as needed
+            },
+          },
+          yaxis: {
+            title: {
+              text: currency,
+            },
+          },
+          title: {
+            text: `${code} Price Movements`,
+            align: "left",
+          },
+          colors: ["#C499F3"],
+        },
+        series: [
+          {
+            name: code,
+            data: transformedChartData,
+          },
+        ],
+      });
+    }
+  }, [dataFetch, status]);
   return (
     <section className={classes.wrapper}>
       <Container fluid>
@@ -127,32 +164,18 @@ function ExchangeDetaSelectTwoDate({ code, currency }) {
             <div className={classes.chart}>
               {error && <Alert variant="danger">{error}</Alert>}
 
-              {status === "success" && dataFetch.code === params.id && (
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    width={500}
-                    height={300}
-                    data={dataFetch.rates}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={"maxValue"} />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="line"
-                      dataKey="mid"
-                      stroke="#365486"
-                      activeDot={{ r: 8 }}
+              {chartTopCount.options && chartTopCount.series && (
+                <div>
+                  <div id="chart">
+                    <ReactApexChart
+                      options={chartTopCount.options}
+                      series={chartTopCount.series}
+                      type="area"
+                      height={350}
                     />
-                  </LineChart>
-                </ResponsiveContainer>
+                  </div>
+                  <div id="html-dist"></div>
+                </div>
               )}
             </div>
           </Col>

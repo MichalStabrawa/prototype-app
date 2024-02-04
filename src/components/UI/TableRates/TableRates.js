@@ -39,7 +39,7 @@ const TableRates = (props) => {
       <div className={classes.table_rates}>
         <div className={classes.table_wrapper}>
           {" "}
-          <Table responsive="sm" striped hover>
+          <Table responsive="lg" striped hover>
             <thead>
               <tr>
                 <th>code</th>

@@ -58,7 +58,7 @@ const ExchangeFromToDate = ({ data }) => {
 
   return (
     <div className={classes.exchange_date}>
-      <BudgetAppSection>
+      <div>
         <h3>Exchange from date to date</h3>
         <div className={classes.content}>
           {data.length && (
@@ -95,7 +95,7 @@ const ExchangeFromToDate = ({ data }) => {
             />
           )}
         </div>
-      </BudgetAppSection>
+      </div>
     </div>
   );
 };

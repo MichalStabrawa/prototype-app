@@ -31,7 +31,9 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import {} from "recharts";
+import { getMonthYear } from "../../utils/dateFunction";
+import { filterMonthData } from "../../utils/filterMonth";
+import Form from "react-bootstrap/Form";
 
 function UserPage({ isAuthenticated }) {
   const { data, status, isLoading, error } = useSelector(
@@ -44,10 +46,18 @@ function UserPage({ isAuthenticated }) {
   const [minSalary, setMinSalary] = useState(0);
   const [sumShowSalary, setSumShowSalary] = useState(0);
   const [sumShowExpenses, setShowExpenses] = useState(0);
+  const [monthYear, setMonthYear] = useState(getMonthYear());
+  const [dataMonth, setDataMonth] = useState([]);
+  const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
+
+
+  const handleInputMonth = (e) => {
+    setMonthYear(e.target.value);
+  };
 
   const sumSalary = () => {
     if (status === "success") {
-      const sum = [...data].reduce((prev, curr) => {
+      const sum = [...dataMonth].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -56,7 +66,7 @@ function UserPage({ isAuthenticated }) {
 
   const sumExpenses = () => {
     if (statusExpenses === "success") {
-      const sum = [...dataExpenses].reduce((prev, curr) => {
+      const sum = [...dataMonthExpenses].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
       return sum;
@@ -64,40 +74,51 @@ function UserPage({ isAuthenticated }) {
   };
 
   useEffect(() => {
-    if (status === "success") {
-      const max = [...data].reduce(
-        (prev, next) => (+prev.expenses > +next.expenses ? prev : next),
-        data[0]
-      );
-
-      // console.log(data);
-      // const min = [...data].reduce(
-      //   (prev, next) => (+prev.expenses < +next.expenses ? prev : next),
-      //   data[0]
-      // );
-
-      const filteredData = data.filter((entry) => entry.expenses !== "");
+    if (status === "success" && dataMonth.length > 0) {
+      const filteredData = dataMonth.filter((entry) => entry.expenses !== "");
 
       const expensesValues = filteredData.map((entry) =>
         parseInt(entry.expenses)
       );
+      const max = [...dataMonth].reduce(
+        (prev, next) => (prev.expenses > next.expenses ? prev : next),
+        dataMonth[0]
+      );
 
-      // Use reduce to find the minimum value
       const minExpenses = expensesValues.reduce(
         (min, value) => Math.min(min, value),
         Infinity
       );
 
+      console.log("MaxExpenses!!!!!" + typeof max.expenses);
+
       setMaxSalary(max);
       setMinSalary(minExpenses);
     }
-  }, [status, isLoading]);
+  }, [status, isLoading, monthYear, dataMonth]);
 
   useEffect(() => {
     setSumShowSalary(sumSalary());
     setShowExpenses(sumExpenses());
-  }, [status, isLoading, sumShowSalary, sumShowExpenses, statusExpenses]);
+  }, [
+    status,
+    isLoading,
+    sumShowSalary,
+    sumShowExpenses,
+    statusExpenses,
+    monthYear,
+    dataMonth,
+  ]);
 
+  useEffect(() => {
+    filterMonthData(data, status, monthYear, setDataMonth);
+    filterMonthData(
+      dataExpenses,
+      statusExpenses,
+      monthYear,
+      setDataMonthExpenses
+    );
+  }, [monthYear, data, dataExpenses]);
   return (
     <main className={classes.user_main}>
       {!isAuthenticated && <ErrorPage />}
@@ -110,18 +131,30 @@ function UserPage({ isAuthenticated }) {
             <Container fluid>
               <Row>
                 <Col>
-                  <h2>Your budget dashboard</h2>
+                  <h2>Your budget dashboard {monthYear}</h2>
+
+                  <div className={classes.month}>
+                    <Form.Control
+                      onChange={handleInputMonth}
+                      value={monthYear}
+                      type="month"
+                      placeholder="name@example.com"
+                    />
+                  </div>
                 </Col>
               </Row>
             </Container>
           </header>
           <section className={classes.daschboard}>
             <Container fluid>
-              <Row gap={3}>
-                <Col xs={12} md={4}>
+              <Row className="h-100 g-4">
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span className={classes.icon_wrapper}>
                           <BsDatabase />
@@ -143,10 +176,13 @@ function UserPage({ isAuthenticated }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={4}>
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info}  h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${classes.icon_wrapper} ${classes.rev}`}
@@ -166,10 +202,13 @@ function UserPage({ isAuthenticated }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col xs={12} md={4}>
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card_info} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100  shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <Card.Title>
                         <span
                           className={`${classes.icon_wrapper} ${classes.exp}`}
@@ -206,53 +245,65 @@ function UserPage({ isAuthenticated }) {
                 </Col>
               </Row>
 
-              <Row>
-                <Col md={4}>
+              <Row className="h-100">
+                <Col md={4} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card} border="light">
-                    <Card.Body>
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
                       <AddSalary />
                       <AddExpenses />
                     </Card.Body>
                   </Card>{" "}
                 </Col>
-                <Col md={8}>
+                <Col md={8} className="d-flex flex-column flex-fill">
                   {" "}
-                  <Card className={classes.card} border="light">
-                    <Card.Body>
-                      <ShowSavedSalary filter={true} title="Your revenue" />
-                      <ShowSavedExpenses filter={true} title="Your expenses" />
+                  <Card
+                    className={`${classes.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
+                      <ShowSavedSalary
+                        filter={true}
+                        monthYear={monthYear}
+                        title="Your revenue"
+                      />
+                      <ShowSavedExpenses
+                        filter={true}
+                        monthYear={monthYear}
+                        title="Your expenses"
+                      />
                     </Card.Body>
                   </Card>
                 </Col>
               </Row>
               {data.length && status === "success" && (
-                <Row>
-                  <Col lg={6}>
+                <Row className="h-100">
+                  <Col lg={6} className="d-flex flex-column flex-fill">
                     {" "}
                     <div className={classes.chart}>
-                      <Card border="light">
+                      <Card className="h-100 shadow" border="light">
                         {" "}
-                        <Card.Body>
+                        <Card.Body className="d-flex flex-column">
                           <Card.Subtitle>
                             Revenue{" "}
                             <Badge bg="secondary">
                               {" "}
-                              <span className={classes.badge}>
-                                max value:{" "}
-                                {status === "success" &&
-                                  maxSalary &&
-                                  maxSalary.expenses}
-                              </span>
+                              max value:{" "}
+                              {status === "success" &&
+                                maxSalary &&
+                                maxSalary.expenses}
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
-                            {status === "success" && data && (
+                            {status === "success" && dataMonth && (
                               <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart
                                   width={500}
                                   height={400}
-                                  data={data}
+                                  data={dataMonth}
                                   margin={{
                                     top: 10,
                                     right: 30,
@@ -278,27 +329,25 @@ function UserPage({ isAuthenticated }) {
                       </Card>
                     </div>
                   </Col>
-                  <Col xs={12} lg={6}>
+                  <Col xs={12} lg={6} className="d-flex flex-column flex-fill">
                     <div className={classes.chart}>
-                      <Card border="light">
+                      <Card className="h-100 shadow" border="light">
                         {" "}
-                        <Card.Body>
+                        <Card.Body className="d-flex flex-column">
                           <Card.Subtitle>
                             Revenue{" "}
                             <Badge bg="warning">
                               {" "}
-                              <h5>
-                                min value: {status === "success" && minSalary}
-                              </h5>
+                              min value: {status === "success" && minSalary}
                             </Badge>
                           </Card.Subtitle>{" "}
                           <div style={{ width: "100%", height: 300 }}>
-                            {status === "success" && data && maxSalary && (
+                            {status === "success" && dataMonth && maxSalary && (
                               <ResponsiveContainer width="100%" height="100%">
                                 <BarChart
                                   width={500}
                                   height={300}
-                                  data={data}
+                                  data={dataMonth}
                                   margin={{
                                     top: 20,
                                     right: 30,

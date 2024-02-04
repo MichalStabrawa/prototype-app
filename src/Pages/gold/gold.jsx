@@ -23,9 +23,55 @@ import SimpleLineChart from "../../components/Chart/SimpleLineChart";
 import CalculateGoldComponent from "../../components/CalculateGoldComponent/CalculateGoldComponent";
 import CompareGoldPricesByDate from "../../components/CalculateGoldPriceByDateComponent/CompareGoldPricesByDate";
 import CompareGoldFromDateToDate from "../../components/CompareGoldFromDateToDate/CompareGoldFromDateToDate";
+import ReactApexChart from "react-apexcharts";
+
+const options = {
+  chart: {
+    type: "area",
+    height: 350,
+    zoom: {
+      enabled: true,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+    style: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      display: "none",
+    },
+  },
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    title: {
+      text: "Gold Price (PLN/g)",
+    },
+  },
+  stroke: {
+    curve: "straight",
+  },
+  colors: ["#FFBB5C"],
+  title: {
+    text: "Gold Price Movements",
+    align: "left",
+  },
+  subtitle: {
+    text: "Price Movements",
+    align: "left",
+  },
+  labels: [], // Empty labels initially
+  legend: {
+    horizontalAlign: "left",
+    enabled: true,
+    show: false,
+  },
+};
+
 const Gold = () => {
   const dispatch = useDispatch();
-  const gold = useSelector((state) => state.goldFetch.data); 
+  const gold = useSelector((state) => state.goldFetch.data);
   const status = useSelector((state) => state.goldFetch.status);
   const isLoading = useSelector((state) => state.goldFetch.isLoading);
   const goldLastTopCount = useSelector((state) => state.goldFetchTopLast.data);
@@ -38,6 +84,10 @@ const Gold = () => {
   const [key, setKey] = useState("3");
   const [maxPrice, setMax] = useState();
   const [minPrice, setMin] = useState();
+  const [chartLastTop, setChartLastTop] = useState({
+    options: options,
+    series: [],
+  });
 
   useEffect(() => {
     dispatch(goldFetchTopLastCount({ number: +key }));
@@ -57,7 +107,35 @@ const Gold = () => {
       setMin(min);
     }
   }, [dispatch, statusTopLastCount]);
-  console.log(maxPrice);
+
+  useEffect(() => {
+    if (goldLastTopCount.length > 0) {
+      const transformedChartData = goldLastTopCount.map((item) => ({
+        x: new Date(item.data).getTime(),
+        y: item.cena,
+      }));
+
+      const xLabels = goldLastTopCount.map((item) =>
+        new Date(item.data).getTime()
+      );
+
+      // Update only the series data and x-axis labels
+      setChartLastTop({
+        ...chartLastTop,
+        options: {
+          ...chartLastTop.options,
+          labels: xLabels,
+        },
+        series: [
+          {
+            name: "Gold Price",
+            data: transformedChartData,
+          },
+        ],
+      });
+    }
+  }, [goldLastTopCount, dispatch]);
+
   return (
     <>
       <header className={classes.header}>
@@ -83,7 +161,12 @@ const Gold = () => {
             <Container fluid>
               <Row>
                 <Col xs={12} md={3}>
-                  <h2 className={classes.title}><span className={classes.gold_icon}><AiFillGold /></span>Actual Gold prices </h2>
+                  <h2 className={classes.title}>
+                    <span className={classes.gold_icon}>
+                      <AiFillGold />
+                    </span>
+                    Actual Gold prices{" "}
+                  </h2>
                   {status === "success" && (
                     <div className={classes.card_wrapper}>
                       {" "}
@@ -181,17 +264,23 @@ const Gold = () => {
                       {statusTopLastCount === "error" && (
                         <Alert>Error fetch</Alert>
                       )}
-                      {statusTopLastCount === "success" && (
-                        <div className={classes.chart}>
-                          <SimpleLineChart data={goldLastTopCount} />
-                        </div>
-                      )}
+
+                      {statusTopLastCount === "success" &&
+                        chartLastTop.options &&
+                        chartLastTop.series && (
+                          <ReactApexChart
+                            options={chartLastTop.options}
+                            series={chartLastTop.series}
+                            type="area"
+                            height={350}
+                          />
+                        )}
                       {statusTopLastCount === "success" &&
                         maxPrice &&
                         minPrice && (
                           <div className={classes.table_min_max}>
                             {" "}
-                            <Table striped bordered hover>
+                            <Table responsive striped hover>
                               <thead>
                                 <tr>
                                   <th>min value</th>
@@ -260,7 +349,7 @@ const Gold = () => {
                   <div className={classes.card_wrapper}>
                     {" "}
                     <h3>Compare gold values from date to date.</h3>
-                    <CompareGoldFromDateToDate/>
+                    <CompareGoldFromDateToDate />
                   </div>
                 </Col>
               </Row>
