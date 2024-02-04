@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import classes from "./ExchangeTableMidValue.module.scss";
 import getCurrentPrevDifferences from "../../../utils/getCurrentPrevDifferences";
 import IconArrow from "../../UI/iconArrow/iconArrow";
+import Table from 'react-bootstrap/Table'
 
 const ExchangeTableMidValue = (props) => {
   const data = useSelector((state) => state.multiple.data);
@@ -16,8 +17,8 @@ const ExchangeTableMidValue = (props) => {
   }, [dataMid, data]);
 
   return (
-    <div>
-      <table className={classes.table_rates}>
+    <div className={classes.table_res}>
+      <Table  responsive="lg" striped hover className={classes.table_rates}>
         <thead>
           <tr className={classes.table_rates_head}>
             <th>code</th>
@@ -76,7 +77,7 @@ const ExchangeTableMidValue = (props) => {
               }
             })}
         </tbody>
-      </table>
+      </Table>
       <p className={classes.description}>
             *Mid – calculated currency average exchange rate (for tables A and
             B),*Table – table type,*Currency – currency name,*Code – currency

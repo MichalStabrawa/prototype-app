@@ -14,9 +14,7 @@
   overflow: hidden; /* Ensure the border-radius is applied */
 
   th {
-    border: 1px solid rgba(0, 0, 0, 0.175);
     padding: 8px;
-    background-color: #f2f2f2;
   }
 
   th,
@@ -34,18 +32,16 @@
   }
 
   .code {
-    background: #BFCFE7;
+    background: #bfcfe7;
     color: $darkblue;
     border-bottom: 1px solid #fff;
     font-weight: 700;
-    border-left: 1px solid #BFCFE7;
+    border-left: 1px solid #bfcfe7;
   }
 
   .currency,
   .last_date,
   .last_value {
-    display: none;
-
     @include media-query-lg {
       display: table-cell;
     }
@@ -66,4 +62,9 @@
     font-weight: bold;
     color: $darkblue;
   }
+}
+
+.table_res {
+  display: inline-grid;
+  flex-direction: column;
 }

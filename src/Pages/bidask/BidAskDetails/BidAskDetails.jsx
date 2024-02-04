@@ -25,6 +25,8 @@ import getCompareLastActualValue from "../../../utils/getCurrentLastValue";
 import { RotatingLines } from "react-loader-spinner";
 import BidAskSectionSingleDate from "../BidAskSectionSingleDate/BidAskSectionSingleDate";
 import BidAskFromToDate from "../BidAskFromToDate/BidAskFromToDate";
+import ReactApexChart from "react-apexcharts";
+import { splineArea } from "../../../helpers/chartVariables/splineArea";
 
 import { BsCurrencyExchange } from "react-icons/bs";
 import {
@@ -50,6 +52,10 @@ const BidAskDetails = () => {
   const [minBidAsk, setMinBidAsk] = useState(null);
   const [maxBidAsk, setMaxBidAsk] = useState(null);
   const [dataCarousel, setDataCarousel] = useState();
+  const [splineChart, setSplineChart] = useState({
+    options: splineArea.options,
+    series: [],
+  });
 
   //ask bid data
   const currencyLastTopCount = useSelector(
@@ -102,7 +108,43 @@ const BidAskDetails = () => {
       setMaxBidAsk
     );
   }, [statusLastTop]);
- 
+
+  useEffect(() => {
+    if (currencyLastTopCount.rates.length > 0) {
+      const { rates, code, currency, table } = currencyLastTopCount;
+      console.log("Ratesin useEffect:", rates);
+      setSplineChart((prevSplinea) => ({
+        ...prevSplinea,
+        series: [
+          {
+            name: "ask",
+            data: rates.map((el) => el.ask),
+          },
+          {
+            name: "bid",
+            data: rates.map((el) => el.bid),
+          },
+        ],
+        options: {
+          xaxis: {
+            categories: rates.map((el) => el.effectiveDate),
+          },
+          title: {
+            text: `${code} Price Movements`,
+            align: "left",
+          },
+          subtitle: {
+            text: currency,
+            align: "left",
+          },
+          
+        },
+       
+      }));
+    }
+  }, [currencyLastTopCount, statusLastTop]);
+  console.log(currencyLastTopCount);
+
   return (
     <main className={classes.bid_ask}>
       <Wrapper css="dark_blue">
@@ -231,7 +273,7 @@ const BidAskDetails = () => {
                     {errorLast && (
                       <Alert variant="warning">Error fetch data</Alert>
                     )}
-                    {statusLastTop === "success" && (
+                    {/* {statusLastTop === "success" && (
                       <div className={classes.tab_content}>
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
@@ -263,6 +305,19 @@ const BidAskDetails = () => {
                             />
                           </LineChart>
                         </ResponsiveContainer>
+                      </div>
+                    )} */}
+                    {splineChart.options && splineChart.series && (
+                      <div>
+                        <div id="chart">
+                          <ReactApexChart
+                            options={splineChart.options}
+                            series={splineChart.series}
+                            type="line"
+                            height={350}
+                          />
+                        </div>
+                        <div id="html-dist"></div>
                       </div>
                     )}
                   </Col>
