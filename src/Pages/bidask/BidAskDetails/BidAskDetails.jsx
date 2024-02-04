@@ -29,16 +29,6 @@ import ReactApexChart from "react-apexcharts";
 import { splineArea } from "../../../helpers/chartVariables/splineArea";
 
 import { BsCurrencyExchange } from "react-icons/bs";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 const BidAskDetails = () => {
   const dispatch = useDispatch();
@@ -110,7 +100,9 @@ const BidAskDetails = () => {
   }, [statusLastTop]);
 
   useEffect(() => {
-    if (currencyLastTopCount.rates.length > 0) {
+    if (currencyLastTopCount &&
+      currencyLastTopCount.rates &&
+      currencyLastTopCount.rates.length > 0) {
       const { rates, code, currency, table } = currencyLastTopCount;
       console.log("Ratesin useEffect:", rates);
       setSplineChart((prevSplinea) => ({
@@ -137,13 +129,10 @@ const BidAskDetails = () => {
             text: currency,
             align: "left",
           },
-          
         },
-       
       }));
     }
   }, [currencyLastTopCount, statusLastTop]);
-  console.log(currencyLastTopCount);
 
   return (
     <main className={classes.bid_ask}>
@@ -273,40 +262,7 @@ const BidAskDetails = () => {
                     {errorLast && (
                       <Alert variant="warning">Error fetch data</Alert>
                     )}
-                    {/* {statusLastTop === "success" && (
-                      <div className={classes.tab_content}>
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart
-                            width={500}
-                            height={300}
-                            data={currencyLastTopCount.rates}
-                            margin={{
-                              top: 15,
-                              right: 30,
-                              left: 20,
-                              bottom: 5,
-                            }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="effectiveDate" />
-                            <YAxis domain={["dataMin,dataMax"]} />
-                            <Tooltip />
-                            <Legend />
-                            <Line
-                              type="linear"
-                              dataKey="bid"
-                              activeDot={{ r: 8 }}
-                              stroke="#17a2b8"
-                            />
-                            <Line
-                              type="linear"
-                              dataKey="ask"
-                              stroke="#b81a98"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                    )} */}
+
                     {splineChart.options && splineChart.series && (
                       <div>
                         <div id="chart">

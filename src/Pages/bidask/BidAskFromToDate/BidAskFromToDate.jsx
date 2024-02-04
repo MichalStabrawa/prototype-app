@@ -5,22 +5,15 @@ import classes from "./BidAskFromToDate.module.scss";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
+
 import Table from "react-bootstrap/Table";
 import SelectFromToDates from "../../../components/UI/SelectFromToDates/SelectFromToDates";
 import { fetchBidAskSingleFromToDate } from "../../../store/currencyApiNbp/bidAskFetchSingleFromToDate";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import Alert from "react-bootstrap/Alert";
 
 import minMaxBidAsk from "../../../utils/minMaxBidAsk";
+import ReactApexChart from "react-apexcharts";
+import { splineArea } from "../../../helpers/chartVariables/splineArea";
 
 function BidAskFromToDate({ currency }) {
   const dispatch = useDispatch();
@@ -32,6 +25,10 @@ function BidAskFromToDate({ currency }) {
   const [fetch, setFetch] = useState(false);
   const [minBidAsk, setMinBidAsk] = useState(null);
   const [maxBidAsk, setMaxBidAsk] = useState(null);
+  const [splineChart, setSplineChart] = useState({
+    options: splineArea.options,
+    series: [],
+  });
 
   const params = useParams();
 
@@ -66,6 +63,41 @@ function BidAskFromToDate({ currency }) {
     minMaxBidAsk(data, status, setMinBidAsk, setMaxBidAsk);
   }, [status]);
 
+  useEffect(() => {
+    if (data && data.rates) {
+      const { rates, code, currency, table } = data;
+      console.log("Ratesin useEffect:", rates);
+      setSplineChart((prevSplinea) => ({
+        ...prevSplinea,
+        series: [
+          {
+            name: "ask",
+            data: rates.map((el) => el.ask),
+          },
+          {
+            name: "bid",
+            data: rates.map((el) => el.bid),
+          },
+        ],
+        options: {
+          xaxis: {
+            categories: rates.map((el) => el.effectiveDate),
+          },
+          title: {
+            text: `${code} Price Movements`,
+            align: "left",
+          },
+          subtitle: {
+            text: currency,
+            align: "left",
+          },
+        },
+      }));
+    }
+  }, [data, status]);
+
+  console.log(data);
+
   return (
     <div className={classes.main}>
       <Container fluid>
@@ -86,37 +118,57 @@ function BidAskFromToDate({ currency }) {
             />
             {startDate} {endDate}
           </Col>
-          <Col>
+          <Col md={6}>
             {status === "success" && (
-              <div className={classes.chart}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    width={500}
-                    height={300}
-                    data={data.rates}
-                    margin={{
-                      top: 15,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="effectiveDate" />
-                    <YAxis domain={["dataMin","auto"]} />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="linear"
-                      dataKey="bid"
-                      activeDot={{ r: 8 }}
-                      stroke="#17a2b8"
-                    />
-                    <Line type="linear" dataKey="ask" stroke="#b81a98" />
-                  </LineChart>
-                </ResponsiveContainer>
+              <div className={classes.chart_line}>
+                {" "}
+                {splineChart.options && splineChart.series && (
+                  <div>
+                    <div id="chart">
+                      <ReactApexChart
+                        options={splineChart.options}
+                        series={splineChart.series}
+                        type="line"
+                        height={350}
+                      />
+                    </div>
+                    <div id="html-dist"></div>
+                  </div>
+                )}
               </div>
+
+              // <div className={classes.chart}>
+              //   <ResponsiveContainer width="100%" height="100%">
+              //     <LineChart
+              //       width={500}
+              //       height={300}
+              //       data={data.rates}
+              //       margin={{
+              //         top: 15,
+              //         right: 30,
+              //         left: 20,
+              //         bottom: 5,
+              //       }}
+              //     >
+              //       <CartesianGrid strokeDasharray="3 3" />
+              //       <XAxis dataKey="effectiveDate" />
+              //       <YAxis domain={["dataMin", "auto"]} />
+              //       <Tooltip />
+              //       <Legend />
+              //       <Line
+              //         type="linear"
+              //         dataKey="bid"
+              //         activeDot={{ r: 8 }}
+              //         stroke="#17a2b8"
+              //       />
+              //       <Line type="linear" dataKey="ask" stroke="#b81a98" />
+              //     </LineChart>
+              //   </ResponsiveContainer>
+              // </div>
             )}
+            <Row>
+              <Col> {error && <Alert variant="warning">{error}</Alert>} </Col>
+            </Row>
             <Row>
               <Col>
                 {" "}

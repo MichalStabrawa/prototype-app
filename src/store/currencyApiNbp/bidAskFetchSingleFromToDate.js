@@ -15,13 +15,12 @@ export const fetchBidAskSingleFromToDate = createAsyncThunk(
         `http://api.nbp.pl/api/exchangerates/rates/c/${code}/${startDate}/${endDate}`
       );
 
-      if(!response.ok) {
-        throw new Error('Somthing went wrong with fetch fetchBidAskSingleFromToDate');
+      if (!response.ok) {
+        throw new Error(`Somthing went wrong`);
       }
 
-     const data = await response.json();
-     return data
-
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.log(error);
       throw error;
@@ -30,27 +29,28 @@ export const fetchBidAskSingleFromToDate = createAsyncThunk(
 );
 
 const fetchBidAskSingleFromToDateSlice = createSlice({
-    name: 'fetchBidAskSingleFromToDate',
-    initialState,
-    reducers:{},
-    extraReducers:(builder)=> {
-        builder.addCase(fetchBidAskSingleFromToDate.pending, (state) => {
-            state.isLoading = true;
-            state.status = "pending";
-          });
-          builder.addCase(fetchBidAskSingleFromToDate.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.data = action.payload;
-            state.status = "success";
-            state.error = null;
-          });
-          builder.addCase(fetchBidAskSingleFromToDate.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message;
-            state.status = "rejected";
-          });
-    }
-})
+  name: "fetchBidAskSingleFromToDate",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchBidAskSingleFromToDate.pending, (state) => {
+      state.isLoading = true;
+      state.status = "pending";
+    });
+    builder.addCase(fetchBidAskSingleFromToDate.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+      state.status = "success";
+      state.error = null;
+    });
+    builder.addCase(fetchBidAskSingleFromToDate.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+      state.status = "rejected";
+    });
+  },
+});
 
-export const fetchBidAskSingleFromToDateActions = fetchBidAskSingleFromToDateSlice.actions;
+export const fetchBidAskSingleFromToDateActions =
+  fetchBidAskSingleFromToDateSlice.actions;
 export default fetchBidAskSingleFromToDateSlice.reducer;
