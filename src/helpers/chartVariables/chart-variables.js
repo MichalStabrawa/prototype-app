@@ -72,7 +72,7 @@ export const bartChartDouble ={
     },
     colors: ["#FFBB5C"],
     title: {
-      text: false,
+      text: "Gold Price Movements",
       align: "left",
     },
     subtitle: {

@@ -79,7 +79,7 @@ const BudgetAppExchange = (props) => {
   useEffect(() => {
     if (nbpTopCountData && Array.isArray(nbpTopCountData.data)) {
       const { data } = nbpTopCountData;
-  
+
       setChartNbpTop({
         series: [
           {
@@ -151,8 +151,6 @@ const BudgetAppExchange = (props) => {
       });
     }
   }, [nbpTopCountData]);
-  console.log(`chartNbpTop`);
-  console.log(chartNbpTop);
 
   return (
     <Wrapper css={props.css}>
@@ -216,33 +214,7 @@ const BudgetAppExchange = (props) => {
           <p>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</p>
         )}
       </div>
-      {/* <div className={classes.chart}>
-        <ResponsiveContainer width="100%" height="100%">
-          {status === "success" && (
-            <label>{`effectiveDate: ${dataCurrencySelector[1].effectiveDate}, no:  ${dataCurrencySelector[1].no}`}</label>
-          )}
 
-          <ComposedChart
-            width={300}
-            height={300}
-            data={nbpTopCountData.data}
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
-          >
-            <CartesianGrid stroke="#f5f5f5" />
-            <XAxis dataKey="code" scale="band" />
-            <YAxis domain={"dataMin"} />
-            <Tooltip dataKey="name" />
-            <Legend />
-            <Bar dataKey="value" barSize={25} fill="#756AB6" />
-            <Line type="monotone" dataKey="value" stroke="#ff7300" />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div> */}
       {chartNbpTop && chartNbpTop.options && chartNbpTop.series && (
         <div className={classes.chart}>
           {" "}
