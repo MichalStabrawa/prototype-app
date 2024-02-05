@@ -42,7 +42,7 @@ const {
   fetchNbpTopCountReducer,
 } = Reducer;
 
-const BudgetAppComponent = ({ sectionRef }) => {
+const BudgetAppComponent = ({ sectionRef,scrollToRef }) => {
   const [summary, changeSummary] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stateSummary, dispatchSummary] = useReducer(
@@ -262,7 +262,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
   }, [filterSalaryValue]);
 
   return (
-    <section className={classes.budgetapp}>
+    <section ref={scrollToRef} className={classes.budgetapp}>
       <div className={classes.bapp_wrapper}>
         <BudgetAppSection
           title="Exchange rates"

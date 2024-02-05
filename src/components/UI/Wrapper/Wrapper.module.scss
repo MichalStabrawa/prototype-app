@@ -24,5 +24,12 @@
 }
 
 .dark_blue {
-  background-color: $pastelBlueEx;
+  background: $pastelBlueEx url('../../../assets/undraw_vault_re_s4my.svg') no-repeat;
+  background-size:60%;
+  background-position: top right;
+
+  @include media-query-md{
+    background-size:25%;
+    background-position: bottom right;
+  }
 }

@@ -1,36 +1,43 @@
 @import "../../styles/main";
 
 .header {
-  height: auto;
-  padding: $padding20;
+  height: calc(100vh - 90px);
+  padding: $padding20-40;
   text-align: left;
-  background: url("../../assets/financial.jpg") no-repeat;
+  background: url("../../assets/undraw_transfer_money_re_6o.svg") no-repeat,
+    linear-gradient(90deg, rgba(0, 176, 255, 1) 0%, rgba(247, 248, 250, 1) 73%);
   background-position: bottom right;
-  background-size: contain;
+  background-size: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 10px 0;
   height: auto;
 
   @include media-query-sm {
-    height: 80vh;
+    height: calc(100vh - 90px);
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 52px;
     margin-bottom: 20px;
-    color: $darkblue;
+    font-weight: 700;
   }
   .description {
-    font-size: 32px;
+    font-size: 38px;
     margin: 0;
-
-    color: $bluegrey;
+    font-weight: 600;
     padding-bottom: 20px;
 
     @include media-query-md {
       max-width: 45%;
     }
   }
+}
+
+.btn_wrapper {
+margin-bottom: 20px;
+}
+
+.button_header {
+  margin-left: 10px;
 }
