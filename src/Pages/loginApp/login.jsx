@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import LoginSuccess from "./LoginSuccess/LoginSuccess";
 import Spinner from "react-bootstrap/Spinner";
+import Card from "react-bootstrap/Card";
 
 const LoginApp = () => {
   const authUser = useSelector((state) => state.auth.isAuthenticated);
@@ -50,10 +51,9 @@ const LoginApp = () => {
         setErrorLogin(null);
         dispatch(authActions.login());
 
-        console.log('current User ');
-        console.log(currentUser)
-        console.log(auth)
-
+        console.log("current User ");
+        console.log(currentUser);
+        console.log(auth);
       }
     } catch (error) {
       console.error("Error signing in:", error.message);
@@ -100,62 +100,69 @@ const LoginApp = () => {
   }, []);
 
   return (
-    <main className={classes.login}>
+    <main className={`${classes.login} ${classes.login_background}`}>
       {authUser && user ? (
         <LoginSuccess user={user} />
       ) : (
         <Wrapper>
           <div className={classes.login__wrapper}>
-            <h1>Sign in</h1>
-            <form onSubmit={loginHandler}>
-              <InputComponent
-                placeholder="Login"
-                name="Login"
-                type="email"
-                value={email}
-                action={addLogin}
-              />
-              <div className={classes.login__wrapper__link}>
-                <Link to="remind-login">I don't remember the username</Link>
-              </div>
+            <Card className="shadow" border="light">
+              <Card.Header>
+                <h1>Sign in</h1>
+              </Card.Header>
+              <Card.Body>
+                {" "}
+                <form onSubmit={loginHandler}>
+                  <InputComponent
+                    placeholder="Login"
+                    name="Login"
+                    type="email"
+                    value={email}
+                    action={addLogin}
+                  />
+                  <div className={classes.login__wrapper__link}>
+                    <Link to="remind-login">I don't remember the username</Link>
+                  </div>
 
-              <InputComponent
-                placeholder="Password"
-                name="Password"
-                type="password"
-                value={password}
-                action={addpassword}
-              />
-              <div className={classes.login__wrapper__link}>
-                <Link to="remind-login">I don't remember the password</Link>
-              </div>
-              <Button
-                name={"Submit"}
-                color={buttonStyles.btn_transparent}
-                type="submit"
-                disabled={password.length < 6}
-                isLoading={isLoading}
-              />
-              {errorLogin && (
-                <div className={classes.alert}>
-                  {" "}
-                  <Alert variant="danger">
-                    Wrong email or password!!! Try again log in!!!
-                  </Alert>
+                  <InputComponent
+                    placeholder="Password"
+                    name="Password"
+                    type="password"
+                    value={password}
+                    action={addpassword}
+                  />
+                  <div className={classes.login__wrapper__link}>
+                    <Link to="remind-login">I don't remember the password</Link>
+                  </div>
+                  <Button
+                    name={"Submit"}
+                    color={buttonStyles.btn_transparent}
+                    type="submit"
+                    disabled={password.length < 6}
+                    isLoading={isLoading}
+                  />
+                  {errorLogin && (
+                    <div className={classes.alert}>
+                      {" "}
+                      <Alert variant="danger">
+                        Wrong email or password!!! Try again log in!!!
+                      </Alert>
+                    </div>
+                  )}
+                </form>
+                <div className="login__register">
+                  <h2>Do you have not login?</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor{" "}
+                  </p>
+                  <Link to="/register">
+                    <Button name={"Register"}></Button>
+                  </Link>
+                  <Link to="..">back</Link>
                 </div>
-              )}
-            </form>
-            <div className="login__register">
-              <h2>Do you have not login?</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor{" "}
-              </p>
-              <Link to="/register">
-                <Button name={"Register"}></Button>
-              </Link>
-              <Link to="..">back</Link>
-            </div>
+              </Card.Body>
+            </Card>
           </div>
         </Wrapper>
       )}

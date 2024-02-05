@@ -1,10 +1,12 @@
 .login {
-  margin-top: 20px;
   padding: 0 20px 40px 20px;
+  min-height: calc(100vh - 90px);
 }
 
 .login__wrapper {
+  padding-top: 40px;
   max-width: 600px;
+  background-color: #fff;
   margin: 0 auto;
 }
 
@@ -25,4 +27,15 @@
 
 .login .alert {
   margin-top: 20px;
+}
+
+.login_background {
+  background: url("../../assets/undraw_access_account_re_8spm.svg") no-repeat;
+  background-position: bottom right;
+  background-size: auto;
+}
+
+.register {
+  background: url("../../assets/undraw_my_password.svg") no-repeat;
+  background-position: center right;
 }
