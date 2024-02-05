@@ -1,10 +1,23 @@
 @import "../../styles/main";
 
 .header {
-  background-color: $goldPaste;
-  
+  background: $goldPaste url('../../assets/undraw_growth_chart_r99m.svg') no-repeat;
+  min-height: 282px;
   color: $darkblue;
+  background-position:bottom right;
+  background-size: 80%;
 
+  @include media-query-sm {
+    background-size: 50%;
+  }
+
+  @include media-query-md {
+    background-size: 50%;
+  }
+
+  @include media-query-lg {
+    background-size: 20%;
+  }
   &_description {
     font-size: 1.25rem;
   }

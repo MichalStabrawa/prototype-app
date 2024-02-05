@@ -1,14 +1,12 @@
-@import '../../../styles/main';
-
+@import "../../../styles/main";
 
 .main {
-    padding-top:40px;
+  padding-top: 40px;
 
-    .chart {
-        height: 350px;
-    }
+  .chart {
+    height: 350px;
+  }
 
-    
   .table_min_max {
     margin-top: 40px;
     font-size: 12px;
@@ -35,5 +33,5 @@
 }
 
 .chart_line {
-  margin-top:20px;
+  margin-top: 20px;
 }

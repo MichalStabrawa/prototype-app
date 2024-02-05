@@ -5,6 +5,7 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 const Home = (props) => {
   const sectionRef = useRef(null);
+  const scrollToRef = useRef(null)
   useEffect(() => {
     // Check if there is a hash in the URL and scroll to the section
 
@@ -14,8 +15,8 @@ const Home = (props) => {
   }, []);
   return (
     <Wrapper>
-      <HeaderComponent></HeaderComponent>
-      <BudgetAppComponent sectionRef={sectionRef}></BudgetAppComponent>
+      <HeaderComponent scrollToRef={scrollToRef}/>
+      <BudgetAppComponent scrollToRef={scrollToRef} sectionRef={sectionRef}></BudgetAppComponent>
     </Wrapper>
   );
 };
