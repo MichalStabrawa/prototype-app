@@ -21,7 +21,9 @@
   }
 }
 .icon_exchange,
-.icon_gold,.icon_salary,.icon_salary_tab {
+.icon_gold,
+.icon_salary,
+.icon_salary_tab {
   height: 48px;
   width: 48px;
   display: flex;
@@ -41,18 +43,23 @@
 }
 
 .icon_salary {
-    background-color: $pastelGreenRegular;
-    color:$goldBackground;
+  background-color: $pastelGreenRegular;
+  color: $goldBackground;
 }
 
 .icon_salary_tab {
-    background-color: $pastelGreenRegular;
-    color: $pinkMedium;
-   
-    
+  background-color: $pastelGreenRegular;
+  color: $pinkMedium;
 }
 
 .title {
   display: flex;
   margin-bottom: 40px;
+}
+
+.my_budget {
+  background: $pinkLight2 url("../../../assets/undraw_savings_blue.svg")
+    no-repeat;
+  background-size: contain;
+  background-position: right;
 }

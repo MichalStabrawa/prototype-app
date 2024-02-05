@@ -304,7 +304,7 @@ const BudgetAppComponent = ({ sectionRef,scrollToRef }) => {
                 <ShowSavedExpenses title="expenses" monthYear={monthYear} />
               </div>
             </BudgetAppSection>
-            <BudgetAppSection css="ba_section-full">
+            <BudgetAppSection css="ba_section-full" background="my_budget" >
               <div className={classes.go_to}>
                 <h5>Check the exact status of your budget.</h5>
                 <p>Control your income and expenses.View charts and analyses</p>
