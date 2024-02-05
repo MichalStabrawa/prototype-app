@@ -28,7 +28,6 @@ const HeaderComponent = ({ scrollToRef }) => {
 
   return (
     <header className={classes.header}>
-      \
       <div className={classes.header_content}>
         {" "}
         <h1>
