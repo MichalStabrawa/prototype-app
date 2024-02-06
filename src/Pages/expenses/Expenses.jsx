@@ -337,7 +337,7 @@ function Expenses({ auth }) {
                 </Col>
               </Row>
               <Row className="h-100">
-                <Col md={3} className="d-flex flex-column flex-fill">
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <div>
                     <Card
                       className="text-white  bg-secondary shadow h-100"
@@ -365,7 +365,7 @@ function Expenses({ auth }) {
                     </Card>
                   </div>
                 </Col>
-                <Col md={3} className="d-flex flex-column flex-fill">
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <Card
                     className="h-100 shadow text-white  bg-danger"
                     border="light"
@@ -384,7 +384,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>{" "}
-                <Col md={3} className="d-flex flex-column flex-fill">
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <Card
                     className="h-100 shadow text-white  bg-primary"
                     border="light"
@@ -402,7 +402,7 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>{" "}
-                <Col md={3} className="d-flex flex-column flex-fill">
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <Card className="bg-success text-white shadow h-100">
                     <Card.Body className="d-flex flex-column">
                       <Card.Subtitle>
@@ -418,7 +418,6 @@ function Expenses({ auth }) {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col md={3}></Col>
               </Row>
             </Container>
           </header>
