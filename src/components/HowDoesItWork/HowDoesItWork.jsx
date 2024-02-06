@@ -3,16 +3,17 @@ import { BsCurrencyExchange } from "react-icons/bs";
 import { AiOutlineGold } from "react-icons/ai";
 import { FaChartBar } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import imgInfo from "../../assets/undraw_instant_information_re_c5v5.svg";
 
-import imgInfo from '../../assets/undraw_instant_information_re_c5v5.svg';
-
-function HowDoesItWork({scrollToRef}) {
+function HowDoesItWork({ scrollToRef }) {
   return (
     <section className={classes.how_works} ref={scrollToRef}>
       <div className={classes.how_works_tile}>
         <h2>How does it works?</h2>
         <figure>
-            <img src={imgInfo} alt="information" />
+          <img src={imgInfo} alt="information" />
         </figure>
       </div>
       <div className={classes.how_works_tile}>
@@ -24,6 +25,9 @@ function HowDoesItWork({scrollToRef}) {
           Check exchange rates.Compare charts with exchange rates.Check previous
           exchange rates.
         </p>
+        <Link to="/exchange">
+          <Button variant="outline-info">Go to exchange</Button>
+        </Link>
       </div>
       <div className={classes.how_works_tile}>
         <span className={classes.icon_wrapper}>
@@ -34,6 +38,9 @@ function HowDoesItWork({scrollToRef}) {
           Check current and previous gold prices. Compare previous quotes from
           different time periods.
         </p>
+        <Link to="/gold">
+          <Button variant="outline-info">Go to gold</Button>
+        </Link>
       </div>
       <div className={classes.how_works_tile}>
         <span className={classes.icon_wrapper}>
@@ -45,6 +52,9 @@ function HowDoesItWork({scrollToRef}) {
           expenses. Check payment deadlines for invoices and bills. Analyze your
           budget charts.
         </p>
+        <Link to="/register">
+          <Button variant="outline-info">Register</Button>
+        </Link>
       </div>
       <div className={classes.how_works_tile}>
         <span className={classes.icon_wrapper}>
@@ -54,6 +64,9 @@ function HowDoesItWork({scrollToRef}) {
         <p>
           Check out other information on how to use the BudgetApp application.
         </p>
+        <Link to="/aboutUs">
+          <Button variant="outline-info">Got to more info</Button>
+        </Link>
       </div>
     </section>
   );
