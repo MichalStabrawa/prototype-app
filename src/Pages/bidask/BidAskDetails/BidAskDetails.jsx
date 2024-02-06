@@ -241,7 +241,7 @@ const BidAskDetails = () => {
                   </Card>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={9}>
                 <Tabs
                   id="controlled-tab-example"
                   activeKey={key}
