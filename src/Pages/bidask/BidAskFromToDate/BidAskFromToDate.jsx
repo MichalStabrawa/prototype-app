@@ -136,35 +136,6 @@ function BidAskFromToDate({ currency }) {
                   </div>
                 )}
               </div>
-
-              // <div className={classes.chart}>
-              //   <ResponsiveContainer width="100%" height="100%">
-              //     <LineChart
-              //       width={500}
-              //       height={300}
-              //       data={data.rates}
-              //       margin={{
-              //         top: 15,
-              //         right: 30,
-              //         left: 20,
-              //         bottom: 5,
-              //       }}
-              //     >
-              //       <CartesianGrid strokeDasharray="3 3" />
-              //       <XAxis dataKey="effectiveDate" />
-              //       <YAxis domain={["dataMin", "auto"]} />
-              //       <Tooltip />
-              //       <Legend />
-              //       <Line
-              //         type="linear"
-              //         dataKey="bid"
-              //         activeDot={{ r: 8 }}
-              //         stroke="#17a2b8"
-              //       />
-              //       <Line type="linear" dataKey="ask" stroke="#b81a98" />
-              //     </LineChart>
-              //   </ResponsiveContainer>
-              // </div>
             )}
             <Row>
               <Col> {error && <Alert variant="warning">{error}</Alert>} </Col>
@@ -175,7 +146,7 @@ function BidAskFromToDate({ currency }) {
                 {status === "success" && minBidAsk && maxBidAsk && (
                   <div className={classes.table_min_max}>
                     {" "}
-                    <Table striped bordered hover>
+                    <Table responsive striped hover>
                       <thead>
                         <tr>
                           <th>min Bid</th>

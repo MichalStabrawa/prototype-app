@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import BudgetAppSection from "../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./bidask.module.scss";
+import classesExchange from '../../Pages/exchange/exchange-rates.module.scss';
 import Card from "react-bootstrap/Card";
 
 import Form from "react-bootstrap/Form";
@@ -29,6 +30,7 @@ import {
 
 import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../utils/getCurrentLastValue";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 function BidAsk() {
   const dispatch = useDispatch();
@@ -160,7 +162,9 @@ function BidAsk() {
               >
                 <Card.Body className="d-flex flex-column">
                   {" "}
-                  <h3>Sell or buy currency</h3>
+                  <h3 className={classes.card_title}>    <span className={classesExchange.wrapper_icon_change}>
+                          <FaMoneyBillTransfer />
+                        </span>Sell or buy currency</h3>
                   {status === "success" && (
                     <p className={classes.description}>
                       table: {data[0].table}, effective date:{" "}
