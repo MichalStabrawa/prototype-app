@@ -380,7 +380,7 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text>{sumTotalExpenses()}</Card.Text>
+                      <Card.Text className={classes.total}>{sumTotalExpenses()} <span>PLN</span></Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>{" "}
@@ -398,7 +398,7 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text>{sumTotal()}</Card.Text>
+                      <Card.Text className={classes.total}>{sumTotal()} <span>PLN</span></Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>{" "}
@@ -414,7 +414,7 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text>{sumSalary()}</Card.Text>
+                      <Card.Text className={classes.total}>{sumSalary()} <span>PLN</span></Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>

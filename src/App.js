@@ -30,6 +30,7 @@ import BidAskDetails from "./Pages/bidask/BidAskDetails/BidAskDetails";
 import ErrorPage from "./Pages/Error/ErrorPage";
 import UserPage from "./Pages/user/userPage";
 import Expenses from "./Pages/expenses/Expenses";
+import Revenue from "./Pages/revenue/Revenue";
 
 function App() {
   const dispatch = useDispatch();
@@ -86,7 +87,12 @@ function App() {
         },
         {
           path: "/user/expenses",
-          element:<Expenses auth={auth}/> ,
+          element: <Expenses auth={auth} />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/user/revenue",
+          element: <Revenue auth={auth} />,
           errorElement: <ErrorPage />,
         },
       ],
