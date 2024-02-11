@@ -18,16 +18,29 @@ import ReactApexChart from "react-apexcharts";
 import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
-import { FaArrowTrendDown } from "react-icons/fa6";
+import { FaArrowTrendUp } from "react-icons/fa6";
 
 const Revenue = ({ auth }) => {
+  const { data, status, isLoading, error } = useSelector(
+    (state) => state.fetchUserSalary
+  );
   const [monthYear, setMonthYear] = useState(getMonthYear());
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
   };
+
+  const sumTotal = () => {
+    if (status === "success") {
+      const sum = [...data].reduce((prev, curr) => {
+        return prev + +curr.expenses;
+      }, 0);
+      console.log(`SUM: ${sum}`);
+      return sum;
+    }
+  };
   return (
-    <>
+    <div className={userPageClasses.user_main}>
       {auth ? (
         <>
           <header className={`${userPageClasses.header} ${classes.revenue}`}>
@@ -123,7 +136,7 @@ const Revenue = ({ auth }) => {
                         </span>
                       </Card.Subtitle>
                       <Card.Text className={classes.total}>
-                        <span>PLN</span>
+                        <span>{sumTotal()}PLN</span>
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -153,7 +166,7 @@ const Revenue = ({ auth }) => {
                         <span
                           className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
                         >
-                          <FaArrowTrendDown />
+                          <FaArrowTrendUp />
                         </span>
                       </Card.Title>
                       <Card.Text>
@@ -161,9 +174,39 @@ const Revenue = ({ auth }) => {
                           Total income
                         </span>
                       </Card.Text>
+                      <Card.Text>
+                        <span className={userPageClasses.badge}>
+                          <Badge bg="success">{sumTotal()}PLN</Badge>
+                        </span>
+                      </Card.Text>
                     </Card.Body>
                   </Card>
-                </Col><Col md={6}></Col>
+                </Col>
+                <Col xs={12} md={4} className="d-flex flex-column flex-fill">
+                  <Card
+                    className={`${userPageClasses.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    {" "}
+                    <Card.Body className="d-flex flex-column">
+                      {" "}
+                      <Card.Title>
+                        {" "}
+                        <span
+                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
+                        >
+                          <FaArrowTrendUp />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <span className={userPageClasses.card_title}></span>
+                      </Card.Text>
+                      <Card.Text>
+                        <span className={userPageClasses.badge}></span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
               </Row>
             </Container>
           </section>
@@ -171,7 +214,7 @@ const Revenue = ({ auth }) => {
       ) : (
         <ErrorPage />
       )}
-    </>
+    </div>
   );
 };
 
