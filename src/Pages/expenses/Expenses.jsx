@@ -49,7 +49,7 @@ const chartInit = {
 const chartLineInit = {
   series: [
     {
-      name: "Desktops",
+      name: "expenses",
       data: [],
     },
   ],
@@ -182,12 +182,8 @@ function Expenses({ auth }) {
         valueDeadline,
         sumShowExpenses
       );
-      console.log(`CountPercentAlert!!! ${typeof countPercent}`);
-      console.log(countPercent);
 
       const count = +(100 + countPercent).toFixed(1);
-      console.log("Count");
-      console.log(count + typeof count);
 
       setCountDealinePercent(count);
     }
@@ -358,7 +354,6 @@ function Expenses({ auth }) {
                             onChange={handleInputMonth}
                             value={monthYear}
                             type="month"
-                            placeholder="name@example.com"
                           />
                         </Card.Text>
                       </Card.Body>
@@ -380,7 +375,9 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text className={classes.total}>{sumTotalExpenses()} <span>PLN</span></Card.Text>
+                      <Card.Text className={classes.total}>
+                        {sumTotalExpenses()} <span>PLN</span>
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>{" "}
@@ -398,7 +395,9 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text className={classes.total}>{sumTotal()} <span>PLN</span></Card.Text>
+                      <Card.Text className={classes.total}>
+                        {sumTotal()} <span>PLN</span>
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>{" "}
@@ -414,7 +413,9 @@ function Expenses({ auth }) {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text className={classes.total}>{sumSalary()} <span>PLN</span></Card.Text>
+                      <Card.Text className={classes.total}>
+                        {sumSalary()} <span>PLN</span>
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>

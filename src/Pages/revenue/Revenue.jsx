@@ -19,7 +19,8 @@ import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
+
+import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
@@ -187,10 +188,27 @@ const Revenue = ({ auth }) => {
                   </Card>
                 </Col>
                 <Col xs={12} md={4} className="d-flex flex-column flex-fill">
-                  <ExpensesCardWithTable
-                    data={data}
-                    title="Total income table"
-                  />
+                  <Card
+                    className={`${userPageClasses.card_info} h-100 shadow`}
+                    border="light"
+                  >
+                    <Card.Body>
+                      <Card.Title>
+                        {" "}
+                        <span
+                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.rev}`}
+                        >
+                          <FaArrowTrendUp />
+                        </span>
+                      </Card.Title>
+                      <Card.Text>
+                        <span className={userPageClasses.card_title}>
+                          Totla month revenue table
+                        </span>
+                      </Card.Text>
+                      <ShowSavedSalary filter={true} monthYear={monthYear} />
+                    </Card.Body>{" "}
+                  </Card>
                 </Col>
               </Row>
             </Container>
