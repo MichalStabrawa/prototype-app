@@ -19,6 +19,7 @@ import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
@@ -29,6 +30,9 @@ const Revenue = ({ auth }) => {
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
   };
+
+  console.log(`Dat`);
+  console.log(data);
 
   const sumTotal = () => {
     if (status === "success") {
@@ -164,7 +168,7 @@ const Revenue = ({ auth }) => {
                       <Card.Title>
                         {" "}
                         <span
-                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
+                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.rev}`}
                         >
                           <FaArrowTrendUp />
                         </span>
@@ -183,29 +187,10 @@ const Revenue = ({ auth }) => {
                   </Card>
                 </Col>
                 <Col xs={12} md={4} className="d-flex flex-column flex-fill">
-                  <Card
-                    className={`${userPageClasses.card_info} h-100 shadow`}
-                    border="light"
-                  >
-                    {" "}
-                    <Card.Body className="d-flex flex-column">
-                      {" "}
-                      <Card.Title>
-                        {" "}
-                        <span
-                          className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
-                        >
-                          <FaArrowTrendUp />
-                        </span>
-                      </Card.Title>
-                      <Card.Text>
-                        <span className={userPageClasses.card_title}></span>
-                      </Card.Text>
-                      <Card.Text>
-                        <span className={userPageClasses.badge}></span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
+                  <ExpensesCardWithTable
+                    data={data}
+                    title="Total income table"
+                  />
                 </Col>
               </Row>
             </Container>
