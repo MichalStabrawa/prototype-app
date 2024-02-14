@@ -19,6 +19,7 @@ import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { chartLineInit } from "../../helpers/chartVariables/chart-line";
 
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 
@@ -31,6 +32,7 @@ const Revenue = ({ auth }) => {
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
   };
+  const [chartLine, setChartLine] = useState(chartLineInit);
 
   console.log(`Dat`);
   console.log(data);
@@ -44,6 +46,21 @@ const Revenue = ({ auth }) => {
       return sum;
     }
   };
+
+  useEffect(() => {
+    setChartLine((prevLine) => {
+      return {
+        ...prevLine,
+        series: [
+          {
+            name: "",
+            data: data.map((item) => item.expenses),
+          },
+        ],
+      };
+    });
+  }, [monthYear, data]);
+
   return (
     <div className={userPageClasses.user_main}>
       {auth ? (
@@ -179,6 +196,19 @@ const Revenue = ({ auth }) => {
                           Total income
                         </span>
                       </Card.Text>
+                      {chartLine.options && chartLine.series && (
+                          <div>
+                            <div id="chart">
+                              <ReactApexChart
+                                options={chartLine.options}
+                                series={chartLine.series}
+                                type="line"
+                                height={200}
+                              />
+                            </div>
+                            <div id="html-dist"></div>
+                          </div>
+                        )}
                       <Card.Text>
                         <span className={userPageClasses.badge}>
                           <Badge bg="success">{sumTotal()}PLN</Badge>
