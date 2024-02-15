@@ -49,6 +49,16 @@ const Revenue = ({ auth }) => {
     }
   };
 
+  const sumTotalMonth = ()=> {
+    if(status==="success" && searchDate) {
+      const sumMonth = [...searchDate].reduce((prev,curr)=> {
+        return prev + parseFloat(curr.expenses)
+      },0)
+
+      return sumMonth
+    }
+  }
+
   useEffect(() => {
     setChartLine((prevLine) => {
       return {
@@ -64,12 +74,12 @@ const Revenue = ({ auth }) => {
   }, [monthYear, data]);
 
   useEffect(() => {
-    if (monthYear !== "" & data) {
+    if (monthYear !== "" ) {
       console.log('Data')
       console.log(data)
-      filterSearchInputDate(data, monthYear, setSearchDate);
+      filterMonthData(data,status, monthYear, setSearchDate);
     }
-  }, [monthYear]);
+  }, [monthYear,status]);
 
   return (
     <div className={userPageClasses.user_main}>
@@ -167,6 +177,9 @@ const Revenue = ({ auth }) => {
                           </span>
                         </span>
                       </Card.Subtitle>
+                      <Card.Text className={classes.total}>
+                        <span>{sumTotalMonth()}PLN</span>
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>
