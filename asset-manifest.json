@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/prototype-app/static/css/main.c11109f7.css",
-    "main.js": "/prototype-app/static/js/main.27a0b7a8.js",
+    "main.css": "/prototype-app/static/css/main.bfb3a5ab.css",
+    "main.js": "/prototype-app/static/js/main.06fad5a6.js",
     "static/js/787.cc2d6a17.chunk.js": "/prototype-app/static/js/787.cc2d6a17.chunk.js",
     "static/media/undraw_vault_re_s4my.svg": "/prototype-app/static/media/undraw_vault_re_s4my.b06d7fb8b93a6b45251d.svg",
     "static/media/undraw_savings_blue.svg": "/prototype-app/static/media/undraw_savings_blue.3ba40a850bad240102c6.svg",
@@ -17,12 +17,12 @@
     "static/media/slick.ttf": "/prototype-app/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/prototype-app/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/prototype-app/index.html",
-    "main.c11109f7.css.map": "/prototype-app/static/css/main.c11109f7.css.map",
-    "main.27a0b7a8.js.map": "/prototype-app/static/js/main.27a0b7a8.js.map",
+    "main.bfb3a5ab.css.map": "/prototype-app/static/css/main.bfb3a5ab.css.map",
+    "main.06fad5a6.js.map": "/prototype-app/static/js/main.06fad5a6.js.map",
     "787.cc2d6a17.chunk.js.map": "/prototype-app/static/js/787.cc2d6a17.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c11109f7.css",
-    "static/js/main.27a0b7a8.js"
+    "static/css/main.bfb3a5ab.css",
+    "static/js/main.06fad5a6.js"
   ]
 }
