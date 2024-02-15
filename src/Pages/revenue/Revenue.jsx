@@ -22,7 +22,6 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { chartLineInit } from "../../helpers/chartVariables/chart-line";
 
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
-import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
@@ -49,38 +48,34 @@ const Revenue = ({ auth }) => {
     }
   };
 
-  const sumTotalMonth = ()=> {
-    if(status==="success" && searchDate) {
-      const sumMonth = [...searchDate].reduce((prev,curr)=> {
-        return prev + parseFloat(curr.expenses)
-      },0)
+  const sumTotalMonth = () => {
+    if (status === "success" && searchDate) {
+      const sumMonth = [...searchDate].reduce((prev, curr) => {
+        return prev + parseFloat(curr.expenses);
+      }, 0);
 
-      return sumMonth
+      return sumMonth;
     }
-  }
+  };
 
   useEffect(() => {
-    setChartLine((prevLine) => {
-      return {
+    if (data.length > 0) {
+      setChartLine((prevLine) => ({
         ...prevLine,
         series: [
           {
-            name: "",
             data: data.map((item) => item.expenses),
           },
         ],
-      };
-    });
-  }, [monthYear, data]);
-
-  useEffect(() => {
-    if (monthYear !== "" ) {
-      console.log('Data')
-      console.log(data)
-      filterMonthData(data,status, monthYear, setSearchDate);
+        options: {
+          ...prevLine.options,
+          xaxis: {
+            categories: data.map((item) => item.fullDate),
+          },
+        },
+      }));
     }
-  }, [monthYear,status]);
-
+  }, [monthYear, data]);
   return (
     <div className={userPageClasses.user_main}>
       {auth ? (
