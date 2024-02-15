@@ -22,12 +22,14 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { chartLineInit } from "../../helpers/chartVariables/chart-line";
 
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
+import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
   const [monthYear, setMonthYear] = useState(getMonthYear());
+  const [searchDate, setSearchDate] = useState("");
 
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
@@ -60,6 +62,14 @@ const Revenue = ({ auth }) => {
       };
     });
   }, [monthYear, data]);
+
+  useEffect(() => {
+    if (monthYear !== "" & data) {
+      console.log('Data')
+      console.log(data)
+      filterSearchInputDate(data, monthYear, setSearchDate);
+    }
+  }, [monthYear]);
 
   return (
     <div className={userPageClasses.user_main}>
@@ -140,7 +150,7 @@ const Revenue = ({ auth }) => {
                         </span>
                       </Card.Subtitle>
                       <Card.Text className={classes.total}>
-                        <span>PLN</span>
+                        <span>{sumTotal()}PLN</span>
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -157,9 +167,6 @@ const Revenue = ({ auth }) => {
                           </span>
                         </span>
                       </Card.Subtitle>
-                      <Card.Text className={classes.total}>
-                        <span>{sumTotal()}PLN</span>
-                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -197,18 +204,18 @@ const Revenue = ({ auth }) => {
                         </span>
                       </Card.Text>
                       {chartLine.options && chartLine.series && (
-                          <div>
-                            <div id="chart">
-                              <ReactApexChart
-                                options={chartLine.options}
-                                series={chartLine.series}
-                                type="line"
-                                height={200}
-                              />
-                            </div>
-                            <div id="html-dist"></div>
+                        <div>
+                          <div id="chart">
+                            <ReactApexChart
+                              options={chartLine.options}
+                              series={chartLine.series}
+                              type="line"
+                              height={200}
+                            />
                           </div>
-                        )}
+                          <div id="html-dist"></div>
+                        </div>
+                      )}
                       <Card.Text>
                         <span className={userPageClasses.badge}>
                           <Badge bg="success">{sumTotal()}PLN</Badge>
