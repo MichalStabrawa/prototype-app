@@ -1,5 +1,8 @@
+import 'fast-text-encoding';
+
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+
 import "firebase/compat/database";
 
 const firebaseConfig = {
@@ -12,6 +15,8 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
 
-export const auth = firebase.auth();
-export const database = firebase.database(); // Export this if you're using Realtime Database
+export { auth, database };
+; // Export this if you're using Realtime Database

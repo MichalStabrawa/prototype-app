@@ -229,3 +229,4 @@ export default function BudgetAppGold({ props }) {
     </Wrapper>
   );
 }
+

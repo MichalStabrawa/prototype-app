@@ -1,4 +1,4 @@
-export default function minMaxBidAsk(data, status, setMin, setMax) {
+ function minMaxBidAsk(data, status, setMin, setMax) {
   if (status === "success") {
     const min = [...data.rates].reduce((prev, next) =>
       prev.ask < next.ask ? prev : next
@@ -11,3 +11,5 @@ export default function minMaxBidAsk(data, status, setMin, setMax) {
     setMax(max);
   }
 }
+
+export default minMaxBidAsk

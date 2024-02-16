@@ -1,4 +1,4 @@
-export default function getCurrentDate() {
+ function getCurrentDate() {
   let newDate = new Date();
   let date = newDate.getDate();
   let month = newDate.getMonth() + 1;
@@ -21,3 +21,5 @@ export function getMonthYear() {
   }
  
 }
+
+export default getCurrentDate
