@@ -1,28 +1,42 @@
 .login {
-    margin-top:20px;
-    padding: 0 20px 40px 20px;
+  
+  padding: 0 20px 40px 20px;
+  min-height: calc(100vh - 90px);
 
-    &__wrapper {
-        max-width: 600px;
+  &__wrapper {
+    padding-top:40px;
+    max-width: 600px;
+    background-color: #fff;
+    margin: 0 auto;
 
-        margin: 0 auto;
-
-        &__link {
-            text-align: right;
-            margin-bottom: 10px;
-            font-size: 12px;
-        }
-
-        h2 {
-            border-top: 1px solid #f8f9fa;
-            padding-top: 10px;
-        }
-    }
-    form {
-        padding-bottom: 20px;;
+    &__link {
+      text-align: right;
+      margin-bottom: 10px;
+      font-size: 12px;
     }
 
-    .alert {
-        margin-top:20px;
+    h2 {
+      border-top: 1px solid #f8f9fa;
+      padding-top: 10px;
     }
+  }
+  form {
+    padding-bottom: 20px;
+  }
+
+  .alert {
+    margin-top: 20px;
+  }
+}
+
+
+.login_background {
+  background: url("../../assets/undraw_access_account_re_8spm.svg") no-repeat;
+  background-position: bottom right;
+  background-size: auto;
+}
+
+.register {
+  background: url("../../assets/undraw_my_password.svg") no-repeat;
+  background-position: center right;
 }

@@ -12,6 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
 import { authActions } from "../../store/auth";
 import Alert from "react-bootstrap/Alert";
+import Card from "react-bootstrap/Card";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -26,19 +27,21 @@ const Register = (props) => {
 
   const history = useLocation();
 
-
   const currentUser = auth.currentUser;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
 
       const currentUser = userCredential.user;
 
       console.log("CurrentUser inside");
-      console.log(currentUser)
+      console.log(currentUser);
 
       // Send email verification
       await currentUser.sendEmailVerification();
@@ -50,13 +53,11 @@ const Register = (props) => {
           .ref(`users/${currentUser.uid}/registerDate`)
           .push({ RegisterDate: signInDate, email: currentUser.email });
         console.log("User signed up at:", signInDate);
-        console.log(currentUser)
+        console.log(currentUser);
 
         setErrorRegister(null);
         setIsLoading(false);
       }
-
-   
 
       // Clear form fields
       setEmail("");
@@ -116,13 +117,13 @@ const Register = (props) => {
         }
       }
     });
-  
+
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
   }, [history]);
 
   return (
-    <div className={loginStyles.login}>
+    <div className={`${loginStyles.login} ${loginStyles.register}`}>
       {verificationMessage ? (
         <div className={loginStyles.login__wrapper}>
           <Alert>
@@ -135,54 +136,61 @@ const Register = (props) => {
       ) : (
         <Wrapper>
           <div className={loginStyles.login__wrapper}>
-            <h1>Register</h1>
-            <form action="">
-              <InputComponent
-                placeholder="Login"
-                name="Login"
-                type="email"
-                value={email}
-                action={addLogin}
-              />
-              <InputComponent
-                placeholder="Password"
-                name="Password"
-                type="password"
-                value={password}
-                action={addpassword}
-              />
-              <InputComponent
-                placeholder="Password"
-                name="Repeat Password"
-                type="password"
-                value={repeatPassword}
-                action={comparepassword}
-              />
-              {!enabledSubmit && (
-                <p className={classes.login__text}>
-                  Passwords are the same it is OK!
-                </p>
-              )}
-              {enabledSubmit && repeatPassword !== "" && (
-                <p className={classes.login__text__fail}>
-                  Passwords are not the same it is not OK!
-                </p>
-              )}
-              <Button
-                name={"Submit"}
-                color={buttonStyles.btn_transparent}
-                disabled={enabledSubmit}
-                click={handleSignUp}
-                isLoading={isLoading}
-              />
-              <Link to="..">back</Link>
-            </form>
-            {error ===
-              "Firebase: The email address is already in use by another account. (auth/email-already-in-use)." && (
-              <Alert variant="danger">
-                The email address is already in use by another account.
-              </Alert>
-            )}
+            <Card className="shadow" border="light" shadow>
+              <Card.Header>
+                <h1>Register</h1>
+              </Card.Header>
+              <Card.Body>
+                {" "}
+                <form action="">
+                  <InputComponent
+                    placeholder="Login"
+                    name="Login"
+                    type="email"
+                    value={email}
+                    action={addLogin}
+                  />
+                  <InputComponent
+                    placeholder="Password"
+                    name="Password"
+                    type="password"
+                    value={password}
+                    action={addpassword}
+                  />
+                  <InputComponent
+                    placeholder="Password"
+                    name="Repeat Password"
+                    type="password"
+                    value={repeatPassword}
+                    action={comparepassword}
+                  />
+                  {!enabledSubmit && (
+                    <p className={classes.login__text}>
+                      Passwords are the same it is OK!
+                    </p>
+                  )}
+                  {enabledSubmit && repeatPassword !== "" && (
+                    <p className={classes.login__text__fail}>
+                      Passwords are not the same it is not OK!
+                    </p>
+                  )}
+                  <Button
+                    name={"Submit"}
+                    color={buttonStyles.btn_transparent}
+                    disabled={enabledSubmit}
+                    click={handleSignUp}
+                    isLoading={isLoading}
+                  />
+                  <Link to="..">back</Link>
+                </form>
+                {error ===
+                  "Firebase: The email address is already in use by another account. (auth/email-already-in-use)." && (
+                  <Alert variant="danger">
+                    The email address is already in use by another account.
+                  </Alert>
+                )}
+              </Card.Body>
+            </Card>
           </div>
         </Wrapper>
       )}

@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import BudgetAppSection from "../../components/BudgetApp/BudgetAppSection/BudgetAppSection";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import classes from "./bidask.module.scss";
+import classesExchange from "../../Pages/exchange/exchange-rates.module.scss";
 import Card from "react-bootstrap/Card";
 
 import Form from "react-bootstrap/Form";
@@ -29,6 +30,7 @@ import {
 
 import ResponsiveCarousel from "../../components/Carousel/ResponsiveCarousel/ResponsiveCarousel";
 import getCompareLastActualValue from "../../utils/getCurrentLastValue";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 function BidAsk() {
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ function BidAsk() {
   const [inputValueAsk, setInputValueAsk] = useState("");
 
   const [dataCarousel, setDataCarousel] = useState();
-
+  console.log(`TypeOff: ${typeof inputValue}`);
   const handleChange = (e) => {
     const index = e.target.selectedIndex;
     const option = e.target.childNodes[index];
@@ -77,10 +79,10 @@ function BidAsk() {
 
   const handleInput = (e) => {
     if (e.target.name === "bid") {
-      setInputValue(e.target.value);
+      setInputValue(+e.target.value);
     }
     if (e.target.name === "ask") {
-      setInputValueAsk(e.target.value);
+      setInputValueAsk(+e.target.value);
     } else {
       return null;
     }
@@ -160,7 +162,13 @@ function BidAsk() {
               >
                 <Card.Body className="d-flex flex-column">
                   {" "}
-                  <h3>Sell or buy currency</h3>
+                  <h3 className={classes.card_title}>
+                    {" "}
+                    <span className={classesExchange.wrapper_icon_change}>
+                      <FaMoneyBillTransfer />
+                    </span>
+                    Sell or buy currency
+                  </h3>
                   {status === "success" && (
                     <p className={classes.description}>
                       table: {data[0].table}, effective date:{" "}
@@ -175,6 +183,7 @@ function BidAsk() {
                       type="number"
                       placeholder="count"
                       name="bid"
+                      min="0"
                     />
 
                     <Form.Select
@@ -189,7 +198,7 @@ function BidAsk() {
                     </Form.Select>
 
                     <div className={classes.count}>
-                      {inputValue == 0 && selectedItem.value !== ""
+                      {inputValue === 0 && selectedItem.value !== ""
                         ? "0"
                         : (selectedItem.value * inputValue).toFixed(4) +
                           " " +
@@ -203,6 +212,7 @@ function BidAsk() {
                       type="number"
                       placeholder="count"
                       name="ask"
+                      min="0"
                     />
                     <Form.Select
                       onChange={handleChange}
@@ -215,7 +225,7 @@ function BidAsk() {
                       {status === "success" && selectedValueAsk()}
                     </Form.Select>
                     <div className={`${classes.count} ${classes.count_ask}`}>
-                      {inputValueAsk == 0 && selectedItemAsk.value !== ""
+                      {inputValueAsk === 0 && selectedItemAsk.value !== ""
                         ? "0"
                         : (selectedItemAsk.value * inputValueAsk).toFixed(4) +
                           " " +

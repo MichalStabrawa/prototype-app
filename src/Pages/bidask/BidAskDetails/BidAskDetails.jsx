@@ -100,9 +100,11 @@ const BidAskDetails = () => {
   }, [statusLastTop]);
 
   useEffect(() => {
-    if (currencyLastTopCount &&
+    if (
+      currencyLastTopCount &&
       currencyLastTopCount.rates &&
-      currencyLastTopCount.rates.length > 0) {
+      currencyLastTopCount.rates.length > 0
+    ) {
       const { rates, code, currency, table } = currencyLastTopCount;
       console.log("Ratesin useEffect:", rates);
       setSplineChart((prevSplinea) => ({
@@ -241,7 +243,7 @@ const BidAskDetails = () => {
                   </Card>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={9}>
                 <Tabs
                   id="controlled-tab-example"
                   activeKey={key}
@@ -281,7 +283,7 @@ const BidAskDetails = () => {
                     {statusLastTop === "success" && minBidAsk && maxBidAsk && (
                       <div className={classes.table_min_max}>
                         {" "}
-                        <Table striped bordered hover>
+                        <Table responsive striped hover>
                           <thead>
                             <tr>
                               <th>min Bid</th>

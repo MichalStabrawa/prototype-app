@@ -4,10 +4,10 @@ import { GiGoldStack } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { PiChartLineUpBold } from "react-icons/pi";
 
-const BudgetAppSection = ({ props, css, icon, title, children }) => {
+const BudgetAppSection = ({ props, css, icon, title, children, background }) => {
   const additionalCss = css;
   return (
-    <div className={`${classes.ba_section} ${classes[additionalCss]}`}>
+    <div className={`${classes.ba_section} ${classes[additionalCss]} ${classes[background]}`}>
       <div className={classes.wrapper_}>
         <h1 className={classes.title}>
           {icon === "gold" && (

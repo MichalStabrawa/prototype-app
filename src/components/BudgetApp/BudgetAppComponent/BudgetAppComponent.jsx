@@ -31,6 +31,7 @@ import maxValue from "../../../utils/maxValue";
 import ShowSavedSalary from "../../ShowSavedSalary/ShowSavedSalary";
 import AddExpenses from "../../AddExpenses/AddExpenses";
 import ShowSavedExpenses from "../../ShowSavedExpenses/ShowSavedExpenses";
+import HowDoesItWork from "../../HowDoesItWork/HowDoesItWork";
 
 const {
   reducer,
@@ -42,7 +43,7 @@ const {
   fetchNbpTopCountReducer,
 } = Reducer;
 
-const BudgetAppComponent = ({ sectionRef }) => {
+const BudgetAppComponent = ({ sectionRef, scrollToRef }) => {
   const [summary, changeSummary] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stateSummary, dispatchSummary] = useReducer(
@@ -262,7 +263,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
   }, [filterSalaryValue]);
 
   return (
-    <section className={classes.budgetapp}>
+    <section ref={scrollToRef} className={classes.budgetapp}>
       <div className={classes.bapp_wrapper}>
         <BudgetAppSection
           title="Exchange rates"
@@ -304,7 +305,7 @@ const BudgetAppComponent = ({ sectionRef }) => {
                 <ShowSavedExpenses title="expenses" monthYear={monthYear} />
               </div>
             </BudgetAppSection>
-            <BudgetAppSection css="ba_section-full">
+            <BudgetAppSection css="ba_section-full" background="my_budget">
               <div className={classes.go_to}>
                 <h5>Check the exact status of your budget.</h5>
                 <p>Control your income and expenses.View charts and analyses</p>

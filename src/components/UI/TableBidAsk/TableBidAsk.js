@@ -1,4 +1,5 @@
 import classes from "./TableBidAsk.module.scss";
+import classesExchange from "../../../Pages/exchange/exchange-rates.module.scss";
 
 import { useState, useEffect } from "react";
 
@@ -8,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { MdReadMore } from "react-icons/md";
 
 import Table from "react-bootstrap/Table";
+import { FaTable } from "react-icons/fa";
 
 const TableBidAsk = ({ data }) => {
   const [tabData, setTabData] = useState([]);
@@ -33,6 +35,10 @@ const TableBidAsk = ({ data }) => {
     <>
       <div className={classes.table_rates}>
         <h3>
+          {" "}
+          <span className={classesExchange.wrapper_icon}>
+            <FaTable />
+          </span>
           TABLE: {data[0].table}
           <span className={classes.date}>
             {" "}

@@ -18,8 +18,9 @@ import ExpensesChart from "../../components/ExpensesComponents/ExpensesChart/Exp
 import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
 import { getMonthYear } from "../../utils/dateFunction";
 import { filterMonthData } from "../../utils/filterMonth";
-
+import { FaCalendarAlt } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
+import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 
 const chartInit = {
   series: [],
@@ -48,7 +49,7 @@ const chartInit = {
 const chartLineInit = {
   series: [
     {
-      name: "Desktops",
+      name: "expenses",
       data: [],
     },
   ],
@@ -107,7 +108,23 @@ function Expenses({ auth }) {
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
   };
+  const sumTotal = () => {
+    if (status === "success") {
+      const sum = [...data].reduce((prev, curr) => {
+        return prev + +curr.expenses;
+      }, 0);
+      return sum;
+    }
+  };
 
+  const sumTotalExpenses = () => {
+    if (status === "success") {
+      const sum = [...dataExpenses].reduce((prev, curr) => {
+        return prev + +curr.expenses;
+      }, 0);
+      return sum;
+    }
+  };
   const sumSalary = () => {
     if (status === "success" && dataMonth && monthYear) {
       const sum = [...dataMonth].reduce((prev, curr) => {
@@ -165,12 +182,8 @@ function Expenses({ auth }) {
         valueDeadline,
         sumShowExpenses
       );
-      console.log(`CountPercentAlert!!! ${typeof countPercent}`);
-      console.log(countPercent);
 
       const count = +(100 + countPercent).toFixed(1);
-      console.log("Count");
-      console.log(count + typeof count);
 
       setCountDealinePercent(count);
     }
@@ -313,15 +326,98 @@ function Expenses({ auth }) {
             <Container fluid>
               <Row>
                 <Col>
-                  <h2>Your budget expenses {monthYear}</h2>
-                  <div className={classes.month}>
-                    <Form.Control
-                      onChange={handleInputMonth}
-                      value={monthYear}
-                      type="month"
-                      placeholder="name@example.com"
-                    />
+                  {" "}
+                  <h2 className={classes.header_title}>
+                    Your budget expenses {monthYear}
+                  </h2>
+                </Col>
+              </Row>
+              <Row className="h-100">
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
+                  <div>
+                    <Card
+                      className="text-white  bg-secondary shadow h-100"
+                      border="light"
+                    >
+                      <Card.Body className="d-flex flex-column">
+                        <Card.Subtitle>
+                          <span className={classes.header_span}>
+                            Filter by month{" "}
+                            <span className={classes.icon_wrapper}>
+                              <FaCalendarAlt />
+                            </span>
+                          </span>
+                        </Card.Subtitle>
+                        <Card.Text>
+                          {" "}
+                          <Form.Control
+                            onChange={handleInputMonth}
+                            value={monthYear}
+                            type="month"
+                          />
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
                   </div>
+                </Col>
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
+                  <Card
+                    className="h-100 shadow text-white  bg-danger"
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
+                      <Card.Subtitle>
+                        {" "}
+                        <span className={classes.header_span}>
+                          Total Expenses{" "}
+                          <span className={classes.icon_wrapper}>
+                            <GiPayMoney />
+                          </span>
+                        </span>
+                      </Card.Subtitle>
+                      <Card.Text className={classes.total}>
+                        {sumTotalExpenses()} <span>PLN</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>{" "}
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
+                  <Card
+                    className="h-100 shadow text-white  bg-primary"
+                    border="light"
+                  >
+                    <Card.Body className="d-flex flex-column">
+                      <Card.Subtitle>
+                        <span className={classes.header_span}>
+                          Total Revenue{" "}
+                          <span className={classes.icon_wrapper}>
+                            <GiMoneyStack />
+                          </span>
+                        </span>
+                      </Card.Subtitle>
+                      <Card.Text className={classes.total}>
+                        {sumTotal()} <span>PLN</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>{" "}
+                <Col md={3} className="d-flex flex-column flex-fill mb-3">
+                  <Card className="bg-success text-white shadow h-100">
+                    <Card.Body className="d-flex flex-column">
+                      <Card.Subtitle>
+                        {" "}
+                        <span className={classes.header_span}>
+                          Total month revenue
+                          <span className={classes.icon_wrapper}>
+                            <GiReceiveMoney />
+                          </span>
+                        </span>
+                      </Card.Subtitle>
+                      <Card.Text className={classes.total}>
+                        {sumSalary()} <span>PLN</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </Col>
               </Row>
             </Container>

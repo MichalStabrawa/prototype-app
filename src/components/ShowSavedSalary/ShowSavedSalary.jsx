@@ -10,7 +10,6 @@ import FilterShowSalary from "../FilterShowSalary/FilterShowSalary";
 import { filterSearchData } from "../../utils/filterInsideAccordion";
 import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
-import { getMonthYear } from "../../utils/dateFunction";
 import { filterMonthData } from "../../utils/filterMonth";
 
 function ShowSavedSalary({ title, filter, monthYear }) {
@@ -79,7 +78,7 @@ function ShowSavedSalary({ title, filter, monthYear }) {
   useEffect(() => {
     filterMonthData(dataSaved, status, monthYear, setDataMonth);
   }, [monthYear, dataSaved, status]);
-  
+
   useEffect(() => {
     if (status === "success" && monthYear) {
       setData(dataMonth);

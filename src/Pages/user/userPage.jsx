@@ -191,7 +191,22 @@ function UserPage({ isAuthenticated }) {
                         </span>
                       </Card.Title>
                       <Card.Text>
-                        <span className={classes.card_title}>Revenue</span>
+                      <span className={classes.card_wrapper}>
+                          {" "}
+                          <span className={classes.card_title}>
+                            Revenue
+                          </span>{" "}
+                          <Link to={`/user/revenue`}>
+                            {" "}
+                            <Button
+                              size="sm"
+                              variant="outline-info"
+                              className={classes.btn_custom}
+                            >
+                              <FaCircleInfo />
+                            </Button>{" "}
+                          </Link>
+                        </span>
                       </Card.Text>
                       <Card.Text>
                         {" "}
