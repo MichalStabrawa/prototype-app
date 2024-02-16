@@ -1,3 +1,4 @@
+import {useSelector} from 'react-redux';
 import classes from "./HowDoesItWork.module.scss";
 import { BsCurrencyExchange } from "react-icons/bs";
 import { AiOutlineGold } from "react-icons/ai";
@@ -8,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import imgInfo from "../../assets/undraw_instant_information_re_c5v5.svg";
 
 function HowDoesItWork({ scrollToRef }) {
+  const auth = useSelector(state=>state.auth.isAuthenticated)
   return (
     <section className={classes.how_works} ref={scrollToRef}>
       <div className={classes.how_works_tile}>
@@ -52,8 +54,8 @@ function HowDoesItWork({ scrollToRef }) {
           expenses. Check payment deadlines for invoices and bills. Analyze your
           budget charts.
         </p>
-        <Link to="/register">
-          <Button variant="outline-info">Register</Button>
+        <Link to={auth? "/user":"/register"}>
+          <Button variant="outline-info">{auth? 'Go to budget':'Register'}</Button>
         </Link>
       </div>
       <div className={classes.how_works_tile}>
@@ -63,10 +65,10 @@ function HowDoesItWork({ scrollToRef }) {
         <h4>Other information</h4>
         <p>
           Check out other information on how to use the BudgetApp application.
-        </p>
-        <Link to="/aboutUs">
+        </p>{auth&&  <Link to="/aboutUs">
           <Button variant="outline-info">Got to more info</Button>
-        </Link>
+        </Link>}
+      
       </div>
     </section>
   );
