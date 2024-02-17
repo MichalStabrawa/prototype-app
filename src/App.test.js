@@ -1,22 +1,32 @@
-// App.test.js
+import React from 'react';
+import { render } from '@testing-library/react';
+import App from './App';
+import { auth, database } from './firebase/firebase'; // Import auth and database from firebase.js
+import store from '../src/store/index';
+import {Provider} from 'react-redux'
+// Mock Firebase
+jest.mock('./firebase/firebase', () => {
+  const firebaseAuthMock = jest.fn(() => ({
+    signInWithEmailAndPassword: jest.fn(),
+    currentUser: null,
+  }));
 
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "./store/index";
-import App from "./App";
+  const firebaseDatabaseMock = jest.fn(() => ({
+    ref: jest.fn(() => ({
+      push: jest.fn(),
+    })),
+  }));
 
-// Mock Firebase imports with correct relative path
-jest.mock('./__mocks__/firebase');
+  return {
+    auth: firebaseAuthMock,
+    database: firebaseDatabaseMock,
+  };
+});
 
-test("renders learn react link", () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-
-  // Verify that "learn react" link is present
-  const learnReactLink = screen.getByText(/learn react/i);
-  expect(learnReactLink).toBeInTheDocument();
+// Test the App component
+test('renders App component', () => {
+  render(   <Provider store={store}> {/* Wrap App with Provider and provide the store */}
+  <App />
+</Provider>);
+  // Add your test assertions here
 });

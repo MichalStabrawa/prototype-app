@@ -1,20 +1,12 @@
-// __mocks__/firebase.js
+// __mocks__/firebaseAuth.js
 
-const firebaseMock = {
-  initializeApp: jest.fn(),
-  auth: jest.fn(() => ({
-    currentUser: null,
-    signInWithEmailAndPassword: jest.fn(),
-    createUserWithEmailAndPassword: jest.fn(),
-  })),
-  database: jest.fn(() => ({
-    ref: jest.fn(() => ({
-      child: jest.fn(() => ({
-        set: jest.fn(),
-        once: jest.fn(),
-      })),
-    })),
-  })),
+export const signInWithEmailAndPassword = jest.fn();
+export const createUserWithEmailAndPassword = jest.fn();
+export const signOut = jest.fn();
+
+// Optionally, you can mock currentUser
+export const currentUser = {
+    uid: 'mock-uid',
+    email: 'mock@example.com',
+    // Add other properties as needed
 };
-
-export default firebaseMock;
