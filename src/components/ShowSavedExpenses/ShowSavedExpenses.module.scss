@@ -1,4 +1,9 @@
 @import "../..//styles/main";
+.show {
+  margin-top: 40px;
+  border-top: 1px solid #9fd8df;
+  padding-top: 20px;
+}
 
 .save {
 }
@@ -22,4 +27,7 @@
 
 .icon_on {
   color: $pastelGreenRegular;
+}
+
+.title {
 }

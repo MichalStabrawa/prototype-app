@@ -14,7 +14,7 @@ import { sortSalaryExpenses } from "../../utils/sortSalaryExpenses";
 import { filterSearchInputDate } from "../../utils/filterDateAcordion";
 import { filterMonthData } from "../../utils/filterMonth";
 
-function ShowSavedExpenses({ title, filter, monthYear }) {
+function ShowSavedExpenses({ title, filter, monthYear,divider }) {
   const dataSaved = useSelector((state) => state.fetchUserExpenses.data);
   const status = useSelector((state) => state.fetchUserExpenses.status);
   const isLoading = useSelector((state) => state.fetchUserExpenses.isLoading);
@@ -28,17 +28,10 @@ function ShowSavedExpenses({ title, filter, monthYear }) {
   const [searchDate, setSearchDate] = useState("");
   const [dataMonth, setDataMonth] = useState([]);
 
-  console.log("DATAMONTH EXPESES");
-  console.log(dataMonth);
-  console.log(data);
-
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
-
-  console.log("CurrentRecExpense");
-  console.log(currentRecords);
 
   const nPages = Math.ceil(data.length / recordsPerPage);
 
@@ -91,11 +84,11 @@ function ShowSavedExpenses({ title, filter, monthYear }) {
     if (status === "success" && monthYear) {
       setData(dataMonth);
     }
-  }, [status, monthYear, dataMonth,data]);
+  }, [status, monthYear, dataMonth, data]);
 
   return (
-    <div>
-      <p>{title}</p>
+    <div className={divider?classes.show:null}>
+      <h5 className={classes.title}>{title}</h5>
       {logInUser && (
         <p className={classes.user}>
           <FaUser className={classes.user_icon} />
@@ -106,7 +99,7 @@ function ShowSavedExpenses({ title, filter, monthYear }) {
         <p className={classes.count}>
           <span>sum of value:</span>{" "}
           <Badge bg="info">
-            <h5>{countSumOfSalary()} PLN</h5>
+            <span>{countSumOfSalary()} PLN</span>
           </Badge>
         </p>
       </div>
