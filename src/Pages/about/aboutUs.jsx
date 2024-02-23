@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
+import img from '../../assets/info.png';
 
 import classes from "./aboutUs.module.scss";
 
@@ -23,6 +24,7 @@ const AboutUs = (props) => {
                 </p>
               </header>
             </Col>
+        
           </Row>
         </Container>
       </Wrapper>
@@ -68,6 +70,7 @@ const AboutUs = (props) => {
                   </ListGroup.Item>
                 </ListGroup>
               </Col>
+              <Col  md={4}><figure><img className={classes.img} src={img} alt="about"/></figure></Col>
             </Row>
             <Row>
               <Col xs={12} md={8}>

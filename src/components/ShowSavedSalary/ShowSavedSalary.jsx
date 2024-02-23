@@ -98,7 +98,7 @@ function ShowSavedSalary({ title, filter, monthYear }) {
         <p className={classes.count}>
           <span>sum of value:</span>{" "}
           <Badge bg="info">
-            <h5>{countSumOfSalary()} PLN</h5>
+            <span>{countSumOfSalary()} PLN</span>
           </Badge>
         </p>
       </div>

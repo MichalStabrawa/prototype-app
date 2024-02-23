@@ -302,7 +302,7 @@ const BudgetAppComponent = ({ sectionRef, scrollToRef }) => {
             >
               <ShowSavedSalary filter={false} monthYear={monthYear} />
               <div>
-                <ShowSavedExpenses title="expenses" monthYear={monthYear} />
+                <ShowSavedExpenses title="Expenses" monthYear={monthYear} divider={true} />
               </div>
             </BudgetAppSection>
             <BudgetAppSection css="ba_section-full" background="my_budget">

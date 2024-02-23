@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import BudgetAppSection from "../../BudgetApp/BudgetAppSection/BudgetAppSection";
 import Select from "../../UI/Select/Select";
 import Button from "../../UI/Button/Button";
 import InputComponent from "../../UI/Input/InputComponent";
