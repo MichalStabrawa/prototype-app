@@ -68,11 +68,9 @@ function HowDoesItWork({ scrollToRef }) {
         <p>
           Check out other information on how to use the BudgetApp application.
         </p>
-        {auth && (
-          <Link to="/aboutUs">
-            <Button variant="outline-info">Got to more info</Button>
-          </Link>
-        )}
+        <Link to="/aboutUs">
+          <Button variant="outline-info">Got to more info</Button>
+        </Link>
       </div>
     </section>
   );
