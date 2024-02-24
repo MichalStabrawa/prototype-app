@@ -6,6 +6,7 @@ import loginStyles from "../loginApp/login.module.scss";
 import Button from "../../components/UI/Button/Button";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
+import { Alert } from "react-bootstrap";
 
 const RemindLogin = (props) => {
   const [email, setEmail] = useState("");
@@ -48,7 +49,22 @@ const RemindLogin = (props) => {
             disabled={email === ""}
             isLoading={isLoading}
           />
-          {message && <p>{message}</p>}
+          {message && (
+            <div className={classes.alert}>
+              {" "}
+              <Alert
+                className={classes.remind_login_alert}
+                variant={
+                  message === "Password reset email sent successfully."
+                    ? "success"
+                    : "danger"
+                }
+              >
+                {message}
+              </Alert>
+            </div>
+          )}
+
           <Link to=".." relative="path">
             Back
           </Link>
