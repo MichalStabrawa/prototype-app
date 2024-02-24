@@ -1,12 +1,10 @@
 import { useState, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import InputComponent from "../../UI/Input/InputComponent";
-import Button from "../../UI/Button/Button";
+
 import BudgetAppSection from "../BudgetAppSection/BudgetAppSection";
 import classes from "./BudgetAppComponent.module.scss";
-import buttonStyles from "./../../UI/Button/Button.module.scss";
-import BudgetAppTable from "../BudgetAppTable/BudgetAppTable";
+
 import Reducer from "../../../store/store";
 import BudgetAppExchange from "../BudgetAppExchangeComponent/BudgetAppExchange";
 import fetchBudgetAppSalary from "../../../store/fetchBudgetAppSalary";
@@ -18,20 +16,11 @@ import { getMonthYear } from "../../../utils/dateFunction";
 import BudgetAppGold from "../BudgetAppGoldComponent/BudgetAppGold";
 import AddSalary from "../../AddSalary/AddSalary";
 import ButtonBtn from "react-bootstrap/Button";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+
 import maxValue from "../../../utils/maxValue";
 import ShowSavedSalary from "../../ShowSavedSalary/ShowSavedSalary";
 import AddExpenses from "../../AddExpenses/AddExpenses";
 import ShowSavedExpenses from "../../ShowSavedExpenses/ShowSavedExpenses";
-import HowDoesItWork from "../../HowDoesItWork/HowDoesItWork";
 
 const {
   reducer,
@@ -302,7 +291,11 @@ const BudgetAppComponent = ({ sectionRef, scrollToRef }) => {
             >
               <ShowSavedSalary filter={false} monthYear={monthYear} />
               <div>
-                <ShowSavedExpenses title="Expenses" monthYear={monthYear} divider={true} />
+                <ShowSavedExpenses
+                  title="Expenses"
+                  monthYear={monthYear}
+                  divider={true}
+                />
               </div>
             </BudgetAppSection>
             <BudgetAppSection css="ba_section-full" background="my_budget">
