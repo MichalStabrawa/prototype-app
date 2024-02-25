@@ -79,7 +79,7 @@ function TableExpenses({
 
   const editHandle = (e) => {
     const id = e.target.id;
-    console.log(id);
+
     if (id) {
       setEditId(id);
     } else {
@@ -227,8 +227,6 @@ function TableExpenses({
 
           // Iterate through each key and update the corresponding array
           Object.keys(updatedObject).forEach((key) => {
-            console.log(updatedObject);
-            console.log(`key  ${key}`);
             updatedObject[key] = updatedObject[key].map((el) => {
               if (el.id === filterIdData[0].id) {
                 console.log("Found object to update:", el);

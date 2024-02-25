@@ -35,15 +35,12 @@ const Revenue = ({ auth }) => {
   };
   const [chartLine, setChartLine] = useState(chartLineInit);
 
-  console.log(`Dat`);
-  console.log(data);
-
   const sumTotal = () => {
     if (status === "success") {
       const sum = [...data].reduce((prev, curr) => {
         return prev + +curr.expenses;
       }, 0);
-      console.log(`SUM: ${sum}`);
+
       return sum;
     }
   };

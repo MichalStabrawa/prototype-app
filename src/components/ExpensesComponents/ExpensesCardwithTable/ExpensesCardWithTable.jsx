@@ -17,7 +17,7 @@ function ExpensesCardWithTable({
   title,
   countPercent,
   percent,
-  counter
+  counter,
 }) {
   const dispatch = useDispatch();
   const [dataFilter, setDataFilter] = useState([]);
@@ -41,7 +41,7 @@ function ExpensesCardWithTable({
       : 0;
 
   const user = auth.currentUser;
-  console.log(`Count percent ${typeof countPercent}`);
+
   const executeSetFlag = (flag) => {
     setFlag(flag);
   };

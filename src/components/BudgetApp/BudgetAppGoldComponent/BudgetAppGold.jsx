@@ -69,10 +69,6 @@ export default function BudgetAppGold({ props }) {
     series: [],
   });
 
-  console.log(goldTopCount);
-  console.log("goldNeChart");
-  console.log(goldNewChart);
-
   useEffect(() => {
     fetchNbpGold(setGold);
   }, []);
@@ -133,7 +129,7 @@ export default function BudgetAppGold({ props }) {
         <div className={classes.ba_gold}>
           <Card border="light">
             <Card.Header>
-              <h4>Current gold price</h4>
+              Current gold price
             </Card.Header>
             <Card.Body>
               <Card.Title>
@@ -150,7 +146,7 @@ export default function BudgetAppGold({ props }) {
               </Card.Text>
               <Card.Text>
                 {" "}
-                <p>Current date: {getCurrentDate()} </p>
+                <span>Current date: {getCurrentDate()} </span>
               </Card.Text>
               <Card.Subtitle>Previous quote</Card.Subtitle>
               <Card.Text>
@@ -229,4 +225,3 @@ export default function BudgetAppGold({ props }) {
     </Wrapper>
   );
 }
-

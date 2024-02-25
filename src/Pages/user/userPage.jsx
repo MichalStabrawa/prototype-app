@@ -50,7 +50,6 @@ function UserPage({ isAuthenticated }) {
   const [dataMonth, setDataMonth] = useState([]);
   const [dataMonthExpenses, setDataMonthExpenses] = useState([]);
 
-
   const handleInputMonth = (e) => {
     setMonthYear(e.target.value);
   };
@@ -89,8 +88,6 @@ function UserPage({ isAuthenticated }) {
         (min, value) => Math.min(min, value),
         Infinity
       );
-
-      console.log("MaxExpenses!!!!!" + typeof max.expenses);
 
       setMaxSalary(max);
       setMinSalary(minExpenses);
@@ -191,7 +188,7 @@ function UserPage({ isAuthenticated }) {
                         </span>
                       </Card.Title>
                       <Card.Text>
-                      <span className={classes.card_wrapper}>
+                        <span className={classes.card_wrapper}>
                           {" "}
                           <span className={classes.card_title}>
                             Revenue
