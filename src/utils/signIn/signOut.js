@@ -7,6 +7,7 @@ const signOut = async () => {
     console.log("Log off");
   } catch (error) {
     console.error("Error signing out:", error.message);
+    throw error;
   }
 };
 
