@@ -36,8 +36,6 @@ const ExchangeTopLastChart = ({ index }) => {
     setFlag(!flag);
   };
 
-  console.log("splineChart" + splineChart.options);
-
   useEffect(() => {
     minMaxBidAsk(data[index], status, setMinBidAsk, setMaxBidAsk);
   }, [status]);
@@ -45,7 +43,7 @@ const ExchangeTopLastChart = ({ index }) => {
   useEffect(() => {
     if (data.length > 0 && data[index] && data[index].rates) {
       const { rates } = data[index];
-      console.log("Ratesin useEffect:", rates);
+
       setSplineChart((prevSplinea) => ({
         ...prevSplinea,
         series: [

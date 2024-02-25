@@ -106,7 +106,7 @@ const BidAskDetails = () => {
       currencyLastTopCount.rates.length > 0
     ) {
       const { rates, code, currency, table } = currencyLastTopCount;
-      console.log("Ratesin useEffect:", rates);
+
       setSplineChart((prevSplinea) => ({
         ...prevSplinea,
         series: [
