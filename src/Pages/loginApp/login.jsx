@@ -54,6 +54,12 @@ const LoginApp = () => {
         console.log("current User ");
         console.log(currentUser);
         console.log(auth);
+
+        // Retrieve and save the token
+        const token = await currentUser.getIdToken();
+        console.log("TOKEN getIDToken")
+        console.log(token)
+        localStorage.setItem("firebaseToken", token);
       }
     } catch (error) {
       console.error("Error signing in:", error.message);

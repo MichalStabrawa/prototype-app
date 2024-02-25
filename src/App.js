@@ -73,8 +73,9 @@ function App() {
         {
           path: "/exchange/:id",
           element: <ExchangeDetails />,
+          errorElement:<ErrorPage/>
         },
-        { path: "/bidask", element: <BidAsk /> },
+        { path: "/bidask", element: <BidAsk />, errorElement:<ErrorPage/> },
         {
           path: "/bidask/:id",
           element: <BidAskDetails />,
@@ -95,6 +96,7 @@ function App() {
           element: <Revenue auth={auth} />,
           errorElement: <ErrorPage />,
         },
+    
       ],
     },
   ]);
