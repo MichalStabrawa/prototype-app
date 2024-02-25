@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { auth, database } from "../../firebase/firebase";
-import authSlice from "../../store/auth";
+
 import { FaUser, FaRegUser } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
 import { authActions } from "../../store/auth";
-import Button from "react-bootstrap/Button";
+import signOut from "../../utils/signIn/signOut";
+
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const UserInfo = () => {
   const auth1 = useSelector((state) => state.auth.isAuthenticated);
 
   const user = auth.currentUser;
+
+  console.log("USER");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -72,17 +75,17 @@ const UserInfo = () => {
     }
   }, [dispatch, user]);
 
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-      console.log("Log off");
-    } catch (error) {
-      console.error("Error signing out:", error.message);
-    }
-  };
+  // const handleSignOut = async () => {
+  //   try {
+  //     await auth.signOut();
+  //     console.log("Log off");
+  //   } catch (error) {
+  //     console.error("Error signing out:", error.message);
+  //   }
+  // };
 
   const logOffHandler = () => {
-    handleSignOut();
+    signOut();
     dispatch(authActions.logoff());
   };
 

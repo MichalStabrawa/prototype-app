@@ -12,7 +12,7 @@ import buttonHamburgerStyles from "../UI/Button/ButtonHamburger.module.scss";
 
 import { authActions } from "../../store/auth";
 import { auth } from "../../firebase/firebase";
-import { FaUser, FaRegUser } from "react-icons/fa";
+import signOut from "../../utils/signIn/signOut";
 import UserInfo from "../UserInfo/UserInfo";
 
 const NavComponent = (props) => {
@@ -27,16 +27,8 @@ const NavComponent = (props) => {
     setActive(!active);
   };
 
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.error("Error signing out:", error.message);
-    }
-  };
-
   const logOffHandler = () => {
-    handleSignOut();
+    signOut();
     dispatch(authActions.logoff());
   };
 
@@ -54,7 +46,7 @@ const NavComponent = (props) => {
 
   useEffect(() => {
     if (!auth1) {
-      handleSignOut();
+      signOut();
     }
   }, [auth1]);
 
@@ -134,7 +126,10 @@ const NavComponent = (props) => {
         )}
         <li className={classes.nav_item}>
           <Link to={auth1 ? "/" : "login"} onClick={logOffHandler}>
-            <ButtonBtn size="sm" variant="outline-primary"> {auth1 ? "LogOff" : "Login"}</ButtonBtn>
+            <ButtonBtn size="sm" variant="outline-primary">
+              {" "}
+              {auth1 ? "LogOff" : "Login"}
+            </ButtonBtn>
           </Link>
         </li>
         {!auth1 && (
