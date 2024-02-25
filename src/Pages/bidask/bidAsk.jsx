@@ -53,7 +53,7 @@ function BidAsk() {
   const [inputValueAsk, setInputValueAsk] = useState("");
 
   const [dataCarousel, setDataCarousel] = useState();
-  console.log(`TypeOff: ${typeof inputValue}`);
+
   const handleChange = (e) => {
     const index = e.target.selectedIndex;
     const option = e.target.childNodes[index];

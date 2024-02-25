@@ -69,10 +69,6 @@ export default function BudgetAppGold({ props }) {
     series: [],
   });
 
-  console.log(goldTopCount);
-  console.log("goldNeChart");
-  console.log(goldNewChart);
-
   useEffect(() => {
     fetchNbpGold(setGold);
   }, []);
@@ -229,4 +225,3 @@ export default function BudgetAppGold({ props }) {
     </Wrapper>
   );
 }
-

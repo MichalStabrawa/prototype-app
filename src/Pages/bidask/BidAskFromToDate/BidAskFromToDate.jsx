@@ -66,7 +66,7 @@ function BidAskFromToDate({ currency }) {
   useEffect(() => {
     if (data && data.rates) {
       const { rates, code, currency, table } = data;
-      console.log("Ratesin useEffect:", rates);
+
       setSplineChart((prevSplinea) => ({
         ...prevSplinea,
         series: [
@@ -95,8 +95,6 @@ function BidAskFromToDate({ currency }) {
       }));
     }
   }, [data, status]);
-
-  console.log(data);
 
   return (
     <div className={classes.main}>

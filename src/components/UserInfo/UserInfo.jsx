@@ -11,7 +11,6 @@ import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
 import { authActions } from "../../store/auth";
 import signOut from "../../utils/signIn/signOut";
 
-
 const UserInfo = () => {
   const dispatch = useDispatch();
   const { data, isLoading, status, error } = useSelector(
@@ -23,8 +22,6 @@ const UserInfo = () => {
   const auth1 = useSelector((state) => state.auth.isAuthenticated);
 
   const user = auth.currentUser;
-
-  console.log("USER");
 
   useEffect(() => {
     const fetchUserData = async () => {

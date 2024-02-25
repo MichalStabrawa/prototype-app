@@ -1,5 +1,4 @@
 export const filterSearchData = (isChecked, dataSaved, search, setData) => {
-  console.log(dataSaved)
   if (!isChecked) {
     const filterData = [...dataSaved].filter((el) =>
       el.name.toLowerCase().includes(search.toLowerCase())
