@@ -10,17 +10,17 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
-import { countPercentCurrLastValue } from "../../utils/countPercentCurrentLastValue";
+
 import { getMonthYear } from "../../utils/dateFunction";
-import { filterMonthData } from "../../utils/filterMonth";
+
 import { FaCalendarAlt } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
 import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
-import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
+
 import Form from "react-bootstrap/Form";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { chartLineInit } from "../../helpers/chartVariables/chart-line";
-
+import RevenueMainChart from "../../components/Revenue/RevenueMainChart/RevenueMainChart";
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 
 const Revenue = ({ auth }) => {
@@ -254,7 +254,9 @@ const Revenue = ({ auth }) => {
                 </Col>
               </Row>
             </Container>
+            <RevenueMainChart/>
           </section>
+         
         </>
       ) : (
         <ErrorPage />
