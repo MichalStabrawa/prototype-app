@@ -71,7 +71,8 @@ const Revenue = ({ auth }) => {
           },
           plotOptions: {
             bar: {
-              columnWidth: "20%",
+                columnWidth: "20%",
+              barWidth: 25, // Set the width of the bars to 40 pixels
             },
           },
         },
