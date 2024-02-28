@@ -69,6 +69,11 @@ const Revenue = ({ auth }) => {
           xaxis: {
             categories: data.map((item) => item.fullDate),
           },
+          plotOptions: {
+            bar: {
+              columnWidth: "20%",
+            },
+          },
         },
       }));
     }

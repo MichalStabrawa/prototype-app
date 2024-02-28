@@ -41,7 +41,8 @@ function RevenueMainChart({ data, total }) {
                       options={data.options}
                       series={data.series}
                       type="bar"
-                      height={200}
+                      height={400}
+                    
                     />
                   </div>
                   <div id="html-dist"></div>
