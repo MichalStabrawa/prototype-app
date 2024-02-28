@@ -4,16 +4,30 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import ReactApexChart from "react-apexcharts";
+import { FaChartBar } from "react-icons/fa";
+import userPageClasses from "../../../Pages/user/userPage.module.scss";
 
 function RevenueMainChart() {
   return (
     <Container fluid>
       <Row>
         <Col>
-          <Card>
+          <Card
+            className={`${userPageClasses.card_info} h-100 shadow`}
+            border="light"
+          >
             {" "}
-            <Card.Header>Total Income chart</Card.Header>
-            <Card.Body></Card.Body>
+            <Card.Body className="d-flex flex-column">
+              {" "}
+              <Card.Title>
+                {" "}
+                <span
+                  className={`${userPageClasses.icon_wrapper} ${userPageClasses.exp}`}
+                >
+                  <FaChartBar />
+                </span>
+              </Card.Title>
+            </Card.Body>
           </Card>
         </Col>
       </Row>
