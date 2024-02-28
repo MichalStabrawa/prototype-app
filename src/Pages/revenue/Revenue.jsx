@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 import ErrorPage from "../Error/ErrorPage";
 import classes from "./Revenue.module.scss";
@@ -254,7 +254,7 @@ const Revenue = ({ auth }) => {
                 </Col>
               </Row>
             </Container>
-            <RevenueMainChart/>
+            <RevenueMainChart data={setChartLine} total={sumTotal()}/>
           </section>
          
         </>
