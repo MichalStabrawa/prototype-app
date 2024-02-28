@@ -8,7 +8,9 @@ import { FaChartBar } from "react-icons/fa";
 import userPageClasses from "../../../Pages/user/userPage.module.scss";
 import Badge from "react-bootstrap/Badge";
 
-function RevenueMainChart({searchLine,total}) {
+function RevenueMainChart({ data, total }) {
+  console.log("ChartLineProps");
+  console.log(data);
   return (
     <Container fluid>
       <Row>
@@ -22,9 +24,7 @@ function RevenueMainChart({searchLine,total}) {
               {" "}
               <Card.Title>
                 {" "}
-                <span
-                  className={`${userPageClasses.icon_wrapper} `}
-                >
+                <span className={`${userPageClasses.icon_wrapper} `}>
                   <FaChartBar />
                 </span>
               </Card.Title>
@@ -34,6 +34,19 @@ function RevenueMainChart({searchLine,total}) {
                   Total income bart chart
                 </span>
               </Card.Text>
+              {data.options && data.series && (
+                <div>
+                  <div id="chart">
+                    <ReactApexChart
+                      options={data.options}
+                      series={data.series}
+                      type="bar"
+                      height={200}
+                    />
+                  </div>
+                  <div id="html-dist"></div>
+                </div>
+              )}
               <Card.Text>
                 <span className={userPageClasses.badge}>
                   <Badge bg="success">{total} PLN</Badge>
