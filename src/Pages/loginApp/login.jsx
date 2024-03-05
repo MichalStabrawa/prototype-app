@@ -18,6 +18,8 @@ import Card from "react-bootstrap/Card";
 
 const LoginApp = () => {
   const authUser = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+
   const [email, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState("");
@@ -34,42 +36,31 @@ const LoginApp = () => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       const currentUser = auth.currentUser;
-      console.log("curent user emailVerif");
-      console.log(currentUser.emailVerified);
-      console.log(`USER TO: ${currentUser.email}`);
-      if (currentUser && !currentUser.emailVerified) {
-        setIsLoading(false);
+  
+      if (!currentUser.emailVerified) {
+        throw new Error("Email not verified. Please verify your email to proceed.");
       }
-      if (currentUser && currentUser.emailVerified) {
-        const signInDate = new Date().toISOString();
-        await database
-          .ref(`users/${currentUser.uid}/signInDates`)
-          .push([{ date: signInDate, email: currentUser.email }]);
-        console.log("User signed in at after confirm email:", signInDate);
-        setCurrentUser(currentUser);
-        setIsLoading(false);
-        setErrorLogin(null);
-        dispatch(authActions.login());
-
-        console.log("current User ");
-        console.log(currentUser);
-        console.log(auth);
-
-        // Retrieve and save the token
-        const token = await currentUser.getIdToken();
-        console.log("TOKEN getIDToken")
-        console.log(token)
-        localStorage.setItem("firebaseToken", token);
-      }
+  
+      const signInDate = new Date().toISOString();
+      await database
+        .ref(`users/${currentUser.uid}/signInDates`)
+        .push([{ date: signInDate, email: currentUser.email }]);
+      console.log("User signed in at after confirm email:", signInDate);
+      setCurrentUser(currentUser);
+      setIsLoading(false);
+      setErrorLogin(null);
+      dispatch(authActions.login());
+  
+      // Retrieve and save the token
+      const token = await currentUser.getIdToken();
+      localStorage.setItem("firebaseToken", token);
     } catch (error) {
       console.error("Error signing in:", error.message);
-      setErrorLogin(error);
+      setErrorLogin(error.message); // Set error message to be displayed to the user
       setIsLoading(false);
     }
   };
-
-  const dispatch = useDispatch();
-
+ 
   const addLogin = (e) => {
     const loginValue = e.target.value;
 
