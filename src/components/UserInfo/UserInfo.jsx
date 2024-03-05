@@ -60,10 +60,8 @@ const UserInfo = () => {
       }
     };
 
-    // Call the async function
     fetchUserData();
   }, [auth, auth1]);
-  // The empty dependency array ensures that this effect runs only once on mount;
 
   useEffect(() => {
     if (user) {
@@ -71,15 +69,6 @@ const UserInfo = () => {
       dispatch(fetchUserExpenses({ auth: auth, database: database }));
     }
   }, [dispatch, user]);
-
-  // const handleSignOut = async () => {
-  //   try {
-  //     await auth.signOut();
-  //     console.log("Log off");
-  //   } catch (error) {
-  //     console.error("Error signing out:", error.message);
-  //   }
-  // };
 
   const logOffHandler = () => {
     signOut();
@@ -101,7 +90,7 @@ const UserInfo = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">
-                User:{" "}
+                User:{auth.currentUser && auth.currentUser.email}
                 {auth1 && status === "success" ? (
                   <div>
                     <Link to="/" onClick={logOffHandler}>
@@ -114,8 +103,6 @@ const UserInfo = () => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-
-          {/* Render other user data as needed */}
         </div>
       )}
     </>
