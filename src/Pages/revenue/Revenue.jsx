@@ -22,11 +22,18 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { chartLineInit } from "../../helpers/chartVariables/chart-line";
 import RevenueMainChart from "../../components/Revenue/RevenueMainChart/RevenueMainChart";
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
+import { filterMonthData } from "../../utils/filterMonth";
+import { sumTotalSalaryExpenses } from "../../utils/totalSalaryExpenses/totalSalaryExpenses";
+import fetchUserExpenses from "../../store/fetchUserData/fetchUserExpenses";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
+
+  const dataExpenses = useSelector((state) => state.fetchUserExpenses.data);
+
+  const statusExpenses = useSelector((state) => state.fetchUserExpenses.status);
   const [monthYear, setMonthYear] = useState(getMonthYear());
   const [searchDate, setSearchDate] = useState("");
 
@@ -46,11 +53,12 @@ const Revenue = ({ auth }) => {
   };
 
   const sumTotalMonth = () => {
-    if (status === "success" && searchDate) {
+    if (status === "success") {
       const sumMonth = [...searchDate].reduce((prev, curr) => {
-        return prev + parseFloat(curr.expenses);
+        return prev + +curr.expenses;
       }, 0);
-
+      console.log("SumMonth");
+      console.log(sumMonth);
       return sumMonth;
     }
   };
@@ -78,6 +86,10 @@ const Revenue = ({ auth }) => {
       }));
     }
   }, [monthYear, data]);
+
+  useEffect(() => {
+    filterMonthData(data, status, monthYear, setSearchDate);
+  }, [monthYear]);
   return (
     <div className={userPageClasses.user_main}>
       {auth ? (
@@ -137,7 +149,10 @@ const Revenue = ({ auth }) => {
                         </span>
                       </Card.Subtitle>
                       <Card.Text className={classes.total}>
-                        <span>PLN</span>
+                        <span>
+                          {sumTotalSalaryExpenses(statusExpenses, dataExpenses)}
+                          PLN
+                        </span>
                       </Card.Text>
                     </Card.Body>
                   </Card>
