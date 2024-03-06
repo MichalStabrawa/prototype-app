@@ -23,11 +23,17 @@ import { chartLineInit } from "../../helpers/chartVariables/chart-line";
 import RevenueMainChart from "../../components/Revenue/RevenueMainChart/RevenueMainChart";
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import { filterMonthData } from "../../utils/filterMonth";
+import { sumTotalSalaryExpenses } from "../../utils/totalSalaryExpenses/totalSalaryExpenses";
+import fetchUserExpenses from "../../store/fetchUserData/fetchUserExpenses";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
     (state) => state.fetchUserSalary
   );
+
+  const dataExpenses = useSelector((state) => state.fetchUserExpenses.data);
+
+  const statusExpenses = useSelector((state) => state.fetchUserExpenses.status);
   const [monthYear, setMonthYear] = useState(getMonthYear());
   const [searchDate, setSearchDate] = useState("");
 
@@ -56,8 +62,6 @@ const Revenue = ({ auth }) => {
       return sumMonth;
     }
   };
-  console.log("Data");
-  console.log(data);
 
   useEffect(() => {
     if (data.length > 0) {
@@ -145,7 +149,10 @@ const Revenue = ({ auth }) => {
                         </span>
                       </Card.Subtitle>
                       <Card.Text className={classes.total}>
-                        <span>PLN</span>
+                        <span>
+                          {sumTotalSalaryExpenses(statusExpenses, dataExpenses)}
+                          PLN
+                        </span>
                       </Card.Text>
                     </Card.Body>
                   </Card>
