@@ -165,7 +165,7 @@ const Revenue = ({ auth }) => {
                     <Card.Body className="d-flex flex-column">
                       <Card.Subtitle>
                         <span className={expensesClasses.header_span}>
-                          Total Revenue{" "}
+                          Total Revenue
                           <span className={expensesClasses.icon_wrapper}>
                             <GiMoneyStack />
                           </span>
