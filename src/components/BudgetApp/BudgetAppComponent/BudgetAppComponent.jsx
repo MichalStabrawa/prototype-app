@@ -68,6 +68,19 @@ const BudgetAppComponent = ({ sectionRef, scrollToRef }) => {
   const maxVal = maxValue(stateUploadLocal);
   const monthYear = getMonthYear();
 
+  const formData = new FormData();
+  formData.append('key1', 'value1');
+  formData.append('key2', 'value2');
+
+
+  formData.append('key1', 'value1');
+  formData.append('key2', 'value2');
+  
+  console.log('FormData contents:');
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+
   useEffect(() => {
     changeSummary(stateSalarySummary);
   }, [stateSalarySummary]);

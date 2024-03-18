@@ -12,6 +12,7 @@ import { FaArrowTrendDown } from "react-icons/fa6";
 import { BsDatabase } from "react-icons/bs";
 import { FaCalendarTimes, FaCalendarCheck } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import ExpensesCardWithTable from "../../components/ExpensesComponents/ExpensesCardwithTable/ExpensesCardWithTable";
 import ExpensesChart from "../../components/ExpensesComponents/ExpensesChart/ExpensesChart";
@@ -21,6 +22,9 @@ import { filterMonthData } from "../../utils/filterMonth";
 import { FaCalendarAlt } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
 import { GiPayMoney, GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
+import { Link } from "react-router-dom";
+import { IoReturnUpBack } from "react-icons/io5";
+import MyBudgetPageTitle from "../../components/MyBudgetPageTitle/MyBudgetPageTitle";
 
 const chartInit = {
   series: [],
@@ -324,14 +328,11 @@ function Expenses({ auth }) {
           <header className={userPageClasses.header}>
             {" "}
             <Container fluid>
-              <Row>
-                <Col>
-                  {" "}
-                  <h2 className={classes.header_title}>
-                    Your budget expenses {monthYear}
-                  </h2>
-                </Col>
-              </Row>
+              <MyBudgetPageTitle
+                title=" Your budget expenses"
+                monthYear={monthYear}
+                linkTitle={"back"}
+              />
               <Row className="h-100">
                 <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <div>

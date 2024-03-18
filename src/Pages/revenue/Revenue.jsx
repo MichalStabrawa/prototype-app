@@ -24,7 +24,7 @@ import RevenueMainChart from "../../components/Revenue/RevenueMainChart/RevenueM
 import ShowSavedSalary from "../../components/ShowSavedSalary/ShowSavedSalary";
 import { filterMonthData } from "../../utils/filterMonth";
 import { sumTotalSalaryExpenses } from "../../utils/totalSalaryExpenses/totalSalaryExpenses";
-import fetchUserExpenses from "../../store/fetchUserData/fetchUserExpenses";
+import MyBudgetPageTitle from "../../components/MyBudgetPageTitle/MyBudgetPageTitle";
 
 const Revenue = ({ auth }) => {
   const { data, status, isLoading, error } = useSelector(
@@ -95,16 +95,12 @@ const Revenue = ({ auth }) => {
       {auth ? (
         <>
           <header className={`${userPageClasses.header} ${classes.revenue}`}>
-            {" "}
             <Container fluid>
-              <Row>
-                <Col>
-                  {" "}
-                  <h2 className={classes.header_title}>
-                    Your budget revenue {monthYear}
-                  </h2>
-                </Col>
-              </Row>
+              <MyBudgetPageTitle
+                title="Your budget revenue"
+                monthYear={monthYear}
+                linkTitle={"back"}
+              />
               <Row className="h-100">
                 <Col md={3} className="d-flex flex-column flex-fill mb-3">
                   <div>
