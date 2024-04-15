@@ -10,11 +10,11 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
-import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import LoginSuccess from "./LoginSuccess/LoginSuccess";
-import Spinner from "react-bootstrap/Spinner";
+
 import Card from "react-bootstrap/Card";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 const LoginApp = () => {
   const authUser = useSelector((state) => state.auth.isAuthenticated);
@@ -57,8 +57,8 @@ const LoginApp = () => {
 
         // Retrieve and save the token
         const token = await currentUser.getIdToken();
-        console.log("TOKEN getIDToken")
-        console.log(token)
+        console.log("TOKEN getIDToken");
+        console.log(token);
         localStorage.setItem("firebaseToken", token);
       }
     } catch (error) {
@@ -165,7 +165,9 @@ const LoginApp = () => {
                   <Link to="/register">
                     <Button name={"Register"}></Button>
                   </Link>
-                  <Link to="..">back</Link>
+                  <Link to="..">
+                    <TiArrowBackOutline /> back
+                  </Link>
                 </div>
               </Card.Body>
             </Card>

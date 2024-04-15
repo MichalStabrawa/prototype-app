@@ -9,14 +9,12 @@ import Button from "../../components/UI/Button/Button";
 import buttonStyles from "../../components/UI/Button/Button.module.scss";
 import loginStyles from "../loginApp/login.module.scss";
 import { Link, useLocation } from "react-router-dom";
-import LoginSuccess from "../loginApp/LoginSuccess/LoginSuccess";
-import { authActions } from "../../store/auth";
+
 import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 const Register = (props) => {
-  const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.auth.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepatPassword] = useState("");
@@ -181,7 +179,10 @@ const Register = (props) => {
                     click={handleSignUp}
                     isLoading={isLoading}
                   />
-                  <Link to="..">back</Link>
+                  <Link to="..">
+                    <TiArrowBackOutline />
+                    back
+                  </Link>
                 </form>
                 {error ===
                   "Firebase: The email address is already in use by another account. (auth/email-already-in-use)." && (
