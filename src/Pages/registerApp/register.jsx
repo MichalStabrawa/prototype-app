@@ -179,7 +179,7 @@ const Register = (props) => {
                     click={handleSignUp}
                     isLoading={isLoading}
                   />
-                  <Link to="..">
+                  <Link to=".." className={loginStyles.link}>
                     <TiArrowBackOutline />
                     back
                   </Link>

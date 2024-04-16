@@ -22,6 +22,8 @@ const UserInfo = () => {
   const auth1 = useSelector((state) => state.auth.isAuthenticated);
 
   const user = auth.currentUser;
+  console.log('UserData')
+  console.log(userData)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -90,7 +92,7 @@ const UserInfo = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">
-                User:{auth.currentUser && auth.currentUser.email}
+                User: {auth.currentUser && auth.currentUser.email}
                 {auth1 && status === "success" ? (
                   <div>
                     <Link to="/" onClick={logOffHandler}>

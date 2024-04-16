@@ -165,7 +165,7 @@ const LoginApp = () => {
                   <Link to="/register">
                     <Button name={"Register"}></Button>
                   </Link>
-                  <Link to="..">
+                  <Link to=".." className={classes.link}>
                     <TiArrowBackOutline /> back
                   </Link>
                 </div>
