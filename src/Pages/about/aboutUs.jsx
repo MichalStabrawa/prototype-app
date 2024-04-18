@@ -1,14 +1,21 @@
+import { useState } from "react";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
-import img from '../../assets/info.png';
+import img from "../../assets/info.png";
+import Button from "react-bootstrap/Button";
 
 import classes from "./aboutUs.module.scss";
 
 const AboutUs = (props) => {
+  const [flag, setFlag] = useState(false);
+
+  const openHandleMoreInfo = () => {
+    setFlag(true);
+  };
   return (
     <>
       {" "}
@@ -20,11 +27,11 @@ const AboutUs = (props) => {
               <header className={classes.header}>
                 <h1>About Us</h1>
                 <p>
-                Currency exchange rates and gold prices information! we use The api.nbp.pl service.
+                  Currency exchange rates and gold prices information! we use
+                  The api.nbp.pl service.
                 </p>
               </header>
             </Col>
-        
           </Row>
         </Container>
       </Wrapper>
@@ -70,7 +77,11 @@ const AboutUs = (props) => {
                   </ListGroup.Item>
                 </ListGroup>
               </Col>
-              <Col  md={4}><figure><img className={classes.img} src={img} alt="about"/></figure></Col>
+              <Col md={4}>
+                <figure>
+                  <img className={classes.img} src={img} alt="about" />
+                </figure>
+              </Col>
             </Row>
             <Row>
               <Col xs={12} md={8}>
@@ -110,6 +121,17 @@ const AboutUs = (props) => {
                 </p>
               </Col>
             </Row>
+            <Row>
+              <Col>
+                <Button
+                  onClick={openHandleMoreInfo}
+                  variant="outline-secondary"
+                >
+                  More info
+                </Button>
+              </Col>
+            </Row>
+            {flag && <Col>More info................</Col>}
           </Container>
         </main>
       </Wrapper>
