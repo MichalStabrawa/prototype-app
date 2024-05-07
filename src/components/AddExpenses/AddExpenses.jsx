@@ -14,6 +14,7 @@ import Badge from "react-bootstrap/Badge";
 import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
 import getCurrentDate from "../../utils/dateFunction";
 import { getMonthYear } from "../../utils/dateFunction";
+import { categoryExpenseOption } from "../../helpers/variables";
 
 const AddExpenses = ({ sectionRef }) => {
   const dispatch = useDispatch();
@@ -202,11 +203,11 @@ const AddExpenses = ({ sectionRef }) => {
             <Form.Label>Add category</Form.Label>
             <Form.Select onChange={handleInputChange} name="category">
               <option value="">Category</option>
-              <option value="home">Home</option>
-              <option value="credits">Credits</option>
-              <option value="car">Car</option>
-              <option value="education">Education</option>
-              <option value="other">Other</option>
+              {categoryExpenseOption.map((el, index) => (
+                <option key={index} value={el.value}>
+                  {el.label}
+                </option>
+              ))}
             </Form.Select>
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income

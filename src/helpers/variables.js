@@ -17,3 +17,11 @@ export const categorySalaryOption = [
   { value: "bonus", label: "bonus" },
   { value: "other", label: "other" },
 ];
+
+export const categoryExpenseOption = [
+  { value: "home", label: "home" },
+  { value: "credits", label: "credits" },
+  { value: "car", label: "car" },
+  { value: "education", label: "education" },
+  { value: "other", label: "other" },
+];
