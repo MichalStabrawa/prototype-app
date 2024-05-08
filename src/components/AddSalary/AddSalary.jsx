@@ -14,6 +14,7 @@ import { fetchUserSalary } from "../../store/fetchUserData/fetchUserSalary";
 import getCurrentDate from "../../utils/dateFunction";
 import { getMonthYear } from "../../utils/dateFunction";
 import { categorySalaryOption } from "../../helpers/variables";
+import ModalBapp from "../Modal/ModalBapp";
 
 const AddSalary = ({ sectionRef }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ const AddSalary = ({ sectionRef }) => {
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
@@ -179,12 +184,17 @@ const AddSalary = ({ sectionRef }) => {
             <Form.Select onChange={handleInputChange} name="category">
               <option value="">Category</option>
               {categorySalaryOption.map((el, index) => (
-                <option key={index} value={el.value}>{el.label}</option>
+                <option key={index} value={el.value}>
+                  {el.label}
+                </option>
               ))}
             </Form.Select>
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income
             </Form.Text>
+            <Button variant="primary" onClick={handleShow}>
+              +
+            </Button>
           </Form.Group>
           <Button
             size="lg"
@@ -254,6 +264,7 @@ const AddSalary = ({ sectionRef }) => {
           )}
         </div>
       </>
+      <ModalBapp show={show} handleClose={handleClose} />
     </div>
   );
 };
