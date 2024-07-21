@@ -15,6 +15,7 @@ import { fetchUserExpenses } from "../../store/fetchUserData/fetchUserExpenses";
 import getCurrentDate from "../../utils/dateFunction";
 import { getMonthYear } from "../../utils/dateFunction";
 import { categoryExpenseOption } from "../../helpers/variables";
+import ModalBapp from "../Modal/ModalBapp";
 
 const AddExpenses = ({ sectionRef }) => {
   const dispatch = useDispatch();
@@ -43,6 +44,10 @@ const AddExpenses = ({ sectionRef }) => {
   });
   const [tableData, setTableData] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleInputChange = (e) => {
     const uniqueId = uuidv4();
@@ -212,6 +217,9 @@ const AddExpenses = ({ sectionRef }) => {
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income
             </Form.Text>
+            <Button variant="primary" onClick={handleShow}>
+              +
+            </Button>
           </Form.Group>
           <Form.Check
             type="switch"
@@ -288,6 +296,41 @@ const AddExpenses = ({ sectionRef }) => {
           )}
         </div>
       </>
+      <ModalBapp show={show} handleClose={handleClose} >
+      {tableData.length}
+      {tableData.length > 0 && (
+        <div>
+          sum of value: <Badge bg="secondary">{countTableValue()}</Badge>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th> Name expenses</th>
+                <th>expenses value</th>
+                <th>delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableData.map((el, index) => {
+                return (
+                  <tr key={el.id}>
+                    <td>{el.name}</td>
+                    <td>{el.expenses}</td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        data-id={el.id}
+                        onClick={handleDeletedExpense}
+                      >
+                        X
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
+      )}</ModalBapp>
     </div>
   );
 };
