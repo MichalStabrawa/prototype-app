@@ -264,7 +264,42 @@ const AddSalary = ({ sectionRef }) => {
           )}
         </div>
       </>
-      <ModalBapp show={show} handleClose={handleClose} />
+      <ModalBapp show={show} handleClose={handleClose}>
+        {" "}
+        {tableData.length > 0 && (
+          <div>
+            sum of value: <Badge bg="secondary">{countTableValue()}</Badge>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th> Name salary</th>
+                  <th>expenses value</th>
+                  <th>delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.map((el, index) => {
+                  return (
+                    <tr key={el.id}>
+                      <td>{el.name}</td>
+                      <td>{el.expenses}</td>
+                      <td>
+                        <Button
+                          variant="danger"
+                          data-id={el.id}
+                          onClick={handleDeletedExpense}
+                        >
+                          X
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
+        )}
+      </ModalBapp>
     </div>
   );
 };
