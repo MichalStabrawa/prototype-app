@@ -192,7 +192,7 @@ const AddSalary = ({ sectionRef }) => {
             <Form.Text className={classes.formTextCustom}>
               Add your name salary, bonuses or other income
             </Form.Text>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" className="plus" onClick={handleShow}>
               +
             </Button>
           </Form.Group>
