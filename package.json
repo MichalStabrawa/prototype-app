@@ -2,7 +2,7 @@
   "name": "prototype-budget-app",
   "version": "0.1.0",
    "private": true,
-  "homepage": "https://storage.googleapis.com/github-deploy-bucket-michal",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
